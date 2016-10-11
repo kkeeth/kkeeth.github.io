@@ -20,7 +20,6 @@ ScrollSelector.prototype = {
 
    // ドラッグ開始処理
    dragStart: function(ev) {
-      this.startElement = ev;
       this.check = !$(ev.target).find('input').prop('checked');
       this.startElementNode = $(ev.target).find('input').data('check');
       this.dragStartFlag = true;
