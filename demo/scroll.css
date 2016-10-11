@@ -1,36 +1,37 @@
+body {
+  margin: 0;
+  padding: 10px;
+  height: 500px;
+}
 ul {
-  width:100%;
-  overflow-y:scroll;
-  height:450px;
-  line-height:2;
-  padding:0;
-  margin:0;
+  padding: 5px;
+  margin: 0px;
 }
-ul li {
-  padding:0;
-  margin:0;
-  background:#b0b0b0;
-  margin-bottom:4px;
-  user-select: none; /* CSS3 */
-  -moz-user-select: none; /* Firefox */
-  -webkit-user-select: none; /* Safari、Chromeなど */
-  -ms-user-select: none; /* IE10かららしい */
+li {
+  border: 1px solid #EEE;
+  background-color: #EEE;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  line-height: 2;
+  list-style-type: none;
+  text-align: left;
 }
-#debug {
-  user-select: none; /* CSS3 */
-  -moz-user-select: none; /* Firefox */
-  -webkit-user-select: none; /* Safari、Chromeなど */
-  -ms-user-select: none; /* IE10かららしい */
+li:hover {
+  background-color: #DDD;
 }
 
-ul li label {
+label {
   display:block;
   cursor:pointer;
 }
 #container {
-  margin-left:100px;
-  margin-top:100px;
-  border:1px solid black;
-  width:200px;
-  border:1px solid red;
+  margin: 0 auto;
+  overflow-y: scroll;
+  -webkit-user-select: none; /* Google Chrome, Safari */
+     -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE */
+          user-select: none; /* CSS3 */
+  height: 400px;
+  width: 250px;
+  border: 1px solid;
 }
