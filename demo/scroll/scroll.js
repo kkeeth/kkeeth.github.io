@@ -156,8 +156,13 @@ $(function() {
    });
 
    //クリア
-   $('#clear').on('click', function(ev) {
-      $('input[type=checkbox]').prop('checked', false);
+   $('#clear').on('click', function() {
+      $('input').prop('checked', false);
       ss.clear();
+   });
+
+   // 全選択
+   $('#all').on('click', function() {
+      $('input').prop('checked', true);
    });
 });

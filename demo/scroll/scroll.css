@@ -35,7 +35,7 @@ label {
   width: 250px;
   border: 1px solid green;
 }
-#clear {
+.buttons {
   width: 100px;
   font-size: 18px;
 }
