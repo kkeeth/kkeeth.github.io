@@ -10,7 +10,6 @@ ScrollSelector.prototype = {
          'BOTTOM_TO_UP': 0b10, //スタート位置から上方向に
       };
       this.container = c;
-      this.startElement;
       this.startElementNode;
       this.dragStartFlag = false;
       this.before  = '';
@@ -25,12 +24,20 @@ ScrollSelector.prototype = {
       this.dragStartFlag = true;
       this.current = ev;
       // チェック
-      $(ev.target).find('input').prop('checked', !$(ev.target).find('input').prop('checked'));
+      $(ev.target).find('input').prop('checked', this.check);
    },
 
    //ドラッグ終了処理
    dragEnd: function(ev) {
+      // 選択数が1ならばクリックなのでチェック
+      if ($(this.current.target).find('input').data('check') == $(ev.target).find('input').data('check')) {
+         // 開始と終了が同じの場合はクリックなので再チェック
+         $(ev.target).find('input').prop('checked', !this.check);
+      }
+
       this.dragStartFlag = false;
+      this.clear();
+      return;
    },
 
    //マウスアップ
@@ -84,7 +91,6 @@ ScrollSelector.prototype = {
    //マウスエンター処理
    enter: function(ev) {
       if (this.dragStartFlag && ev.toElement.localName == 'label') {
-
          // 折り返し対策
          // 現在の要素と一つ前に保持していた要素が同じならば折り返しと判断
          if (this.before != '' && ev.target.innerText == this.before.toElement.innerText) {
@@ -114,7 +120,6 @@ ScrollSelector.prototype = {
 
    // クリア
    clear: function() {
-      $('input[type=checkbox]').prop('checked', false);
       this.current = '';
       this.before  = '';
       this.check   = '';
@@ -125,18 +130,18 @@ ScrollSelector.prototype = {
 $(function() {
    var ss = new ScrollSelector($('#scroll_pane'));
 
-   //マウスダウンイベント
+   // マウスダウン
    $('.check').on('mousedown', function(ev) {
       ss.dragStart(ev);
    });
 
-   //マウスアップ
-   $('#container > ul, .check').on('mouseup', function(ev) {
+   // マウスアップ
+   $('.check').on('mouseup', function(ev) {
       ss.dragEnd(ev);
    });
 
    //マウスエンター
-   $('#container .check').on('mouseenter', function(ev) {
+   $('.check').on('mouseenter', function(ev) {
       ss.enter(ev);
    });
 
@@ -152,6 +157,7 @@ $(function() {
 
    //クリア
    $('#clear').on('click', function(ev) {
+      $('input[type=checkbox]').prop('checked', false);
       ss.clear();
    });
 });
