@@ -1,258 +1,48 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8"/>
-    <title>Document</title>
-    <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
-    <style>
-     ul {
-       width:100%;
-       overflow-y:scroll;
-       height:450px;
-       line-height:2;
-       padding:0;
-       margin:0;
-     }
-     ul li {
-       padding:0;
-       margin:0;
-       background:#b0b0b0;
-       margin-bottom:4px;
-       user-select: none; /* CSS3 */
-       -moz-user-select: none; /* Firefox */
-       -webkit-user-select: none; /* Safari、Chromeなど */
-       -ms-user-select: none; /* IE10かららしい */
-     }
-     #debug {
-       user-select: none; /* CSS3 */
-       -moz-user-select: none; /* Firefox */
-       -webkit-user-select: none; /* Safari、Chromeなど */
-       -ms-user-select: none; /* IE10かららしい */
-     }
-
-     ul li label {
-       display:block;
-       cursor:pointer;
-     }
-     #container {
-       margin-left:100px;
-       margin-top:100px;
-       border:1px solid black;
-       width:200px;
-     }
-    </style>
-    <script>
-     var ScrollSelector = function(c) {
-       //処理順
-       var EVENT_ORDER = {
-         'UP_TO_BOTTOM': 0b01, //スタート位置から下方向に
-         'BOTTOM_TO_UP': 0b10, //スタート位置から上方向に
-       };
-
-       var container = c;
-       var startElement;
-       var startElementNode;
-       var dragStartFlag = false;
-       var current;
-
-       //ドラッグ開始イベント処理
-       ScrollSelector.prototype.dragStart = function(ev) {
-         this.startElement = ev;
-         this.startElementNode = this._get_node(ev);
-         this.dragStartFlag = true;
-         //debug
-         $('#dsy').html(ev.offsetY);
-       }
-
-       //ドラッグ終了イベント処理
-       ScrollSelector.prototype.dragEnd = function(ev) {
-
-         this.dragStartFlag = false;
-
-         $('#dey').html(ev.offsetY);
-       }
-
-       //マウスアップ
-       ScrollSelector.prototype.mouseup = function(ev) {
-         if (this.dragStartFlag) {
-           this.dragEnd(ev);
-         }
-       }
-
-       ScrollSelector.prototype.update = function(ev, order) {
-         var node = this._get_node(ev);
-         var children = container[0].children;
-         if (order == EVENT_ORDER.UP_TO_BOTTOM) {
-           for (var i = this.startElementNode ; i <= node ; i++) {
-             this._select($(children[i].childNodes[0].firstChild));
-           }
-         } else {
-           for (var i = node ; i <= this.startElementNode ; i++) {
-             this._select($(children[i].childNodes[0].firstChild));
-           }
-         }
-       }
-
-       //指定されたオブジェクトのノード位置を返す
-       ScrollSelector.prototype._get_node = function(ev) {
-         var children = container[0].children;
-         for (var i in children) {
-           if (children[i].offsetTop == ev.target.offsetTop) {
-             return i;
-           }
-         }
-       }
-
-       //選択状態を更新する
-       ScrollSelector.prototype._select = function(obj) {
-         obj.prop('checked', true);
-       }
-
-       //スクロールイベント
-       ScrollSelector.prototype.scroll = function(ev) {
-         //ドラッグ中のみ発動する
-         if (this.dragStartFlag) {
-           var c = ev.currentTarget;
-           //コントロール外に移動し、かつ最終行以下の場合には、選択時点から全て選択とする。
-           if (c.scrollTop + c.clientHeight >= c.scrollHeight) {
-             var v = $(container[0].children[container[0].children.length-1]);
-             v.target = v.context;
-             this.update(v, EVENT_ORDER.UP_TO_BOTTOM);
-             this.dragEnd(ev);
-             return;
-           }
-           //とりあえず上から下のスクロール対応。下から上の対応はFIXME!!
-
-           //debug
-           $('#sy').html(c.scrollTop);
-         }
-       }
-
-       //マウスムーブイベント処理
-       ScrollSelector.prototype.move = function(ev) {
-         if (this.dragStartFlag && ev.toElement.localName == 'label') {
-
-           //同じオブジェクトの場合には、処理を中断する。これは高速化のため
-           if (this.current && this.current.toElement.offsetTop == ev.toElement.offsetTop) return;
-           this.current = ev;
-
-           //this._select(ev.toElement.childNodes[0]);
-
-           //歯抜け対策。現在の位置よりstartElement側を全て選択状態にする
-           var sy = this.startElement.toElement.offsetTop;
-           var x = ev.toElement.offsetLeft;
-           var y = ev.toElement.offsetTop;
-           if (sy < y) {
-             //開始位置 < 現在位置 上から下へのドラッグ
-             this.update(ev, EVENT_ORDER.UP_TO_BOTTOM);
-           } else {
-             //現在位置 < 開始位置 下から上へのドラッグ
-             this.update(ev, EVENT_ORDER.BOTTOM_TO_UP);
-           }
-
-
-           //位置の表示(debug用)
-           $('#x').html(x);
-           $('#y').html(y);
-         }
-       }
-
-     };
-
-     // jQueryイベント設定
-     $(function() {
-       var ss = new ScrollSelector($('#scroll_pane'));
-       //マウスダウンイベント
-       $('.check').on('mousedown', function(ev) {
-         ss.dragStart(ev);
-       });
-       //マウスアップイベント
-       $('#container > ul, .check').on('mouseup', function(ev) {
-         ss.dragEnd(ev);
-       });
-
-       //マウスムーブイベント
-       $('#container').on('mousemove', function(ev) {
-         //コンテナー内でマウス移動
-         ss.move(ev);
-       });
-
-       $('body').on('mouseup', function(ev) {
-         ss.mouseup(ev);
-       });
-
-       //コンテナーのスクロールイベント
-       $('#container > ul').on('scroll', function(ev) {
-         ss.scroll(ev);
-       });
-
-       //クリア
-       $('#clear').on('click', function(ev) {
-         $('input[type=checkbox]').prop('checked', false);
-       });
-     });
-    </script>
+    <title>ドラッグ&スクロールデモ</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+    <script src="./scroll.js"></script>
+    <link rel="stylesheet" type="text/css" href="./scroll.css">
   </head>
   <body>
     <button id="clear">クリアー</button>
-    <div id="container" style="border:1px solid red;">
+    <div id="container">
       <ul id="scroll_pane">
-        <li><label class="check"><input type="checkbox"/>チェックボックス1</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス2</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス3</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス4</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス5</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス6</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス7</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス8</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス9</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス10</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス11</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス12</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス13</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス14</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス15</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス16</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス17</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス18</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス19</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス20</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス21</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス22</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス23</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス24</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス25</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス26</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス27</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス28</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス29</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス30</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス31</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス32</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス33</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス34</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス35</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス36</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス37</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス38</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス39</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス40</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス41</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス42</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス43</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス44</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス45</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス46</label></li>
-        <li><label class="check"><input type="checkbox"/>チェックボックス47</label></li>
-      </ul>
-    </div>
+        <li><label class="check"><input type="checkbox" data-check="0"/>チェックボックス1</label></li>
+        <li><label class="check"><input type="checkbox" data-check="1"/>チェックボックス2</label></li>
+        <li><label class="check"><input type="checkbox" data-check="2"/>チェックボックス3</label></li>
+        <li><label class="check"><input type="checkbox" data-check="3"/>チェックボックス4</label></li>
+        <li><label class="check"><input type="checkbox" data-check="4"/>チェックボックス5</label></li>
+        <li><label class="check"><input type="checkbox" data-check="5"/>チェックボックス6</label></li>
+        <li><label class="check"><input type="checkbox" data-check="6"/>チェックボックス7</label></li>
+        <li><label class="check"><input type="checkbox" data-check="7"/>チェックボックス8</label></li>
+        <li><label class="check"><input type="checkbox" data-check="8"/>チェックボックス9</label></li>
+        <li><label class="check"><input type="checkbox" data-check="9"/>チェックボックス10</label></li>
+        <li><label class="check"><input type="checkbox" data-check="10"/>チェックボックス11</label></li>
+        <li><label class="check"><input type="checkbox" data-check="11"/>チェックボックス12</label></li>
+        <li><label class="check"><input type="checkbox" data-check="12"/>チェックボックス13</label></li>
+        <li><label class="check"><input type="checkbox" data-check="13"/>チェックボックス14</label></li>
+        <li><label class="check"><input type="checkbox" data-check="14"/>チェックボックス15</label></li>
+        <li><label class="check"><input type="checkbox" data-check="15"/>チェックボックス16</label></li>
+        <li><label class="check"><input type="checkbox" data-check="16"/>チェックボックス17</label></li>
+        <li><label class="check"><input type="checkbox" data-check="17"/>チェックボックス18</label></li>
+        <li><label class="check"><input type="checkbox" data-check="18"/>チェックボックス19</label></li>
+        <li><label class="check"><input type="checkbox" data-check="19"/>チェックボックス20</label></li>
+        <li><label class="check"><input type="checkbox" data-check="20"/>チェックボックス21</label></li>
+        <li><label class="check"><input type="checkbox" data-check="21"/>チェックボックス22</label></li>
+        <li><label class="check"><input type="checkbox" data-check="22"/>チェックボックス23</label></li>
+        <li><label class="check"><input type="checkbox" data-check="23"/>チェックボックス24</label></li>
+        <li><label class="check"><input type="checkbox" data-check="24"/>チェックボックス25</label></li>
+        <li><label class="check"><input type="checkbox" data-check="25"/>チェックボックス26</label></li>
+        <li><label class="check"><input type="checkbox" data-check="26"/>チェックボックス27</label></li>
+        <li><label class="check"><input type="checkbox" data-check="27"/>チェックボックス28</label></li>
+        <li><label class="check"><input type="checkbox" data-check="28"/>チェックボックス29</label></li>
+        <li><label class="check"><input type="checkbox" data-check="29"/>チェックボックス30</label></li>
 
-    <div id="debug">
-      <p>X:<span id="x"></span></p>
-      <p>Y:<span id="y"></span></p>
-      <p>dragStartY:<span id="dsy"></span></p>
-      <p>dragEndY:<span id="dey"></span></p>
-      <p>scrollY:<span id="sy"></span></p>
+      </ul>
     </div>
   </body>
 </html>
