@@ -6,8 +6,8 @@ function ScrollSelector(c) {
 ScrollSelector.prototype = {
    initialize: function(c) {
       this.EVENT_ORDER = {
-         'UP_TO_BOTTOM': 0b01, //スタート位置から下方向に
-         'BOTTOM_TO_UP': 0b10, //スタート位置から上方向に
+         'UP_TO_BOTTOM': '0b01', //スタート位置から下方向に
+         'BOTTOM_TO_UP': '0b10', //スタート位置から上方向に
       };
       this.container = c;
       this.startElementNode;
