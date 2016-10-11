@@ -94,7 +94,7 @@ ScrollSelector.prototype = {
       if (this.dragStartFlag && ev.toElement.localName == 'label') {
          // 折り返し対策
          // 現在の要素と一つ前に保持していた要素が同じならば折り返しと判断
-         if (this.before != '' && ev.target.innerText == this.before.toElement.innerText) {
+         if (this.before != '' && ev.target.innerText == this.before.target.innerText) {
             // 折り返した最初の要素のチェックを取得
             this.check = !$(ev.target).find('input').prop('checked');
             $(this.current.target).find('input').prop('checked', this.check);
