@@ -35,6 +35,8 @@ ScrollSelector.prototype = {
          // 開始と終了が同じの場合はクリックなので再チェック
          $(ev.target).find('input').prop('checked', !this.check);
       }
+      // IE対策　文字列が選択されてしまうため解除
+      window.getSelection().removeAllRanges();
 
       this.dragStartFlag = false;
       this.clear();
