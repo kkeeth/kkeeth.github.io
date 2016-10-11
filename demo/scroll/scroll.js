@@ -20,6 +20,7 @@ ScrollSelector.prototype = {
    // ドラッグ開始処理
    dragStart: function(ev) {
       this.check = !$(ev.target).find('input').prop('checked');
+      this.startElement = ev;
       this.startElementNode = $(ev.target).find('input').data('check');
       this.dragStartFlag = true;
       this.current = ev;
@@ -30,7 +31,7 @@ ScrollSelector.prototype = {
    //ドラッグ終了処理
    dragEnd: function(ev) {
       // 選択数が1ならばクリックなのでチェック
-      if ($(this.current.target).find('input').data('check') == $(ev.target).find('input').data('check')) {
+      if ($(this.startElement.target).find('input').data('check') == $(ev.target).find('input').data('check')) {
          // 開始と終了が同じの場合はクリックなので再チェック
          $(ev.target).find('input').prop('checked', !this.check);
       }
