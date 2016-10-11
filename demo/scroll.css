@@ -19,13 +19,13 @@ li {
 li:hover {
   background-color: #DDD;
 }
-
 label {
   display:block;
   cursor:pointer;
 }
 #container {
-  margin: 0 auto;
+  margin-top: 50px;
+  margin-left: 50px;
   overflow-y: scroll;
   -webkit-user-select: none; /* Google Chrome, Safari */
      -moz-user-select: none; /* Firefox */
@@ -33,5 +33,9 @@ label {
           user-select: none; /* CSS3 */
   height: 400px;
   width: 250px;
-  border: 1px solid;
+  border: 1px solid green;
+}
+#clear {
+  width: 100px;
+  font-size: 18px;
 }
