@@ -24,7 +24,7 @@ label {
   cursor:pointer;
 }
 #container {
-  margin-top: 50px;
+  margin-top: 20px;
   margin-left: 50px;
   overflow-y: scroll;
   -webkit-user-select: none; /* Google Chrome, Safari */
@@ -34,6 +34,10 @@ label {
   height: 400px;
   width: 250px;
   border: 1px solid green;
+}
+#button_box {
+  margin-top: 20px;
+  margin-left: 70px;
 }
 .buttons {
   width: 100px;
