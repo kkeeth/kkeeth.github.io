@@ -1,3 +1,10 @@
+body {
+	font-family: 'myriad pro', sans-serif;
+	font-size: 20px;
+	border: 0;
+	background-color: #fafafa;
+}
+
 app {
 	display: block;
 	max-width: 400px;
