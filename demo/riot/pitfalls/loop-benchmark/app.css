@@ -7,7 +7,7 @@ body {
 
 app {
 	display: block;
-	max-width: 90%;
+	max-width: 80%;
 	margin: 5% auto;
 }
 
@@ -18,13 +18,14 @@ div#container {
 	width: 100%;
 }
 div#select {
-	width: 50%;
+	width: 40%;
+	border: 1px solid;
 }
 div#result {
 	width: 40%;
 	margin-left: 10px;
 	padding: 10px;
-	border: 1px solid;
+	border: 1px dotted;
 	background-color: #fefefe;
 }
 
