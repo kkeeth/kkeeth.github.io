@@ -1,0 +1,40 @@
+body {
+	font-family: 'myriad pro', sans-serif;
+	font-size: 20px;
+	border: 0;
+	background-color: #fafafa;
+}
+
+app {
+	display: block;
+	max-width: 90%;
+	margin: 5% auto;
+}
+
+div {
+	float: left;
+}
+div#container {
+	width: 100%;
+}
+div#select {
+	width: 50%;
+}
+div#result {
+	width: 40%;
+	margin-left: 10px;
+	padding: 10px;
+	border: 1px solid;
+	background-color: #fefefe;
+}
+
+li {
+	list-style: none;
+}
+li:hover {
+	background-color: #e9dfe5;
+	cursor: pointer;
+}
+li.bg-on {
+	background-color: #c1e4e9;
+}
