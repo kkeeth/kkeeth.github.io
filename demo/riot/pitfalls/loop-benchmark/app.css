@@ -27,7 +27,7 @@ div#select {
 }
 div#result {
 	width: 40%;
-	margin-left: 10px;
+	margin: 20px;
 	padding: 20px;
 	border: 1px dotted;
 	background-color: #fefefe;
