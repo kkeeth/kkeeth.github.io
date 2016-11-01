@@ -1,0 +1,16 @@
+demo2
+  hr
+  h3 using 'this' object
+
+  div
+    input(type='text' name='target' placeholder='type text' oninput="{ input }")
+
+  p text: { text }
+
+  script.
+    this.text = ''
+
+    input(e) {
+      this.text = e.target.value
+    }
+
