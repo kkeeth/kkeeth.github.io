@@ -33,7 +33,7 @@ function change_theme(obj) {
 
 // create chart
 function setChart() {
-   var chart = new CanvasJS.Chart("canvasJS", {
+   var chart = new CanvasJS.Chart("canvas_dest", {
       title: {
          text: value.title
       },

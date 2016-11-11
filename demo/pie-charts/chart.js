@@ -52,7 +52,7 @@ var options = {
 };
 
 // settings about canvas
-var ctx = document.getElementById("dest");
+var ctx = document.getElementById("chart_dest");
 
 // create instanse
 var myPieChart = new Chart(ctx,{

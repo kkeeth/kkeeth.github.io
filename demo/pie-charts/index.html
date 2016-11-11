@@ -11,19 +11,21 @@
     </header>
     <div id="contents">
       <!-- CanvanJS -->
-      <select onchange="change_theme(this)">
-        <option value="theme1" selected>theme1</option>
-        <option value="theme2">theme2</option>
-        <option value="theme3">theme3</option>
-        <option value="theme4">theme4</option>
-      </select>
-      <div id="canvasJS"></div>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js"></script>
-      <script src="canvas.js"></script>
+      <div id="canvasJS">
+        <select onchange="change_theme(this)">
+          <option value="theme1" selected>theme1</option>
+          <option value="theme2">theme2</option>
+          <option value="theme3">theme3</option>
+          <option value="theme4">theme4</option>
+        </select>
+        <div id="canvas_dest"></div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js"></script>
+        <script src="canvas.js"></script>
+      </div>
 
       <!-- ChartJS -->
       <div id="chartJS">
-        <canvas id="dest"></canvas>
+        <canvas id="chart_dest"></canvas>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js"></script>
         <script src="chart.js"></script>
       </div>
