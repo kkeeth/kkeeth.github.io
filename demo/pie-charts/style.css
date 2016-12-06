@@ -1,0 +1,10 @@
+#chart_dest {
+    width: 500px !important;
+    height: 250px !important;
+    margin-left: 400px;
+}
+
+#piechart {
+    width: 500px;
+    height: 400px;
+}
