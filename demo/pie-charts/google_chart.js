@@ -17,7 +17,7 @@ function drawChart() {
   ]);
 
   var options = {
-    title: 'hogehoge'
+    title: 'Google Charts'
   };
 
   var chart = new google.visualization.PieChart(document.getElementById('piechart'));

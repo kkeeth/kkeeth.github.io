@@ -1,7 +1,7 @@
 #chart_dest {
     width: 600px !important;
     height: 300px !important;
-    margin-left: 400px;
+    margin-left: 600px;
 }
 
 #google_charts {
@@ -9,11 +9,11 @@
     float: left;
 }
 #google_charts #piechart {
-    height: 300px;
+    height: 400px;
 }
 
 #c3js {
     width: 400px;
-    height: 300px;
-    margin-left: 400px;
+    height: 400px;
+    margin-left: 600px;
 }
