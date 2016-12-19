@@ -14231,7 +14231,6 @@
 	     this.select = function(e) {
 	        $('.nav-items').removeClass('is-active')
 	        $(e.target).addClass('is-active')
-	        console.info(e.target);
 	     }.bind(this)
 
 	     route(function(id) {
