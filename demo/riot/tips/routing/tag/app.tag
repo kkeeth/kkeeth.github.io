@@ -1,7 +1,7 @@
 const route = require('riot-route')
 <app>
   <h1> { opts.header }</h1>
-  <div class="mdl-layout__tab_bar mdl-tabs mdl-js-tas">
+  <div class="mdl-layout__tab_bar mdl-tabs mdl-js-tabs">
     <div class="nav_item mdl-tabs__tab-bar is-upgraded">
       <a class="mdl-tabs__tab nav-items" each="{ items }" id="{ id }" href="#{ id }" onclick="{ select }">{ id }</a>
     </div>
