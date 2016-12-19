@@ -14217,7 +14217,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(riot) {const route = __webpack_require__(2)
-	riot.tag2('app', '<h1> {opts.header}</h1> <div class="mdl-layout__tab_bar mdl-tabs mdl-js-tas"> <div class="nav_item mdl-tabs__tab-bar is-upgraded"> <a class="mdl-tabs__tab nav-items" each="{items}" id="{id}" href="#{id}" onclick="{select}">{id}</a> </div> <article> <h2>{page.name || \'Not Found\'}</h2> </article> </div>', '', '', function(opts) {
+	riot.tag2('app', '<h1> {opts.header}</h1> <div class="mdl-layout__tab_bar mdl-tabs mdl-js-tabs"> <div class="nav_item mdl-tabs__tab-bar is-upgraded"> <a class="mdl-tabs__tab nav-items" each="{items}" id="{id}" href="#{id}" onclick="{select}">{id}</a> </div> <article> <h2>{page.name || \'Not Found\'}</h2> </article> </div>', '', '', function(opts) {
 	     const self = this;
 
 	     self.items = opts.items

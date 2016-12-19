@@ -9,7 +9,7 @@
   "author": "k-kuwahara",
   "license": "MIT",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack -w",
     "start": "webpack-dev-server --inline --hot --progress --colors --content-base ./"
   },
   "keywords": [
