@@ -1,28 +1,30 @@
-const JS_PATH  = '../build/'
+let TEST_PATH  = '../build/'
+let TAG_PATH  = '../tag/*.tag'
 
-module.exports = function(config) {
+module.exports = (config) => {
   config.set({
     basePath: '',
     frameworks: ['mocha', 'riot'],
     plugins: [
       'karma-mocha',
+      'karma-mocha-reporter',
       'karma-phantomjs-launcher',
-      'karma-riot',
-      'karma-webpack'
+      'karma-riot'
     ],
     files: [
-      JS_PATH  + 'bundle.js',
-      'spec/*.js'
+      '../node_modules/riot-route/dist/route.js',
+       TEST_PATH  + 'test.bundle.js',
+       TAG_PATH
     ],
     preprocessors: {
-       'spec/*.js': ['webpack']
+       '../**/*.tag': ['riot']
     },
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['PhantomJS'],
-    reporters: ['progress'],
+    reporters: ['mocha'],
     singleRun: true,
     concurrency: Infinity
   })

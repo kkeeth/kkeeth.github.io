@@ -6,17 +6,17 @@
     </div>
 
     <article>
-      <h2>{ page.name || 'Not Found' }</h2>
+      <h2>{ page.name || 'No Select' }</h2>
     </article>
   </div>
 
   <script>
-     const route = require('riot-route')
-     const $ = require('jquery')
-     const self = this
+     var route = require('riot-route')
+     var $ = require('jquery')
+     var self = this
 
-     self.items = opts.items
-     self.page  = opts.items[0]
+     self.items = opts.navs
+     self.page  = {}
 
      select(e) {
         $('.nav-items').removeClass('is-active')

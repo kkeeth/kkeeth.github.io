@@ -3,13 +3,18 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = [
    {
-      entry: [
-         './src/app.js',
-         './src/material.js'
-      ],
+      entry: {
+         app: [
+            './src/app.js',
+            './src/material.js'
+         ],
+         test: [
+            './test/spec/app.js'
+         ]
+      },
       output: {
          path: __dirname + '/build/',
-         filename: 'bundle.js'
+         filename: '[name].bundle.js'
       },
       devServer: {
          port: 8000

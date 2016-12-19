@@ -42,13 +42,13 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/*!******************!*\
-  !*** multi main ***!
-  \******************/
+/*!*****************!*\
+  !*** multi app ***!
+  \*****************/
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! ./src/app.js */6);
-	module.exports = __webpack_require__(/*! ./src/material.js */7);
+	__webpack_require__(/*! ./src/app.js */11);
+	module.exports = __webpack_require__(/*! ./src/material.js */12);
 
 
 /***/ },
@@ -14220,13 +14220,13 @@
   \*********************/
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(riot) {riot.tag2('app', '<h1>{opts.header}</h1> <div class="mdl-layout__tab_bar mdl-tabs mdl-js-tas"> <div class="nav_item mdl-tabs__tab-bar is-upgraded"> <a class="mdl-tabs__tab nav-items" each="{items}" id="{id}" href="#{id}" onclick="{select}">{id}</a> </div> <article> <h2>{page.name || \'Not Found\'}</h2> </article> </div>', '', '', function(opts) {
-	     const route = __webpack_require__(/*! riot-route */ 2)
-	     const $ = __webpack_require__(/*! jquery */ 3)
-	     const self = this
+	/* WEBPACK VAR INJECTION */(function(riot) {riot.tag2('app', '<h1>{opts.header}</h1> <div class="mdl-layout__tab_bar mdl-tabs mdl-js-tas"> <div class="nav_item mdl-tabs__tab-bar is-upgraded"> <a class="mdl-tabs__tab nav-items" each="{items}" id="{id}" href="#{id}" onclick="{select}">{id}</a> </div> <article> <h2>{page.name || \'No Select\'}</h2> </article> </div>', '', '', function(opts) {
+	     var route = __webpack_require__(/*! riot-route */ 2)
+	     var $ = __webpack_require__(/*! jquery */ 3)
+	     var self = this
 
-	     self.items = opts.items
-	     self.page  = opts.items[0]
+	     self.items = opts.navs
+	     self.page  = {}
 
 	     this.select = function(e) {
 	        $('.nav-items').removeClass('is-active')
@@ -14244,7 +14244,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! riot */ 1)))
 
 /***/ },
-/* 6 */
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */
 /*!********************!*\
   !*** ./src/app.js ***!
   \********************/
@@ -14257,7 +14262,7 @@
 	// routing part
 	riot.mount('app', {
 	   header: 'routing demo by riot v3',
-	   items : [
+	   navs : [
 	      { id: 'First',  name: 'foo'},
 	      { id: 'Second', name: 'bar'},
 	      { id: 'Third',  name: 'piyo'}
@@ -14266,9 +14271,8 @@
 	route.start(true)
 
 
-
 /***/ },
-/* 7 */
+/* 12 */
 /*!*************************!*\
   !*** ./src/material.js ***!
   \*************************/
@@ -18255,4 +18259,4 @@
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=bundle.js.map
+//# sourceMappingURL=app.bundle.js.map
