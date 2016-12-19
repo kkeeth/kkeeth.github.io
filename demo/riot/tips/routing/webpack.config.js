@@ -14,25 +14,18 @@ module.exports = [
       devServer: {
          port: 8000
       },
+      resolve: {
+         extensions: ['', '.js', '.tag']
+      },
       plugins: [
-       new webpack.optimize.OccurenceOrderPlugin(),
-       new webpack.ProvidePlugin({ riot: 'riot' })
+         new webpack.optimize.OccurenceOrderPlugin(),
+         new webpack.ProvidePlugin({
+            riot: 'riot'
+         })
       ],
       module: {
          loaders: [
-            {
-               test: /\.tag$/,
-               exclude: /node_modules/,
-               loader : 'riotjs-loader',
-               query  : {
-                  presets: ['es6']
-               }
-            },
-            {
-               test: /\.js$/,
-               exclude: /node_modules/,
-               loader : 'babel-loader'
-            }
+            { test: /\.tag$/, exclude: /node_modules/, loader : 'riotjs-loader' }
          ]
       }
    },

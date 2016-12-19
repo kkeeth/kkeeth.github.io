@@ -23,8 +23,8 @@ const route = require('riot-route')
         $(e.target).addClass('is-active')
      }
 
-     route((id) => {
-        self.page = self.items.filter((r) => {
+     route( function(id) {
+        self.page = self.items.filter( function(r) {
            return r.id == id
         })[0] || {}
         self.update()

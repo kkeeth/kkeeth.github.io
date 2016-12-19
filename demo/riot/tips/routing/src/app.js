@@ -6,9 +6,9 @@ require('../tag/app.tag')
 riot.mount('app', {
    header: 'routing demo by riot v3',
    items : [
-      { id: 'First', name: 'foo'},
+      { id: 'First',  name: 'foo'},
       { id: 'Second', name: 'bar'},
-      { id: 'Third', name: 'piyo'}
+      { id: 'Third',  name: 'piyo'}
    ]
 })
 route.start(true)
