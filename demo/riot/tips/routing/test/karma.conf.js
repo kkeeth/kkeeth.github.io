@@ -12,7 +12,6 @@ module.exports = (config) => {
       'karma-riot'
     ],
     files: [
-      '../node_modules/riot-route/dist/route.js',
        TEST_PATH  + 'test.bundle.js',
        TAG_PATH
     ],
