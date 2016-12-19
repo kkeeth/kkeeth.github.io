@@ -3056,7 +3056,7 @@
 	// routing part
 	riot.mount('app', {
 	   header: 'routing demo by riot v3',
-	   items: ['foo', 'bar', 'piyo']
+	   items: [{ id: 'First', name: 'foo' }, { id: 'Second', name: 'bar' }, { id: 'Third', name: 'piyo' }]
 	});
 	route.start(true);
 
@@ -14216,8 +14216,8 @@
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(riot) {const rout = __webpack_require__(2)
-	riot.tag2('app', '<h1> {opts.header}</h1> <div class="mdl-layout__tab_bar mdl-tabs mdl-js-tas"> <div class="nav_item mdl-tabs__tab-bar is-upgraded"> <a class="mdl-tabs__tab nav-items" each="{items}" id="{id}" href="#{id}" onclick="{select}">{title}</a> <p class=""></p> </div> <article> <h2>{page.title || \'Not Found\'}</h2> <div id="dest"></div> </article> </div> <footer> <span>(c) 2016 k-kuwahara</span> </footer>', '', '', function(opts) {
+	/* WEBPACK VAR INJECTION */(function(riot) {const route = __webpack_require__(2)
+	riot.tag2('app', '<h1> {opts.header}</h1> <div class="mdl-layout__tab_bar mdl-tabs mdl-js-tas"> <div class="nav_item mdl-tabs__tab-bar is-upgraded"> <a class="mdl-tabs__tab nav-items" each="{items}" id="{id}" href="#{id}" onclick="{select}">{id}</a> </div> <article> <h2>{page.name || \'Not Found\'}</h2> </article> </div>', '', '', function(opts) {
 	     const self = this;
 
 	     self.items = opts.items
@@ -14230,10 +14230,10 @@
 	     }.bind(this)
 
 	     route((id) => {
-	        app.page = app.items.filter((r) => {
+	        self.page = self.items.filter((r) => {
 	           return r.id == id
 	        })[0] || {}
-	        app.update()
+	        self.update()
 	     })
 	});
 
