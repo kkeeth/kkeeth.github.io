@@ -8,7 +8,7 @@
 
   <article>
     <h2>{ page.title || 'Not Found' }</h2>
-    <div class="card-table mdl-shadow--3dp mdl-grid">
+    <div show="{ page_id }" class="card-table mdl-shadow--3dp mdl-grid">
       <div align="center" class="mdl-cell mdl-cell--6-col-phone mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded">
           <input class="mdl-textfield__input" type="text" id="input_text" ref="target" onkeyup="{ search }">

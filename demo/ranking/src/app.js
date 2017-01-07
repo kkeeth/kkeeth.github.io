@@ -4,7 +4,7 @@ require('../tag/app.tag')
 
 // main riot part
 riot.mount('app', {
-   header: 'Rankiing App!!',
+   header: 'Ranking App!!',
    items : [
       { id: 'all', title: 'All Ranking' },
       { id: 'new', title: 'New Ranking' },

@@ -23,6 +23,10 @@ app .nav-item, pie .nav-item {
     font-size: 16px; }
     app .nav-item a.is-active:after, pie .nav-item a.is-active:after {
       background: #00ACC1; }
+  app .nav-item a, pie .nav-item a {
+    transition-duration: .28s; }
+    app .nav-item a:hover, pie .nav-item a:hover {
+      background: #eee; }
 
 app article, pie article {
   max-height: 55vh; }

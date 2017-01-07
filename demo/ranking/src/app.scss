@@ -26,6 +26,13 @@ app {
             &:after {
                 background: #00ACC1;
             }
+
+        }
+        a {
+            transition-duration: .28s;
+            &:hover {
+                background: #eee;
+            }
         }
     }
     article {

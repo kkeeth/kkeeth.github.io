@@ -53,7 +53,7 @@
 	
 	// main riot part
 	riot.mount('app', {
-	   header: 'Rankiing App!!',
+	   header: 'Ranking App!!',
 	   items: [{ id: 'all', title: 'All Ranking' }, { id: 'new', title: 'New Ranking' }, { id: 'outer', title: 'Outer Ranking' }],
 	   dataset: dataset
 	});
@@ -65,7 +65,7 @@
   \************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(riot) {/* Riot v3.0.3, @license MIT */
+	/* WEBPACK VAR INJECTION */(function(riot) {/* Riot v3.0.5, @license MIT */
 	(function (global, factory) {
 	   true ? factory(exports) :
 	  typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -1199,7 +1199,8 @@
 	  var dom = expr.dom,
 	    attrName = expr.attr,
 	    isToggle = /^(show|hide)$/.test(attrName),
-	    value = isToggle || tmpl(expr.expr, this),
+	    // the value for the toggle must consider also the parent tag
+	    value = isToggle ? tmpl(expr.expr, extend({}, this, this.parent)) : tmpl(expr.expr, this),
 	    isValueAttr = attrName === 'riot-value',
 	    isVirtual = expr.root && expr.root.tagName === 'VIRTUAL',
 	    parent = dom && (expr.parent || dom.parentNode),
@@ -1270,7 +1271,6 @@
 	    setEventHandler(attrName, value, dom, this);
 	  // show / hide
 	  } else if (isToggle) {
-	    value = tmpl(expr.expr, extend({}, this, this.parent));
 	    if (attrName === 'hide') { value = !value; }
 	    dom.style.display = value ? '' : 'none';
 	  // field value
@@ -1285,7 +1285,7 @@
 	      { setAttr(dom, attrName, value); }
 	  } else {
 	    // <select> <option selected={true}> </select>
-	    if (attrName === 'selected' && parent && /^(SELECT|OPTGROUP)$/.test(parent.tagName) && value != null) {
+	    if (attrName === 'selected' && parent && /^(SELECT|OPTGROUP)$/.test(parent.tagName) && value) {
 	      parent.value = dom.value;
 	    } if (expr.bool) {
 	      dom[attrName] = value;
@@ -1301,7 +1301,7 @@
 	 * @this Tag
 	 * @param { Array } expressions - expression that must be re evaluated
 	 */
-	function update$1$1(expressions) {
+	function updateAllExpressions(expressions) {
 	  each(expressions, updateExpression.bind(this));
 	}
 	
@@ -1319,7 +1319,7 @@
 	
 	    return this
 	  },
-	  update: function update$1() {
+	  update: function update() {
 	    var newValue = tmpl(this.expr, this.parentTag);
 	
 	    if (newValue && !this.current) { // insert
@@ -1338,7 +1338,7 @@
 	      this.expressions = [];
 	    }
 	
-	    if (newValue) { update$1$1.call(this.parentTag, this.expressions); }
+	    if (newValue) { updateAllExpressions.call(this.parentTag, this.expressions); }
 	  },
 	  unmount: function unmount() {
 	    unmountAll(this.expressions || []);
@@ -1515,7 +1515,7 @@
 	    tagName = getTagName(dom),
 	    impl = __TAG_IMPL[tagName] || { tmpl: getOuterHTML(dom) },
 	    useRoot = RE_SPECIAL_TAGS.test(tagName),
-	    root = dom.parentNode,
+	    parentNode = dom.parentNode,
 	    ref = createDOMPlaceholder(),
 	    child = getTag(dom),
 	    ifExpr = getAttr(dom, 'if'),
@@ -1533,27 +1533,15 @@
 	  if (ifExpr) { remAttr(dom, 'if'); }
 	
 	  // insert a marked where the loop tags will be injected
-	  root.insertBefore(ref, dom);
-	  root.removeChild(dom);
+	  parentNode.insertBefore(ref, dom);
+	  parentNode.removeChild(dom);
 	
 	  expr.update = function updateEach() {
 	
 	    // get the new items collection
 	    var items = tmpl(expr.val, parent),
-	      parentNode,
-	      frag,
-	      placeholder;
-	
-	
-	    root = ref.parentNode;
-	
-	    if (parentNode) {
-	      placeholder = createDOMPlaceholder('');
-	      parentNode.insertBefore(placeholder, root);
-	      parentNode.removeChild(root);
-	    } else {
-	      frag = createFrag();
-	    }
+	      frag = createFrag(),
+	      root = ref.parentNode;
 	
 	    // object loop. any changes cause full redraw
 	    if (!isArray(items)) {
@@ -1651,13 +1639,7 @@
 	    // clone the items array
 	    oldItems = items.slice();
 	
-	    if (frag) {
-	      root.insertBefore(frag, ref);
-	    } else {
-	      parentNode.insertBefore(root, placeholder);
-	      parentNode.removeChild(placeholder);
-	    }
-	
+	    root.insertBefore(frag, ref);
 	  };
 	
 	  expr.unmount = function() {
@@ -2056,7 +2038,7 @@
 	 * Update all the tags instances created
 	 * @returns { Array } all the tags instances
 	 */
-	function update$2() {
+	function update$1() {
 	  return each(__TAGS_CACHE, function (tag$$1) { return tag$$1.update(); })
 	}
 	
@@ -2085,7 +2067,7 @@
 	
 	  var ctx = !isAnonymous && isLoop ? this : parent || this;
 	  each(instAttrs, function (attr) {
-	    if (attr.expr) { update$1$1.call(ctx, [attr.expr]); }
+	    if (attr.expr) { updateAllExpressions.call(ctx, [attr.expr]); }
 	    opts[toCamel(attr.name)] = attr.expr ? attr.expr.value : attr.value;
 	  });
 	}
@@ -2137,7 +2119,8 @@
 	  // it could be handy to use it also to improve the virtual dom rendering speed
 	  defineProperty(this, '_riot_id', ++__uid); // base 1 allows test !t._riot_id
 	
-	  extend(this, { parent: parent, root: root, opts: opts }, item);
+	  extend(this, { root: root, opts: opts }, item);
+	  defineProperty(this, 'parent', parent || false);
 	  // protect the "tags" and "refs" property from being overridden
 	  defineProperty(this, 'tags', {});
 	  defineProperty(this, 'refs', {});
@@ -2161,7 +2144,7 @@
 	    extend(this, data);
 	    updateOpts.apply(this, [isLoop, parent, isAnonymous, opts, instAttrs]);
 	    if (this.isMounted) { this.trigger('update', data); }
-	    update$1$1.call(this, expressions);
+	    updateAllExpressions.call(this, expressions);
 	    if (this.isMounted) { this.trigger('updated'); }
 	
 	    return this
@@ -2429,7 +2412,7 @@
 	    tagName = opts.tagName || getTagName(opts.root, true),
 	    ptag = getImmediateCustomParentTag(parent);
 	  // fix for the parent attribute in the looped elements
-	  tag.parent = ptag;
+	  defineProperty(tag, 'parent', ptag);
 	  // store the real parent tag
 	  // in some cases this could be different from the custom parent tag
 	  // for example in nested loops
@@ -2716,7 +2699,7 @@
 	exports.tag2 = tag2$$1;
 	exports.mount = mount$$1;
 	exports.mixin = mixin$$1;
-	exports.update = update$2;
+	exports.update = update$1;
 	exports.unregister = unregister$$1;
 	
 	Object.defineProperty(exports, '__esModule', { value: true });
@@ -14290,7 +14273,7 @@
   \*********************/
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(riot) {riot.tag2('app', '<h1> {opts.header}</h1> <div class="mdl-layout__tab_bar mdl-tabs mdl-js-tas"> <div class="nav-item mdl-tabs__tab-bar is-upgraded"> <a class="mdl-tabs__tab nav-items" each="{items}" id="{id}" href="#{id}" onclick="{select}">{title}</a> </div> </div> <article> <h2>{page.title || \'Not Found\'}</h2> <div class="card-table mdl-shadow--3dp mdl-grid"> <div align="center" class="mdl-cell mdl-cell--6-col-phone mdl-cell--6-col-tablet mdl-cell--6-col-desktop"> <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded"> <input class="mdl-textfield__input" type="text" id="input_text" ref="target" onkeyup="{search}"> <label class="mdl-textfield__label" for="input_text">Search Name</label> </div> <div if="{btn_show_flg}"> <a href="pies.html?page={page_id + \'_rank\'}"><button id="btn-graph" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--green-300 mdl-color-text--white">the graph of the top 3</button></a> </div> </div> <div class="mdl-cell mdl-cell--6-col-phone mdl-cell--6-col-tablet mdl-cell--6-col-desktop" if="{show_flg}"> <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp"> <thead> <tr> <th align="center">Rank</th> <th align="center">Name</th> <th align="center">Count</th> </tr> </thead> <tbody> <tr each="{data}" class="{is_top(rank)} {data.length === 1 ? \'one-item\' : \'\'}"> <td align="left">{rank}</td> <td align="left"><a href="pies.html?name={encodeURIComponent(name)}">{name}</a></td> <td align="left">{count}</td> </tr> </tbody> </table> </div> </div> </article> <footer> <span>(c) 2016 k-kuwahara</span> </footer>', '', '', function(opts) {
+	/* WEBPACK VAR INJECTION */(function(riot) {riot.tag2('app', '<h1> {opts.header}</h1> <div class="mdl-layout__tab_bar mdl-tabs mdl-js-tas"> <div class="nav-item mdl-tabs__tab-bar is-upgraded"> <a class="mdl-tabs__tab nav-items" each="{items}" id="{id}" href="#{id}" onclick="{select}">{title}</a> </div> </div> <article> <h2>{page.title || \'Not Found\'}</h2> <div show="{page_id}" class="card-table mdl-shadow--3dp mdl-grid"> <div align="center" class="mdl-cell mdl-cell--6-col-phone mdl-cell--6-col-tablet mdl-cell--6-col-desktop"> <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded"> <input class="mdl-textfield__input" type="text" id="input_text" ref="target" onkeyup="{search}"> <label class="mdl-textfield__label" for="input_text">Search Name</label> </div> <div if="{btn_show_flg}"> <a href="pies.html?page={page_id + \'_rank\'}"><button id="btn-graph" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--green-300 mdl-color-text--white">the graph of the top 3</button></a> </div> </div> <div class="mdl-cell mdl-cell--6-col-phone mdl-cell--6-col-tablet mdl-cell--6-col-desktop" if="{show_flg}"> <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp"> <thead> <tr> <th align="center">Rank</th> <th align="center">Name</th> <th align="center">Count</th> </tr> </thead> <tbody> <tr each="{data}" class="{is_top(rank)} {data.length === 1 ? \'one-item\' : \'\'}"> <td align="left">{rank}</td> <td align="left"><a href="pies.html?name={encodeURIComponent(name)}">{name}</a></td> <td align="left">{count}</td> </tr> </tbody> </table> </div> </div> </article> <footer> <span>(c) 2016 k-kuwahara</span> </footer>', '', '', function(opts) {
 	     const route = __webpack_require__(/*! riot-route */ 7)
 	     const $ = __webpack_require__(/*! jQuery */ 5)
 	     const self = this;
