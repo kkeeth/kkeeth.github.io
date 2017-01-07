@@ -1,0 +1,97 @@
+app h1, pie h1 {
+  list-style: none;
+  background-color: #3AA9B7;
+  padding: 24px;
+  margin-top: 0;
+  text-align: center;
+  color: #FFF;
+  font-size: 32px;
+  font-weight: normal; }
+
+app h2, pie h2 {
+  margin: 0px;
+  color: #3AA9B7;
+  padding: 10px;
+  font-size: 24px;
+  text-align: center;
+  font-weight: bold; }
+
+app .nav-item, pie .nav-item {
+  padding-bottom: 24px; }
+  app .nav-item a.is-active, pie .nav-item a.is-active {
+    color: #00ACC1 !important;
+    font-size: 16px; }
+    app .nav-item a.is-active:after, pie .nav-item a.is-active:after {
+      background: #00ACC1; }
+
+app article, pie article {
+  max-height: 55vh; }
+  app article #dest, pie article #dest {
+    background-color: #FFF; }
+    app article #dest .c3-legend-item, pie article #dest .c3-legend-item {
+      font-size: 16px;
+      padding: 2px; }
+  app article #btn-graph, pie article #btn-graph {
+    background-color: #3AA9B7 !important; }
+    app article #btn-graph .hide, pie article #btn-graph .hide {
+      display: none; }
+  app article .card-table, pie article .card-table {
+    border: solid 1px #e0e0e0;
+    width: 86%;
+    height: 50vh;
+    overflow-y: scroll;
+    margin: 0 auto;
+    z-index: 1; }
+  app article table, pie article table {
+    margin-bottom: 8px; }
+    app article table th, pie article table th {
+      font-size: 18px !important;
+      padding: 10px 24px;
+      text-align: center !important; }
+    app article table td, pie article table td {
+      font-size: 16px; }
+      app article table td a, pie article table td a {
+        text-decoration: none;
+        color: #000; }
+    app article table .top > td, pie article table .top > td {
+      font-weight: 700;
+      font-size: 28px;
+      color: #FFD700; }
+      app article table .top > td a, pie article table .top > td a {
+        color: #FFD700; }
+    app article table .one-item > td, pie article table .one-item > td {
+      font-weight: 700;
+      font-size: 28px;
+      color: #489CDF; }
+      app article table .one-item > td a, pie article table .one-item > td a {
+        color: #489CDF; }
+    app article table .top2 > td, pie article table .top2 > td {
+      font-weight: 700;
+      font-size: 26px;
+      color: #C0C0C0; }
+      app article table .top2 > td a, pie article table .top2 > td a {
+        color: #C0C0C0; }
+    app article table .top3 > td, pie article table .top3 > td {
+      font-weight: 700;
+      font-size: 22px;
+      color: #C47222; }
+      app article table .top3 > td a, pie article table .top3 > td a {
+        color: #C47222; }
+
+app footer, pie footer {
+  position: absolute;
+  bottom: 0;
+  width: 98%;
+  background-color: #424242;
+  padding: 32px 16px;
+  font-size: 16px;
+  text-align: center; }
+  app footer span, pie footer span {
+    color: #FFF; }
+
+pie article .btn-back {
+  margin-left: 20px; }
+  pie article .btn-back button {
+    background-color: #3AA9B7 !important; }
+
+/*# sourceMappingURL=app.css.map*/
