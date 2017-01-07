@@ -15,10 +15,10 @@
   </footer>
 
   <script>
-     const c3    = require('c3')
+     const c3   = require('c3')
      const self = this;
-     self.name = ''
-     self.page = ''
+     self.name  = ''
+     self.page  = ''
 
      self.on('before-mount', () => {
         if (location.search.search('name') != -1) {

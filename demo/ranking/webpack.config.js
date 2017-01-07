@@ -22,13 +22,8 @@ module.exports = [
                exclude: /node_modules/,
                loader : 'riotjs-loader',
                query  : {
-                  presets: ['es6']
+                  presets: ['es2015-riot']
                }
-            },
-            {
-               test: /\.js$/,
-               exclude: /node_modules/,
-               loader : 'babel-loader'
             }
          ]
       }
