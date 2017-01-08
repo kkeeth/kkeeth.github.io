@@ -3,41 +3,29 @@
   <head>
     <title>Sake list</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="assets/material.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="assets/app.css">
     <script src="assets/material.min.js"></script>
+
+    <!-- Polyfills for older browsers -->
+    <script src="https://unpkg.com/core-js/client/shim.min.js"></script>
+
+    <script src="https://unpkg.com/zone.js@0.7.4?main=browser"></script>
+    <script src="https://unpkg.com/reflect-metadata@0.1.8"></script>
+    <script src="https://unpkg.com/systemjs@0.19.39/dist/system.src.js"></script>
+
+    <script src="https://cdn.rawgit.com/angular/angular.io/b3c65a9/public/docs/_examples/_boilerplate/systemjs.config.web.js"></script>
+    <script>
+      System.import('app').catch(function(err){ console.error(err); });
+    </script>
   </head>
   <body>
-    <h1>日本酒リスト</h1>
-    <div class="card-table mdl-shadow--3dp mdl-grid">
-      <div align="center" class="mdl-cell mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-          <thead>
-            <tr>
-              <th align="center">#</th>
-              <th align="center">お酒の名前</th>
-              <th align="center">特定名称</th>
-              <th align="center">精米歩合</th>
-              <th align="center">甘辛度</th>
-              <th align="center">評価（5段階）</th>
-              <th align="center">詳細</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>銀嶺月山（ぎんれいがっさん）</td>
-              <td>純米酒</td>
-              <td>80%</td>
-              <td>±0</td>
-              <td>3</td>
-              <td>可もなく不可もなし</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <header>
+      <h1>日本酒リスト</h1>
+    </header>
+    <my-app>Loading...</my-app>
     <footer>
       <span>(c) 2016 k-kuwahara</span>
     </footer>
