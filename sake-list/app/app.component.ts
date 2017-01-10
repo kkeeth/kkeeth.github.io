@@ -26,9 +26,9 @@ import { SAKES } from './sake-list';
               <td>{{ sake.id }}</td>
               <td>{{ sake.name }}</td>
               <td>{{ sake.sp_name }}</td>
-              <td>{{ sake.rice_per }}</td>
+              <td>{{ sake.rice_per }}%</td>
               <td>{{ sake.salty_sweet }}</td>
-              <td>{{ sake.assessment }}%</td>
+              <td>{{ sake.assessment }}</td>
               <td>{{ sake.detail }}</td>
             </tr>
           </tbody>
