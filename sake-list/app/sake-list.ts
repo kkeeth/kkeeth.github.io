@@ -14,7 +14,7 @@ export const SAKES: Sake[] = [
       name: '銀嶺月山（ぎんれいがっさん）',
       sp_name: '純米酒',
       rice_per: 80,
-      salty_sweet: ±0,
+      salty_sweet: '±0',
       assessment: 3,
       detail: '可もなく不可もなし'
    },
@@ -23,7 +23,7 @@ export const SAKES: Sake[] = [
       name: '獺祭（だっさい）純米大吟醸　磨き二割三分',
       sp_name: '純米大吟醸',
       rice_per: 23,
-      salty_sweet: +4,
+      salty_sweet: '+4',
       assessment: 5,
       detail: '今まで飲んできた中ではダントツの1位'
    }
