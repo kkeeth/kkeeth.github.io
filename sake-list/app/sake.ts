@@ -3,7 +3,7 @@ export class Sake {
    name: string;
    sp_name: string;
    rice_per: number;
-   salty_sweet: number;
+   salty_sweet: string;
    assessment: number;
    detail: string;
 }
