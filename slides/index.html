@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>スライドテンプレート</title>
+    <link rel="stylesheet" href="./talkiejs/talkie.min.css">
+    <link rel="stylesheet" href="./talkiejs/talkie-default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+  </head>
+  <body>
+
+<template layout="cover" type="text/x-markdown">
+# スライドテンプレート
+## @kuwahara_jsng
+</template>
+
+<template layout="title-invert" type="text/x-markdown">
+## 自己紹介
+
+```
+var my_info = {
+   name: 'Kiyohito Kuwahara',
+   twitter: '@kuwahara_jsng',
+   github: 'k-kuwahara',
+   qiita: '@clown0082',
+   workplace: 'Leprachaun Corp.'
+}
+```
+</template>
+
+<!-- <script layout="" type="text/x-markdown" backface="http://articleimage.nicoblomaga.jp/image/72/2015/b/4/b42236f74e754b19b6b5efc832e9cd035255d3a61444896265-s.jpg" backface-filter="blur(10px) brightness(.8)">
+# なかったorz
+</script>
+ -->
+
+<script layout="cover" type="text/x-markdown">
+# セクションタイトル
+</script>
+
+<template layout="bullets" type="text/x-markdown">
+# セクションタイトル
+- ほげ
+- ふが
+  - foo
+  - bar
+</template>
+
+<template layout="code" type="text/x-markdown">
+## デモコード
+<font size="3px">
+
+``` javascript
+(function() {
+   // 何かしらの処理
+})()
+```
+
+</font>
+</template>
+
+<script src="./talkiejs/talkie.min.js"></script>
+<script>
+var talkie = Talkie({wide: false});
+document.addEventListener('DOMContentLoaded', function() {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('[layout]'));
+  talkie.changed.onValue(function(current) {
+    console.clear();
+    // print presenter notes
+    console.info(talkie.notes[current.getAttribute('page')]);
+  });
+});
+</script>
+</body>
+</html>
