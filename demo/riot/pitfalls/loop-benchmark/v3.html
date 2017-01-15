@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=767, user-scalable=no, target-densityDpi=device-dpi">
+    <title>loop benchmark demo</title>
+    <link rel="stylesheet" href="app.css">
+    <script src="https://rawgit.com/riot/riot/master/riot%2Bcompiler.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <!-- 親タグ -->
+    <app></app>
+
+    <!-- タグファイルのimport -->
+    <script src="app.tag" type="riot/tag"></script>
+
+    <!-- 親タグのマウント -->
+    <script>
+      riot.mount('app', { title: 'loop benchmark demo'} );
+    </script>
+  </body>
+</html>
