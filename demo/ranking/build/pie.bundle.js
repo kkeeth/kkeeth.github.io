@@ -12334,11 +12334,11 @@
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(riot) {'use strict';
+	'use strict';
+
+	var riot = __webpack_require__(1);
 
 	riot.tag2('pie', '<h1> {opts.header}</h1> <article> <h2> {opts.title}</h2> <div id="dest"></div> <div class="btn-back"> <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--green-300 mdl-color-text--white" onclick="{back}">back</button> </div> </article> <footer> <span>(c) 2016 k-kuwahara</span> </footer>', '', '', function (opts) {
-	   'use strict';
-
 	   var c3 = __webpack_require__(6);
 	   var self = this;
 	   self.name = '';
@@ -12379,7 +12379,6 @@
 	      }
 	   });
 
-	   // each pie-charts part
 	   var chart_opts = {
 	      bindto: '#dest',
 	      data: {
@@ -12388,12 +12387,10 @@
 	      }
 	   };
 
-	   // location back
-	   function back() {
+	   this.back = function () {
 	      history.back();
-	   }
+	   }.bind(this);
 	});
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 /* 6 */

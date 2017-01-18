@@ -2775,11 +2775,11 @@
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(riot) {'use strict';
+	'use strict';
+
+	var riot = __webpack_require__(1);
 
 	riot.tag2('app', '<h1> {opts.header}</h1> <div class="mdl-layout__tab_bar mdl-tabs mdl-js-tas"> <div class="nav-item mdl-tabs__tab-bar is-upgraded"> <a class="mdl-tabs__tab nav-items" each="{items}" id="{id}" href="#{id}" onclick="{select}">{title}</a> </div> </div> <article> <h2>{page.title || \'Not Found\'}</h2> <div show="{page_id}" class="card-table mdl-shadow--3dp mdl-grid"> <div align="center" class="mdl-cell mdl-cell--6-col-phone mdl-cell--6-col-tablet mdl-cell--6-col-desktop"> <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded"> <input class="mdl-textfield__input" type="text" id="input_text" ref="target" onkeyup="{search}"> <label class="mdl-textfield__label" for="input_text">Search Name</label> </div> <div if="{btn_show_flg}"> <a href="pies.html?page={page_id + \'_rank\'}"><button id="btn-graph" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--green-300 mdl-color-text--white">the graph of the top 3</button></a> </div> </div> <div class="mdl-cell mdl-cell--6-col-phone mdl-cell--6-col-tablet mdl-cell--6-col-desktop" if="{show_flg}"> <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp"> <thead> <tr> <th align="center">Rank</th> <th align="center">Name</th> <th align="center">Count</th> </tr> </thead> <tbody> <tr each="{data}" class="{is_top(rank)} {data.length === 1 ? \'one-item\' : \'\'}"> <td align="left">{rank}</td> <td align="left"><a href="pies.html?name={encodeURIComponent(name)}">{name}</a></td> <td align="left">{count}</td> </tr> </tbody> </table> </div> </div> </article> <footer> <span>(c) 2016 k-kuwahara</span> </footer>', '', '', function (opts) {
-	   'use strict';
-
 	   var route = __webpack_require__(9);
 	   var $ = __webpack_require__(7);
 	   var self = this;
@@ -2792,16 +2792,14 @@
 	   self.show_flg = self.data.length > 0;
 	   self.btn_show_flg = true;
 
-	   // routing part
 	   route.start(true);
 
-	   function select(e) {
+	   this.select = function (e) {
 	      $('.nav-items').removeClass('is-active');
 	      $(e.target).addClass('is-active');
-	   }
+	   }.bind(this);
 
-	   // filtering
-	   function search(e) {
+	   this.search = function (e) {
 	      self.data = self.old_data;
 	      var tmp = [];
 	      if (e.target.value.length > 0) {
@@ -2813,7 +2811,7 @@
 	         self.data = self.old_data;
 	      }
 	      self.update();
-	   }
+	   }.bind(this);
 
 	   route(function (id) {
 	      self.page = self.items.filter(function (r) {
@@ -2829,7 +2827,7 @@
 	      self.update();
 	   });
 
-	   function is_top(num) {
+	   this.is_top = function (num) {
 	      switch (num) {
 	         case 1:
 	            return 'top';
@@ -2840,9 +2838,8 @@
 	         default:
 	            return '';
 	      }
-	   }
+	   }.bind(this);
 	});
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 /* 5 */,

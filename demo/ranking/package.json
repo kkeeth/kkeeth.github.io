@@ -10,8 +10,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --watch --progress",
-    "dev"  : "lite-server",
-    "start": "concurrently \"npm run lite\" \"npm run webpack\""
+    "dev": "lite-server"
   },
   "keywords": [
     "riot",
@@ -27,11 +26,11 @@
     "jquery": "^1.12.4",
     "material-design-lite": "^1.2.1",
     "node-sass": "^3.4.2",
-    "riot": "^3.0.2",
+    "riot": "^3.0.7",
     "riot-route": "^3.0.2",
-    "riotjs-loader": "^3.0.0",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
+    "tag-loader": "^0.3.0",
     "webpack": "^1.14.0"
   },
   "bugs": {
