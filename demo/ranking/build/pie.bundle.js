@@ -1,83 +1,84 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-/******/
+
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-/******/
+
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-/******/
+
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-/******/
+
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
+
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-/******/
+
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
-/******/
+
+
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-/******/
+
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
+
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-/******/
+
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/*!********************!*\
-  !*** ./src/pie.js ***!
-  \********************/
 /***/ function(module, exports, __webpack_require__) {
 
-	const riot  = __webpack_require__(/*! riot */ 1)
-	const data  = __webpack_require__(/*! ./dataset.js */ 2)
-	__webpack_require__(/*! ../tag/pie.tag */ 9)
-	
+	'use strict';
+
+	var riot = __webpack_require__(1);
+	var data = __webpack_require__(2);
+	__webpack_require__(5);
+
 	// main riot part
 	riot.mount('pie', {
 	   header: 'Ranking App!!',
 	   title: 'Year of change',
-	   dataset: data,
-	})
-
+	   dataset: data
+	});
 
 /***/ },
 /* 1 */
-/*!************************!*\
-  !*** ./~/riot/riot.js ***!
-  \************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(riot) {/* Riot v3.0.5, @license MIT */
+	/* WEBPACK VAR INJECTION */(function(riot) {/* Riot v3.0.7, @license MIT */
 	(function (global, factory) {
 	   true ? factory(exports) :
 	  typeof define === 'function' && define.amd ? define(['exports'], factory) :
 	  (factory((global.riot = global.riot || {})));
 	}(this, (function (exports) { 'use strict';
-	
+
 	var __TAGS_CACHE = [];
 	var __TAG_IMPL = {};
 	var GLOBAL_MIXIN = '__global_mixin';
-	var RIOT_PREFIX = 'riot-';
-	var RIOT_TAG_IS = 'data-is';
+	var ATTRS_PREFIX = 'riot-';
+	var REF_DIRECTIVES = ['data-ref', 'ref'];
+	var IS_DIRECTIVE = 'data-is';
+	var CONDITIONAL_DIRECTIVE = 'if';
+	var LOOP_DIRECTIVE = 'each';
+	var LOOP_NO_REORDER_DIRECTIVE = 'no-reorder';
+	var SHOW_DIRECTIVE = 'show';
+	var HIDE_DIRECTIVE = 'hide';
 	var T_STRING = 'string';
 	var T_OBJECT = 'object';
 	var T_UNDEF  = 'undefined';
@@ -93,7 +94,7 @@
 	var CASE_SENSITIVE_ATTRIBUTES = { 'viewbox': 'viewBox' };
 	var RE_BOOL_ATTRS = /^(?:disabled|checked|readonly|required|allowfullscreen|auto(?:focus|play)|compact|controls|default|formnovalidate|hidden|ismap|itemscope|loop|multiple|muted|no(?:resize|shade|validate|wrap)?|open|reversed|seamless|selected|sortable|truespeed|typemustmatch)$/;
 	var IE_VERSION = (WIN && WIN.document || {}).documentMode | 0;
-	
+
 	/**
 	 * Check whether a DOM node must be considered a part of an svg document
 	 * @param   { String } name -
@@ -102,7 +103,7 @@
 	function isSVGTag(name) {
 	  return RE_SVG_TAGS.test(name)
 	}
-	
+
 	/**
 	 * Check Check if the passed argument is undefined
 	 * @param   { String } value -
@@ -111,16 +112,16 @@
 	function isBoolAttr(value) {
 	  return RE_BOOL_ATTRS.test(value)
 	}
-	
+
 	/**
 	 * Check if passed argument is a function
 	 * @param   { * } value -
 	 * @returns { Boolean } -
 	 */
 	function isFunction(value) {
-	  return typeof value === T_FUNCTION || false // avoid IE problems
+	  return typeof value === T_FUNCTION
 	}
-	
+
 	/**
 	 * Check if passed argument is an object, exclude null
 	 * NOTE: use isObject(x) && !isArray(x) to excludes arrays.
@@ -130,7 +131,7 @@
 	function isObject(value) {
 	  return value && typeof value === T_OBJECT // typeof null is 'object'
 	}
-	
+
 	/**
 	 * Check if passed argument is undefined
 	 * @param   { * } value -
@@ -139,7 +140,7 @@
 	function isUndefined(value) {
 	  return typeof value === T_UNDEF
 	}
-	
+
 	/**
 	 * Check if passed argument is a string
 	 * @param   { * } value -
@@ -148,7 +149,7 @@
 	function isString(value) {
 	  return typeof value === T_STRING
 	}
-	
+
 	/**
 	 * Check if passed argument is empty. Different from falsy, because we dont consider 0 or false to be blank
 	 * @param { * } value -
@@ -157,7 +158,7 @@
 	function isBlank(value) {
 	  return isUndefined(value) || value === null || value === ''
 	}
-	
+
 	/**
 	 * Check if passed argument is a kind of array
 	 * @param   { * } value -
@@ -166,7 +167,7 @@
 	function isArray(value) {
 	  return Array.isArray(value) || value instanceof Array
 	}
-	
+
 	/**
 	 * Check whether object's property could be overridden
 	 * @param   { Object }  obj - source object
@@ -177,7 +178,7 @@
 	  var descriptor = Object.getOwnPropertyDescriptor(obj, key);
 	  return isUndefined(obj[key]) || descriptor && descriptor.writable
 	}
-	
+
 	/**
 	 * Check if passed argument is a reserved name
 	 * @param   { String } value -
@@ -186,7 +187,7 @@
 	function isReservedName(value) {
 	  return RE_RESERVED_NAMES.test(value)
 	}
-	
+
 	var check = Object.freeze({
 		isSVGTag: isSVGTag,
 		isBoolAttr: isBoolAttr,
@@ -199,7 +200,7 @@
 		isWritable: isWritable,
 		isReservedName: isReservedName
 	});
-	
+
 	/**
 	 * Shorter and fast way to select multiple nodes in the DOM
 	 * @param   { String } selector - DOM selector
@@ -209,7 +210,7 @@
 	function $$(selector, ctx) {
 	  return (ctx || document).querySelectorAll(selector)
 	}
-	
+
 	/**
 	 * Shorter and fast way to select a single node in the DOM
 	 * @param   { String } selector - unique dom selector
@@ -219,7 +220,7 @@
 	function $(selector, ctx) {
 	  return (ctx || document).querySelector(selector)
 	}
-	
+
 	/**
 	 * Create a document fragment
 	 * @returns { Object } document fragment
@@ -227,7 +228,7 @@
 	function createFrag() {
 	  return document.createDocumentFragment()
 	}
-	
+
 	/**
 	 * Create a document text node
 	 * @returns { Object } create a text node to use as placeholder
@@ -235,7 +236,7 @@
 	function createDOMPlaceholder() {
 	  return document.createTextNode('')
 	}
-	
+
 	/**
 	 * Create a generic DOM node
 	 * @param   { String } name - name of the DOM node we want to create
@@ -247,7 +248,7 @@
 	    document.createElementNS('http://www.w3.org/2000/svg', 'svg') :
 	    document.createElement(name)
 	}
-	
+
 	/**
 	 * Get the outer html of any DOM node SVGs included
 	 * @param   { Object } el - DOM node to parse
@@ -263,7 +264,7 @@
 	    return container.innerHTML
 	  }
 	}
-	
+
 	/**
 	 * Set the inner html of any DOM node SVGs included
 	 * @param { Object } container - DOM node where we'll inject new html
@@ -279,7 +280,7 @@
 	    container.appendChild(node);
 	  }
 	}
-	
+
 	/**
 	 * Remove any DOM attribute from a node
 	 * @param   { Object } dom - DOM node we want to update
@@ -288,7 +289,7 @@
 	function remAttr(dom, name) {
 	  dom.removeAttribute(name);
 	}
-	
+
 	/**
 	 * Get the value of any DOM attribute on a node
 	 * @param   { Object } dom - DOM node we want to parse
@@ -298,7 +299,7 @@
 	function getAttr(dom, name) {
 	  return dom.getAttribute(name)
 	}
-	
+
 	/**
 	 * Set any DOM attribute
 	 * @param { Object } dom - DOM node we want to update
@@ -312,7 +313,7 @@
 	  else
 	    { dom.setAttribute(name, val); }
 	}
-	
+
 	/**
 	 * Insert safely a tag to fix #1962 #1649
 	 * @param   { HTMLElement } root - children container
@@ -322,7 +323,7 @@
 	function safeInsert(root, curr, next) {
 	  root.insertBefore(curr, next.parentNode && next);
 	}
-	
+
 	/**
 	 * Minimize risk: only zero or one _space_ between attr & value
 	 * @param   { String }   html - html string we want to parse
@@ -335,7 +336,7 @@
 	  while (m = RE_HTML_ATTRS.exec(html))
 	    { fn(m[1].toLowerCase(), m[2] || m[3] || m[4]); }
 	}
-	
+
 	/**
 	 * Walk down recursively all the children tags starting dom node
 	 * @param   { Object }   dom - starting node where we will start the recursion
@@ -348,9 +349,9 @@
 	    var next;
 	    // stop the recursion
 	    if (res === false) { return }
-	
+
 	    dom = dom.firstChild;
-	
+
 	    while (dom) {
 	      next = dom.nextSibling;
 	      walkNodes(dom, fn, res);
@@ -358,7 +359,7 @@
 	    }
 	  }
 	}
-	
+
 	var dom = Object.freeze({
 		$$: $$,
 		$: $,
@@ -374,20 +375,20 @@
 		walkAttrs: walkAttrs,
 		walkNodes: walkNodes
 	});
-	
+
 	var styleNode;
 	var cssTextProp;
 	var byName = {};
 	var remainder = [];
 	var needsInject = false;
-	
+
 	// skip the following code on the server
 	if (WIN) {
 	  styleNode = (function () {
 	    // create a new style element with the correct type
 	    var newNode = mkEl('style');
 	    setAttr(newNode, 'type', 'text/css');
-	
+
 	    // replace any user node or insert the new one into the head
 	    var userNode = $('style[type=riot]');
 	    if (userNode) {
@@ -395,12 +396,12 @@
 	      userNode.parentNode.replaceChild(newNode, userNode);
 	    }
 	    else { document.getElementsByTagName('head')[0].appendChild(newNode); }
-	
+
 	    return newNode
 	  })();
 	  cssTextProp = styleNode.styleSheet;
 	}
-	
+
 	/**
 	 * Object that will be used to inject and manage the css of every tag instance
 	 */
@@ -430,7 +431,7 @@
 	    else { styleNode.innerHTML = style; }
 	  }
 	};
-	
+
 	/**
 	 * The riot template engine
 	 * @version v3.0.1
@@ -443,34 +444,34 @@
 	 *
 	 * @module
 	 */
-	
+
 	/* global riot */
-	
+
 	var brackets = (function (UNDEF) {
-	
+
 	  var
 	    REGLOB = 'g',
-	
+
 	    R_MLCOMMS = /\/\*[^*]*\*+(?:[^*\/][^*]*\*+)*\//g,
-	
+
 	    R_STRINGS = /"[^"\\]*(?:\\[\S\s][^"\\]*)*"|'[^'\\]*(?:\\[\S\s][^'\\]*)*'/g,
-	
+
 	    S_QBLOCKS = R_STRINGS.source + '|' +
 	      /(?:\breturn\s+|(?:[$\w\)\]]|\+\+|--)\s*(\/)(?![*\/]))/.source + '|' +
 	      /\/(?=[^*\/])[^[\/\\]*(?:(?:\[(?:\\.|[^\]\\]*)*\]|\\.)[^[\/\\]*)*?(\/)[gim]*/.source,
-	
+
 	    UNSUPPORTED = RegExp('[\\' + 'x00-\\x1F<>a-zA-Z0-9\'",;\\\\]'),
-	
+
 	    NEED_ESCAPE = /(?=[[\]()*+?.^$|])/g,
-	
+
 	    FINDBRACES = {
 	      '(': RegExp('([()])|'   + S_QBLOCKS, REGLOB),
 	      '[': RegExp('([[\\]])|' + S_QBLOCKS, REGLOB),
 	      '{': RegExp('([{}])|'   + S_QBLOCKS, REGLOB)
 	    },
-	
+
 	    DEFAULT = '{ }';
-	
+
 	  var _pairs = [
 	    '{', '}',
 	    '{', '}',
@@ -482,32 +483,32 @@
 	    /^\s*{\^?\s*([$\w]+)(?:\s*,\s*(\S+))?\s+in\s+(\S.*)\s*}/,
 	    /(^|[^\\]){=[\S\s]*?}/
 	  ];
-	
+
 	  var
 	    cachedBrackets = UNDEF,
 	    _regex,
 	    _cache = [],
 	    _settings;
-	
+
 	  function _loopback (re) { return re }
-	
+
 	  function _rewrite (re, bp) {
 	    if (!bp) { bp = _cache; }
 	    return new RegExp(
 	      re.source.replace(/{/g, bp[2]).replace(/}/g, bp[3]), re.global ? REGLOB : ''
 	    )
 	  }
-	
+
 	  function _create (pair) {
 	    if (pair === DEFAULT) { return _pairs }
-	
+
 	    var arr = pair.split(' ');
-	
+
 	    if (arr.length !== 2 || UNSUPPORTED.test(pair)) {
 	      throw new Error('Unsupported brackets "' + pair + '"')
 	    }
 	    arr = arr.concat(pair.replace(NEED_ESCAPE, '\\').split(' '));
-	
+
 	    arr[4] = _rewrite(arr[1].length > 1 ? /{[\S\s]*?}/ : _pairs[4], arr);
 	    arr[5] = _rewrite(pair.length > 3 ? /\\({|})/g : _pairs[5], arr);
 	    arr[6] = _rewrite(_pairs[6], arr);
@@ -515,15 +516,15 @@
 	    arr[8] = pair;
 	    return arr
 	  }
-	
+
 	  function _brackets (reOrIdx) {
 	    return reOrIdx instanceof RegExp ? _regex(reOrIdx) : _cache[reOrIdx]
 	  }
-	
+
 	  _brackets.split = function split (str, tmpl, _bp) {
 	    // istanbul ignore next: _bp is for the compiler
 	    if (!_bp) { _bp = _cache; }
-	
+
 	    var
 	      parts = [],
 	      match,
@@ -531,15 +532,15 @@
 	      start,
 	      pos,
 	      re = _bp[6];
-	
+
 	    isexpr = start = re.lastIndex = 0;
-	
+
 	    while ((match = re.exec(str))) {
-	
+
 	      pos = match.index;
-	
+
 	      if (isexpr) {
-	
+
 	        if (match[2]) {
 	          re.lastIndex = skipBraces(str, match[2], re.lastIndex);
 	          continue
@@ -548,7 +549,7 @@
 	          continue
 	        }
 	      }
-	
+
 	      if (!match[1]) {
 	        unescapeStr(str.slice(start, pos));
 	        start = re.lastIndex;
@@ -556,13 +557,13 @@
 	        re.lastIndex = start;
 	      }
 	    }
-	
+
 	    if (str && start < str.length) {
 	      unescapeStr(str.slice(start));
 	    }
-	
+
 	    return parts
-	
+
 	    function unescapeStr (s) {
 	      if (tmpl || isexpr) {
 	        parts.push(s && s.replace(_bp[5], '$1'));
@@ -570,12 +571,12 @@
 	        parts.push(s);
 	      }
 	    }
-	
+
 	    function skipBraces (s, ch, ix) {
 	      var
 	        match,
 	        recch = FINDBRACES[ch];
-	
+
 	      recch.lastIndex = ix;
 	      ix = 1;
 	      while ((match = recch.exec(s))) {
@@ -585,23 +586,23 @@
 	      return ix ? s.length : recch.lastIndex
 	    }
 	  };
-	
+
 	  _brackets.hasExpr = function hasExpr (str) {
 	    return _cache[4].test(str)
 	  };
-	
+
 	  _brackets.loopKeys = function loopKeys (expr) {
 	    var m = expr.match(_cache[9]);
-	
+
 	    return m
 	      ? { key: m[1], pos: m[2], val: _cache[0] + m[3].trim() + _cache[1] }
 	      : { val: expr.trim() }
 	  };
-	
+
 	  _brackets.array = function array (pair) {
 	    return pair ? _create(pair) : _cache
 	  };
-	
+
 	  function _reset (pair) {
 	    if ((pair || (pair = DEFAULT)) !== _cache[8]) {
 	      _cache = _create(pair);
@@ -610,10 +611,10 @@
 	    }
 	    cachedBrackets = pair;
 	  }
-	
+
 	  function _setSettings (o) {
 	    var b;
-	
+
 	    o = o || {};
 	    b = o.brackets;
 	    Object.defineProperty(o, 'brackets', {
@@ -624,24 +625,24 @@
 	    _settings = o;
 	    _reset(b);
 	  }
-	
+
 	  Object.defineProperty(_brackets, 'settings', {
 	    set: _setSettings,
 	    get: function () { return _settings }
 	  });
-	
+
 	  /* istanbul ignore next: in the browser riot is always in the scope */
 	  _brackets.settings = typeof riot !== 'undefined' && riot.settings || {};
 	  _brackets.set = _reset;
-	
+
 	  _brackets.R_STRINGS = R_STRINGS;
 	  _brackets.R_MLCOMMS = R_MLCOMMS;
 	  _brackets.S_QBLOCKS = S_QBLOCKS;
-	
+
 	  return _brackets
-	
+
 	})();
-	
+
 	/**
 	 * @module tmpl
 	 *
@@ -649,33 +650,33 @@
 	 * tmpl.hasExpr  - Test the existence of a expression inside a string
 	 * tmpl.loopKeys - Get the keys for an 'each' loop (used by `_each`)
 	 */
-	
+
 	var tmpl = (function () {
-	
+
 	  var _cache = {};
-	
+
 	  function _tmpl (str, data) {
 	    if (!str) { return str }
-	
+
 	    return (_cache[str] || (_cache[str] = _create(str))).call(data, _logErr)
 	  }
-	
+
 	  _tmpl.hasExpr = brackets.hasExpr;
-	
+
 	  _tmpl.loopKeys = brackets.loopKeys;
-	
+
 	  // istanbul ignore next
 	  _tmpl.clearCache = function () { _cache = {}; };
-	
+
 	  _tmpl.errorHandler = null;
-	
+
 	  function _logErr (err, ctx) {
-	
+
 	    err.riotData = {
 	      tagName: ctx && ctx.root && ctx.root.tagName,
 	      _riot_id: ctx && ctx._riot_id  //eslint-disable-line camelcase
 	    };
-	
+
 	    if (_tmpl.errorHandler) { _tmpl.errorHandler(err); }
 	    else if (
 	      typeof console !== 'undefined' &&
@@ -687,57 +688,57 @@
 	      console.error(err);
 	    }
 	  }
-	
+
 	  function _create (str) {
 	    var expr = _getTmpl(str);
-	
+
 	    if (expr.slice(0, 11) !== 'try{return ') { expr = 'return ' + expr; }
-	
+
 	    return new Function('E', expr + ';')    // eslint-disable-line no-new-func
 	  }
-	
+
 	  var
 	    CH_IDEXPR = String.fromCharCode(0x2057),
 	    RE_CSNAME = /^(?:(-?[_A-Za-z\xA0-\xFF][-\w\xA0-\xFF]*)|\u2057(\d+)~):/,
 	    RE_QBLOCK = RegExp(brackets.S_QBLOCKS, 'g'),
 	    RE_DQUOTE = /\u2057/g,
 	    RE_QBMARK = /\u2057(\d+)~/g;
-	
+
 	  function _getTmpl (str) {
 	    var
 	      qstr = [],
 	      expr,
 	      parts = brackets.split(str.replace(RE_DQUOTE, '"'), 1);
-	
+
 	    if (parts.length > 2 || parts[0]) {
 	      var i, j, list = [];
-	
+
 	      for (i = j = 0; i < parts.length; ++i) {
-	
+
 	        expr = parts[i];
-	
+
 	        if (expr && (expr = i & 1
-	
+
 	            ? _parseExpr(expr, 1, qstr)
-	
+
 	            : '"' + expr
 	                .replace(/\\/g, '\\\\')
 	                .replace(/\r\n?|\n/g, '\\n')
 	                .replace(/"/g, '\\"') +
 	              '"'
-	
+
 	          )) { list[j++] = expr; }
-	
+
 	      }
-	
+
 	      expr = j < 2 ? list[0]
 	           : '[' + list.join(',') + '].join("")';
-	
+
 	    } else {
-	
+
 	      expr = _parseExpr(parts[1], 0, qstr);
 	    }
-	
+
 	    if (qstr[0]) {
 	      expr = expr.replace(RE_QBMARK, function (_, pos) {
 	        return qstr[pos]
@@ -747,29 +748,29 @@
 	    }
 	    return expr
 	  }
-	
+
 	  var
 	    RE_BREND = {
 	      '(': /[()]/g,
 	      '[': /[[\]]/g,
 	      '{': /[{}]/g
 	    };
-	
+
 	  function _parseExpr (expr, asText, qstr) {
-	
+
 	    expr = expr
 	          .replace(RE_QBLOCK, function (s, div) {
 	            return s.length > 2 && !div ? CH_IDEXPR + (qstr.push(s) - 1) + '~' : s
 	          })
 	          .replace(/\s+/g, ' ').trim()
 	          .replace(/\ ?([[\({},?\.:])\ ?/g, '$1');
-	
+
 	    if (expr) {
 	      var
 	        list = [],
 	        cnt = 0,
 	        match;
-	
+
 	      while (expr &&
 	            (match = expr.match(RE_CSNAME)) &&
 	            !match.index
@@ -778,29 +779,29 @@
 	          key,
 	          jsb,
 	          re = /,|([[{(])|$/g;
-	
+
 	        expr = RegExp.rightContext;
 	        key  = match[2] ? qstr[match[2]].slice(1, -1).trim().replace(/\s+/g, ' ') : match[1];
-	
+
 	        while (jsb = (match = re.exec(expr))[1]) { skipBraces(jsb, re); }
-	
+
 	        jsb  = expr.slice(0, match.index);
 	        expr = RegExp.rightContext;
-	
+
 	        list[cnt++] = _wrapExpr(jsb, 1, key);
 	      }
-	
+
 	      expr = !cnt ? _wrapExpr(expr, asText)
 	           : cnt > 1 ? '[' + list.join(',') + '].join(" ").trim()' : list[0];
 	    }
 	    return expr
-	
+
 	    function skipBraces (ch, re) {
 	      var
 	        mm,
 	        lv = 1,
 	        ir = RE_BREND[ch];
-	
+
 	      ir.lastIndex = re.lastIndex;
 	      while (mm = ir.exec(expr)) {
 	        if (mm[0] === ch) { ++lv; }
@@ -809,20 +810,20 @@
 	      re.lastIndex = lv ? expr.length : ir.lastIndex;
 	    }
 	  }
-	
+
 	  // istanbul ignore next: not both
 	  var // eslint-disable-next-line max-len
 	    JS_CONTEXT = '"in this?this:' + (typeof window !== 'object' ? 'global' : 'window') + ').',
 	    JS_VARNAME = /[,{][\$\w]+(?=:)|(^ *|[^$\w\.{])(?!(?:typeof|true|false|null|undefined|in|instanceof|is(?:Finite|NaN)|void|NaN|new|Date|RegExp|Math)(?![$\w]))([$_A-Za-z][$\w]*)/g,
 	    JS_NOPROPS = /^(?=(\.[$\w]+))\1(?:[^.[(]|$)/;
-	
+
 	  function _wrapExpr (expr, asText, key) {
 	    var tb;
-	
+
 	    expr = expr.replace(JS_VARNAME, function (match, p, mvar, pos, s) {
 	      if (mvar) {
 	        pos = tb ? 0 : pos + match.length;
-	
+
 	        if (mvar !== 'this' && mvar !== 'global' && mvar !== 'window') {
 	          match = p + '("' + mvar + JS_CONTEXT + mvar;
 	          if (pos) { tb = (s = s[pos]) === '.' || s === '(' || s === '['; }
@@ -832,150 +833,52 @@
 	      }
 	      return match
 	    });
-	
+
 	    if (tb) {
 	      expr = 'try{return ' + expr + '}catch(e){E(e,this)}';
 	    }
-	
+
 	    if (key) {
-	
+
 	      expr = (tb
 	          ? 'function(){' + expr + '}.call(this)' : '(' + expr + ')'
 	        ) + '?"' + key + '":""';
-	
+
 	    } else if (asText) {
-	
+
 	      expr = 'function(v){' + (tb
 	          ? expr.replace('return ', 'v=') : 'v=(' + expr + ')'
 	        ) + ';return v||v===0?v:""}.call(this)';
 	    }
-	
+
 	    return expr
 	  }
-	
+
 	  _tmpl.version = brackets.version = 'v3.0.1';
-	
+
 	  return _tmpl
-	
+
 	})();
-	
-	/**
-	 * Specialized function for looping an array-like collection with `each={}`
-	 * @param   { Array } list - collection of items
-	 * @param   {Function} fn - callback function
-	 * @returns { Array } the array looped
-	 */
-	function each(list, fn) {
-	  var len = list ? list.length : 0;
-	
-	  for (var i = 0, el; i < len; ++i) {
-	    el = list[i];
-	    // return false -> current item was removed by fn during the loop
-	    if (fn(el, i) === false)
-	      { i--; }
-	  }
-	  return list
-	}
-	
-	/**
-	 * Check whether an array contains an item
-	 * @param   { Array } array - target array
-	 * @param   { * } item - item to test
-	 * @returns { Boolean } -
-	 */
-	function contains(array, item) {
-	  return ~array.indexOf(item)
-	}
-	
-	/**
-	 * Convert a string containing dashes to camel case
-	 * @param   { String } str - input string
-	 * @returns { String } my-string -> myString
-	 */
-	function toCamel(str) {
-	  return str.replace(/-(\w)/g, function (_, c) { return c.toUpperCase(); })
-	}
-	
-	/**
-	 * Faster String startsWith alternative
-	 * @param   { String } str - source string
-	 * @param   { String } value - test string
-	 * @returns { Boolean } -
-	 */
-	function startsWith(str, value) {
-	  return str.slice(0, value.length) === value
-	}
-	
-	/**
-	 * Helper function to set an immutable property
-	 * @param   { Object } el - object where the new property will be set
-	 * @param   { String } key - object key where the new property will be stored
-	 * @param   { * } value - value of the new property
-	 * @param   { Object } options - set the propery overriding the default options
-	 * @returns { Object } - the initial object
-	 */
-	function defineProperty(el, key, value, options) {
-	  Object.defineProperty(el, key, extend({
-	    value: value,
-	    enumerable: false,
-	    writable: false,
-	    configurable: true
-	  }, options));
-	  return el
-	}
-	
-	/**
-	 * Extend any object with other properties
-	 * @param   { Object } src - source object
-	 * @returns { Object } the resulting extended object
-	 *
-	 * var obj = { foo: 'baz' }
-	 * extend(obj, {bar: 'bar', foo: 'bar'})
-	 * console.log(obj) => {bar: 'bar', foo: 'bar'}
-	 *
-	 */
-	function extend(src) {
-	  var obj, args = arguments;
-	  for (var i = 1; i < args.length; ++i) {
-	    if (obj = args[i]) {
-	      for (var key in obj) {
-	        // check if this property of the source object could be overridden
-	        if (isWritable(src, key))
-	          { src[key] = obj[key]; }
-	      }
-	    }
-	  }
-	  return src
-	}
-	
-	var misc = Object.freeze({
-		each: each,
-		contains: contains,
-		toCamel: toCamel,
-		startsWith: startsWith,
-		defineProperty: defineProperty,
-		extend: extend
-	});
-	
-	var observable = function(el) {
-	
+
+	var observable$1 = function(el) {
+
 	  /**
 	   * Extend the original object or create a new empty one
 	   * @type { Object }
 	   */
-	
+
 	  el = el || {};
-	
+
 	  /**
 	   * Private variables
 	   */
 	  var callbacks = {},
 	    slice = Array.prototype.slice;
-	
+
 	  /**
 	   * Public Api
 	   */
-	
+
 	  // extend the el object adding the observable methods
 	  Object.defineProperties(el, {
 	    /**
@@ -995,7 +898,7 @@
 	      writable: false,
 	      configurable: false
 	    },
-	
+
 	    /**
 	     * Removes the given `event` listeners
 	     * @param   { String } event - event id
@@ -1019,7 +922,7 @@
 	      writable: false,
 	      configurable: false
 	    },
-	
+
 	    /**
 	     * Listen to the given `event` and
 	     * execute the `callback` at most once
@@ -1039,7 +942,7 @@
 	      writable: false,
 	      configurable: false
 	    },
-	
+
 	    /**
 	     * Execute all callback functions that listen to
 	     * the given `event`
@@ -1049,28 +952,28 @@
 	    trigger: {
 	      value: function(event) {
 	        var arguments$1 = arguments;
-	
-	
+
+
 	        // getting the arguments
 	        var arglen = arguments.length - 1,
 	          args = new Array(arglen),
 	          fns,
 	          fn,
 	          i;
-	
+
 	        for (i = 0; i < arglen; i++) {
 	          args[i] = arguments$1[i + 1]; // skip first argument
 	        }
-	
+
 	        fns = slice.call(callbacks[event] || [], 0);
-	
+
 	        for (i = 0; fn = fns[i]; ++i) {
 	          fn.apply(el, args);
 	        }
-	
+
 	        if (callbacks['*'] && event != '*')
 	          { el.trigger.apply(el, ['*', event].concat(args)); }
-	
+
 	        return el
 	      },
 	      enumerable: false,
@@ -1078,13 +981,111 @@
 	      configurable: false
 	    }
 	  });
-	
+
 	  return el
-	
+
 	};
-	
+
+	/**
+	 * Specialized function for looping an array-like collection with `each={}`
+	 * @param   { Array } list - collection of items
+	 * @param   {Function} fn - callback function
+	 * @returns { Array } the array looped
+	 */
+	function each(list, fn) {
+	  var len = list ? list.length : 0;
+
+	  for (var i = 0, el; i < len; ++i) {
+	    el = list[i];
+	    // return false -> current item was removed by fn during the loop
+	    if (fn(el, i) === false)
+	      { i--; }
+	  }
+	  return list
+	}
+
+	/**
+	 * Check whether an array contains an item
+	 * @param   { Array } array - target array
+	 * @param   { * } item - item to test
+	 * @returns { Boolean } -
+	 */
+	function contains(array, item) {
+	  return ~array.indexOf(item)
+	}
+
+	/**
+	 * Convert a string containing dashes to camel case
+	 * @param   { String } str - input string
+	 * @returns { String } my-string -> myString
+	 */
+	function toCamel(str) {
+	  return str.replace(/-(\w)/g, function (_, c) { return c.toUpperCase(); })
+	}
+
+	/**
+	 * Faster String startsWith alternative
+	 * @param   { String } str - source string
+	 * @param   { String } value - test string
+	 * @returns { Boolean } -
+	 */
+	function startsWith(str, value) {
+	  return str.slice(0, value.length) === value
+	}
+
+	/**
+	 * Helper function to set an immutable property
+	 * @param   { Object } el - object where the new property will be set
+	 * @param   { String } key - object key where the new property will be stored
+	 * @param   { * } value - value of the new property
+	 * @param   { Object } options - set the propery overriding the default options
+	 * @returns { Object } - the initial object
+	 */
+	function defineProperty(el, key, value, options) {
+	  Object.defineProperty(el, key, extend({
+	    value: value,
+	    enumerable: false,
+	    writable: false,
+	    configurable: true
+	  }, options));
+	  return el
+	}
+
+	/**
+	 * Extend any object with other properties
+	 * @param   { Object } src - source object
+	 * @returns { Object } the resulting extended object
+	 *
+	 * var obj = { foo: 'baz' }
+	 * extend(obj, {bar: 'bar', foo: 'bar'})
+	 * console.log(obj) => {bar: 'bar', foo: 'bar'}
+	 *
+	 */
+	function extend(src) {
+	  var obj, args = arguments;
+	  for (var i = 1; i < args.length; ++i) {
+	    if (obj = args[i]) {
+	      for (var key in obj) {
+	        // check if this property of the source object could be overridden
+	        if (isWritable(src, key))
+	          { src[key] = obj[key]; }
+	      }
+	    }
+	  }
+	  return src
+	}
+
+	var misc = Object.freeze({
+		each: each,
+		contains: contains,
+		toCamel: toCamel,
+		startsWith: startsWith,
+		defineProperty: defineProperty,
+		extend: extend
+	});
+
 	var EVENTS_PREFIX_REGEX = /^on/;
-	
+
 	/**
 	 * Trigger DOM events
 	 * @param   { HTMLElement } dom - dom element target of the event
@@ -1094,29 +1095,29 @@
 	function handleEvent(dom, handler, e) {
 	  var ptag = this._parent,
 	    item = this._item;
-	
+
 	  if (!item)
 	    { while (ptag && !item) {
 	      item = ptag._item;
 	      ptag = ptag._parent;
 	    } }
-	
+
 	  // override the event properties
 	  if (isWritable(e, 'currentTarget')) { e.currentTarget = dom; }
 	  if (isWritable(e, 'target')) { e.target = e.srcElement; }
 	  if (isWritable(e, 'which')) { e.which = e.charCode || e.keyCode; }
-	
+
 	  e.item = item;
-	
+
 	  handler.call(this, e);
-	
+
 	  if (!e.preventUpdate) {
 	    var p = getImmediateCustomParentTag(this);
 	    // fixes #2083
 	    if (p.isMounted) { p.update(); }
 	  }
 	}
-	
+
 	/**
 	 * Attach an event to a DOM node
 	 * @param { String } name - event name
@@ -1127,28 +1128,28 @@
 	function setEventHandler(name, handler, dom, tag) {
 	  var eventName,
 	    cb = handleEvent.bind(tag, dom, handler);
-	
+
 	  if (!dom.addEventListener) {
 	    dom[name] = cb;
 	    return
 	  }
-	
+
 	  // avoid to bind twice the same event
 	  dom[name] = null;
-	
+
 	  // normalize event name
 	  eventName = name.replace(EVENTS_PREFIX_REGEX, '');
-	
+
 	  // cache the callback directly on the DOM node
 	  if (!dom._riotEvents) { dom._riotEvents = {}; }
-	
+
 	  if (dom._riotEvents[name])
 	    { dom.removeEventListener(eventName, dom._riotEvents[name]); }
-	
+
 	  dom._riotEvents[name] = cb;
 	  dom.addEventListener(eventName, cb, false);
 	}
-	
+
 	/**
 	 * Update dynamically created data-is tags with changing expressions
 	 * @param { Object } expr - expression tag and expression info
@@ -1157,28 +1158,24 @@
 	function updateDataIs(expr, parent) {
 	  var tagName = tmpl(expr.value, parent),
 	    conf;
-	
+
 	  if (expr.tag && expr.tagName === tagName) {
 	    expr.tag.update();
 	    return
 	  }
-	
+
 	  // sync _parent to accommodate changing tagnames
 	  if (expr.tag) {
-	    var delName = expr.value,
-	      tags = expr.tag._parent.tags;
-	
-	    setAttr(expr.tag.root, RIOT_TAG_IS, tagName); // update for css
-	    arrayishRemove(tags, delName, expr.tag);
+	    each(expr.attrs, function (a) { return setAttr(expr.tag.root, a.name, a.value); });
+	    expr.tag.unmount(true);
 	  }
-	
+
 	  expr.impl = __TAG_IMPL[tagName];
 	  conf = {root: expr.dom, parent: parent, hasImpl: true, tagName: tagName};
 	  expr.tag = initChildTag(expr.impl, conf, expr.dom.innerHTML, parent);
 	  expr.tagName = tagName;
 	  expr.tag.mount();
-	  expr.tag.update();
-	
+
 	  // parent is the placeholder tag, not the dynamic tag so clean up
 	  parent.on('unmount', function () {
 	    var delName = expr.tag.opts.dataIs,
@@ -1189,7 +1186,7 @@
 	    expr.tag.unmount();
 	  });
 	}
-	
+
 	/**
 	 * Update on single tag expression
 	 * @this Tag
@@ -1199,27 +1196,26 @@
 	function updateExpression(expr) {
 	  var dom = expr.dom,
 	    attrName = expr.attr,
-	    isToggle = /^(show|hide)$/.test(attrName),
-	    // the value for the toggle must consider also the parent tag
-	    value = isToggle ? tmpl(expr.expr, extend({}, this, this.parent)) : tmpl(expr.expr, this),
+	    isToggle = contains([SHOW_DIRECTIVE, HIDE_DIRECTIVE], attrName),
+	    value = tmpl(expr.expr, this),
 	    isValueAttr = attrName === 'riot-value',
 	    isVirtual = expr.root && expr.root.tagName === 'VIRTUAL',
 	    parent = dom && (expr.parent || dom.parentNode),
 	    old;
-	
+
 	  if (expr.bool)
 	    { value = value ? attrName : false; }
 	  else if (isUndefined(value) || value === null)
 	    { value = ''; }
-	
+
 	  if (expr._riot_id) { // if it's a tag
 	    if (expr.isMounted) {
 	      expr.update();
-	
+
 	    // if it hasn't been mounted yet, do that now.
 	    } else {
 	      expr.mount();
-	
+
 	      if (isVirtual) {
 	        var frag = document.createDocumentFragment();
 	        makeVirtual.call(expr, frag);
@@ -1228,20 +1224,20 @@
 	    }
 	    return
 	  }
-	
+
 	  old = expr.value;
 	  expr.value = value;
-	
+
 	  if (expr.update) {
 	    expr.update();
 	    return
 	  }
-	
+
 	  if (expr.isRtag && value) { return updateDataIs(expr, this) }
 	  if (old === value) { return }
 	  // no change, so nothing more to do
 	  if (isValueAttr && dom.value === value) { return }
-	
+
 	  // textarea and text nodes have no attribute name
 	  if (!attrName) {
 	    // about #815 w/o replace: the browser converts the value to a string,
@@ -1260,26 +1256,26 @@
 	    }
 	    return
 	  }
-	
+
 	  // remove original attribute
 	  if (!expr.isAttrRemoved || !value) {
 	    remAttr(dom, attrName);
 	    expr.isAttrRemoved = true;
 	  }
-	
+
 	  // event handler
 	  if (isFunction(value)) {
 	    setEventHandler(attrName, value, dom, this);
 	  // show / hide
 	  } else if (isToggle) {
-	    if (attrName === 'hide') { value = !value; }
+	    if (attrName === HIDE_DIRECTIVE) { value = !value; }
 	    dom.style.display = value ? '' : 'none';
 	  // field value
 	  } else if (isValueAttr) {
 	    dom.value = value;
 	  // <img src="{ expr }">
-	  } else if (startsWith(attrName, RIOT_PREFIX) && attrName !== RIOT_TAG_IS) {
-	    attrName = attrName.slice(RIOT_PREFIX.length);
+	  } else if (startsWith(attrName, ATTRS_PREFIX) && attrName !== IS_DIRECTIVE) {
+	    attrName = attrName.slice(ATTRS_PREFIX.length);
 	    if (CASE_SENSITIVE_ATTRIBUTES[attrName])
 	      { attrName = CASE_SENSITIVE_ATTRIBUTES[attrName]; }
 	    if (value != null)
@@ -1296,7 +1292,7 @@
 	    }
 	  }
 	}
-	
+
 	/**
 	 * Update all the expressions in a Tag instance
 	 * @this Tag
@@ -1305,30 +1301,30 @@
 	function updateAllExpressions(expressions) {
 	  each(expressions, updateExpression.bind(this));
 	}
-	
+
 	var IfExpr = {
-	  init: function init(dom, parentTag, expr) {
-	    remAttr(dom, 'if');
-	    this.parentTag = parentTag;
+	  init: function init(dom, tag, expr) {
+	    remAttr(dom, CONDITIONAL_DIRECTIVE);
+	    this.tag = tag;
 	    this.expr = expr;
 	    this.stub = document.createTextNode('');
 	    this.pristine = dom;
-	
+
 	    var p = dom.parentNode;
 	    p.insertBefore(this.stub, dom);
 	    p.removeChild(dom);
-	
+
 	    return this
 	  },
 	  update: function update() {
-	    var newValue = tmpl(this.expr, this.parentTag);
-	
+	    var newValue = tmpl(this.expr, this.tag);
+
 	    if (newValue && !this.current) { // insert
 	      this.current = this.pristine.cloneNode(true);
 	      this.stub.parentNode.insertBefore(this.current, this.stub);
-	
+
 	      this.expressions = [];
-	      parseExpressions.apply(this.parentTag, [this.current, this.expressions, true]);
+	      parseExpressions.apply(this.tag, [this.current, this.expressions, true]);
 	    } else if (!newValue && this.current) { // remove
 	      unmountAll(this.expressions);
 	      if (this.current._tag) {
@@ -1338,8 +1334,8 @@
 	      this.current = null;
 	      this.expressions = [];
 	    }
-	
-	    if (newValue) { updateAllExpressions.call(this.parentTag, this.expressions); }
+
+	    if (newValue) { updateAllExpressions.call(this.tag, this.expressions); }
 	  },
 	  unmount: function unmount() {
 	    unmountAll(this.expressions || []);
@@ -1348,35 +1344,35 @@
 	    delete this.stub;
 	  }
 	};
-	
+
 	var RefExpr = {
-	  init: function init(dom, attrName, attrValue, parent) {
+	  init: function init(dom, parent, attrName, attrValue) {
 	    this.dom = dom;
 	    this.attr = attrName;
 	    this.rawValue = attrValue;
 	    this.parent = parent;
 	    this.hasExp = tmpl.hasExpr(attrValue);
 	    this.firstRun = true;
-	
+
 	    return this
 	  },
 	  update: function update() {
 	    var value = this.rawValue;
 	    if (this.hasExp)
 	      { value = tmpl(this.rawValue, this.parent); }
-	
+
 	    // if nothing changed, we're done
 	    if (!this.firstRun && value === this.value) { return }
-	
+
 	    var customParent = this.parent && getImmediateCustomParentTag(this.parent);
-	
+
 	    // if the referenced element is a custom tag, then we set the tag itself, rather than DOM
 	    var tagOrDom = this.tag || this.dom;
-	
+
 	    // the name changed, so we need to remove it from the old key (if present)
 	    if (!isBlank(this.value) && customParent)
 	      { arrayishRemove(customParent.refs, this.value, tagOrDom); }
-	
+
 	    if (isBlank(value)) {
 	      // if the value is blank, we remove it
 	      remAttr(this.dom, this.attr);
@@ -1398,7 +1394,7 @@
 	    delete this.parent;
 	  }
 	};
-	
+
 	/**
 	 * Convert the item looped into an object used to extend the child tag properties
 	 * @param   { Object } expr - object containing the keys used to extend the children tags
@@ -1418,28 +1414,26 @@
 	  if (expr.pos) { item[expr.pos] = val; }
 	  return item
 	}
-	
+
 	/**
 	 * Unmount the redundant tags
 	 * @param   { Array } items - array containing the current items to loop
 	 * @param   { Array } tags - array containing all the children tags
 	 * @param   { String } tagName - key used to identify the type of tag
-	 * @param   { Object } parent - parent tag to remove the child from
 	 */
-	function unmountRedundant(items, tags, tagName, parent) {
-	
+	function unmountRedundant(items, tags, tagName) {
 	  var i = tags.length,
 	    j = items.length,
 	    t;
-	
+
 	  while (i > j) {
 	    t = tags[--i];
 	    tags.splice(i, 1);
 	    t.unmount();
-	    arrayishRemove(parent.tags, tagName, t, true);
+	    arrayishRemove(t.parent, tagName, t, true);
 	  }
 	}
-	
+
 	/**
 	 * Move the nested custom tags in non custom loop tags
 	 * @this Tag
@@ -1447,7 +1441,7 @@
 	 */
 	function moveNestedTags(i) {
 	  var this$1 = this;
-	
+
 	  each(Object.keys(this.tags), function (tagName) {
 	    var tag = this$1.tags[tagName];
 	    if (isArray(tag))
@@ -1458,7 +1452,7 @@
 	      { moveChildTag.apply(tag, [tagName, i]); }
 	  });
 	}
-	
+
 	/**
 	 * Move a child tag
 	 * @this Tag
@@ -1472,7 +1466,7 @@
 	  else
 	    { safeInsert(root, this.root, nextTag.root); }
 	}
-	
+
 	/**
 	 * Insert and mount a child tag
 	 * @this Tag
@@ -1486,7 +1480,7 @@
 	  else
 	    { safeInsert(root, this.root, nextTag.root); }
 	}
-	
+
 	/**
 	 * Append a new tag into the DOM
 	 * @this Tag
@@ -1499,7 +1493,7 @@
 	  else
 	    { root.appendChild(this.root); }
 	}
-	
+
 	/**
 	 * Manage tags having the 'each'
 	 * @param   { HTMLElement } dom - DOM node we need to loop
@@ -1508,44 +1502,45 @@
 	 * @returns { Object } expression object for this each loop
 	 */
 	function _each(dom, parent, expr) {
-	
+
 	  // remove the each property from the original tag
-	  remAttr(dom, 'each');
-	
-	  var mustReorder = typeof getAttr(dom, 'no-reorder') !== T_STRING || remAttr(dom, 'no-reorder'),
+	  remAttr(dom, LOOP_DIRECTIVE);
+
+	  var mustReorder = typeof getAttr(dom, LOOP_NO_REORDER_DIRECTIVE) !== T_STRING || remAttr(dom, LOOP_NO_REORDER_DIRECTIVE),
 	    tagName = getTagName(dom),
 	    impl = __TAG_IMPL[tagName] || { tmpl: getOuterHTML(dom) },
 	    useRoot = RE_SPECIAL_TAGS.test(tagName),
 	    parentNode = dom.parentNode,
 	    ref = createDOMPlaceholder(),
 	    child = getTag(dom),
-	    ifExpr = getAttr(dom, 'if'),
+	    ifExpr = getAttr(dom, CONDITIONAL_DIRECTIVE),
 	    tags = [],
 	    oldItems = [],
 	    hasKeys,
 	    isLoop = true,
 	    isAnonymous = !__TAG_IMPL[tagName],
 	    isVirtual = dom.tagName === 'VIRTUAL';
-	
+
 	  // parse the each expression
 	  expr = tmpl.loopKeys(expr);
 	  expr.isLoop = true;
-	
-	  if (ifExpr) { remAttr(dom, 'if'); }
-	
+
+	  if (ifExpr) { remAttr(dom, CONDITIONAL_DIRECTIVE); }
+
 	  // insert a marked where the loop tags will be injected
 	  parentNode.insertBefore(ref, dom);
 	  parentNode.removeChild(dom);
-	
+
 	  expr.update = function updateEach() {
-	
+
 	    // get the new items collection
 	    var items = tmpl(expr.val, parent),
 	      frag = createFrag(),
+	      isObject$$1 = !isArray(items),
 	      root = ref.parentNode;
-	
+
 	    // object loop. any changes cause full redraw
-	    if (!isArray(items)) {
+	    if (isObject$$1) {
 	      hasKeys = items || false;
 	      items = hasKeys ?
 	        Object.keys(items).map(function (key) {
@@ -1554,64 +1549,60 @@
 	    } else {
 	      hasKeys = false;
 	    }
-	
+
 	    if (ifExpr) {
 	      items = items.filter(function(item, i) {
-	        if (expr.key) {
-	          return !!tmpl(ifExpr, mkitem(expr, item, i, parent))
-	        }
-	        // in case it's not a keyed loop
-	        // we test the validity of the if expression against
-	        // the item and the parent
-	        return !!tmpl(ifExpr, parent) || !!tmpl(ifExpr, item)
+	        if (expr.key && !isObject$$1)
+	          { return !!tmpl(ifExpr, mkitem(expr, item, i, parent)) }
+
+	        return !!tmpl(ifExpr, extend(Object.create(parent), item))
 	      });
 	    }
-	
+
 	    // loop all the new items
 	    each(items, function(item, i) {
 	      // reorder only if the items are objects
 	      var
-	        _mustReorder = mustReorder && typeof item === T_OBJECT && !hasKeys,
+	        doReorder = mustReorder && typeof item === T_OBJECT && !hasKeys,
 	        oldPos = oldItems.indexOf(item),
-	        pos = ~oldPos && _mustReorder ? oldPos : i,
+	        isNew = !~oldPos,
+	        mustAppend = i <= tags.length,
+	        pos = !isNew && doReorder ? oldPos : i,
 	        // does a tag exist in this position?
 	        tag = tags[pos];
-	
+
 	      item = !hasKeys && expr.key ? mkitem(expr, item, i) : item;
-	
+
 	      // new tag
 	      if (
-	        !_mustReorder && !tag // with no-reorder we just update the old tags
+	        doReorder && isNew // by default we always try to reorder the DOM elements
 	        ||
-	        _mustReorder && !~oldPos // by default we always try to reorder the DOM elements
+	        !doReorder && !tag // with no-reorder we just update the old tags
 	      ) {
-	
-	        var mustAppend = i === tags.length;
-	
-	        tag = new Tag$$1(impl, {
+	        tag = new Tag$1(impl, {
 	          parent: parent,
 	          isLoop: isLoop,
 	          isAnonymous: isAnonymous,
 	          root: useRoot ? root : dom.cloneNode(),
 	          item: item
 	        }, dom.innerHTML);
-	
+
 	        // mount the tag
 	        tag.mount();
-	
+
 	        if (mustAppend)
 	          { append.apply(tag, [frag || root, isVirtual]); }
 	        else
 	          { insert.apply(tag, [root, tags[i], isVirtual]); }
-	
+
 	        if (!mustAppend) { oldItems.splice(i, 0, item); }
 	        tags.splice(i, 0, tag);
 	        if (child) { arrayishAdd(parent.tags, tagName, tag, true); }
 	        pos = i; // handled here so no move
 	      } else { tag.update(item); }
-	
+
 	      // reorder the tag if it's not located in its previous position
-	      if (pos !== i && _mustReorder) {
+	      if (pos !== i && doReorder) {
 	        // #closes 2040
 	        if (contains(items, oldItems[i])) {
 	          move.apply(tag, [root, tags[i], isVirtual]);
@@ -1626,30 +1617,30 @@
 	        // we need to move all their custom tags into the right position
 	        if (!child && tag.tags) { moveNestedTags.call(tag, i); }
 	      }
-	
+
 	      // cache the original item to use it in the events bound to this node
 	      // and its children
 	      tag._item = item;
 	      // cache the real parent tag internally
 	      defineProperty(tag, '_parent', parent);
 	    });
-	
+
 	    // remove the redundant tags
-	    unmountRedundant(items, tags, tagName, parent);
-	
+	    unmountRedundant(items, tags, tagName);
+
 	    // clone the items array
 	    oldItems = items.slice();
-	
+
 	    root.insertBefore(frag, ref);
 	  };
-	
+
 	  expr.unmount = function() {
 	    each(tags, function(t) { t.unmount(); });
 	  };
-	
+
 	  return expr
 	}
-	
+
 	/**
 	 * Walk the tag DOM to detect the expressions to evaluate
 	 * @this Tag
@@ -1660,39 +1651,39 @@
 	 */
 	function parseExpressions(root, expressions, mustIncludeRoot) {
 	  var this$1 = this;
-	
+
 	  var tree = {parent: {children: expressions}};
-	
+
 	  walkNodes(root, function (dom, ctx) {
 	    var type = dom.nodeType, parent = ctx.parent, attr, expr, tagImpl;
 	    if (!mustIncludeRoot && dom === root) { return {parent: parent} }
-	
+
 	    // text node
 	    if (type === 3 && dom.parentNode.tagName !== 'STYLE' && tmpl.hasExpr(dom.nodeValue))
 	      { parent.children.push({dom: dom, expr: dom.nodeValue}); }
-	
+
 	    if (type !== 1) { return ctx } // not an element
-	
+
 	    // loop. each does it's own thing (for now)
-	    if (attr = getAttr(dom, 'each')) {
+	    if (attr = getAttr(dom, LOOP_DIRECTIVE)) {
 	      parent.children.push(_each(dom, this$1, attr));
 	      return false
 	    }
-	
+
 	    // if-attrs become the new parent. Any following expressions (either on the current
 	    // element, or below it) become children of this expression.
-	    if (attr = getAttr(dom, 'if')) {
+	    if (attr = getAttr(dom, CONDITIONAL_DIRECTIVE)) {
 	      parent.children.push(Object.create(IfExpr).init(dom, this$1, attr));
 	      return false
 	    }
-	
-	    if (expr = getAttr(dom, RIOT_TAG_IS)) {
+
+	    if (expr = getAttr(dom, IS_DIRECTIVE)) {
 	      if (tmpl.hasExpr(expr)) {
-	        parent.children.push({isRtag: true, expr: expr, dom: dom});
+	        parent.children.push({isRtag: true, expr: expr, dom: dom, attrs: [].slice.call(dom.attributes)});
 	        return false
 	      }
 	    }
-	
+
 	    // if this is a tag, stop traversing here.
 	    // we ignore the root, since parseExpressions is called while we're mounting that root
 	    tagImpl = getTag(dom);
@@ -1701,21 +1692,21 @@
 	      parent.children.push(initChildTag(tagImpl, conf, dom.innerHTML, this$1));
 	      return false
 	    }
-	
+
 	    // attribute expressions
 	    parseAttributes.apply(this$1, [dom, dom.attributes, function(attr, expr) {
 	      if (!expr) { return }
 	      parent.children.push(expr);
 	    }]);
-	
+
 	    // whatever the parent is, all child elements get the same parent.
 	    // If this element had an if-attr, that's the parent for all child elements
 	    return {parent: parent}
 	  }, tree);
-	
+
 	  return { tree: tree, root: root }
 	}
-	
+
 	/**
 	 * Calls `fn` for every attribute on an element. If that attr has an expression,
 	 * it is also passed to fn.
@@ -1726,26 +1717,26 @@
 	 */
 	function parseAttributes(dom, attrs, fn) {
 	  var this$1 = this;
-	
+
 	  each(attrs, function (attr) {
 	    var name = attr.name, bool = isBoolAttr(name), expr;
-	
-	    if (~['ref', 'data-ref'].indexOf(name)) {
-	      expr =  Object.create(RefExpr).init(dom, name, attr.value, this$1);
+
+	    if (contains(REF_DIRECTIVES, name)) {
+	      expr =  Object.create(RefExpr).init(dom, this$1, name, attr.value);
 	    } else if (tmpl.hasExpr(attr.value)) {
 	      expr = {dom: dom, expr: attr.value, attr: attr.name, bool: bool};
 	    }
-	
+
 	    fn(attr, expr);
 	  });
 	}
-	
+
 	/*
 	  Includes hacks needed for the Internet Explorer version 9 and below
 	  See: http://kangax.github.io/compat-table/es5/#ie8
 	       http://codeplanet.io/dropping-ie8/
 	*/
-	
+
 	var reHasYield  = /<yield\b/i;
 	var reYieldAll  = /<yield\s*(?:\/>|>([\S\s]*?)<\/yield\s*>|>)/ig;
 	var reYieldSrc  = /<yield\s+to=['"]([^'">]*)['"]\s*>([\S\s]*?)<\/yield\s*>/ig;
@@ -1753,23 +1744,23 @@
 	var rootEls = { tr: 'tbody', th: 'tr', td: 'tr', col: 'colgroup' };
 	var tblTags = IE_VERSION && IE_VERSION < 10 ? RE_SPECIAL_TAGS : RE_SPECIAL_TAGS_NO_OPTION;
 	var GENERIC = 'div';
-	
-	
+
+
 	/*
 	  Creates the root element for table or select child elements:
 	  tr/th/td/thead/tfoot/tbody/caption/col/colgroup/option/optgroup
 	*/
 	function specialTags(el, tmpl, tagName) {
-	
+
 	  var
 	    select = tagName[0] === 'o',
 	    parent = select ? 'select>' : 'table>';
-	
+
 	  // trim() is important here, this ensures we don't have artifacts,
 	  // so we can check if we have only one element inside the parent
 	  el.innerHTML = '<' + parent + tmpl.trim() + '</' + parent;
 	  parent = el.firstChild;
-	
+
 	  // returns the immediate parent if tr/th/td/col is the only element, if not
 	  // returns the whole tree, as this can include additional elements
 	  if (select) {
@@ -1781,7 +1772,7 @@
 	  }
 	  return parent
 	}
-	
+
 	/*
 	  Replace the yield tag from any tag template with the innerHTML of the
 	  original tag in the page
@@ -1789,15 +1780,15 @@
 	function replaceYield(tmpl, html) {
 	  // do nothing if no yield
 	  if (!reHasYield.test(tmpl)) { return tmpl }
-	
+
 	  // be careful with #1343 - string on the source having `$1`
 	  var src = {};
-	
+
 	  html = html && html.replace(reYieldSrc, function (_, ref, text) {
 	    src[ref] = src[ref] || text;   // preserve first definition
 	    return ''
 	  }).trim();
-	
+
 	  return tmpl
 	    .replace(reYieldDest, function (_, ref, def) {  // yield with from - to attrs
 	      return src[ref] || def || ''
@@ -1806,7 +1797,7 @@
 	      return html || def || ''
 	    })
 	}
-	
+
 	/**
 	 * Creates a DOM element to wrap the given content. Normally an `DIV`, but can be
 	 * also a `TABLE`, `SELECT`, `TBODY`, `TR`, or `COLGROUP` element.
@@ -1821,28 +1812,28 @@
 	  var match   = tmpl && tmpl.match(/^\s*<([-\w]+)/),
 	    tagName = match && match[1].toLowerCase(),
 	    el = mkEl(GENERIC, checkSvg && isSVGTag(tagName));
-	
+
 	  // replace all the yield tags with the tag inner html
 	  tmpl = replaceYield(tmpl, html);
-	
+
 	  /* istanbul ignore next */
 	  if (tblTags.test(tagName))
 	    { el = specialTags(el, tmpl, tagName); }
 	  else
 	    { setInnerHTML(el, tmpl); }
-	
+
 	  el.stub = true;
-	
+
 	  return el
 	}
-	
+
 	/**
 	 * Another way to create a riot tag a bit more es6 friendly
 	 * @param { HTMLElement } el - tag DOM selector or DOM node/s
 	 * @param { Object } opts - tag logic
 	 * @returns { Tag } new riot tag instance
 	 */
-	function Tag$1(el, opts) {
+	function Tag$2(el, opts) {
 	  // get the tag properties from the class constructor
 	  var ref = this;
 	  var name = ref.name;
@@ -1852,19 +1843,19 @@
 	  var onCreate = ref.onCreate;
 	  // register a new tag and cache the class prototype
 	  if (!__TAG_IMPL[name]) {
-	    tag$$1(name, tmpl, css, attrs, onCreate);
+	    tag$1(name, tmpl, css, attrs, onCreate);
 	    // cache the class constructor
 	    __TAG_IMPL[name].class = this.constructor;
 	  }
-	
+
 	  // mount the tag using the class instance
 	  mountTo(el, name, opts, this);
 	  // inject the component css
 	  if (css) { styleManager.inject(); }
-	
+
 	  return this
 	}
-	
+
 	/**
 	 * Create a new riot tag implementation
 	 * @param   { String }   name - name/id of the new riot tag
@@ -1874,30 +1865,30 @@
 	 * @param   { Function } fn - user function
 	 * @returns { String } name/id of the tag just created
 	 */
-	function tag$$1(name, tmpl, css, attrs, fn) {
+	function tag$1(name, tmpl, css, attrs, fn) {
 	  if (isFunction(attrs)) {
 	    fn = attrs;
-	
+
 	    if (/^[\w\-]+\s?=/.test(css)) {
 	      attrs = css;
 	      css = '';
 	    } else
 	      { attrs = ''; }
 	  }
-	
+
 	  if (css) {
 	    if (isFunction(css))
 	      { fn = css; }
 	    else
 	      { styleManager.add(css); }
 	  }
-	
+
 	  name = name.toLowerCase();
 	  __TAG_IMPL[name] = { name: name, tmpl: tmpl, attrs: attrs, fn: fn };
-	
+
 	  return name
 	}
-	
+
 	/**
 	 * Create a new riot tag implementation (for use by the compiler)
 	 * @param   { String }   name - name/id of the new riot tag
@@ -1907,19 +1898,19 @@
 	 * @param   { Function } fn - user function
 	 * @returns { String } name/id of the tag just created
 	 */
-	function tag2$$1(name, tmpl, css, attrs, fn) {
+	function tag2$1(name, tmpl, css, attrs, fn) {
 	  if (css)
 	    { styleManager.add(css, name); }
-	
+
 	  var exists = !!__TAG_IMPL[name];
 	  __TAG_IMPL[name] = { name: name, tmpl: tmpl, attrs: attrs, fn: fn };
-	
+
 	  if (exists && util.hotReloader)
 	    { util.hotReloader(name); }
-	
+
 	  return name
 	}
-	
+
 	/**
 	 * Mount a tag using a specific tag implementation
 	 * @param   { * } selector - tag DOM selector or DOM node/s
@@ -1927,38 +1918,38 @@
 	 * @param   { Object } opts - tag logic
 	 * @returns { Array } new tags instances
 	 */
-	function mount$$1(selector, tagName, opts) {
+	function mount$1(selector, tagName, opts) {
 	  var tags = [];
-	
+
 	  function pushTagsTo(root) {
 	    if (root.tagName) {
-	      var riotTag = getAttr(root, RIOT_TAG_IS);
-	
+	      var riotTag = getAttr(root, IS_DIRECTIVE);
+
 	      // have tagName? force riot-tag to be the same
 	      if (tagName && riotTag !== tagName) {
 	        riotTag = tagName;
-	        setAttr(root, RIOT_TAG_IS, tagName);
+	        setAttr(root, IS_DIRECTIVE, tagName);
 	      }
-	
+
 	      var tag$$1 = mountTo(root, riotTag || root.tagName.toLowerCase(), opts);
-	
+
 	      if (tag$$1)
 	        { tags.push(tag$$1); }
 	    } else if (root.length)
 	      { each(root, pushTagsTo); } // assume nodeList
 	  }
-	
+
 	  // inject styles into DOM
 	  styleManager.inject();
-	
+
 	  if (isObject(tagName)) {
 	    opts = tagName;
 	    tagName = 0;
 	  }
-	
+
 	  var elem;
 	  var allTags;
-	
+
 	  // crawl the DOM to find the tag
 	  if (isString(selector)) {
 	    selector = selector === '*' ?
@@ -1967,7 +1958,7 @@
 	      allTags = selectTags() :
 	      // or just the ones named like the selector
 	      selector + selectTags(selector.split(/, */));
-	
+
 	    // make sure to pass always a selector
 	    // to the querySelectorAll function
 	    elem = selector ? $$(selector) : [];
@@ -1975,7 +1966,7 @@
 	  else
 	    // probably you have passed already a tag or a NodeList
 	    { elem = selector; }
-	
+
 	  // select all the registered and mount them inside their root elements
 	  if (tagName === '*') {
 	    // get all custom tags
@@ -1986,25 +1977,25 @@
 	    else {
 	      // select all the children for all the different root elements
 	      var nodeList = [];
-	
+
 	      each(elem, function (_el) { return nodeList.push($$(tagName, _el)); });
-	
+
 	      elem = nodeList;
 	    }
 	    // get rid of the tagName
 	    tagName = 0;
 	  }
-	
+
 	  pushTagsTo(elem);
-	
+
 	  return tags
 	}
-	
+
 	// Create a mixin that could be globally shared across all the tags
 	var mixins = {};
 	var globals = mixins[GLOBAL_MIXIN] = {};
 	var _id = 0;
-	
+
 	/**
 	 * Create/Return a mixin by its name
 	 * @param   { String }  name - mixin name (global mixin if object)
@@ -2012,29 +2003,29 @@
 	 * @param   { Boolean } g - is global?
 	 * @returns { Object }  the mixin logic
 	 */
-	function mixin$$1(name, mix, g) {
+	function mixin$1(name, mix, g) {
 	  // Unnamed global
 	  if (isObject(name)) {
-	    mixin$$1(("__unnamed_" + (_id++)), name, true);
+	    mixin$1(("__unnamed_" + (_id++)), name, true);
 	    return
 	  }
-	
+
 	  var store = g ? globals : mixins;
-	
+
 	  // Getter
 	  if (!mix) {
 	    if (isUndefined(store[name]))
 	      { throw new Error('Unregistered mixin: ' + name) }
-	
+
 	    return store[name]
 	  }
-	
+
 	  // Setter
 	  store[name] = isFunction(mix) ?
 	    extend(mix.prototype, store[name] || {}) && mix :
 	    extend(store[name] || {}, mix);
 	}
-	
+
 	/**
 	 * Update all the tags instances created
 	 * @returns { Array } all the tags instances
@@ -2042,14 +2033,14 @@
 	function update$1() {
 	  return each(__TAGS_CACHE, function (tag$$1) { return tag$$1.update(); })
 	}
-	
-	function unregister$$1(name) {
+
+	function unregister$1(name) {
 	  delete __TAG_IMPL[name];
 	}
-	
+
 	// counter to give a unique id to all the Tag instances
 	var __uid = 0;
-	
+
 	/**
 	 * We need to update opts for this tag. That requires updating the expressions
 	 * in any attributes on the tag, and then copying the result onto opts.
@@ -2065,15 +2056,15 @@
 	  // (and only this case) we don't need to do updateOpts, because the regular parse
 	  // will update those attrs. Plus, isAnonymous tags don't need opts anyway
 	  if (isLoop && isAnonymous) { return }
-	
+
 	  var ctx = !isAnonymous && isLoop ? this : parent || this;
 	  each(instAttrs, function (attr) {
 	    if (attr.expr) { updateAllExpressions.call(ctx, [attr.expr]); }
 	    opts[toCamel(attr.name)] = attr.expr ? attr.expr.value : attr.value;
 	  });
 	}
-	
-	
+
+
 	/**
 	 * Tag class
 	 * @constructor
@@ -2081,8 +2072,8 @@
 	 * @param { Object } conf - tag options
 	 * @param { String } innerHTML - html that eventually we need to inject in the tag
 	 */
-	function Tag$$1(impl, conf, innerHTML) {
-	
+	function Tag$1(impl, conf, innerHTML) {
+
 	  var opts = extend({}, conf.opts),
 	    parent = conf.parent,
 	    isLoop = conf.isLoop,
@@ -2096,16 +2087,16 @@
 	    isVirtual = tagName === 'virtual',
 	    propsInSyncWithParent = [],
 	    dom;
-	
+
 	  // make this tag observable
-	  observable(this);
+	  observable$1(this);
 	  // only call unmount if we have a valid __TAG_IMPL (has name property)
 	  if (impl.name && root._tag) { root._tag.unmount(true); }
-	
+
 	  // not yet mounted
 	  this.isMounted = false;
 	  root.isLoop = isLoop;
-	
+
 	  defineProperty(this, '_internal', {
 	    isAnonymous: isAnonymous,
 	    instAttrs: instAttrs,
@@ -2115,19 +2106,19 @@
 	    tail: null,
 	    head: null
 	  });
-	
+
 	  // create a unique id to this tag
 	  // it could be handy to use it also to improve the virtual dom rendering speed
 	  defineProperty(this, '_riot_id', ++__uid); // base 1 allows test !t._riot_id
-	
+
 	  extend(this, { root: root, opts: opts }, item);
-	  defineProperty(this, 'parent', parent || false);
 	  // protect the "tags" and "refs" property from being overridden
+	  defineProperty(this, 'parent', parent || null);
 	  defineProperty(this, 'tags', {});
 	  defineProperty(this, 'refs', {});
-	
+
 	  dom = mkdom(impl.tmpl, innerHTML, isLoop);
-	
+
 	  /**
 	   * Update the tag expressions and options
 	   * @param   { * }  data - data we want to use to extend the tag properties
@@ -2135,11 +2126,11 @@
 	   */
 	  defineProperty(this, 'update', function tagUpdate(data) {
 	    if (isFunction(this.shouldUpdate) && !this.shouldUpdate(data)) { return this }
-	
+
 	    // make sure the data passed will not override
 	    // the component core methods
 	    data = cleanUpData(data);
-	
+
 	    // inherit properties from the parent, but only for isAnonymous tags
 	    if (isLoop && isAnonymous) { inheritFrom.apply(this, [this.parent, propsInSyncWithParent]); }
 	    extend(this, data);
@@ -2147,37 +2138,37 @@
 	    if (this.isMounted) { this.trigger('update', data); }
 	    updateAllExpressions.call(this, expressions);
 	    if (this.isMounted) { this.trigger('updated'); }
-	
+
 	    return this
-	
+
 	  }.bind(this));
-	
+
 	  /**
 	   * Add a mixin to this tag
 	   * @returns { Tag } the current tag instance
 	   */
 	  defineProperty(this, 'mixin', function tagMixin() {
 	    var this$1 = this;
-	
+
 	    each(arguments, function (mix) {
 	      var instance,
 	        props = [],
 	        obj;
-	
-	      mix = isString(mix) ? mixin$$1(mix) : mix;
-	
+
+	      mix = isString(mix) ? mixin$1(mix) : mix;
+
 	      // check if the mixin is a function
 	      if (isFunction(mix)) {
 	        // create the new mixin instance
 	        instance = new mix();
 	      } else { instance = mix; }
-	
+
 	      var proto = Object.getPrototypeOf(instance);
-	
+
 	      // build multilevel prototype inheritance chain property list
 	      do { props = props.concat(Object.getOwnPropertyNames(obj || instance)); }
 	      while (obj = Object.getPrototypeOf(obj || instance))
-	
+
 	      // loop the keys in the function prototype or the all object keys
 	      each(props, function (key) {
 	        // bind methods to this
@@ -2186,7 +2177,7 @@
 	          // check for getters/setters
 	          var descriptor = Object.getOwnPropertyDescriptor(instance, key) || Object.getOwnPropertyDescriptor(proto, key);
 	          var hasGetterSetter = descriptor && (descriptor.get || descriptor.set);
-	
+
 	          // apply method only if it does not already exist on the instance
 	          if (!this$1.hasOwnProperty(key) && hasGetterSetter) {
 	            Object.defineProperty(this$1, key, descriptor);
@@ -2197,30 +2188,30 @@
 	          }
 	        }
 	      });
-	
+
 	      // init method will be called automatically
 	      if (instance.init)
 	        { instance.init.bind(this$1)(); }
 	    });
 	    return this
 	  }.bind(this));
-	
+
 	  /**
 	   * Mount the current tag instance
 	   * @returns { Tag } the current tag instance
 	   */
 	  defineProperty(this, 'mount', function tagMount() {
 	    var this$1 = this;
-	
+
 	    root._tag = this; // keep a reference to the tag just created
-	
+
 	    // Read all the attrs on this instance. This give us the info we need for updateOpts
 	    parseAttributes.apply(parent, [root, root.attributes, function (attr, expr) {
 	      if (!isAnonymous && RefExpr.isPrototypeOf(expr)) { expr.tag = this$1; }
 	      attr.expr = expr;
 	      instAttrs.push(attr);
 	    }]);
-	
+
 	    // update the root adding custom attributes coming from the compiler
 	    implAttrs = [];
 	    walkAttrs(impl.attrs, function (k, v) { implAttrs.push({name: k, value: v}); });
@@ -2228,16 +2219,16 @@
 	      if (expr) { expressions.push(expr); }
 	      else { setAttr(root, attr.name, attr.value); }
 	    }]);
-	
+
 	    // children in loop should inherit from true parent
 	    if (this._parent && isAnonymous) { inheritFrom.apply(this, [this._parent, propsInSyncWithParent]); }
-	
+
 	    // initialiation
 	    updateOpts.apply(this, [isLoop, parent, isAnonymous, opts, instAttrs]);
-	
+
 	    // add global mixins
-	    var globalMixin = mixin$$1(GLOBAL_MIXIN);
-	
+	    var globalMixin = mixin$1(GLOBAL_MIXIN);
+
 	    if (globalMixin) {
 	      for (var i in globalMixin) {
 	        if (globalMixin.hasOwnProperty(i)) {
@@ -2245,16 +2236,16 @@
 	        }
 	      }
 	    }
-	
+
 	    if (impl.fn) { impl.fn.call(this, opts); }
-	
+
 	    this.trigger('before-mount');
-	
+
 	    // parse layout after init. fn may calculate args for nested custom tags
 	    parseExpressions.apply(this, [dom, expressions, false]);
-	
+
 	    this.update(item);
-	
+
 	    if (isLoop && isAnonymous) {
 	      // update the root attribute for the looped elements
 	      this.root = root = dom.firstChild;
@@ -2262,10 +2253,10 @@
 	      while (dom.firstChild) { root.appendChild(dom.firstChild); }
 	      if (root.stub) { root = parent.root; }
 	    }
-	
+
 	    defineProperty(this, 'root', root);
 	    this.isMounted = true;
-	
+
 	    // if it's not a child tag we can trigger its mount event
 	    if (!this.parent || this.parent.isMounted) {
 	      this.trigger('mount');
@@ -2274,11 +2265,11 @@
 	    else { this.parent.one('mount', function () {
 	      this$1.trigger('mount');
 	    }); }
-	
+
 	    return this
-	
+
 	  }.bind(this));
-	
+
 	  /**
 	   * Unmount the tag instance
 	   * @param { Boolean } mustKeepRoot - if it's true the root node will not be removed
@@ -2286,79 +2277,81 @@
 	   */
 	  defineProperty(this, 'unmount', function tagUnmount(mustKeepRoot) {
 	    var this$1 = this;
-	
+
 	    var el = this.root,
 	      p = el.parentNode,
 	      ptag,
 	      tagIndex = __TAGS_CACHE.indexOf(this);
-	
+
 	    this.trigger('before-unmount');
-	
+
 	    // clear all attributes coming from the mounted tag
 	    walkAttrs(impl.attrs, function (name) {
-	      if (startsWith(name, RIOT_PREFIX))
-	        { name = name.slice(RIOT_PREFIX.length); }
+	      if (startsWith(name, ATTRS_PREFIX))
+	        { name = name.slice(ATTRS_PREFIX.length); }
 	      remAttr(root, name);
 	    });
-	
+
 	    // remove this tag instance from the global virtualDom variable
 	    if (~tagIndex)
 	      { __TAGS_CACHE.splice(tagIndex, 1); }
-	
+
 	    if (p) {
 	      if (parent) {
 	        ptag = getImmediateCustomParentTag(parent);
-	
+
 	        if (isVirtual) {
 	          Object.keys(this.tags).forEach(function (tagName) {
 	            arrayishRemove(ptag.tags, tagName, this$1.tags[tagName]);
 	          });
 	        } else {
 	          arrayishRemove(ptag.tags, tagName, this);
+	          if(parent !== ptag) // remove from _parent too
+	            { arrayishRemove(parent.tags, tagName, this); }
 	        }
 	      } else {
 	        while (el.firstChild) { el.removeChild(el.firstChild); }
 	      }
-	
+
 	      if (!mustKeepRoot) {
 	        p.removeChild(el);
 	      } else {
 	        // the riot-tag and the data-is attributes aren't needed anymore, remove them
-	        remAttr(p, RIOT_TAG_IS);
+	        remAttr(p, IS_DIRECTIVE);
 	      }
 	    }
-	
+
 	    if (this._internal.virts) {
 	      each(this._internal.virts, function (v) {
 	        if (v.parentNode) { v.parentNode.removeChild(v); }
 	      });
 	    }
-	
+
 	    // allow expressions to unmount themselves
 	    unmountAll(expressions);
 	    each(instAttrs, function (a) { return a.expr && a.expr.unmount && a.expr.unmount(); });
-	
+
 	    this.trigger('unmount');
 	    this.off('*');
 	    this.isMounted = false;
-	
+
 	    delete this.root._tag;
-	
+
 	    return this
-	
+
 	  }.bind(this));
 	}
-	
+
 	/**
 	 * Detect the tag implementation by a DOM node
 	 * @param   { Object } dom - DOM node we need to parse to get its tag implementation
 	 * @returns { Object } it returns an object containing the implementation of a custom tag (template and boot function)
 	 */
 	function getTag(dom) {
-	  return dom.tagName && __TAG_IMPL[getAttr(dom, RIOT_TAG_IS) ||
-	    getAttr(dom, RIOT_TAG_IS) || dom.tagName.toLowerCase()]
+	  return dom.tagName && __TAG_IMPL[getAttr(dom, IS_DIRECTIVE) ||
+	    getAttr(dom, IS_DIRECTIVE) || dom.tagName.toLowerCase()]
 	}
-	
+
 	/**
 	 * Inherit properties from a target tag instance
 	 * @this Tag
@@ -2367,11 +2360,11 @@
 	 */
 	function inheritFrom(target, propsInSyncWithParent) {
 	  var this$1 = this;
-	
+
 	  each(Object.keys(target), function (k) {
 	    // some properties must be always in sync with the parent tag
 	    var mustSync = !isReservedName(k) && contains(propsInSyncWithParent, k);
-	
+
 	    if (isUndefined(this$1[k]) || mustSync) {
 	      // track the property to keep in sync
 	      // so we can keep it updated
@@ -2380,7 +2373,7 @@
 	    }
 	  });
 	}
-	
+
 	/**
 	 * Move the position of a custom tag in its parent tag
 	 * @this Tag
@@ -2392,14 +2385,14 @@
 	    tags;
 	  // no parent no move
 	  if (!parent) { return }
-	
+
 	  tags = parent.tags[tagName];
-	
+
 	  if (isArray(tags))
 	    { tags.splice(newPos, 0, tags.splice(tags.indexOf(this), 1)[0]); }
 	  else { arrayishAdd(parent.tags, tagName, this); }
 	}
-	
+
 	/**
 	 * Create a new child tag including it correctly into its parent
 	 * @param   { Object } child - child tag implementation
@@ -2409,7 +2402,7 @@
 	 * @returns { Object } instance of the new child tag just created
 	 */
 	function initChildTag(child, opts, innerHTML, parent) {
-	  var tag = new Tag$$1(child, opts, innerHTML),
+	  var tag = new Tag$1(child, opts, innerHTML),
 	    tagName = opts.tagName || getTagName(opts.root, true),
 	    ptag = getImmediateCustomParentTag(parent);
 	  // fix for the parent attribute in the looped elements
@@ -2418,21 +2411,21 @@
 	  // in some cases this could be different from the custom parent tag
 	  // for example in nested loops
 	  tag._parent = parent;
-	
+
 	  // add this tag to the custom parent tag
 	  arrayishAdd(ptag.tags, tagName, tag);
-	
+
 	  // and also to the real parent tag
 	  if (ptag !== parent)
 	    { arrayishAdd(parent.tags, tagName, tag); }
-	
+
 	  // empty the child node once we got its template
 	  // to avoid that its children get compiled multiple times
 	  opts.root.innerHTML = '';
-	
+
 	  return tag
 	}
-	
+
 	/**
 	 * Loop backward all the parents tree to detect the first custom parent tag
 	 * @param   { Object } tag - a Tag instance
@@ -2446,18 +2439,18 @@
 	  }
 	  return ptag
 	}
-	
+
 	/**
 	 * Trigger the unmount method on all the expressions
 	 * @param   { Array } expressions - DOM expressions
 	 */
 	function unmountAll(expressions) {
 	  each(expressions, function(expr) {
-	    if (expr instanceof Tag$$1) { expr.unmount(true); }
+	    if (expr instanceof Tag$1) { expr.unmount(true); }
 	    else if (expr.unmount) { expr.unmount(); }
 	  });
 	}
-	
+
 	/**
 	 * Get the tag name of any DOM node
 	 * @param   { Object } dom - DOM node we want to parse
@@ -2466,28 +2459,28 @@
 	 */
 	function getTagName(dom, skipDataIs) {
 	  var child = getTag(dom),
-	    namedTag = !skipDataIs && getAttr(dom, RIOT_TAG_IS);
+	    namedTag = !skipDataIs && getAttr(dom, IS_DIRECTIVE);
 	  return namedTag && !tmpl.hasExpr(namedTag) ?
 	                namedTag :
 	              child ? child.name : dom.tagName.toLowerCase()
 	}
-	
+
 	/**
 	 * With this function we avoid that the internal Tag methods get overridden
 	 * @param   { Object } data - options we want to use to extend the tag instance
 	 * @returns { Object } clean object without containing the riot internal reserved words
 	 */
 	function cleanUpData(data) {
-	  if (!(data instanceof Tag$$1) && !(data && typeof data.trigger === T_FUNCTION))
+	  if (!(data instanceof Tag$1) && !(data && isFunction(data.trigger)))
 	    { return data }
-	
+
 	  var o = {};
 	  for (var key in data) {
 	    if (!RE_RESERVED_NAMES.test(key)) { o[key] = data[key]; }
 	  }
 	  return o
 	}
-	
+
 	/**
 	 * Set the property of an object for a given key. If something already
 	 * exists there, then it becomes an array containing both the old and new value.
@@ -2499,9 +2492,9 @@
 	function arrayishAdd(obj, key, value, ensureArray) {
 	  var dest = obj[key];
 	  var isArr = isArray(dest);
-	
+
 	  if (dest && dest === value) { return }
-	
+
 	  // if the key was never set, set it once
 	  if (!dest && ensureArray) { obj[key] = [value]; }
 	  else if (!dest) { obj[key] = value; }
@@ -2511,7 +2504,7 @@
 	    else { obj[key] = [dest, value]; }
 	  }
 	}
-	
+
 	/**
 	 * Removes an item from an object at a given key. If the key points to an array,
 	 * then the item is just removed from the array.
@@ -2530,7 +2523,7 @@
 	  } else
 	    { delete obj[key]; } // otherwise just delete the key
 	}
-	
+
 	/**
 	 * Check whether a DOM node is in stub mode, useful for the riot 'if' directive
 	 * @param   { Object }  dom - DOM node we want to parse
@@ -2544,7 +2537,7 @@
 	  }
 	  return false
 	}
-	
+
 	/**
 	 * Mount a tag creating new Tag instance
 	 * @param   { Object } root - dom node where the tag will be mounted
@@ -2559,25 +2552,25 @@
 	    tag = ctx || (implClass ? Object.create(implClass.prototype) : {}),
 	    // cache the inner HTML to fix #855
 	    innerHTML = root._innerHTML = root._innerHTML || root.innerHTML;
-	
+
 	  // clear the inner html
 	  root.innerHTML = '';
-	
+
 	  var conf = { root: root, opts: opts };
 	  if (opts && opts.parent) { conf.parent = opts.parent; }
-	
-	  if (impl && root) { Tag$$1.apply(tag, [impl, conf, innerHTML]); }
-	
+
+	  if (impl && root) { Tag$1.apply(tag, [impl, conf, innerHTML]); }
+
 	  if (tag && tag.mount) {
 	    tag.mount(true);
 	    // add this tag to the virtualDom variable
 	    if (!contains(__TAGS_CACHE, tag)) { __TAGS_CACHE.push(tag); }
 	  }
-	
+
 	  return tag
 	}
-	
-	
+
+
 	/**
 	 * Adds the elements for a virtual tag
 	 * @this Tag
@@ -2586,30 +2579,30 @@
 	 */
 	function makeVirtual(src, target) {
 	  var this$1 = this;
-	
+
 	  var head = createDOMPlaceholder(),
 	    tail = createDOMPlaceholder(),
 	    frag = createFrag(),
 	    sib, el;
-	
+
 	  this._internal.head = this.root.insertBefore(head, this.root.firstChild);
 	  this._internal.tail = this.root.appendChild(tail);
-	
+
 	  el = this._internal.head;
-	
+
 	  while (el) {
 	    sib = el.nextSibling;
 	    frag.appendChild(el);
 	    this$1._internal.virts.push(el); // hold for unmounting
 	    el = sib;
 	  }
-	
+
 	  if (target)
 	    { src.insertBefore(frag, target._internal.head); }
 	  else
 	    { src.appendChild(frag); }
 	}
-	
+
 	/**
 	 * Move virtual tag and all child nodes
 	 * @this Tag
@@ -2618,11 +2611,11 @@
 	 */
 	function moveVirtual(src, target) {
 	  var this$1 = this;
-	
+
 	  var el = this._internal.head,
 	    frag = createFrag(),
 	    sib;
-	
+
 	  while (el) {
 	    sib = el.nextSibling;
 	    frag.appendChild(el);
@@ -2634,7 +2627,7 @@
 	    }
 	  }
 	}
-	
+
 	/**
 	 * Get selectors for tags
 	 * @param   { Array } tags - tag names to select
@@ -2646,16 +2639,16 @@
 	    var keys = Object.keys(__TAG_IMPL);
 	    return keys + selectTags(keys)
 	  }
-	
+
 	  return tags
 	    .filter(function (t) { return !/[^-\w]/.test(t); })
 	    .reduce(function (list, t) {
 	      var name = t.trim().toLowerCase();
-	      return list + ",[" + RIOT_TAG_IS + "=\"" + name + "\"]"
+	      return list + ",[" + IS_DIRECTIVE + "=\"" + name + "\"]"
 	    }, '')
 	}
-	
-	
+
+
 	var tags = Object.freeze({
 		getTag: getTag,
 		inheritFrom: inheritFrom,
@@ -2673,12 +2666,12 @@
 		moveVirtual: moveVirtual,
 		selectTags: selectTags
 	});
-	
+
 	/**
 	 * Riot public api
 	 */
-	
 	var settings = Object.create(brackets.settings);
+
 	var util = {
 	  tmpl: tmpl,
 	  brackets: brackets,
@@ -2691,513 +2684,94 @@
 	  misc: misc,
 	  tags: tags
 	};
-	
+
+	// export the core props/methods
+	var Tag$$1 = Tag$2;
+	var tag$$1 = tag$1;
+	var tag2$$1 = tag2$1;
+	var mount$$1 = mount$1;
+	var mixin$$1 = mixin$1;
+	var update$$1 = update$1;
+	var unregister$$1 = unregister$1;
+	var observable = observable$1;
+
+	var riot$1 = {
+	  settings: settings,
+	  util: util,
+	  // core
+	  Tag: Tag$$1,
+	  tag: tag$$1,
+	  tag2: tag2$$1,
+	  mount: mount$$1,
+	  mixin: mixin$$1,
+	  update: update$$1,
+	  unregister: unregister$$1,
+	  observable: observable
+	};
+
 	exports.settings = settings;
 	exports.util = util;
-	exports.observable = observable;
-	exports.Tag = Tag$1;
+	exports.Tag = Tag$$1;
 	exports.tag = tag$$1;
 	exports.tag2 = tag2$$1;
 	exports.mount = mount$$1;
 	exports.mixin = mixin$$1;
-	exports.update = update$1;
+	exports.update = update$$1;
 	exports.unregister = unregister$$1;
-	
+	exports.observable = observable;
+	exports['default'] = riot$1;
+
 	Object.defineProperty(exports, '__esModule', { value: true });
-	
+
 	})));
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! riot */ 1)))
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 /* 2 */
-/*!************************!*\
-  !*** ./src/dataset.js ***!
-  \************************/
 /***/ function(module, exports) {
 
-	module.exports = {
-	   all: [
-	      { rank: 1, name: 'Mr. Ts', count: 146 },
-	      { rank: 2, name: 'Mr. Nm', count: 98 },
-	      { rank: 3, name: 'Mr. Nmm', count: 97 },
-	      { rank: 4, name: 'Mr. Td', count: 84 },
-	      { rank: 4, name: 'Mr. Ks', count: 84 },
-	      { rank: 6, name: 'Mr. Kh', count: 83 },
-	      { rank: 7, name: 'Mr. Ot', count: 70 },
-	      { rank: 8, name: 'Mr. Mw', count: 68 },
-	      { rank: 9, name: 'Mr. Ms', count: 63 },
-	      { rank: 10, name: 'Mr. Fj', count: 59 },
-	      { rank: 11, name: 'Mr. Ys', count: 58 },
-	      { rank: 12, name: 'Mr. Hr', count: 56 },
-	      { rank: 13, name: 'Mr. Se', count: 54 },
-	      { rank: 14, name: 'Mr. Tk', count: 52 },
-	      { rank: 14, name: 'Mr. Dn', count: 52 },
-	      { rank: 16, name: 'Mr. Nk', count: 50 },
-	      { rank: 17, name: 'Mr. Sm', count: 48 },
-	      { rank: 17, name: 'Ms. Me', count: 48 },
-	      { rank: 19, name: 'Mr. Mo', count: 47 },
-	      { rank: 20, name: 'Mr. Nz', count: 41 },
-	      { rank: 21, name: 'Mr. Md', count: 39 },
-	      { rank: 22, name: 'Ms. Smr', count: 37 },
-	      { rank: 23, name: 'Mr. Yu', count: 32 },
-	      { rank: 23, name: 'Mr. Og', count: 32 },
-	      { rank: 25, name: 'Mr. Knm', count: 30 },
-	      { rank: 25, name: 'Mr. Az', count: 30 },
-	      { rank: 27, name: 'Ms. Mt', count: 29 },
-	      { rank: 28, name: 'Mr. Mm', count: 27 },
-	      { rank: 29, name: 'Mr. Uy', count: 26 },
-	      { rank: 30, name: 'Ms. Stg', count: 23 },
-	      { rank: 31, name: 'Ms. Hm', count: 19 },
-	      { rank: 32, name: 'Mr. Si', count: 18 },
-	      { rank: 33, name: 'Mr. Kn', count: 16 },
-	      { rank: 34, name: 'Mr. Ky', count: 12 },
-	      { rank: 34, name: 'Mr. Sh', count: 12 },
-	      { rank: 34, name: 'Mr. Mr', count: 12 },
-	      { rank: 37, name: 'Ms. Yc', count: 11 },
-	      { rank: 38, name: 'Mr. Tm', count: 7 },
-	      { rank: 38, name: 'Mr. Om', count: 7 },
-	      { rank: 40, name: 'Ms. Tn', count: 5 },
-	      { rank: 40, name: 'Mr. Sb', count: 5 },
-	      { rank: 42, name: 'Ms. St', count: 4 },
-	      { rank: 43, name: 'Mr. It', count: 3 },
-	      { rank: 43, name: 'Mr. Sg', count: 3 },
-	      { rank: 43, name: 'Mr. Ym', count: 3 },
-	      { rank: 46, name: 'Mr. Yn', count: 1 }
-	   ],
-	   all_rank: [
-	      {id: 1, name: 'Mr. Ts', data: [4, 10, 15, 16, 11, 6, 10, 16, 17, 16, 21, 4]},
-	      {id: 2, name: 'Mr. Nm', data: [5, 6, 13, 8, 5, 13, 9, 12, 12, 2, 8, 5]},
-	      {id: 3, name: 'Mr. Nmm', data: [4, 7, 7, 9, 8, 6, 6, 14, 9, 13, 10, 4]}
-	   ],
-	
-	   new: [
-	      { rank: 1, name: 'Mr. Ys', count: 58 },
-	      { rank: 2, name: 'Mr. Se', count: 54 },
-	      { rank: 3, name: 'Ms. Me', count: 48 },
-	      { rank: 4, name: 'Mr. Mo', count: 47 },
-	      { rank: 5, name: 'Mr. Nz', count: 41 },
-	      { rank: 6, name: 'Mr. Md', count: 39 },
-	      { rank: 7, name: 'Mr. Og', count: 32 },
-	      { rank: 8, name: 'Mr. Az', count: 30 },
-	      { rank: 9, name: 'Mr. Si', count: 18 },
-	      { rank: 10, name: 'Mr. Kn', count: 16 },
-	      { rank: 11, name: 'Ms. Yc', count: 11 },
-	      { rank: 12, name: 'Ms. Tn', count: 5 },
-	      { rank: 13, name: 'Ms. St', count: 4 },
-	      { rank: 14, name: 'Mr. Sg', count: 3 },
-	      { rank: 15, name: 'Mr. Ym', count: 3 },
-	   ],
-	   new_rank: [
-	      {id: 1, name: 'Mr. Ys', data: [0, 0, 0, 0, 2, 3, 7, 9, 12, 9, 13, 3]},
-	      {id: 2, name: 'Mr. Se', data: [0, 0, 0, 0, 0, 0, 0, 1, 3, 12, 20, 18]},
-	      {id: 3, name: 'Ms. Me', data: [0, 0, 0, 0, 0, 12, 10, 6, 5, 5, 6, 4]}
-	   ],
-	
-	   outer: [
-	      { rank: 1, name: 'Mr. Ot', count: 70 },
-	      { rank: 2, name: 'Mr. Ms', count: 63 },
-	      { rank: 3, name: 'Mr. Hr', count: 56 },
-	      { rank: 4, name: 'Mr. Se', count: 54 },
-	      { rank: 5, name: 'Mr. Tk', count: 52 },
-	      { rank: 6, name: 'Mr. Sm', count: 48 },
-	      { rank: 7, name: 'Mr. Mo', count: 47 },
-	      { rank: 8, name: 'Mr. Nz', count: 41 },
-	      { rank: 9, name: 'Ms. Smr', count: 37 },
-	      { rank: 10, name: 'Mr. Yu', count: 32 },
-	      { rank: 11, name: 'Mr. Az', count: 30 },
-	      { rank: 12, name: 'Ms. Mt', count: 29 },
-	      { rank: 13, name: 'Ms. Stg', count: 23 },
-	      { rank: 14, name: 'Ms. Hm', count: 19 },
-	      { rank: 15, name: 'Mr. Si', count: 18 },
-	      { rank: 16, name: 'Mr. Tm', count: 7 },
-	      { rank: 17, name: 'Mr. Ok', count: 7 },
-	      { rank: 18, name: 'Mr. Sb', count: 5 },
-	      { rank: 19, name: 'Mr. It', count: 3 },
-	      { rank: 20, name: 'Mr. Sg', count: 3 },
-	      { rank: 21, name: 'Mr. Ym', count: 3 },
-	      { rank: 22, name: 'Mr. Yn', count: 1 }
-	   ],
-	   outer_rank: [
-	      {id: 1, name: 'Mr. Ot', data: [1, 0, 7, 0, 8, 8, 0, 2, 6, 2, 19, 17]},
-	      {id: 2, name: 'Mr. Ms', data: [0, 1, 1, 0, 0, 1, 1, 2, 6, 14, 22, 15]},
-	      {id: 3, name: 'Mr. Hr', data: [0, 1, 0, 1, 2, 0, 1, 1, 3, 14, 19, 14]}
-	   ],
-	
-	   year: [
-	      {
-	         1: [
-	            { rank: 1, name: 'Mr. Ks', count: 6 },
-	            { rank: 1, name: 'Mr. Dn', count: 6 },
-	            { rank: 3, name: 'Ms. Mt', count: 5 },
-	            { rank: 3, name: 'Mr. Nm', count: 5 },
-	            { rank: 5, name: 'Mr. Uy', count: 4 },
-	            { rank: 5, name: 'Mr. Nmm', count: 4 },
-	            { rank: 5, name: 'Mr. Fj', count: 4 },
-	            { rank: 5, name: 'Mr. Ts', count: 4 },
-	            { rank: 9, name: 'Mr. Nk', count: 3 },
-	            { rank: 9, name: 'Mr. Td', count: 3 },
-	            { rank: 11, name: 'Mr. Knm', count: 2 },
-	            { rank: 12, name: 'Mr. Sh', count: 1 },
-	            { rank: 12, name: 'Mr. Yu', count: 1 },
-	            { rank: 12, name: 'Mr. Tm', count: 1 },
-	            { rank: 12, name: 'Mr. Ot', count: 1 },
-	            { rank: 12, name: 'Mr. Mr', count: 1 },
-	            { rank: 12, name: 'Mr. Om', count: 1 },
-	            { rank: 12, name: 'Ms. Smr', count: 1 },
-	            { rank: 12, name: 'Mr. Kh', count: 1 },
-	            { rank: 12, name: 'Mr. Tk', count: 1 }
-	         ]
-	      },
-	      {
-	         2: [
-	            { rank: 1, name: 'Mr. Ks', count: 11 },
-	            { rank: 2, name: 'Mr. Ts', count: 10 },
-	            { rank: 3, name: 'Mr. Fj', count: 9 },
-	            { rank: 3, name: 'Mr. Dn', count: 9 },
-	            { rank: 5, name: 'Mr. Nmm', count: 7 },
-	            { rank: 5, name: 'Mr. Td', count: 7 },
-	            { rank: 7, name: 'Mr. Nm', count: 6 },
-	            { rank: 7, name: 'Mr. Nk', count: 6 },
-	            { rank: 9, name: 'Mr. Kh', count: 5 },
-	            { rank: 10, name: 'Mr. Sh', count: 4 },
-	            { rank: 10, name: 'Ms. Mt', count: 4 },
-	            { rank: 12, name: 'Mr. Mm', count: 2 },
-	            { rank: 12, name: 'Mr. Uy', count: 2 },
-	            { rank: 14, name: 'Mr. Knm', count: 1 },
-	            { rank: 14, name: 'Mr. Hr', count: 1 },
-	            { rank: 14, name: 'Mr. Tm', count: 1 },
-	            { rank: 14, name: 'Mr. Ms', count: 1 },
-	            { rank: 14, name: 'Mr. Mr', count: 1 }
-	         ]
-	      },
-	      {
-	         3: [
-	            { rank: 1, name: 'Mr. Ts', count: 15 },
-	            { rank: 2, name: 'Mr. Nm', count: 13 },
-	            { rank: 3, name: 'Mr. Ks', count: 10 },
-	            { rank: 4, name: 'Mr. Fj', count: 9 },
-	            { rank: 5, name: 'Mr. Nk', count: 8 },
-	            { rank: 6, name: 'Mr. Td', count: 7 },
-	            { rank: 6, name: 'Mr. Ot', count: 7 },
-	            { rank: 6, name: 'Mr. Nmm', count: 7 },
-	            { rank: 9, name: 'Mr. Knm', count: 6 },
-	            { rank: 9, name: 'Ms. Mt', count: 6 },
-	            { rank: 11, name: 'Mr. Dn', count: 5 },
-	            { rank: 11, name: 'Mr. Kh', count: 5 },
-	            { rank: 13, name: 'Mr. Ky', count: 4 },
-	            { rank: 13, name: 'Mr. Og', count: 4 },
-	            { rank: 13, name: 'Mr. Uy', count: 4 },
-	            { rank: 13, name: 'Mr. Mr', count: 4 },
-	            { rank: 17, name: 'Mr. Sh', count: 2 },
-	            { rank: 18, name: 'Mr. Tk', count: 1 },
-	            { rank: 18, name: 'Mr. Sb', count: 1 },
-	            { rank: 18, name: 'Mr. Se', count: 1 },
-	            { rank: 18, name: 'Mr. Ms', count: 1 },
-	            { rank: 18, name: 'Mr. Yn', count: 1 }
-	         ]
-	      },
-	      {
-	         4: [
-	            { rank: 1, name: 'Mr. Ts', count: 16 },
-	            { rank: 2, name: 'Mr. Mw', count: 14 },
-	            { rank: 3, name: 'Ms. Me', count: 12 },
-	            { rank: 4, name: 'Ms. Mt', count: 11 },
-	            { rank: 5, name: 'Mr. Dn', count: 10 },
-	            { rank: 6, name: 'Mr. Nk', count: 9 },
-	            { rank: 6, name: 'Mr. Nmm', count: 9 },
-	            { rank: 8, name: 'Mr. Td', count: 8 },
-	            { rank: 8, name: 'Mr. Nm', count: 8 },
-	            { rank: 10, name: 'Mr. Ks', count: 7 },
-	            { rank: 11, name: 'Mr. Fj', count: 6 },
-	            { rank: 12, name: 'Ms. Stg', count: 5 },
-	            { rank: 13, name: 'Mr. Md', count: 4 },
-	            { rank: 13, name: 'Mr. Og', count: 4 },
-	            { rank: 15, name: 'Mr. Kh', count: 3 },
-	            { rank: 15, name: 'Mr. Si', count: 3 },
-	            { rank: 15, name: 'Mr. Mm', count: 3 },
-	            { rank: 18, name: 'Mr. Ky', count: 2 },
-	            { rank: 18, name: 'Mr. Uy', count: 2 },
-	            { rank: 18, name: 'Mr. Knm', count: 2 },
-	            { rank: 21, name: 'Mr. It', count: 1 },
-	            { rank: 21, name: 'Mr. Om', count: 1 },
-	            { rank: 21, name: 'Mr. Hr', count: 1 },
-	            { rank: 21, name: 'Ms. Smr', count: 1 }
-	         ]
-	      },
-	      {
-	         5: [
-	            { rank: 1, name: 'Mr. Ts', count: 11 },
-	            { rank: 2, name: 'Ms. Me', count: 10 },
-	            { rank: 3, name: 'Mr. Ks', count: 9 },
-	            { rank: 3, name: 'Mr. Mw', count: 9 },
-	            { rank: 3, name: 'Mr. Fj', count: 9 },
-	            { rank: 6, name: 'Mr. Ot', count: 8 },
-	            { rank: 6, name: 'Mr. Nmm', count: 8 },
-	            { rank: 8, name: 'Mr. Nm', count: 5 },
-	            { rank: 9, name: 'Mr. Knm', count: 4 },
-	            { rank: 9, name: 'Mr. Kh', count: 4 },
-	            { rank: 9, name: 'Mr. Dn', count: 4 },
-	            { rank: 12, name: 'Mr. Nk', count: 3 },
-	            { rank: 12, name: 'Mr. Kn', count: 3 },
-	            { rank: 14, name: 'Mr. Hr', count: 2 },
-	            { rank: 14, name: 'Mr. Td', count: 2 },
-	            { rank: 14, name: 'Mr. Sb', count: 2 },
-	            { rank: 14, name: 'Mr. Ys', count: 2 },
-	            { rank: 14, name: 'Ms. Yc', count: 2 },
-	            { rank: 14, name: 'Mr. Md', count: 2 },
-	            { rank: 20, name: 'Mr. Tm', count: 1 },
-	            { rank: 20, name: 'Mr. Mr', count: 1 },
-	            { rank: 20, name: 'Mr. Si', count: 1 },
-	            { rank: 20, name: 'Mr. Om', count: 1 },
-	            { rank: 20, name: 'Ms. Mt', count: 1 },
-	            { rank: 20, name: 'Mr. Mm', count: 1 },
-	            { rank: 20, name: 'Mr. Uy', count: 1 },
-	            { rank: 20, name: 'Mr. Og', count: 1 }
-	         ]
-	      },
-	      {
-	         6: [
-	            { rank: 1, name: 'Mr. Ks', count: 13 },
-	            { rank: 1, name: 'Mr. Nm', count: 13 },
-	            { rank: 3, name: 'Mr. Mw', count: 10 },
-	            { rank: 4, name: 'Mr. Td', count: 9 },
-	            { rank: 4, name: 'Ms. Smr', count: 9 },
-	            { rank: 6, name: 'Mr. Ot', count: 8 },
-	            { rank: 6, name: 'Mr. Si', count: 8 },
-	            { rank: 8, name: 'Ms. Me', count: 6 },
-	            { rank: 8, name: 'Mr. Nmm', count: 6 },
-	            { rank: 8, name: 'Mr. Ts', count: 6 },
-	            { rank: 11, name: 'Mr. Knm', count: 5 },
-	            { rank: 11, name: 'Mr. Dn', count: 5 },
-	            { rank: 13, name: 'Mr. Uy', count: 4 },
-	            { rank: 13, name: 'Mr. Md', count: 4 },
-	            { rank: 13, name: 'Mr. Fj', count: 4 },
-	            { rank: 16, name: 'Mr. Ys', count: 3 },
-	            { rank: 16, name: 'Mr. Kh', count: 3 },
-	            { rank: 16, name: 'Mr. Ky', count: 3 },
-	            { rank: 19, name: 'Mr. Nk', count: 2 },
-	            { rank: 19, name: 'Mr. Tm', count: 2 },
-	            { rank: 21, name: 'Mr. Ms', count: 1 },
-	            { rank: 21, name: 'Mr. Og', count: 1 },
-	            { rank: 21, name: 'Mr. Kn', count: 1 },
-	            { rank: 21, name: 'Ms. Hm', count: 1 }
-	         ]
-	      },
-	      {
-	         7: [
-	            { rank: 1, name: 'Mr. Ks', count: 12 },
-	            { rank: 2, name: 'Mr. Ts', count: 10 },
-	            { rank: 3, name: 'Mr. Nm', count: 9 },
-	            { rank: 4, name: 'Mr. Kh', count: 7 },
-	            { rank: 4, name: 'Mr. Ys', count: 7 },
-	            { rank: 6, name: 'Ms. Smr', count: 6 },
-	            { rank: 6, name: 'Mr. Td', count: 6 },
-	            { rank: 6, name: 'Mr. Nmm', count: 6 },
-	            { rank: 6, name: 'Mr. Fj', count: 6 },
-	            { rank: 6, name: 'Mr. Dn', count: 6 },
-	            { rank: 11, name: 'Ms. Hm', count: 5 },
-	            { rank: 11, name: 'Mr. Md', count: 5 },
-	            { rank: 11, name: 'Mr. Si', count: 5 },
-	            { rank: 11, name: 'Ms. Me', count: 5 },
-	            { rank: 11, name: 'Mr. Mw', count: 5 },
-	            { rank: 16, name: 'Mr. Og', count: 4 },
-	            { rank: 16, name: 'Mr. Nk', count: 4 },
-	            { rank: 18, name: 'Mr. Knm', count: 3 },
-	            { rank: 18, name: 'Mr. Mm', count: 3 },
-	            { rank: 20, name: 'Mr. Kn', count: 2 },
-	            { rank: 20, name: 'Mr. Sb', count: 2 },
-	            { rank: 20, name: 'Mr. Mo', count: 2 },
-	            { rank: 20, name: 'Mr. Sh', count: 2 },
-	            { rank: 24, name: 'Ms. Stg', count: 1 },
-	            { rank: 24, name: 'Ms. Yc', count: 1 },
-	            { rank: 24, name: 'Mr. Tm', count: 1 },
-	            { rank: 24, name: 'Mr. Az', count: 1 },
-	            { rank: 24, name: 'Mr. Mr', count: 1 },
-	            { rank: 24, name: 'Mr. Ky', count: 1 },
-	            { rank: 24, name: 'Mr. Ym', count: 1 },
-	            { rank: 24, name: 'Mr. Hr', count: 1 },
-	            { rank: 24, name: 'Mr. Ms', count: 1 }
-	         ]
-	      },
-	      {
-	         8: [
-	            { rank: 1, name: 'Mr. Ts', count: 16 },
-	            { rank: 2, name: 'Mr. Nmm', count: 14 },
-	            { rank: 3, name: 'Mr. Mw', count: 13 },
-	            { rank: 4, name: 'Ms. Hm', count: 12 },
-	            { rank: 4, name: 'Mr. Nm', count: 12 },
-	            { rank: 6, name: 'Mr. Og', count: 11 },
-	            { rank: 7, name: 'Mr. Td', count: 9 },
-	            { rank: 7, name: 'Mr. Ks', count: 9 },
-	            { rank: 7, name: 'Mr. Ys', count: 9 },
-	            { rank: 10, name: 'Ms. Smr', count: 8 },
-	            { rank: 10, name: 'Mr. Md', count: 8 },
-	            { rank: 12, name: 'Mr. Kh', count: 7 },
-	            { rank: 13, name: 'Ms. Yc', count: 6 },
-	            { rank: 14, name: 'Ms. Me', count: 5 },
-	            { rank: 15, name: 'Mr. Knm', count: 4 },
-	            { rank: 15, name: 'Mr. Nk', count: 4 },
-	            { rank: 15, name: 'Mr. Fj', count: 4 },
-	            { rank: 15, name: 'Mr. Uy', count: 4 },
-	            { rank: 19, name: 'Mr. Kn', count: 3 },
-	            { rank: 19, name: 'Mr. Om', count: 3 },
-	            { rank: 19, name: 'Mr. Sg', count: 3 },
-	            { rank: 19, name: 'Mr. Dn', count: 3 },
-	            { rank: 23, name: 'Mr. Mr', count: 2 },
-	            { rank: 23, name: 'Mr. Mo', count: 2 },
-	            { rank: 23, name: 'Mr. Ms', count: 2 },
-	            { rank: 23, name: 'Mr. Ot', count: 2 },
-	            { rank: 23, name: 'Mr. Mm', count: 2 },
-	            { rank: 28, name: 'Mr. Ym', count: 1 },
-	            { rank: 28, name: 'Mr. Sh', count: 1 },
-	            { rank: 28, name: 'Mr. Hr', count: 1 },
-	            { rank: 28, name: 'Ms. Stg', count: 1 },
-	            { rank: 28, name: 'Ms. Mt', count: 1 },
-	            { rank: 28, name: 'Mr. It', count: 1 },
-	            { rank: 28, name: 'Mr. Si', count: 1 },
-	            { rank: 28, name: 'Mr. Az', count: 1 }
-	         ]
-	      },
-	      {
-	         9: [
-	            { rank: 1, name: 'Mr. Ts', count: 17 },
-	            { rank: 2, name: 'Mr. Kh', count: 15 },
-	            { rank: 3, name: 'Mr. Ys', count: 12 },
-	            { rank: 3, name: 'Mr. Nm', count: 12 },
-	            { rank: 5, name: 'Mr. Md', count: 10 },
-	            { rank: 6, name: 'Ms. Smr', count: 9 },
-	            { rank: 6, name: 'Mr. Nmm', count: 9 },
-	            { rank: 8, name: 'Mr. Mw', count: 8 },
-	            { rank: 9, name: 'Mr. Og', count: 6 },
-	            { rank: 9, name: 'Mr. Ot', count: 6 },
-	            { rank: 9, name: 'Mr. Fj', count: 6 },
-	            { rank: 9, name: 'Mr. Ms', count: 6 },
-	            { rank: 9, name: 'Ms. Me', count: 6 },
-	            { rank: 14, name: 'Mr. Yu', count: 5 },
-	            { rank: 14, name: 'Mr. Kn', count: 5 },
-	            { rank: 14, name: 'Mr. Ks', count: 5 },
-	            { rank: 17, name: 'Mr. Az', count: 4 },
-	            { rank: 17, name: 'Mr. Mo', count: 4 },
-	            { rank: 17, name: 'Mr. Nk', count: 4 },
-	            { rank: 17, name: 'Mr. Td', count: 4 },
-	            { rank: 17, name: 'Mr. Tk', count: 4 },
-	            { rank: 22, name: 'Mr. Sm', count: 3 },
-	            { rank: 22, name: 'Mr. Nz', count: 3 },
-	            { rank: 22, name: 'Mr. Hr', count: 3 },
-	            { rank: 22, name: 'Mr. Se', count: 3 },
-	            { rank: 22, name: 'Mr. Knm', count: 3 },
-	            { rank: 22, name: 'Mr. Uy', count: 3 },
-	            { rank: 22, name: 'Mr. Mm', count: 3 },
-	            { rank: 22, name: 'Ms. Stg', count: 3 },
-	            { rank: 30, name: 'Mr. Dn', count: 2 },
-	            { rank: 30, name: 'Mr. Mr', count: 2 },
-	            { rank: 30, name: 'Ms. Yc', count: 2 },
-	            { rank: 33, name: 'Mr. Ky', count: 1 },
-	            { rank: 33, name: 'Mr. Sh', count: 1 },
-	            { rank: 33, name: 'Mr. Om', count: 1 },
-	            { rank: 33, name: 'Ms. Hm', count: 1 },
-	            { rank: 33, name: 'Mr. Ym', count: 1 }
-	         ]
-	      },
-	      {
-	         10: [
-	            { rank: 1, name: 'Mr. Ts', count: 16 },
-	            { rank: 2, name: 'Mr. Tk', count: 14 },
-	            { rank: 2, name: 'Mr. Ms', count: 14 },
-	            { rank: 2, name: 'Mr. Hr', count: 14 },
-	            { rank: 5, name: 'Mr. Nmm', count: 13 },
-	            { rank: 6, name: 'Mr. Se', count: 12 },
-	            { rank: 6, name: 'Mr. Sm', count: 12 },
-	            { rank: 8, name: 'Mr. Ys', count: 9 },
-	            { rank: 9, name: 'Mr. Td', count: 8 },
-	            { rank: 10, name: 'Mr. Kh', count: 7 },
-	            { rank: 11, name: 'Ms. Stg', count: 5 },
-	            { rank: 12, name: 'Mr. Nm', count: 2 },
-	            { rank: 12, name: 'Mr. Ot', count: 2 },
-	            { rank: 12, name: 'Mr. Mm', count: 2 },
-	            { rank: 15, name: 'Mr. Mw', count: 1 },
-	            { rank: 15, name: 'Mr. Nz', count: 1 },
-	            { rank: 15, name: 'Ms. Tn', count: 1 },
-	            { rank: 15, name: 'Mr. Yu', count: 1 },
-	            { rank: 15, name: 'Mr. Nk', count: 1 }
-	         ]
-	      },
-	      {
-	         11: [
-	            { rank: 1, name: 'Mr. Ms', count: 22 },
-	            { rank: 2, name: 'Mr. Ts', count: 21 },
-	            { rank: 3, name: 'Mr. Sm', count: 20 },
-	            { rank: 3, name: 'Mr. Se', count: 20 },
-	            { rank: 5, name: 'Mr. Ot', count: 19 },
-	            { rank: 5, name: 'Mr. Tk', count: 19 },
-	            { rank: 5, name: 'Mr. Hr', count: 19 },
-	            { rank: 8, name: 'Mr. Kh', count: 18 },
-	            { rank: 9, name: 'Mr. Yu', count: 17 },
-	            { rank: 9, name: 'Mr. Td', count: 17 },
-	            { rank: 11, name: 'Mr. Mo', count: 16 },
-	            { rank: 11, name: 'Mr. Nz', count: 16 },
-	            { rank: 13, name: 'Mr. Ys', count: 13 },
-	            { rank: 14, name: 'Mr. Az', count: 10 },
-	            { rank: 14, name: 'Mr. Nmm', count: 10 },
-	            { rank: 16, name: 'Ms. Stg', count: 8 },
-	            { rank: 16, name: 'Mr. Nm', count: 8 },
-	            { rank: 18, name: 'Mr. Mm', count: 6 },
-	            { rank: 19, name: 'Mr. Nk', count: 3 },
-	            { rank: 19, name: 'Ms. Smr', count: 3 },
-	            { rank: 21, name: 'Ms. St', count: 2 },
-	            { rank: 22, name: 'Mr. Fj', count: 1 },
-	            { rank: 22, name: 'Mr. It', count: 1 },
-	            { rank: 22, name: 'Mr. Sh', count: 1 },
-	            { rank: 22, name: 'Mr. Dn', count: 1 },
-	            { rank: 22, name: 'Ms. Tn', count: 1 },
-	            { rank: 22, name: 'Mr. Ky', count: 1 },
-	            { rank: 22, name: 'Mr. Og', count: 1 }
-	         ]
-	      },
-	      {
-	         12: [
-	            { rank: 1, name: 'Mr. Mo', count: 23 },
-	            { rank: 2, name: 'Mr. Nz', count: 21 },
-	            { rank: 3, name: 'Mr. Se', count: 18 },
-	            { rank: 4, name: 'Mr. Ot', count: 17 },
-	            { rank: 5, name: 'Mr. Ms', count: 15 },
-	            { rank: 6, name: 'Mr. Az', count: 14 },
-	            { rank: 6, name: 'Mr. Hr', count: 14 },
-	            { rank: 8, name: 'Mr. Sm', count: 13 },
-	            { rank: 8, name: 'Mr. Tk', count: 13 },
-	            { rank: 10, name: 'Mr. Kh', count: 8 },
-	            { rank: 10, name: 'Mr. Yu', count: 8 },
-	            { rank: 10, name: 'Mr. Mw', count: 8 },
-	            { rank: 13, name: 'Mr. Md', count: 6 },
-	            { rank: 14, name: 'Mr. Nm', count: 5 },
-	            { rank: 14, name: 'Mr. Mm', count: 5 },
-	            { rank: 16, name: 'Mr. Nmm', count: 4 },
-	            { rank: 16, name: 'Mr. Ts', count: 4 },
-	            { rank: 16, name: 'Mr. Td', count: 4 },
-	            { rank: 16, name: 'Ms. Me', count: 4 },
-	            { rank: 20, name: 'Ms. Tn', count: 3 },
-	            { rank: 20, name: 'Mr. Nk', count: 3 },
-	            { rank: 20, name: 'Mr. Ys', count: 3 },
-	            { rank: 23, name: 'Mr. Ks', count: 2 },
-	            { rank: 23, name: 'Ms. St', count: 2 },
-	            { rank: 23, name: 'Mr. Kn', count: 2 },
-	            { rank: 23, name: 'Mr. Uy', count: 2 },
-	            { rank: 27, name: 'Mr. Tm', count: 1 },
-	            { rank: 27, name: 'Mr. Fj', count: 1 },
-	            { rank: 27, name: 'Mr. Dn', count: 1 },
-	            { rank: 27, name: 'Ms. Mt', count: 1 }
-	         ]
-	      }
-	   ]
-	}
+	'use strict';
 
+	module.exports = {
+	   all: [{ rank: 1, name: 'Mr. Ts', count: 146 }, { rank: 2, name: 'Mr. Nm', count: 98 }, { rank: 3, name: 'Mr. Nmm', count: 97 }, { rank: 4, name: 'Mr. Td', count: 84 }, { rank: 4, name: 'Mr. Ks', count: 84 }, { rank: 6, name: 'Mr. Kh', count: 83 }, { rank: 7, name: 'Mr. Ot', count: 70 }, { rank: 8, name: 'Mr. Mw', count: 68 }, { rank: 9, name: 'Mr. Ms', count: 63 }, { rank: 10, name: 'Mr. Fj', count: 59 }, { rank: 11, name: 'Mr. Ys', count: 58 }, { rank: 12, name: 'Mr. Hr', count: 56 }, { rank: 13, name: 'Mr. Se', count: 54 }, { rank: 14, name: 'Mr. Tk', count: 52 }, { rank: 14, name: 'Mr. Dn', count: 52 }, { rank: 16, name: 'Mr. Nk', count: 50 }, { rank: 17, name: 'Mr. Sm', count: 48 }, { rank: 17, name: 'Ms. Me', count: 48 }, { rank: 19, name: 'Mr. Mo', count: 47 }, { rank: 20, name: 'Mr. Nz', count: 41 }, { rank: 21, name: 'Mr. Md', count: 39 }, { rank: 22, name: 'Ms. Smr', count: 37 }, { rank: 23, name: 'Mr. Yu', count: 32 }, { rank: 23, name: 'Mr. Og', count: 32 }, { rank: 25, name: 'Mr. Knm', count: 30 }, { rank: 25, name: 'Mr. Az', count: 30 }, { rank: 27, name: 'Ms. Mt', count: 29 }, { rank: 28, name: 'Mr. Mm', count: 27 }, { rank: 29, name: 'Mr. Uy', count: 26 }, { rank: 30, name: 'Ms. Stg', count: 23 }, { rank: 31, name: 'Ms. Hm', count: 19 }, { rank: 32, name: 'Mr. Si', count: 18 }, { rank: 33, name: 'Mr. Kn', count: 16 }, { rank: 34, name: 'Mr. Ky', count: 12 }, { rank: 34, name: 'Mr. Sh', count: 12 }, { rank: 34, name: 'Mr. Mr', count: 12 }, { rank: 37, name: 'Ms. Yc', count: 11 }, { rank: 38, name: 'Mr. Tm', count: 7 }, { rank: 38, name: 'Mr. Om', count: 7 }, { rank: 40, name: 'Ms. Tn', count: 5 }, { rank: 40, name: 'Mr. Sb', count: 5 }, { rank: 42, name: 'Ms. St', count: 4 }, { rank: 43, name: 'Mr. It', count: 3 }, { rank: 43, name: 'Mr. Sg', count: 3 }, { rank: 43, name: 'Mr. Ym', count: 3 }, { rank: 46, name: 'Mr. Yn', count: 1 }],
+	   all_rank: [{ id: 1, name: 'Mr. Ts', data: [4, 10, 15, 16, 11, 6, 10, 16, 17, 16, 21, 4] }, { id: 2, name: 'Mr. Nm', data: [5, 6, 13, 8, 5, 13, 9, 12, 12, 2, 8, 5] }, { id: 3, name: 'Mr. Nmm', data: [4, 7, 7, 9, 8, 6, 6, 14, 9, 13, 10, 4] }],
+
+	   new: [{ rank: 1, name: 'Mr. Ys', count: 58 }, { rank: 2, name: 'Mr. Se', count: 54 }, { rank: 3, name: 'Ms. Me', count: 48 }, { rank: 4, name: 'Mr. Mo', count: 47 }, { rank: 5, name: 'Mr. Nz', count: 41 }, { rank: 6, name: 'Mr. Md', count: 39 }, { rank: 7, name: 'Mr. Og', count: 32 }, { rank: 8, name: 'Mr. Az', count: 30 }, { rank: 9, name: 'Mr. Si', count: 18 }, { rank: 10, name: 'Mr. Kn', count: 16 }, { rank: 11, name: 'Ms. Yc', count: 11 }, { rank: 12, name: 'Ms. Tn', count: 5 }, { rank: 13, name: 'Ms. St', count: 4 }, { rank: 14, name: 'Mr. Sg', count: 3 }, { rank: 15, name: 'Mr. Ym', count: 3 }],
+	   new_rank: [{ id: 1, name: 'Mr. Ys', data: [0, 0, 0, 0, 2, 3, 7, 9, 12, 9, 13, 3] }, { id: 2, name: 'Mr. Se', data: [0, 0, 0, 0, 0, 0, 0, 1, 3, 12, 20, 18] }, { id: 3, name: 'Ms. Me', data: [0, 0, 0, 0, 0, 12, 10, 6, 5, 5, 6, 4] }],
+
+	   outer: [{ rank: 1, name: 'Mr. Ot', count: 70 }, { rank: 2, name: 'Mr. Ms', count: 63 }, { rank: 3, name: 'Mr. Hr', count: 56 }, { rank: 4, name: 'Mr. Se', count: 54 }, { rank: 5, name: 'Mr. Tk', count: 52 }, { rank: 6, name: 'Mr. Sm', count: 48 }, { rank: 7, name: 'Mr. Mo', count: 47 }, { rank: 8, name: 'Mr. Nz', count: 41 }, { rank: 9, name: 'Ms. Smr', count: 37 }, { rank: 10, name: 'Mr. Yu', count: 32 }, { rank: 11, name: 'Mr. Az', count: 30 }, { rank: 12, name: 'Ms. Mt', count: 29 }, { rank: 13, name: 'Ms. Stg', count: 23 }, { rank: 14, name: 'Ms. Hm', count: 19 }, { rank: 15, name: 'Mr. Si', count: 18 }, { rank: 16, name: 'Mr. Tm', count: 7 }, { rank: 17, name: 'Mr. Ok', count: 7 }, { rank: 18, name: 'Mr. Sb', count: 5 }, { rank: 19, name: 'Mr. It', count: 3 }, { rank: 20, name: 'Mr. Sg', count: 3 }, { rank: 21, name: 'Mr. Ym', count: 3 }, { rank: 22, name: 'Mr. Yn', count: 1 }],
+	   outer_rank: [{ id: 1, name: 'Mr. Ot', data: [1, 0, 7, 0, 8, 8, 0, 2, 6, 2, 19, 17] }, { id: 2, name: 'Mr. Ms', data: [0, 1, 1, 0, 0, 1, 1, 2, 6, 14, 22, 15] }, { id: 3, name: 'Mr. Hr', data: [0, 1, 0, 1, 2, 0, 1, 1, 3, 14, 19, 14] }],
+
+	   year: [{
+	      1: [{ rank: 1, name: 'Mr. Ks', count: 6 }, { rank: 1, name: 'Mr. Dn', count: 6 }, { rank: 3, name: 'Ms. Mt', count: 5 }, { rank: 3, name: 'Mr. Nm', count: 5 }, { rank: 5, name: 'Mr. Uy', count: 4 }, { rank: 5, name: 'Mr. Nmm', count: 4 }, { rank: 5, name: 'Mr. Fj', count: 4 }, { rank: 5, name: 'Mr. Ts', count: 4 }, { rank: 9, name: 'Mr. Nk', count: 3 }, { rank: 9, name: 'Mr. Td', count: 3 }, { rank: 11, name: 'Mr. Knm', count: 2 }, { rank: 12, name: 'Mr. Sh', count: 1 }, { rank: 12, name: 'Mr. Yu', count: 1 }, { rank: 12, name: 'Mr. Tm', count: 1 }, { rank: 12, name: 'Mr. Ot', count: 1 }, { rank: 12, name: 'Mr. Mr', count: 1 }, { rank: 12, name: 'Mr. Om', count: 1 }, { rank: 12, name: 'Ms. Smr', count: 1 }, { rank: 12, name: 'Mr. Kh', count: 1 }, { rank: 12, name: 'Mr. Tk', count: 1 }]
+	   }, {
+	      2: [{ rank: 1, name: 'Mr. Ks', count: 11 }, { rank: 2, name: 'Mr. Ts', count: 10 }, { rank: 3, name: 'Mr. Fj', count: 9 }, { rank: 3, name: 'Mr. Dn', count: 9 }, { rank: 5, name: 'Mr. Nmm', count: 7 }, { rank: 5, name: 'Mr. Td', count: 7 }, { rank: 7, name: 'Mr. Nm', count: 6 }, { rank: 7, name: 'Mr. Nk', count: 6 }, { rank: 9, name: 'Mr. Kh', count: 5 }, { rank: 10, name: 'Mr. Sh', count: 4 }, { rank: 10, name: 'Ms. Mt', count: 4 }, { rank: 12, name: 'Mr. Mm', count: 2 }, { rank: 12, name: 'Mr. Uy', count: 2 }, { rank: 14, name: 'Mr. Knm', count: 1 }, { rank: 14, name: 'Mr. Hr', count: 1 }, { rank: 14, name: 'Mr. Tm', count: 1 }, { rank: 14, name: 'Mr. Ms', count: 1 }, { rank: 14, name: 'Mr. Mr', count: 1 }]
+	   }, {
+	      3: [{ rank: 1, name: 'Mr. Ts', count: 15 }, { rank: 2, name: 'Mr. Nm', count: 13 }, { rank: 3, name: 'Mr. Ks', count: 10 }, { rank: 4, name: 'Mr. Fj', count: 9 }, { rank: 5, name: 'Mr. Nk', count: 8 }, { rank: 6, name: 'Mr. Td', count: 7 }, { rank: 6, name: 'Mr. Ot', count: 7 }, { rank: 6, name: 'Mr. Nmm', count: 7 }, { rank: 9, name: 'Mr. Knm', count: 6 }, { rank: 9, name: 'Ms. Mt', count: 6 }, { rank: 11, name: 'Mr. Dn', count: 5 }, { rank: 11, name: 'Mr. Kh', count: 5 }, { rank: 13, name: 'Mr. Ky', count: 4 }, { rank: 13, name: 'Mr. Og', count: 4 }, { rank: 13, name: 'Mr. Uy', count: 4 }, { rank: 13, name: 'Mr. Mr', count: 4 }, { rank: 17, name: 'Mr. Sh', count: 2 }, { rank: 18, name: 'Mr. Tk', count: 1 }, { rank: 18, name: 'Mr. Sb', count: 1 }, { rank: 18, name: 'Mr. Se', count: 1 }, { rank: 18, name: 'Mr. Ms', count: 1 }, { rank: 18, name: 'Mr. Yn', count: 1 }]
+	   }, {
+	      4: [{ rank: 1, name: 'Mr. Ts', count: 16 }, { rank: 2, name: 'Mr. Mw', count: 14 }, { rank: 3, name: 'Ms. Me', count: 12 }, { rank: 4, name: 'Ms. Mt', count: 11 }, { rank: 5, name: 'Mr. Dn', count: 10 }, { rank: 6, name: 'Mr. Nk', count: 9 }, { rank: 6, name: 'Mr. Nmm', count: 9 }, { rank: 8, name: 'Mr. Td', count: 8 }, { rank: 8, name: 'Mr. Nm', count: 8 }, { rank: 10, name: 'Mr. Ks', count: 7 }, { rank: 11, name: 'Mr. Fj', count: 6 }, { rank: 12, name: 'Ms. Stg', count: 5 }, { rank: 13, name: 'Mr. Md', count: 4 }, { rank: 13, name: 'Mr. Og', count: 4 }, { rank: 15, name: 'Mr. Kh', count: 3 }, { rank: 15, name: 'Mr. Si', count: 3 }, { rank: 15, name: 'Mr. Mm', count: 3 }, { rank: 18, name: 'Mr. Ky', count: 2 }, { rank: 18, name: 'Mr. Uy', count: 2 }, { rank: 18, name: 'Mr. Knm', count: 2 }, { rank: 21, name: 'Mr. It', count: 1 }, { rank: 21, name: 'Mr. Om', count: 1 }, { rank: 21, name: 'Mr. Hr', count: 1 }, { rank: 21, name: 'Ms. Smr', count: 1 }]
+	   }, {
+	      5: [{ rank: 1, name: 'Mr. Ts', count: 11 }, { rank: 2, name: 'Ms. Me', count: 10 }, { rank: 3, name: 'Mr. Ks', count: 9 }, { rank: 3, name: 'Mr. Mw', count: 9 }, { rank: 3, name: 'Mr. Fj', count: 9 }, { rank: 6, name: 'Mr. Ot', count: 8 }, { rank: 6, name: 'Mr. Nmm', count: 8 }, { rank: 8, name: 'Mr. Nm', count: 5 }, { rank: 9, name: 'Mr. Knm', count: 4 }, { rank: 9, name: 'Mr. Kh', count: 4 }, { rank: 9, name: 'Mr. Dn', count: 4 }, { rank: 12, name: 'Mr. Nk', count: 3 }, { rank: 12, name: 'Mr. Kn', count: 3 }, { rank: 14, name: 'Mr. Hr', count: 2 }, { rank: 14, name: 'Mr. Td', count: 2 }, { rank: 14, name: 'Mr. Sb', count: 2 }, { rank: 14, name: 'Mr. Ys', count: 2 }, { rank: 14, name: 'Ms. Yc', count: 2 }, { rank: 14, name: 'Mr. Md', count: 2 }, { rank: 20, name: 'Mr. Tm', count: 1 }, { rank: 20, name: 'Mr. Mr', count: 1 }, { rank: 20, name: 'Mr. Si', count: 1 }, { rank: 20, name: 'Mr. Om', count: 1 }, { rank: 20, name: 'Ms. Mt', count: 1 }, { rank: 20, name: 'Mr. Mm', count: 1 }, { rank: 20, name: 'Mr. Uy', count: 1 }, { rank: 20, name: 'Mr. Og', count: 1 }]
+	   }, {
+	      6: [{ rank: 1, name: 'Mr. Ks', count: 13 }, { rank: 1, name: 'Mr. Nm', count: 13 }, { rank: 3, name: 'Mr. Mw', count: 10 }, { rank: 4, name: 'Mr. Td', count: 9 }, { rank: 4, name: 'Ms. Smr', count: 9 }, { rank: 6, name: 'Mr. Ot', count: 8 }, { rank: 6, name: 'Mr. Si', count: 8 }, { rank: 8, name: 'Ms. Me', count: 6 }, { rank: 8, name: 'Mr. Nmm', count: 6 }, { rank: 8, name: 'Mr. Ts', count: 6 }, { rank: 11, name: 'Mr. Knm', count: 5 }, { rank: 11, name: 'Mr. Dn', count: 5 }, { rank: 13, name: 'Mr. Uy', count: 4 }, { rank: 13, name: 'Mr. Md', count: 4 }, { rank: 13, name: 'Mr. Fj', count: 4 }, { rank: 16, name: 'Mr. Ys', count: 3 }, { rank: 16, name: 'Mr. Kh', count: 3 }, { rank: 16, name: 'Mr. Ky', count: 3 }, { rank: 19, name: 'Mr. Nk', count: 2 }, { rank: 19, name: 'Mr. Tm', count: 2 }, { rank: 21, name: 'Mr. Ms', count: 1 }, { rank: 21, name: 'Mr. Og', count: 1 }, { rank: 21, name: 'Mr. Kn', count: 1 }, { rank: 21, name: 'Ms. Hm', count: 1 }]
+	   }, {
+	      7: [{ rank: 1, name: 'Mr. Ks', count: 12 }, { rank: 2, name: 'Mr. Ts', count: 10 }, { rank: 3, name: 'Mr. Nm', count: 9 }, { rank: 4, name: 'Mr. Kh', count: 7 }, { rank: 4, name: 'Mr. Ys', count: 7 }, { rank: 6, name: 'Ms. Smr', count: 6 }, { rank: 6, name: 'Mr. Td', count: 6 }, { rank: 6, name: 'Mr. Nmm', count: 6 }, { rank: 6, name: 'Mr. Fj', count: 6 }, { rank: 6, name: 'Mr. Dn', count: 6 }, { rank: 11, name: 'Ms. Hm', count: 5 }, { rank: 11, name: 'Mr. Md', count: 5 }, { rank: 11, name: 'Mr. Si', count: 5 }, { rank: 11, name: 'Ms. Me', count: 5 }, { rank: 11, name: 'Mr. Mw', count: 5 }, { rank: 16, name: 'Mr. Og', count: 4 }, { rank: 16, name: 'Mr. Nk', count: 4 }, { rank: 18, name: 'Mr. Knm', count: 3 }, { rank: 18, name: 'Mr. Mm', count: 3 }, { rank: 20, name: 'Mr. Kn', count: 2 }, { rank: 20, name: 'Mr. Sb', count: 2 }, { rank: 20, name: 'Mr. Mo', count: 2 }, { rank: 20, name: 'Mr. Sh', count: 2 }, { rank: 24, name: 'Ms. Stg', count: 1 }, { rank: 24, name: 'Ms. Yc', count: 1 }, { rank: 24, name: 'Mr. Tm', count: 1 }, { rank: 24, name: 'Mr. Az', count: 1 }, { rank: 24, name: 'Mr. Mr', count: 1 }, { rank: 24, name: 'Mr. Ky', count: 1 }, { rank: 24, name: 'Mr. Ym', count: 1 }, { rank: 24, name: 'Mr. Hr', count: 1 }, { rank: 24, name: 'Mr. Ms', count: 1 }]
+	   }, {
+	      8: [{ rank: 1, name: 'Mr. Ts', count: 16 }, { rank: 2, name: 'Mr. Nmm', count: 14 }, { rank: 3, name: 'Mr. Mw', count: 13 }, { rank: 4, name: 'Ms. Hm', count: 12 }, { rank: 4, name: 'Mr. Nm', count: 12 }, { rank: 6, name: 'Mr. Og', count: 11 }, { rank: 7, name: 'Mr. Td', count: 9 }, { rank: 7, name: 'Mr. Ks', count: 9 }, { rank: 7, name: 'Mr. Ys', count: 9 }, { rank: 10, name: 'Ms. Smr', count: 8 }, { rank: 10, name: 'Mr. Md', count: 8 }, { rank: 12, name: 'Mr. Kh', count: 7 }, { rank: 13, name: 'Ms. Yc', count: 6 }, { rank: 14, name: 'Ms. Me', count: 5 }, { rank: 15, name: 'Mr. Knm', count: 4 }, { rank: 15, name: 'Mr. Nk', count: 4 }, { rank: 15, name: 'Mr. Fj', count: 4 }, { rank: 15, name: 'Mr. Uy', count: 4 }, { rank: 19, name: 'Mr. Kn', count: 3 }, { rank: 19, name: 'Mr. Om', count: 3 }, { rank: 19, name: 'Mr. Sg', count: 3 }, { rank: 19, name: 'Mr. Dn', count: 3 }, { rank: 23, name: 'Mr. Mr', count: 2 }, { rank: 23, name: 'Mr. Mo', count: 2 }, { rank: 23, name: 'Mr. Ms', count: 2 }, { rank: 23, name: 'Mr. Ot', count: 2 }, { rank: 23, name: 'Mr. Mm', count: 2 }, { rank: 28, name: 'Mr. Ym', count: 1 }, { rank: 28, name: 'Mr. Sh', count: 1 }, { rank: 28, name: 'Mr. Hr', count: 1 }, { rank: 28, name: 'Ms. Stg', count: 1 }, { rank: 28, name: 'Ms. Mt', count: 1 }, { rank: 28, name: 'Mr. It', count: 1 }, { rank: 28, name: 'Mr. Si', count: 1 }, { rank: 28, name: 'Mr. Az', count: 1 }]
+	   }, {
+	      9: [{ rank: 1, name: 'Mr. Ts', count: 17 }, { rank: 2, name: 'Mr. Kh', count: 15 }, { rank: 3, name: 'Mr. Ys', count: 12 }, { rank: 3, name: 'Mr. Nm', count: 12 }, { rank: 5, name: 'Mr. Md', count: 10 }, { rank: 6, name: 'Ms. Smr', count: 9 }, { rank: 6, name: 'Mr. Nmm', count: 9 }, { rank: 8, name: 'Mr. Mw', count: 8 }, { rank: 9, name: 'Mr. Og', count: 6 }, { rank: 9, name: 'Mr. Ot', count: 6 }, { rank: 9, name: 'Mr. Fj', count: 6 }, { rank: 9, name: 'Mr. Ms', count: 6 }, { rank: 9, name: 'Ms. Me', count: 6 }, { rank: 14, name: 'Mr. Yu', count: 5 }, { rank: 14, name: 'Mr. Kn', count: 5 }, { rank: 14, name: 'Mr. Ks', count: 5 }, { rank: 17, name: 'Mr. Az', count: 4 }, { rank: 17, name: 'Mr. Mo', count: 4 }, { rank: 17, name: 'Mr. Nk', count: 4 }, { rank: 17, name: 'Mr. Td', count: 4 }, { rank: 17, name: 'Mr. Tk', count: 4 }, { rank: 22, name: 'Mr. Sm', count: 3 }, { rank: 22, name: 'Mr. Nz', count: 3 }, { rank: 22, name: 'Mr. Hr', count: 3 }, { rank: 22, name: 'Mr. Se', count: 3 }, { rank: 22, name: 'Mr. Knm', count: 3 }, { rank: 22, name: 'Mr. Uy', count: 3 }, { rank: 22, name: 'Mr. Mm', count: 3 }, { rank: 22, name: 'Ms. Stg', count: 3 }, { rank: 30, name: 'Mr. Dn', count: 2 }, { rank: 30, name: 'Mr. Mr', count: 2 }, { rank: 30, name: 'Ms. Yc', count: 2 }, { rank: 33, name: 'Mr. Ky', count: 1 }, { rank: 33, name: 'Mr. Sh', count: 1 }, { rank: 33, name: 'Mr. Om', count: 1 }, { rank: 33, name: 'Ms. Hm', count: 1 }, { rank: 33, name: 'Mr. Ym', count: 1 }]
+	   }, {
+	      10: [{ rank: 1, name: 'Mr. Ts', count: 16 }, { rank: 2, name: 'Mr. Tk', count: 14 }, { rank: 2, name: 'Mr. Ms', count: 14 }, { rank: 2, name: 'Mr. Hr', count: 14 }, { rank: 5, name: 'Mr. Nmm', count: 13 }, { rank: 6, name: 'Mr. Se', count: 12 }, { rank: 6, name: 'Mr. Sm', count: 12 }, { rank: 8, name: 'Mr. Ys', count: 9 }, { rank: 9, name: 'Mr. Td', count: 8 }, { rank: 10, name: 'Mr. Kh', count: 7 }, { rank: 11, name: 'Ms. Stg', count: 5 }, { rank: 12, name: 'Mr. Nm', count: 2 }, { rank: 12, name: 'Mr. Ot', count: 2 }, { rank: 12, name: 'Mr. Mm', count: 2 }, { rank: 15, name: 'Mr. Mw', count: 1 }, { rank: 15, name: 'Mr. Nz', count: 1 }, { rank: 15, name: 'Ms. Tn', count: 1 }, { rank: 15, name: 'Mr. Yu', count: 1 }, { rank: 15, name: 'Mr. Nk', count: 1 }]
+	   }, {
+	      11: [{ rank: 1, name: 'Mr. Ms', count: 22 }, { rank: 2, name: 'Mr. Ts', count: 21 }, { rank: 3, name: 'Mr. Sm', count: 20 }, { rank: 3, name: 'Mr. Se', count: 20 }, { rank: 5, name: 'Mr. Ot', count: 19 }, { rank: 5, name: 'Mr. Tk', count: 19 }, { rank: 5, name: 'Mr. Hr', count: 19 }, { rank: 8, name: 'Mr. Kh', count: 18 }, { rank: 9, name: 'Mr. Yu', count: 17 }, { rank: 9, name: 'Mr. Td', count: 17 }, { rank: 11, name: 'Mr. Mo', count: 16 }, { rank: 11, name: 'Mr. Nz', count: 16 }, { rank: 13, name: 'Mr. Ys', count: 13 }, { rank: 14, name: 'Mr. Az', count: 10 }, { rank: 14, name: 'Mr. Nmm', count: 10 }, { rank: 16, name: 'Ms. Stg', count: 8 }, { rank: 16, name: 'Mr. Nm', count: 8 }, { rank: 18, name: 'Mr. Mm', count: 6 }, { rank: 19, name: 'Mr. Nk', count: 3 }, { rank: 19, name: 'Ms. Smr', count: 3 }, { rank: 21, name: 'Ms. St', count: 2 }, { rank: 22, name: 'Mr. Fj', count: 1 }, { rank: 22, name: 'Mr. It', count: 1 }, { rank: 22, name: 'Mr. Sh', count: 1 }, { rank: 22, name: 'Mr. Dn', count: 1 }, { rank: 22, name: 'Ms. Tn', count: 1 }, { rank: 22, name: 'Mr. Ky', count: 1 }, { rank: 22, name: 'Mr. Og', count: 1 }]
+	   }, {
+	      12: [{ rank: 1, name: 'Mr. Mo', count: 23 }, { rank: 2, name: 'Mr. Nz', count: 21 }, { rank: 3, name: 'Mr. Se', count: 18 }, { rank: 4, name: 'Mr. Ot', count: 17 }, { rank: 5, name: 'Mr. Ms', count: 15 }, { rank: 6, name: 'Mr. Az', count: 14 }, { rank: 6, name: 'Mr. Hr', count: 14 }, { rank: 8, name: 'Mr. Sm', count: 13 }, { rank: 8, name: 'Mr. Tk', count: 13 }, { rank: 10, name: 'Mr. Kh', count: 8 }, { rank: 10, name: 'Mr. Yu', count: 8 }, { rank: 10, name: 'Mr. Mw', count: 8 }, { rank: 13, name: 'Mr. Md', count: 6 }, { rank: 14, name: 'Mr. Nm', count: 5 }, { rank: 14, name: 'Mr. Mm', count: 5 }, { rank: 16, name: 'Mr. Nmm', count: 4 }, { rank: 16, name: 'Mr. Ts', count: 4 }, { rank: 16, name: 'Mr. Td', count: 4 }, { rank: 16, name: 'Ms. Me', count: 4 }, { rank: 20, name: 'Ms. Tn', count: 3 }, { rank: 20, name: 'Mr. Nk', count: 3 }, { rank: 20, name: 'Mr. Ys', count: 3 }, { rank: 23, name: 'Mr. Ks', count: 2 }, { rank: 23, name: 'Ms. St', count: 2 }, { rank: 23, name: 'Mr. Kn', count: 2 }, { rank: 23, name: 'Mr. Uy', count: 2 }, { rank: 27, name: 'Mr. Tm', count: 1 }, { rank: 27, name: 'Mr. Fj', count: 1 }, { rank: 27, name: 'Mr. Dn', count: 1 }, { rank: 27, name: 'Ms. Mt', count: 1 }]
+	   }]
+	};
 
 /***/ },
 /* 3 */
-/*!********************!*\
-  !*** ./~/d3/d3.js ***!
-  \********************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function() {
@@ -4384,7 +3958,7 @@
 	          svg.remove();
 	        }
 	      }
-	      if (d3_mouse_bug44083) point.x = e.pageX, point.y = e.pageY; else point.x = e.clientX, 
+	      if (d3_mouse_bug44083) point.x = e.pageX, point.y = e.pageY; else point.x = e.clientX,
 	      point.y = e.clientY;
 	      point = point.matrixTransform(container.getScreenCTM().inverse());
 	      return [ point.x, point.y ];
@@ -4759,7 +4333,7 @@
 	    }
 	    function mousewheeled() {
 	      var dispatch = event.of(this, arguments);
-	      if (mousewheelTimer) clearTimeout(mousewheelTimer); else d3_selection_interrupt.call(this), 
+	      if (mousewheelTimer) clearTimeout(mousewheelTimer); else d3_selection_interrupt.call(this),
 	      translate0 = location(center0 = center || d3.mouse(this)), zoomstarted(dispatch);
 	      mousewheelTimer = setTimeout(function() {
 	        mousewheelTimer = null;
@@ -4914,7 +4488,7 @@
 	        {
 	          return hsl(parseFloat(m2[0]), parseFloat(m2[1]) / 100, parseFloat(m2[2]) / 100);
 	        }
-	
+
 	       case "rgb":
 	        {
 	          return rgb(d3_rgb_parseNumber(m2[0]), d3_rgb_parseNumber(m2[1]), d3_rgb_parseNumber(m2[2]));
@@ -5128,7 +4702,7 @@
 	  d3.xhr = d3_xhrType(d3_identity);
 	  function d3_xhrType(response) {
 	    return function(url, mimeType, callback) {
-	      if (arguments.length === 2 && typeof mimeType === "function") callback = mimeType, 
+	      if (arguments.length === 2 && typeof mimeType === "function") callback = mimeType,
 	      mimeType = null;
 	      return d3_xhr(url, mimeType, response, callback);
 	    };
@@ -5434,33 +5008,33 @@
 	        comma = true;
 	        type = "g";
 	        break;
-	
+
 	       case "%":
 	        scale = 100;
 	        suffix = "%";
 	        type = "f";
 	        break;
-	
+
 	       case "p":
 	        scale = 100;
 	        suffix = "%";
 	        type = "r";
 	        break;
-	
+
 	       case "b":
 	       case "o":
 	       case "x":
 	       case "X":
 	        if (symbol === "#") prefix = "0" + type.toLowerCase();
-	
+
 	       case "c":
 	        exponent = false;
-	
+
 	       case "d":
 	        integer = true;
 	        precision = 0;
 	        break;
-	
+
 	       case "s":
 	        scale = -1;
 	        type = "r";
@@ -5969,7 +5543,7 @@
 	    return n ? (date.y = d3_time_expandYear(+n[0]), i + n[0].length) : -1;
 	  }
 	  function d3_time_parseZone(date, string, i) {
-	    return /^[+-]\d{4}$/.test(string = string.slice(i, i + 5)) ? (date.Z = -string, 
+	    return /^[+-]\d{4}$/.test(string = string.slice(i, i + 5)) ? (date.Z = -string,
 	    i + 5) : -1;
 	  }
 	  function d3_time_expandYear(d) {
@@ -6162,7 +5736,7 @@
 	    var λ00, φ00, λ0, cosφ0, sinφ0;
 	    d3_geo_area.point = function(λ, φ) {
 	      d3_geo_area.point = nextPoint;
-	      λ0 = (λ00 = λ) * d3_radians, cosφ0 = Math.cos(φ = (φ00 = φ) * d3_radians / 2 + π / 4), 
+	      λ0 = (λ00 = λ) * d3_radians, cosφ0 = Math.cos(φ = (φ00 = φ) * d3_radians / 2 + π / 4),
 	      sinφ0 = Math.sin(φ);
 	    };
 	    function nextPoint(λ, φ) {
@@ -7991,7 +7565,7 @@
 	      return _ ? center([ -_[1], _[0] ]) : (_ = center(), [ _[1], -_[0] ]);
 	    };
 	    projection.rotate = function(_) {
-	      return _ ? rotate([ _[0], _[1], _.length > 2 ? _[2] + 90 : 90 ]) : (_ = rotate(), 
+	      return _ ? rotate([ _[0], _[1], _.length > 2 ? _[2] + 90 : 90 ]) : (_ = rotate(),
 	      [ _[0], _[1], _[2] - 90 ]);
 	    };
 	    return rotate([ 0, 0, 90 ]);
@@ -8845,7 +8419,7 @@
 	    };
 	    quadtree.extent = function(_) {
 	      if (!arguments.length) return x1 == null ? null : [ [ x1, y1 ], [ x2, y2 ] ];
-	      if (_ == null) x1 = y1 = x2 = y2 = null; else x1 = +_[0][0], y1 = +_[0][1], x2 = +_[1][0], 
+	      if (_ == null) x1 = y1 = x2 = y2 = null; else x1 = +_[0][0], y1 = +_[0][1], x2 = +_[1][0],
 	      y2 = +_[1][1];
 	      return quadtree;
 	    };
@@ -8899,15 +8473,15 @@
 	         case 0:
 	          find(node, x1, y1, xm, ym);
 	          break;
-	
+
 	         case 1:
 	          find(node, xm, y1, x2, ym);
 	          break;
-	
+
 	         case 2:
 	          find(node, x1, ym, xm, y2);
 	          break;
-	
+
 	         case 3:
 	          find(node, xm, ym, x2, y2);
 	          break;
@@ -10570,7 +10144,7 @@
 	        return d3_layout_treemapPad(node, x);
 	      }
 	      var type;
-	      pad = (padding = x) == null ? d3_layout_treemapPadNull : (type = typeof x) === "function" ? padFunction : type === "number" ? (x = [ x, x, x, x ], 
+	      pad = (padding = x) == null ? d3_layout_treemapPadNull : (type = typeof x) === "function" ? padFunction : type === "number" ? (x = [ x, x, x, x ],
 	      padConstant) : padConstant;
 	      return treemap;
 	    };
@@ -10973,7 +10547,7 @@
 	    };
 	    scale.rangePoints = function(x, padding) {
 	      if (arguments.length < 2) padding = 0;
-	      var start = x[0], stop = x[1], step = domain.length < 2 ? (start = (start + stop) / 2, 
+	      var start = x[0], stop = x[1], step = domain.length < 2 ? (start = (start + stop) / 2,
 	      0) : (stop - start) / (domain.length - 1 + padding);
 	      range = steps(start + step * padding / 2, step);
 	      rangeBand = 0;
@@ -10985,7 +10559,7 @@
 	    };
 	    scale.rangeRoundPoints = function(x, padding) {
 	      if (arguments.length < 2) padding = 0;
-	      var start = x[0], stop = x[1], step = domain.length < 2 ? (start = stop = Math.round((start + stop) / 2), 
+	      var start = x[0], stop = x[1], step = domain.length < 2 ? (start = stop = Math.round((start + stop) / 2),
 	      0) : (stop - start) / (domain.length - 1 + padding) | 0;
 	      range = steps(start + Math.round(step * padding / 2 + (stop - start - (domain.length - 1 + padding) * step) / 2), step);
 	      rangeBand = 0;
@@ -11413,7 +10987,7 @@
 	    return points.length < 4 ? d3_svg_lineLinear(points) : points[1] + d3_svg_lineHermite(points.slice(1, -1), d3_svg_lineCardinalTangents(points, tension));
 	  }
 	  function d3_svg_lineCardinalClosed(points, tension) {
-	    return points.length < 3 ? d3_svg_lineLinearClosed(points) : points[0] + d3_svg_lineHermite((points.push(points[0]), 
+	    return points.length < 3 ? d3_svg_lineLinearClosed(points) : points[0] + d3_svg_lineHermite((points.push(points[0]),
 	    points), d3_svg_lineCardinalTangents([ points[points.length - 2] ].concat(points, [ points[1] ]), tension));
 	  }
 	  function d3_svg_lineCardinal(points, tension) {
@@ -12186,7 +11760,7 @@
 	        var g = d3.select(this);
 	        var scale0 = this.__chart__ || scale, scale1 = this.__chart__ = scale.copy();
 	        var ticks = tickValues == null ? scale1.ticks ? scale1.ticks.apply(scale1, tickArguments_) : scale1.domain() : tickValues, tickFormat = tickFormat_ == null ? scale1.tickFormat ? scale1.tickFormat.apply(scale1, tickArguments_) : d3_identity : tickFormat_, tick = g.selectAll(".tick").data(ticks, scale1), tickEnter = tick.enter().insert("g", ".domain").attr("class", "tick").style("opacity", ε), tickExit = d3.transition(tick.exit()).style("opacity", ε).remove(), tickUpdate = d3.transition(tick.order()).style("opacity", 1), tickSpacing = Math.max(innerTickSize, 0) + tickPadding, tickTransform;
-	        var range = d3_scaleRange(scale1), path = g.selectAll(".domain").data([ 0 ]), pathUpdate = (path.enter().append("path").attr("class", "domain"), 
+	        var range = d3_scaleRange(scale1), path = g.selectAll(".domain").data([ 0 ]), pathUpdate = (path.enter().append("path").attr("class", "domain"),
 	        d3.transition(path));
 	        tickEnter.append("line");
 	        tickEnter.append("text");
@@ -12756,29 +12330,92 @@
 	}();
 
 /***/ },
-/* 4 */
-/*!********************!*\
-  !*** ./~/c3/c3.js ***!
-  \********************/
+/* 4 */,
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(riot) {'use strict';
+
+	riot.tag2('pie', '<h1> {opts.header}</h1> <article> <h2> {opts.title}</h2> <div id="dest"></div> <div class="btn-back"> <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--green-300 mdl-color-text--white" onclick="{back}">back</button> </div> </article> <footer> <span>(c) 2016 k-kuwahara</span> </footer>', '', '', function (opts) {
+	   'use strict';
+
+	   var c3 = __webpack_require__(6);
+	   var self = this;
+	   self.name = '';
+	   self.page = '';
+
+	   self.on('before-mount', function () {
+	      if (location.search.search('name') != -1) {
+	         self.name = decodeURI(location.search.split('=')[1]);
+	      }
+	      if (location.search.search('page') != -1) {
+	         self.page = location.search.split('=')[1];
+	      }
+	   });
+
+	   self.on('mount', function () {
+	      if (self.name.length > 0) {
+	         (function () {
+	            var c3_col = [];
+	            opts.dataset['year'].map(function (r, i) {
+	               r[i + 1].map(function (item) {
+	                  if (item.name == self.name) {
+	                     c3_col.push(item.count);
+	                  }
+	               });
+	            });
+	            chart_opts.data.types[self.name] = 'area-spline';
+	            chart_opts.data.columns[0] = [self.name].concat(c3_col);
+	            c3.generate(chart_opts);
+	         })();
+	      } else if (self.page.length > 0) {
+	         var max = opts.dataset[self.page].length;
+
+	         opts.dataset[self.page].forEach(function (item, key) {
+	            chart_opts.data.columns[key] = [item.name].concat(item.data);
+	            chart_opts.data.types[item.name] = 'area-spline';
+	         });
+	         c3.generate(chart_opts);
+	      }
+	   });
+
+	   // each pie-charts part
+	   var chart_opts = {
+	      bindto: '#dest',
+	      data: {
+	         columns: [],
+	         types: {}
+	      }
+	   };
+
+	   // location back
+	   function back() {
+	      history.back();
+	   }
+	});
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ },
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (window) {
 	    'use strict';
-	
+
 	    /*global define, module, exports, require */
-	
+
 	    var c3 = { version: "0.4.11" };
-	
+
 	    var c3_chart_fn,
 	        c3_chart_internal_fn,
 	        c3_chart_internal_axis_fn;
-	
+
 	    function API(owner) {
 	        this.owner = owner;
 	    }
-	
+
 	    function inherit(base, derived) {
-	
+
 	        if (Object.create) {
 	            derived.prototype = Object.create(base.prototype);
 	        } else {
@@ -12786,20 +12423,20 @@
 	            f.prototype = base.prototype;
 	            derived.prototype = new f();
 	        }
-	
+
 	        derived.prototype.constructor = derived;
-	
+
 	        return derived;
 	    }
-	
+
 	    function Chart(config) {
 	        var $$ = this.internal = new ChartInternal(this);
 	        $$.loadConfig(config);
-	
+
 	        $$.beforeInit(config);
 	        $$.init();
 	        $$.afterInit(config);
-	
+
 	        // bind "this" to nested API
 	        (function bindThis(fn, target, argThis) {
 	            Object.keys(fn).forEach(function (key) {
@@ -12810,21 +12447,21 @@
 	            });
 	        })(c3_chart_fn, this, this);
 	    }
-	
+
 	    function ChartInternal(api) {
 	        var $$ = this;
-	        $$.d3 = window.d3 ? window.d3 :  true ? __webpack_require__(/*! d3 */ 3) : undefined;
+	        $$.d3 = window.d3 ? window.d3 :  true ? __webpack_require__(3) : undefined;
 	        $$.api = api;
 	        $$.config = $$.getDefaultConfig();
 	        $$.data = {};
 	        $$.cache = {};
 	        $$.axes = {};
 	    }
-	
+
 	    c3.generate = function (config) {
 	        return new Chart(config);
 	    };
-	
+
 	    c3.chart = {
 	        fn: Chart.prototype,
 	        internal: {
@@ -12837,7 +12474,7 @@
 	    c3_chart_fn = c3.chart.fn;
 	    c3_chart_internal_fn = c3.chart.internal.fn;
 	    c3_chart_internal_axis_fn = c3.chart.internal.axis.fn;
-	
+
 	    c3_chart_internal_fn.beforeInit = function () {
 	        // can do something
 	    };
@@ -12846,9 +12483,9 @@
 	    };
 	    c3_chart_internal_fn.init = function () {
 	        var $$ = this, config = $$.config;
-	
+
 	        $$.initParams();
-	
+
 	        if (config.data_url) {
 	            $$.convertUrlToData(config.data_url, config.data_mimeType, config.data_headers, config.data_keys, $$.initWithData);
 	        }
@@ -12865,10 +12502,10 @@
 	            throw Error('url or json or rows or columns is required.');
 	        }
 	    };
-	
+
 	    c3_chart_internal_fn.initParams = function () {
 	        var $$ = this, d3 = $$.d3, config = $$.config;
-	
+
 	        // MEMO: clipId needs to be unique because it conflicts when multiple charts exist
 	        $$.clipId = "c3-" + (+new Date()) + '-clip',
 	        $$.clipIdForXAxis = $$.clipId + '-xaxis',
@@ -12880,17 +12517,17 @@
 	        $$.clipPathForYAxis = $$.getClipPath($$.clipIdForYAxis);
 	        $$.clipPathForGrid = $$.getClipPath($$.clipIdForGrid),
 	        $$.clipPathForSubchart = $$.getClipPath($$.clipIdForSubchart),
-	
+
 	        $$.dragStart = null;
 	        $$.dragging = false;
 	        $$.flowing = false;
 	        $$.cancelClick = false;
 	        $$.mouseover = false;
 	        $$.transiting = false;
-	
+
 	        $$.color = $$.generateColor();
 	        $$.levelColor = $$.generateLevelColor();
-	
+
 	        $$.dataTimeFormat = config.data_xLocaltime ? d3.time.format : d3.time.format.utc;
 	        $$.axisTimeFormat = config.axis_x_localtime ? d3.time.format : d3.time.format.utc;
 	        $$.defaultAxisTimeFormat = $$.axisTimeFormat.multi([
@@ -12903,17 +12540,17 @@
 	            ["%-m/%-d", function (d) { return d.getMonth(); }],
 	            ["%Y/%-m/%-d", function () { return true; }]
 	        ]);
-	
+
 	        $$.hiddenTargetIds = [];
 	        $$.hiddenLegendIds = [];
 	        $$.focusedTargetIds = [];
 	        $$.defocusedTargetIds = [];
-	
+
 	        $$.xOrient = config.axis_rotated ? "left" : "bottom";
 	        $$.yOrient = config.axis_rotated ? (config.axis_y_inner ? "top" : "bottom") : (config.axis_y_inner ? "right" : "left");
 	        $$.y2Orient = config.axis_rotated ? (config.axis_y2_inner ? "bottom" : "top") : (config.axis_y2_inner ? "left" : "right");
 	        $$.subXOrient = config.axis_rotated ? "left" : "bottom";
-	
+
 	        $$.isLegendRight = config.legend_position === 'right';
 	        $$.isLegendInset = config.legend_position === 'inset';
 	        $$.isLegendTop = config.legend_inset_anchor === 'top-left' || config.legend_inset_anchor === 'top-right';
@@ -12921,24 +12558,24 @@
 	        $$.legendStep = 0;
 	        $$.legendItemWidth = 0;
 	        $$.legendItemHeight = 0;
-	
+
 	        $$.currentMaxTickWidths = {
 	            x: 0,
 	            y: 0,
 	            y2: 0
 	        };
-	
+
 	        $$.rotated_padding_left = 30;
 	        $$.rotated_padding_right = config.axis_rotated && !config.axis_x_show ? 0 : 30;
 	        $$.rotated_padding_top = 5;
-	
+
 	        $$.withoutFadeIn = {};
-	
+
 	        $$.intervalForObserveInserted = undefined;
-	
+
 	        $$.axes.subx = d3.selectAll([]); // needs when excluding subchart.js
 	    };
-	
+
 	    c3_chart_internal_fn.initChartElements = function () {
 	        if (this.initBar) { this.initBar(); }
 	        if (this.initLine) { this.initLine(); }
@@ -12946,17 +12583,17 @@
 	        if (this.initGauge) { this.initGauge(); }
 	        if (this.initText) { this.initText(); }
 	    };
-	
+
 	    c3_chart_internal_fn.initWithData = function (data) {
 	        var $$ = this, d3 = $$.d3, config = $$.config;
 	        var defs, main, binding = true;
-	
+
 	        $$.axis = new Axis($$);
-	
+
 	        if ($$.initPie) { $$.initPie(); }
 	        if ($$.initBrush) { $$.initBrush(); }
 	        if ($$.initZoom) { $$.initZoom(); }
-	
+
 	        if (!config.bindto) {
 	            $$.selectChart = d3.selectAll([]);
 	        }
@@ -12972,15 +12609,15 @@
 	            binding = false;
 	        }
 	        $$.selectChart.html("").classed("c3", true);
-	
+
 	        // Init data as targets
 	        $$.data.xs = {};
 	        $$.data.targets = $$.convertDataToTargets(data);
-	
+
 	        if (config.data_filter) {
 	            $$.data.targets = $$.data.targets.filter(config.data_filter);
 	        }
-	
+
 	        // Set targets to hide if needed
 	        if (config.data_hide) {
 	            $$.addHiddenTargetIds(config.data_hide === true ? $$.mapToIds($$.data.targets) : config.data_hide);
@@ -12988,16 +12625,16 @@
 	        if (config.legend_hide) {
 	            $$.addHiddenLegendIds(config.legend_hide === true ? $$.mapToIds($$.data.targets) : config.legend_hide);
 	        }
-	
+
 	        // when gauge, hide legend // TODO: fix
 	        if ($$.hasType('gauge')) {
 	            config.legend_show = false;
 	        }
-	
+
 	        // Init sizes and scales
 	        $$.updateSizes();
 	        $$.updateScales();
-	
+
 	        // Set domains for each scale
 	        $$.x.domain(d3.extent($$.getXDomain($$.data.targets)));
 	        $$.y.domain($$.getYDomain($$.data.targets, 'y'));
@@ -13005,26 +12642,26 @@
 	        $$.subX.domain($$.x.domain());
 	        $$.subY.domain($$.y.domain());
 	        $$.subY2.domain($$.y2.domain());
-	
+
 	        // Save original x domain for zoom update
 	        $$.orgXDomain = $$.x.domain();
-	
+
 	        // Set initialized scales to brush and zoom
 	        if ($$.brush) { $$.brush.scale($$.subX); }
 	        if (config.zoom_enabled) { $$.zoom.scale($$.x); }
-	
+
 	        /*-- Basic Elements --*/
-	
+
 	        // Define svgs
 	        $$.svg = $$.selectChart.append("svg")
 	            .style("overflow", "hidden")
 	            .on('mouseenter', function () { return config.onmouseover.call($$); })
 	            .on('mouseleave', function () { return config.onmouseout.call($$); });
-	
+
 	        if ($$.config.svg_classname) {
 	            $$.svg.attr('class', $$.config.svg_classname);
 	        }
-	
+
 	        // Define defs
 	        defs = $$.svg.append("defs");
 	        $$.clipChart = $$.appendClip(defs, $$.clipId);
@@ -13033,43 +12670,43 @@
 	        $$.clipGrid = $$.appendClip(defs, $$.clipIdForGrid);
 	        $$.clipSubchart = $$.appendClip(defs, $$.clipIdForSubchart);
 	        $$.updateSvgSize();
-	
+
 	        // Define regions
 	        main = $$.main = $$.svg.append("g").attr("transform", $$.getTranslate('main'));
-	
+
 	        if ($$.initSubchart) { $$.initSubchart(); }
 	        if ($$.initTooltip) { $$.initTooltip(); }
 	        if ($$.initLegend) { $$.initLegend(); }
 	        if ($$.initTitle) { $$.initTitle(); }
-	
+
 	        /*-- Main Region --*/
-	
+
 	        // text when empty
 	        main.append("text")
 	            .attr("class", CLASS.text + ' ' + CLASS.empty)
 	            .attr("text-anchor", "middle") // horizontal centering of text at x position in all browsers.
 	            .attr("dominant-baseline", "middle"); // vertical centering of text at y position in all browsers, except IE.
-	
+
 	        // Regions
 	        $$.initRegion();
-	
+
 	        // Grids
 	        $$.initGrid();
-	
+
 	        // Define g for chart area
 	        main.append('g')
 	            .attr("clip-path", $$.clipPath)
 	            .attr('class', CLASS.chart);
-	
+
 	        // Grid lines
 	        if (config.grid_lines_front) { $$.initGridLines(); }
-	
+
 	        // Cover whole with rects for events
 	        $$.initEventRect();
-	
+
 	        // Define g for chart
 	        $$.initChartElements();
-	
+
 	        // if zoom privileged, insert rect to forefront
 	        // TODO: is this needed?
 	        main.insert('rect', config.zoom_privileged ? null : 'g.' + CLASS.regions)
@@ -13078,16 +12715,16 @@
 	            .attr('height', $$.height)
 	            .style('opacity', 0)
 	            .on("dblclick.zoom", null);
-	
+
 	        // Set default extent if defined
 	        if (config.axis_x_extent) { $$.brush.extent($$.getDefaultExtent()); }
-	
+
 	        // Add Axis
 	        $$.axis.init();
-	
+
 	        // Set targets
 	        $$.updateTargets($$.data.targets);
-	
+
 	        // Draw with targets
 	        if (binding) {
 	            $$.updateDimension();
@@ -13100,14 +12737,14 @@
 	                withTransitionForAxis: false
 	            });
 	        }
-	
+
 	        // Bind resize event
 	        $$.bindResize();
-	
+
 	        // export element of the chart
 	        $$.api.element = $$.selectChart.node();
 	    };
-	
+
 	    c3_chart_internal_fn.smoothLines = function (el, type) {
 	        var $$ = this;
 	        if (type === 'grid') {
@@ -13126,8 +12763,8 @@
 	            });
 	        }
 	    };
-	
-	
+
+
 	    c3_chart_internal_fn.updateSizes = function () {
 	        var $$ = this, config = $$.config;
 	        var legendHeight = $$.legend ? $$.getLegendHeight() : 0,
@@ -13136,10 +12773,10 @@
 	            hasArc = $$.hasArcType(),
 	            xAxisHeight = config.axis_rotated || hasArc ? 0 : $$.getHorizontalAxisHeight('x'),
 	            subchartHeight = config.subchart_show && !hasArc ? (config.subchart_size_height + xAxisHeight) : 0;
-	
+
 	        $$.currentWidth = $$.getCurrentWidth();
 	        $$.currentHeight = $$.getCurrentHeight();
-	
+
 	        // for main
 	        $$.margin = config.axis_rotated ? {
 	            top: $$.getHorizontalAxisHeight('y2') + $$.getCurrentPaddingTop(),
@@ -13152,7 +12789,7 @@
 	            bottom: xAxisHeight + subchartHeight + legendHeightForBottom + $$.getCurrentPaddingBottom(),
 	            left: hasArc ? 0 : $$.getCurrentPaddingLeft()
 	        };
-	
+
 	        // for subchart
 	        $$.margin2 = config.axis_rotated ? {
 	            top: $$.margin.top,
@@ -13165,7 +12802,7 @@
 	            bottom: xAxisHeight + legendHeightForBottom,
 	            left: $$.margin.left
 	        };
-	
+
 	        // for legend
 	        $$.margin3 = {
 	            top: 0,
@@ -13174,17 +12811,17 @@
 	            left: 0
 	        };
 	        if ($$.updateSizeForLegend) { $$.updateSizeForLegend(legendHeight, legendWidth); }
-	
+
 	        $$.width = $$.currentWidth - $$.margin.left - $$.margin.right;
 	        $$.height = $$.currentHeight - $$.margin.top - $$.margin.bottom;
 	        if ($$.width < 0) { $$.width = 0; }
 	        if ($$.height < 0) { $$.height = 0; }
-	
+
 	        $$.width2 = config.axis_rotated ? $$.margin.left - $$.rotated_padding_left - $$.rotated_padding_right : $$.width;
 	        $$.height2 = config.axis_rotated ? $$.height : $$.currentHeight - $$.margin2.top - $$.margin2.bottom;
 	        if ($$.width2 < 0) { $$.width2 = 0; }
 	        if ($$.height2 < 0) { $$.height2 = 0; }
-	
+
 	        // for arc
 	        $$.arcWidth = $$.width - ($$.isLegendRight ? legendWidth + 10 : 0);
 	        $$.arcHeight = $$.height - ($$.isLegendRight ? 0 : 10);
@@ -13192,33 +12829,33 @@
 	            $$.arcHeight += $$.height - $$.getGaugeLabelHeight();
 	        }
 	        if ($$.updateRadius) { $$.updateRadius(); }
-	
+
 	        if ($$.isLegendRight && hasArc) {
 	            $$.margin3.left = $$.arcWidth / 2 + $$.radiusExpanded * 1.1;
 	        }
 	    };
-	
+
 	    c3_chart_internal_fn.updateTargets = function (targets) {
 	        var $$ = this;
-	
+
 	        /*-- Main --*/
-	
+
 	        //-- Text --//
 	        $$.updateTargetsForText(targets);
-	
+
 	        //-- Bar --//
 	        $$.updateTargetsForBar(targets);
-	
+
 	        //-- Line --//
 	        $$.updateTargetsForLine(targets);
-	
+
 	        //-- Arc --//
 	        if ($$.hasArcType() && $$.updateTargetsForArc) { $$.updateTargetsForArc(targets); }
-	
+
 	        /*-- Sub --*/
-	
+
 	        if ($$.updateTargetsForSubchart) { $$.updateTargetsForSubchart(targets); }
-	
+
 	        // Fade-in each chart
 	        $$.showTargets();
 	    };
@@ -13228,7 +12865,7 @@
 	          .transition().duration($$.config.transition_duration)
 	            .style("opacity", 1);
 	    };
-	
+
 	    c3_chart_internal_fn.redraw = function (options, transitions) {
 	        var $$ = this, main = $$.main, d3 = $$.d3, config = $$.config;
 	        var areaIndices = $$.getShapeIndices($$.isAreaType), barIndices = $$.getShapeIndices($$.isBarType), lineIndices = $$.getShapeIndices($$.isLineType);
@@ -13241,7 +12878,7 @@
 	        var waitForDraw, flow;
 	        var targetsToShow = $$.filterTargetsToShow($$.data.targets), tickValues, i, intervalForCulling, xDomainForZoom;
 	        var xv = $$.xv.bind($$), cx, cy;
-	
+
 	        options = options || {};
 	        withY = getOption(options, "withY", true);
 	        withSubchart = getOption(options, "withSubchart", true);
@@ -13256,13 +12893,13 @@
 	        withDimension = getOption(options, "withDimension", true);
 	        withTransitionForExit = getOption(options, "withTransitionForExit", withTransition);
 	        withTransitionForAxis = getOption(options, "withTransitionForAxis", withTransition);
-	
+
 	        duration = withTransition ? config.transition_duration : 0;
 	        durationForExit = withTransitionForExit ? duration : 0;
 	        durationForAxis = withTransitionForAxis ? duration : 0;
-	
+
 	        transitions = transitions || $$.axis.generateTransitions(durationForAxis);
-	
+
 	        // update legend and transform each g
 	        if (withLegend && config.legend_show) {
 	            $$.updateLegend($$.mapToIds($$.data.targets), options, transitions);
@@ -13271,12 +12908,12 @@
 	            // no need to update axis in it because they will be updated in redraw()
 	            $$.updateDimension(true);
 	        }
-	
+
 	        // MEMO: needed for grids calculation
 	        if ($$.isCategorized() && targetsToShow.length === 0) {
 	            $$.x.domain([0, $$.axes.x.selectAll('.tick').size()]);
 	        }
-	
+
 	        if (targetsToShow.length) {
 	            $$.updateXDomain(targetsToShow, withUpdateXDomain, withUpdateOrgXDomain, withTrimXDomain);
 	            if (!config.axis_x_tick_values) {
@@ -13286,27 +12923,27 @@
 	            $$.xAxis.tickValues([]);
 	            $$.subXAxis.tickValues([]);
 	        }
-	
+
 	        if (config.zoom_rescale && !options.flow) {
 	            xDomainForZoom = $$.x.orgDomain();
 	        }
-	
+
 	        $$.y.domain($$.getYDomain(targetsToShow, 'y', xDomainForZoom));
 	        $$.y2.domain($$.getYDomain(targetsToShow, 'y2', xDomainForZoom));
-	
+
 	        if (!config.axis_y_tick_values && config.axis_y_tick_count) {
 	            $$.yAxis.tickValues($$.axis.generateTickValues($$.y.domain(), config.axis_y_tick_count));
 	        }
 	        if (!config.axis_y2_tick_values && config.axis_y2_tick_count) {
 	            $$.y2Axis.tickValues($$.axis.generateTickValues($$.y2.domain(), config.axis_y2_tick_count));
 	        }
-	
+
 	        // axes
 	        $$.axis.redraw(transitions, hideAxis);
-	
+
 	        // Update axis label
 	        $$.axis.updateLabels(withTransition);
-	
+
 	        // show/hide if manual culling needed
 	        if ((withUpdateXDomain || withUpdateXAxis) && targetsToShow.length) {
 	            if (config.axis_x_tick_culling && tickValues) {
@@ -13326,23 +12963,23 @@
 	                $$.svg.selectAll('.' + CLASS.axisX + ' .tick text').style('display', 'block');
 	            }
 	        }
-	
+
 	        // setup drawer - MEMO: these must be called after axis updated
 	        drawArea = $$.generateDrawArea ? $$.generateDrawArea(areaIndices, false) : undefined;
 	        drawBar = $$.generateDrawBar ? $$.generateDrawBar(barIndices) : undefined;
 	        drawLine = $$.generateDrawLine ? $$.generateDrawLine(lineIndices, false) : undefined;
 	        xForText = $$.generateXYForText(areaIndices, barIndices, lineIndices, true);
 	        yForText = $$.generateXYForText(areaIndices, barIndices, lineIndices, false);
-	
+
 	        // Update sub domain
 	        if (withY) {
 	            $$.subY.domain($$.getYDomain(targetsToShow, 'y'));
 	            $$.subY2.domain($$.getYDomain(targetsToShow, 'y2'));
 	        }
-	
+
 	        // xgrid focus
 	        $$.updateXgridFocus();
-	
+
 	        // Data empty label positioning and text.
 	        main.select("text." + CLASS.text + '.' + CLASS.empty)
 	            .attr("x", $$.width / 2)
@@ -13350,56 +12987,56 @@
 	            .text(config.data_empty_label_text)
 	          .transition()
 	            .style('opacity', targetsToShow.length ? 0 : 1);
-	
+
 	        // grid
 	        $$.updateGrid(duration);
-	
+
 	        // rect for regions
 	        $$.updateRegion(duration);
-	
+
 	        // bars
 	        $$.updateBar(durationForExit);
-	
+
 	        // lines, areas and cricles
 	        $$.updateLine(durationForExit);
 	        $$.updateArea(durationForExit);
 	        $$.updateCircle();
-	
+
 	        // text
 	        if ($$.hasDataLabel()) {
 	            $$.updateText(durationForExit);
 	        }
-	
+
 	        // title
 	        if ($$.redrawTitle) { $$.redrawTitle(); }
-	
+
 	        // arc
 	        if ($$.redrawArc) { $$.redrawArc(duration, durationForExit, withTransform); }
-	
+
 	        // subchart
 	        if ($$.redrawSubchart) {
 	            $$.redrawSubchart(withSubchart, transitions, duration, durationForExit, areaIndices, barIndices, lineIndices);
 	        }
-	
+
 	        // circles for select
 	        main.selectAll('.' + CLASS.selectedCircles)
 	            .filter($$.isBarType.bind($$))
 	            .selectAll('circle')
 	            .remove();
-	
+
 	        // event rects will redrawn when flow called
 	        if (config.interaction_enabled && !options.flow && withEventRect) {
 	            $$.redrawEventRect();
 	            if ($$.updateZoom) { $$.updateZoom(); }
 	        }
-	
+
 	        // update circleY based on updated parameters
 	        $$.updateCircleY();
-	
+
 	        // generate circle x/y functions depending on updated params
 	        cx = ($$.config.axis_rotated ? $$.circleY : $$.circleX).bind($$);
 	        cy = ($$.config.axis_rotated ? $$.circleX : $$.circleY).bind($$);
-	
+
 	        if (options.flow) {
 	            flow = $$.generateFlow({
 	                targets: targetsToShow,
@@ -13415,12 +13052,12 @@
 	                yForText: yForText
 	            });
 	        }
-	
+
 	        if ((duration || flow) && $$.isTabVisible()) { // Only use transition if tab visible. See #938.
 	            // transition should be derived from one transition
 	            d3.transition().duration(duration).each(function () {
 	                var transitionsToWait = [];
-	
+
 	                // redraw and gather transitions
 	                [
 	                    $$.redrawBar(drawBar, true),
@@ -13435,7 +13072,7 @@
 	                        transitionsToWait.push(transition);
 	                    });
 	                });
-	
+
 	                // Wait for end of transitions to call flow and onrendered callback
 	                waitForDraw = $$.generateWait();
 	                transitionsToWait.forEach(function (t) {
@@ -13463,13 +13100,13 @@
 	                config.onrendered.call($$);
 	            }
 	        }
-	
+
 	        // update fadein condition
 	        $$.mapToIds($$.data.targets).forEach(function (id) {
 	            $$.withoutFadeIn[id] = true;
 	        });
 	    };
-	
+
 	    c3_chart_internal_fn.updateAndRedraw = function (options) {
 	        var $$ = this, config = $$.config, transitions;
 	        options = options || {};
@@ -13504,7 +13141,7 @@
 	            withTransitionForAxis: false
 	        });
 	    };
-	
+
 	    c3_chart_internal_fn.isTimeSeries = function () {
 	        return this.config.axis_x_type === 'timeseries';
 	    };
@@ -13515,11 +13152,11 @@
 	        var $$ = this, config = $$.config;
 	        return !$$.isTimeSeries() && (config.data_x || notEmpty(config.data_xs));
 	    };
-	
+
 	    c3_chart_internal_fn.isTimeSeriesY = function () {
 	        return this.config.axis_y_type === 'timeseries';
 	    };
-	
+
 	    c3_chart_internal_fn.getTranslate = function (target) {
 	        var $$ = this, config = $$.config, x, y;
 	        if (target === 'main') {
@@ -13583,7 +13220,7 @@
 	    c3_chart_internal_fn.subxx = function (d) {
 	        return d ? this.subX(d.x) : null;
 	    };
-	
+
 	    c3_chart_internal_fn.transformMain = function (withTransition, transitions) {
 	        var $$ = this,
 	            xAxis, yAxis, y2Axis;
@@ -13617,7 +13254,7 @@
 	        if ($$.config.subchart_show) { $$.transformContext(withTransition, transitions); }
 	        if ($$.legend) { $$.transformLegend(withTransition); }
 	    };
-	
+
 	    c3_chart_internal_fn.updateSvgSize = function () {
 	        var $$ = this,
 	            brush = $$.svg.select(".c3-brush .background");
@@ -13644,8 +13281,8 @@
 	        // MEMO: parent div's height will be bigger than svg when <!DOCTYPE html>
 	        $$.selectChart.style('max-height', $$.currentHeight + "px");
 	    };
-	
-	
+
+
 	    c3_chart_internal_fn.updateDimension = function (withoutAxis) {
 	        var $$ = this;
 	        if (!withoutAxis) {
@@ -13662,7 +13299,7 @@
 	        $$.updateSvgSize();
 	        $$.transformAll(false);
 	    };
-	
+
 	    c3_chart_internal_fn.observeInserted = function (selection) {
 	        var $$ = this, observer;
 	        if (typeof MutationObserver === 'undefined') {
@@ -13697,12 +13334,12 @@
 	        });
 	        observer.observe(selection.node(), {attributes: true, childList: true, characterData: true});
 	    };
-	
+
 	    c3_chart_internal_fn.bindResize = function () {
 	        var $$ = this, config = $$.config;
-	
+
 	        $$.resizeFunction = $$.generateResize();
-	
+
 	        $$.resizeFunction.add(function () {
 	            config.onresize.call($$);
 	        });
@@ -13720,7 +13357,7 @@
 	        $$.resizeFunction.add(function () {
 	            config.onresized.call($$);
 	        });
-	
+
 	        if (window.attachEvent) {
 	            window.attachEvent('onresize', $$.resizeFunction);
 	        } else if (window.addEventListener) {
@@ -13741,7 +13378,7 @@
 	            window.onresize = wrapper;
 	        }
 	    };
-	
+
 	    c3_chart_internal_fn.generateResize = function () {
 	        var resizeFunctions = [];
 	        function callResizeFunctions() {
@@ -13762,7 +13399,7 @@
 	        };
 	        return callResizeFunctions;
 	    };
-	
+
 	    c3_chart_internal_fn.endall = function (transition, callback) {
 	        var n = 0;
 	        transition
@@ -13798,7 +13435,7 @@
 	        };
 	        return f;
 	    };
-	
+
 	    c3_chart_internal_fn.parseDate = function (date) {
 	        var $$ = this, parsedDate;
 	        if (date instanceof Date) {
@@ -13813,7 +13450,7 @@
 	        }
 	        return parsedDate;
 	    };
-	
+
 	    c3_chart_internal_fn.isTabVisible = function () {
 	        var hidden;
 	        if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and later support
@@ -13825,10 +13462,10 @@
 	        } else if (typeof document.webkitHidden !== "undefined") {
 	            hidden = "webkitHidden";
 	        }
-	
+
 	        return document[hidden] ? false : true;
 	    };
-	
+
 	    c3_chart_internal_fn.getDefaultConfig = function () {
 	        var config = {
 	            bindto: '#chart',
@@ -13952,7 +13589,7 @@
 	            axis_y_label: {},
 	            axis_y_tick_format: undefined,
 	            axis_y_tick_outer: true,
-	            axis_y_tick_values: null,        
+	            axis_y_tick_values: null,
 	            axis_y_tick_rotate: 0,
 	            axis_y_tick_count: undefined,
 	            axis_y_tick_time_value: undefined,
@@ -14057,15 +13694,15 @@
 	            },
 	            title_position: 'top-center',
 	        };
-	
+
 	        Object.keys(this.additionalConfig).forEach(function (key) {
 	            config[key] = this.additionalConfig[key];
 	        }, this);
-	
+
 	        return config;
 	    };
 	    c3_chart_internal_fn.additionalConfig = {};
-	
+
 	    c3_chart_internal_fn.loadConfig = function (config) {
 	        var this_config = this.config, target, keys, read;
 	        function find() {
@@ -14092,7 +13729,7 @@
 	            }
 	        });
 	    };
-	
+
 	    c3_chart_internal_fn.getScale = function (min, max, forTimeseries) {
 	        return (forTimeseries ? this.d3.time.scale() : this.d3.scale.linear()).range([min, max]);
 	    };
@@ -14168,12 +13805,12 @@
 	        $$.xAxisTickValues = $$.axis.getXAxisTickValues();
 	        $$.yAxisTickValues = $$.axis.getYAxisTickValues();
 	        $$.y2AxisTickValues = $$.axis.getY2AxisTickValues();
-	
+
 	        $$.xAxis = $$.axis.getXAxis($$.x, $$.xOrient, $$.xAxisTickFormat, $$.xAxisTickValues, config.axis_x_tick_outer);
 	        $$.subXAxis = $$.axis.getXAxis($$.subX, $$.subXOrient, $$.xAxisTickFormat, $$.xAxisTickValues, config.axis_x_tick_outer);
 	        $$.yAxis = $$.axis.getYAxis($$.y, $$.yOrient, config.axis_y_tick_format, $$.yAxisTickValues, config.axis_y_tick_outer);
 	        $$.y2Axis = $$.axis.getYAxis($$.y2, $$.y2Orient, config.axis_y2_tick_format, $$.y2AxisTickValues, config.axis_y2_tick_outer);
-	
+
 	        // Set initialized scales to brush and zoom
 	        if (!forInit) {
 	            if ($$.brush) { $$.brush.scale($$.subX); }
@@ -14182,7 +13819,7 @@
 	        // update for arc
 	        if ($$.updateArc) { $$.updateArc(); }
 	    };
-	
+
 	    c3_chart_internal_fn.getYDomainMin = function (targets) {
 	        var $$ = this, config = $$.config,
 	            ids = $$.mapToIds(targets), ys = $$.getValuesAsIdKeyed(targets),
@@ -14260,11 +13897,11 @@
 	            isInverted = axisId === 'y2' ? config.axis_y2_inverted : config.axis_y_inverted,
 	            showHorizontalDataLabel = $$.hasDataLabel() && config.axis_rotated,
 	            showVerticalDataLabel = $$.hasDataLabel() && !config.axis_rotated;
-	
+
 	        // MEMO: avoid inverting domain unexpectedly
 	        yDomainMin = isValue(yMin) ? yMin : isValue(yMax) ? (yDomainMin < yMax ? yDomainMin : yMax - 10) : yDomainMin;
 	        yDomainMax = isValue(yMax) ? yMax : isValue(yMin) ? (yMin < yDomainMax ? yDomainMax : yMin + 10) : yDomainMax;
-	
+
 	        if (yTargets.length === 0) { // use current domain if target of axisId is none
 	            return axisId === 'y2' ? $$.y2.domain() : $$.y.domain();
 	        }
@@ -14279,21 +13916,21 @@
 	        }
 	        isAllPositive = yDomainMin >= 0 && yDomainMax >= 0;
 	        isAllNegative = yDomainMin <= 0 && yDomainMax <= 0;
-	
+
 	        // Cancel zerobased if axis_*_min / axis_*_max specified
 	        if ((isValue(yMin) && isAllPositive) || (isValue(yMax) && isAllNegative)) {
 	            isZeroBased = false;
 	        }
-	
+
 	        // Bar/Area chart should be 0-based if all positive|negative
 	        if (isZeroBased) {
 	            if (isAllPositive) { yDomainMin = 0; }
 	            if (isAllNegative) { yDomainMax = 0; }
 	        }
-	
+
 	        domainLength = Math.abs(yDomainMax - yDomainMin);
 	        padding = padding_top = padding_bottom = domainLength * 0.1;
-	
+
 	        if (typeof center !== 'undefined') {
 	            yDomainAbs = Math.max(Math.abs(yDomainMin), Math.abs(yDomainMax));
 	            yDomainMax = center + yDomainAbs;
@@ -14387,7 +14024,7 @@
 	    };
 	    c3_chart_internal_fn.updateXDomain = function (targets, withUpdateXDomain, withUpdateOrgXDomain, withTrim, domain) {
 	        var $$ = this, config = $$.config;
-	
+
 	        if (withUpdateOrgXDomain) {
 	            $$.x.domain(domain ? domain : $$.d3.extent($$.getXDomain(targets)));
 	            $$.orgXDomain = $$.x.domain();
@@ -14399,10 +14036,10 @@
 	            $$.x.domain(domain ? domain : (!$$.brush || $$.brush.empty()) ? $$.orgXDomain : $$.brush.extent());
 	            if (config.zoom_enabled) { $$.zoom.scale($$.x).updateScaleExtent(); }
 	        }
-	
+
 	        // Trim domain when too big by zoom mousemove event
 	        if (withTrim) { $$.x.domain($$.trimXDomain($$.x.orgDomain())); }
-	
+
 	        return $$.x.domain();
 	    };
 	    c3_chart_internal_fn.trimXDomain = function (domain) {
@@ -14418,7 +14055,7 @@
 	        }
 	        return domain;
 	    };
-	
+
 	    c3_chart_internal_fn.isX = function (key) {
 	        var $$ = this, config = $$.config;
 	        return (config.data_x && key === config.data_x) || (notEmpty(config.data_xs) && hasValue(config.data_xs, key));
@@ -14714,21 +14351,21 @@
 	        }
 	        return sames;
 	    };
-	
+
 	    c3_chart_internal_fn.findClosestFromTargets = function (targets, pos) {
 	        var $$ = this, candidates;
-	
+
 	        // map to array of closest points of each target
 	        candidates = targets.map(function (target) {
 	            return $$.findClosest(target.values, pos);
 	        });
-	
+
 	        // decide closest point and return
 	        return $$.findClosest(candidates, pos);
 	    };
 	    c3_chart_internal_fn.findClosest = function (values, pos) {
 	        var $$ = this, minDist = $$.config.point_sensitivity, closest;
-	
+
 	        // find mouseovering bar
 	        values.filter(function (v) { return v && $$.isBarType(v.id); }).forEach(function (v) {
 	            var shape = $$.main.select('.' + CLASS.bars + $$.getTargetSelectorSuffix(v.id) + ' .' + CLASS.bar + '-' + v.index).node();
@@ -14736,7 +14373,7 @@
 	                closest = v;
 	            }
 	        });
-	
+
 	        // find closest point from non-bar
 	        values.filter(function (v) { return v && !$$.isBarType(v.id); }).forEach(function (v) {
 	            var d = $$.dist(v, pos);
@@ -14745,7 +14382,7 @@
 	                closest = v;
 	            }
 	        });
-	
+
 	        return closest;
 	    };
 	    c3_chart_internal_fn.dist = function (data, pos) {
@@ -14758,15 +14395,15 @@
 	    };
 	    c3_chart_internal_fn.convertValuesToStep = function (values) {
 	        var converted = [].concat(values), i;
-	
+
 	        if (!this.isCategorized()) {
 	            return values;
 	        }
-	
+
 	        for (i = values.length + 1; 0 < i; i--) {
 	            converted[i] = converted[i - 1];
 	        }
-	
+
 	        converted[0] = {
 	            x: converted[0].x - 1,
 	            value: converted[0].value,
@@ -14777,7 +14414,7 @@
 	            value: converted[values.length].value,
 	            id: converted[values.length].id
 	        };
-	
+
 	        return converted;
 	    };
 	    c3_chart_internal_fn.updateDataAttributes = function (name, attrs) {
@@ -14789,7 +14426,7 @@
 	        $$.redraw({withLegend: true});
 	        return current;
 	    };
-	
+
 	    c3_chart_internal_fn.convertUrlToData = function (url, mimeType, headers, keys, done) {
 	        var $$ = this, type = mimeType ? mimeType : 'csv';
 	        var req = $$.d3.xhr(url);
@@ -14912,11 +14549,11 @@
 	            ids = $$.d3.keys(data[0]).filter($$.isNotX, $$),
 	            xs = $$.d3.keys(data[0]).filter($$.isX, $$),
 	            targets;
-	
+
 	        // save x for update data by load when custom x and c3.x API
 	        ids.forEach(function (id) {
 	            var xKey = $$.getXKey(id);
-	
+
 	            if ($$.isCustomX() || $$.isTimeSeries()) {
 	                // if included in input data
 	                if (xs.indexOf(xKey) >= 0) {
@@ -14939,15 +14576,15 @@
 	                $$.data.xs[id] = data.map(function (d, i) { return i; });
 	            }
 	        });
-	
-	
+
+
 	        // check x is defined
 	        ids.forEach(function (id) {
 	            if (!$$.data.xs[id]) {
 	                throw new Error('x is not defined for id = "' + id + '".');
 	            }
 	        });
-	
+
 	        // convert to target
 	        targets = ids.map(function (id, index) {
 	            var convertedId = config.data_idConverter(id);
@@ -14978,7 +14615,7 @@
 	                }).filter(function (v) { return isDefined(v.x); })
 	            };
 	        });
-	
+
 	        // finish targets
 	        targets.forEach(function (t) {
 	            var i;
@@ -15000,24 +14637,24 @@
 	                return v1 - v2;
 	            });
 	        });
-	
+
 	        // cache information about values
 	        $$.hasNegativeValue = $$.hasNegativeValueInTargets(targets);
 	        $$.hasPositiveValue = $$.hasPositiveValueInTargets(targets);
-	
+
 	        // set target types
 	        if (config.data_type) {
 	            $$.setTargetType($$.mapToIds(targets).filter(function (id) { return ! (id in config.data_types); }), config.data_type);
 	        }
-	
+
 	        // cache as original id keyed
 	        targets.forEach(function (d) {
 	            $$.addCache(d.id_org, d);
 	        });
-	
+
 	        return targets;
 	    };
-	
+
 	    c3_chart_internal_fn.load = function (targets, args) {
 	        var $$ = this;
 	        if (targets) {
@@ -15044,13 +14681,13 @@
 	            });
 	            $$.data.targets = $$.data.targets.concat(targets); // add remained
 	        }
-	
+
 	        // Set targets
 	        $$.updateTargets($$.data.targets);
-	
+
 	        // Redraw with new targets
 	        $$.redraw({withUpdateOrgXDomain: true, withUpdateXDomain: true, withLegend: true});
-	
+
 	        if (args.done) { args.done(); }
 	    };
 	    c3_chart_internal_fn.loadFromArgs = function (args) {
@@ -15106,12 +14743,12 @@
 	            });
 	        });
 	    };
-	
+
 	    c3_chart_internal_fn.categoryName = function (i) {
 	        var config = this.config;
 	        return i < config.axis_x_categories.length ? config.axis_x_categories[i] : i;
 	    };
-	
+
 	    c3_chart_internal_fn.initEventRect = function () {
 	        var $$ = this;
 	        $$.main.select('.' + CLASS.chart).append("g")
@@ -15122,19 +14759,19 @@
 	        var $$ = this, config = $$.config,
 	            eventRectUpdate, maxDataCountTarget,
 	            isMultipleX = $$.isMultipleX();
-	
+
 	        // rects for mouseover
 	        var eventRects = $$.main.select('.' + CLASS.eventRects)
 	                .style('cursor', config.zoom_enabled ? config.axis_rotated ? 'ns-resize' : 'ew-resize' : null)
 	                .classed(CLASS.eventRectsMultiple, isMultipleX)
 	                .classed(CLASS.eventRectsSingle, !isMultipleX);
-	
+
 	        // clear old rects
 	        eventRects.selectAll('.' + CLASS.eventRect).remove();
-	
+
 	        // open as public variable
 	        $$.eventRect = eventRects.selectAll('.' + CLASS.eventRect);
-	
+
 	        if (isMultipleX) {
 	            eventRectUpdate = $$.eventRect.data([0]);
 	            // enter : only one rect will be added
@@ -15160,10 +14797,10 @@
 	    c3_chart_internal_fn.updateEventRect = function (eventRectUpdate) {
 	        var $$ = this, config = $$.config,
 	            x, y, w, h, rectW, rectX;
-	
+
 	        // set update selection if null
 	        eventRectUpdate = eventRectUpdate || $$.eventRect.data(function (d) { return d; });
-	
+
 	        if ($$.isMultipleX()) {
 	            // TODO: rotated not supported yet
 	            x = 0;
@@ -15173,34 +14810,34 @@
 	        }
 	        else {
 	            if (($$.isCustomX() || $$.isTimeSeries()) && !$$.isCategorized()) {
-	
+
 	                // update index for x that is used by prevX and nextX
 	                $$.updateXs();
-	
+
 	                rectW = function (d) {
 	                    var prevX = $$.getPrevX(d.index), nextX = $$.getNextX(d.index);
-	
+
 	                    // if there this is a single data point make the eventRect full width (or height)
 	                    if (prevX === null && nextX === null) {
 	                        return config.axis_rotated ? $$.height : $$.width;
 	                    }
-	
+
 	                    if (prevX === null) { prevX = $$.x.domain()[0]; }
 	                    if (nextX === null) { nextX = $$.x.domain()[1]; }
-	
+
 	                    return Math.max(0, ($$.x(nextX) - $$.x(prevX)) / 2);
 	                };
 	                rectX = function (d) {
 	                    var prevX = $$.getPrevX(d.index), nextX = $$.getNextX(d.index),
 	                        thisX = $$.data.xs[d.id][d.index];
-	
+
 	                    // if there this is a single data point position the eventRect at 0
 	                    if (prevX === null && nextX === null) {
 	                        return 0;
 	                    }
-	
+
 	                    if (prevX === null) { prevX = $$.x.domain()[0]; }
-	
+
 	                    return ($$.x(thisX) + $$.x(prevX)) / 2;
 	                };
 	            } else {
@@ -15214,7 +14851,7 @@
 	            w = config.axis_rotated ? $$.width : rectW;
 	            h = config.axis_rotated ? rectW : $$.height;
 	        }
-	
+
 	        eventRectUpdate
 	            .attr('class', $$.classEvent.bind($$))
 	            .attr("x", x)
@@ -15229,14 +14866,14 @@
 	            .style("cursor", config.data_selection_enabled && config.data_selection_grouped ? "pointer" : null)
 	            .on('mouseover', function (d) {
 	                var index = d.index;
-	
+
 	                if ($$.dragging || $$.flowing) { return; } // do nothing while dragging/flowing
 	                if ($$.hasArcType()) { return; }
-	
+
 	                // Expand shapes for selection
 	                if (config.point_focus_expand_enabled) { $$.expandCircles(index, null, true); }
 	                $$.expandBars(index, null, true);
-	
+
 	                // Call event handler
 	                $$.main.selectAll('.' + CLASS.shape + '-' + index).each(function (d) {
 	                    config.data_onmouseover.call($$.api, d);
@@ -15259,28 +14896,28 @@
 	            .on('mousemove', function (d) {
 	                var selectedData, index = d.index,
 	                    eventRect = $$.svg.select('.' + CLASS.eventRect + '-' + index);
-	
+
 	                if ($$.dragging || $$.flowing) { return; } // do nothing while dragging/flowing
 	                if ($$.hasArcType()) { return; }
-	
+
 	                if ($$.isStepType(d) && $$.config.line_step_type === 'step-after' && d3.mouse(this)[0] < $$.x($$.getXValue(d.id, index))) {
 	                    index -= 1;
 	                }
-	
+
 	                // Show tooltip
 	                selectedData = $$.filterTargetsToShow($$.data.targets).map(function (t) {
 	                    return $$.addName($$.getValueOnIndex(t.values, index));
 	                });
-	
+
 	                if (config.tooltip_grouped) {
 	                    $$.showTooltip(selectedData, this);
 	                    $$.showXGridFocus(selectedData);
 	                }
-	
+
 	                if (config.tooltip_grouped && (!config.data_selection_enabled || config.data_selection_grouped)) {
 	                    return;
 	                }
-	
+
 	                $$.main.selectAll('.' + CLASS.shape + '-' + index)
 	                    .each(function () {
 	                        d3.select(this).classed(CLASS.EXPANDED, true);
@@ -15337,10 +14974,10 @@
 	                ) : function () {}
 	            );
 	    };
-	
+
 	    c3_chart_internal_fn.generateEventRectsForMultipleXs = function (eventRectEnter) {
 	        var $$ = this, d3 = $$.d3, config = $$.config;
-	
+
 	        function mouseout() {
 	            $$.svg.select('.' + CLASS.eventRect).style('cursor', null);
 	            $$.hideXGridFocus();
@@ -15348,7 +14985,7 @@
 	            $$.unexpandCircles();
 	            $$.unexpandBars();
 	        }
-	
+
 	        eventRectEnter.append('rect')
 	            .attr('x', 0)
 	            .attr('y', 0)
@@ -15363,44 +15000,44 @@
 	            .on('mousemove', function () {
 	                var targetsToShow = $$.filterTargetsToShow($$.data.targets);
 	                var mouse, closest, sameXData, selectedData;
-	
+
 	                if ($$.dragging) { return; } // do nothing when dragging
 	                if ($$.hasArcType(targetsToShow)) { return; }
-	
+
 	                mouse = d3.mouse(this);
 	                closest = $$.findClosestFromTargets(targetsToShow, mouse);
-	
+
 	                if ($$.mouseover && (!closest || closest.id !== $$.mouseover.id)) {
 	                    config.data_onmouseout.call($$.api, $$.mouseover);
 	                    $$.mouseover = undefined;
 	                }
-	
+
 	                if (! closest) {
 	                    mouseout();
 	                    return;
 	                }
-	
+
 	                if ($$.isScatterType(closest) || !config.tooltip_grouped) {
 	                    sameXData = [closest];
 	                } else {
 	                    sameXData = $$.filterByX(targetsToShow, closest.x);
 	                }
-	
+
 	                // show tooltip when cursor is close to some point
 	                selectedData = sameXData.map(function (d) {
 	                    return $$.addName(d);
 	                });
 	                $$.showTooltip(selectedData, this);
-	
+
 	                // expand points
 	                if (config.point_focus_expand_enabled) {
 	                    $$.expandCircles(closest.index, closest.id, true);
 	                }
 	                $$.expandBars(closest.index, closest.id, true);
-	
+
 	                // Show xgrid focus line
 	                $$.showXGridFocus(selectedData);
-	
+
 	                // Show cursor as pointer if point is close to mouse position
 	                if ($$.isBarType(closest.id) || $$.dist(closest, mouse) < config.point_sensitivity) {
 	                    $$.svg.select('.' + CLASS.eventRect).style('cursor', 'pointer');
@@ -15414,7 +15051,7 @@
 	                var targetsToShow = $$.filterTargetsToShow($$.data.targets);
 	                var mouse, closest;
 	                if ($$.hasArcType(targetsToShow)) { return; }
-	
+
 	                mouse = d3.mouse(this);
 	                closest = $$.findClosestFromTargets(targetsToShow, mouse);
 	                if (! closest) { return; }
@@ -15445,12 +15082,12 @@
 	            x = box.left + (mouse ? mouse[0] : 0),
 	            y = box.top + (mouse ? mouse[1] : 0),
 	            event = document.createEvent("MouseEvents");
-	
+
 	        event.initMouseEvent(type, true, true, window, 0, x, y, x, y,
 	                             false, false, false, false, 0, null);
 	        eventRect.dispatchEvent(event);
 	    };
-	
+
 	    c3_chart_internal_fn.getCurrentWidth = function () {
 	        var $$ = this, config = $$.config;
 	        return config.size_width ? config.size_width : $$.getParentWidth();
@@ -15458,7 +15095,7 @@
 	    c3_chart_internal_fn.getCurrentHeight = function () {
 	        var $$ = this, config = $$.config,
 	            h = config.size_height ? config.size_height : $$.getParentHeight();
-	        return h > 0 ? h : 320 / ($$.hasType('gauge') && !config.gauge_fullCircle ? 2 : 1); 
+	        return h > 0 ? h : 320 / ($$.hasType('gauge') && !config.gauge_fullCircle ? 2 : 1);
 	    };
 	    c3_chart_internal_fn.getCurrentPaddingTop = function () {
 	        var $$ = this,
@@ -15498,7 +15135,7 @@
 	            return ceil10($$.getAxisWidthByAxisId('y2')) + legendWidthOnRight;
 	        }
 	    };
-	
+
 	    c3_chart_internal_fn.getParentRectValue = function (key) {
 	        var parent = this.selectChart.node(), v;
 	        while (parent && parent.tagName !== 'BODY') {
@@ -15525,8 +15162,8 @@
 	        var h = this.selectChart.style('height');
 	        return h.indexOf('px') > 0 ? +h.replace('px', '') : 0;
 	    };
-	
-	
+
+
 	    c3_chart_internal_fn.getSvgLeft = function (withoutRecompute) {
 	        var $$ = this, config = $$.config,
 	            hasLeftAxisRect = config.axis_rotated || (!config.axis_rotated && !config.axis_y_inner),
@@ -15538,8 +15175,8 @@
 	            svgLeft = svgRect.right - chartRect.left - (hasArc ? 0 : $$.getCurrentPaddingLeft(withoutRecompute));
 	        return svgLeft > 0 ? svgLeft : 0;
 	    };
-	
-	
+
+
 	    c3_chart_internal_fn.getAxisWidthByAxisId = function (id, withoutRecompute) {
 	        var $$ = this, position = $$.axis.getLabelPositionById(id);
 	        return $$.axis.getMaxTickWidth(id, withoutRecompute) + (position.isInner ? 20 : 40);
@@ -15548,8 +15185,8 @@
 	        var $$ = this, config = $$.config, h = 30;
 	        if (axisId === 'x' && !config.axis_x_show) { return 8; }
 	        if (axisId === 'x' && config.axis_x_height) { return config.axis_x_height; }
-	        if (axisId === 'y' && !config.axis_y_show) { 
-	            return config.legend_show && !$$.isLegendRight && !$$.isLegendInset ? 10 : 1; 
+	        if (axisId === 'y' && !config.axis_y_show) {
+	            return config.legend_show && !$$.isLegendRight && !$$.isLegendInset ? 10 : 1;
 	        }
 	        if (axisId === 'y2' && !config.axis_y2_show) { return $$.rotated_padding_top; }
 	        // Calculate x axis height when tick rotated
@@ -15562,11 +15199,11 @@
 	        }
 	        return h + ($$.axis.getLabelPositionById(axisId).isInner ? 0 : 10) + (axisId === 'y2' ? -10 : 0);
 	    };
-	
+
 	    c3_chart_internal_fn.getEventRectWidth = function () {
 	        return Math.max(0, this.xAxis.tickInterval());
 	    };
-	
+
 	    c3_chart_internal_fn.getShapeIndices = function (typeFilter) {
 	        var $$ = this, config = $$.config,
 	            indices = {}, i = 0, j, k;
@@ -15642,14 +15279,14 @@
 	        }
 	        return isWithin;
 	    };
-	
-	
+
+
 	    c3_chart_internal_fn.getInterpolate = function (d) {
 	        var $$ = this,
 	            interpolation = $$.isInterpolationType($$.config.spline_interpolation_type) ? $$.config.spline_interpolation_type : 'cardinal';
 	        return $$.isSplineType(d) ? interpolation : $$.isStepType(d) ? $$.config.line_step_type : "linear";
 	    };
-	
+
 	    c3_chart_internal_fn.initLine = function () {
 	        var $$ = this;
 	        $$.main.select('.' + CLASS.chart).append("g")
@@ -15723,7 +15360,7 @@
 	            yValue = function (d, i) {
 	                return config.data_groups.length > 0 ? getPoints(d, i)[0][1] : yScaleGetter.call($$, d.id)(d.value);
 	            };
-	
+
 	        line = config.axis_rotated ? line.x(yValue).y(xValue) : line.x(xValue).y(yValue);
 	        if (!config.line_connectNull) { line = line.defined(function (d) { return d.value != null; }); }
 	        return function (d) {
@@ -15770,8 +15407,8 @@
 	            ];
 	        };
 	    };
-	
-	
+
+
 	    c3_chart_internal_fn.lineWithRegions = function (d, x, y, _regions) {
 	        var $$ = this, config = $$.config,
 	            prev = -1, i, j,
@@ -15780,7 +15417,7 @@
 	            xOffset = $$.isCategorized() ? 0.5 : 0,
 	            xValue, yValue,
 	            regions = [];
-	
+
 	        function isWithinRegions(x, regions) {
 	            var i;
 	            for (i = 0; i < regions.length; i++) {
@@ -15788,7 +15425,7 @@
 	            }
 	            return false;
 	        }
-	
+
 	        // Check start/end of regions
 	        if (isDefined(_regions)) {
 	            for (i = 0; i < _regions.length; i++) {
@@ -15805,11 +15442,11 @@
 	                }
 	            }
 	        }
-	
+
 	        // Set scales
 	        xValue = config.axis_rotated ? function (d) { return y(d.value); } : function (d) { return x(d.x); };
 	        yValue = config.axis_rotated ? function (d) { return x(d.x); } : function (d) { return y(d.value); };
-	
+
 	        // Define svg generator function for region
 	        function generateM(points) {
 	            return 'M' + points[0][0] + ' ' + points[0][1] + ' ' + points[1][0] + ' ' + points[1][1];
@@ -15838,10 +15475,10 @@
 	                return generateM(points);
 	            };
 	        }
-	
+
 	        // Generate
 	        for (i = 0; i < d.length; i++) {
-	
+
 	            // Draw as normal
 	            if (isUndefined(regions) || ! isWithinRegions(d[i].x, regions)) {
 	                s += " " + xValue(d[i]) + " " + yValue(d[i]);
@@ -15850,24 +15487,24 @@
 	            else {
 	                xp = $$.getScale(d[i - 1].x + xOffset, d[i].x + xOffset, $$.isTimeSeries());
 	                yp = $$.getScale(d[i - 1].value, d[i].value);
-	
+
 	                dx = x(d[i].x) - x(d[i - 1].x);
 	                dy = y(d[i].value) - y(d[i - 1].value);
 	                dd = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 	                diff = 2 / dd;
 	                diffx2 = diff * 2;
-	
+
 	                for (j = diff; j <= 1; j += diffx2) {
 	                    s += sWithRegion(d[i - 1], d[i], j, diff);
 	                }
 	            }
 	            prev = d[i].x;
 	        }
-	
+
 	        return s;
 	    };
-	
-	
+
+
 	    c3_chart_internal_fn.updateArea = function (durationForExit) {
 	        var $$ = this, d3 = $$.d3;
 	        $$.mainArea = $$.main.selectAll('.' + CLASS.areas).selectAll('.' + CLASS.area)
@@ -15901,12 +15538,12 @@
 	            value1 = function (d, i) {
 	                return config.data_groups.length > 0 ? getPoints(d, i)[1][1] : yScaleGetter.call($$, d.id)(d.value);
 	            };
-	
+
 	        area = config.axis_rotated ? area.x0(value0).x1(value1).y(xValue) : area.x(xValue).y0(config.area_above ? 0 : value0).y1(value1);
 	        if (!config.line_connectNull) {
 	            area = area.defined(function (d) { return d.value !== null; });
 	        }
-	
+
 	        return function (d) {
 	            var values = config.line_connectNull ? $$.filterRemoveNull(d.values) : d.values,
 	                x0 = 0, y0 = 0, path;
@@ -15950,8 +15587,8 @@
 	            ];
 	        };
 	    };
-	
-	
+
+
 	    c3_chart_internal_fn.updateCircle = function () {
 	        var $$ = this;
 	        $$.mainCircle = $$.main.selectAll('.' + CLASS.circles).selectAll('.' + CLASS.circle)
@@ -16035,7 +15672,7 @@
 	    c3_chart_internal_fn.isWithinStep = function (that, y) {
 	        return Math.abs(y - this.d3.mouse(that)[1]) < 30;
 	    };
-	
+
 	    c3_chart_internal_fn.initBar = function () {
 	        var $$ = this;
 	        $$.main.select('.' + CLASS.chart).append("g")
@@ -16058,7 +15695,7 @@
 	        mainBarEnter.append('g')
 	            .attr("class", classBars)
 	            .style("cursor", function (d) { return config.data_selection_isselectable(d) ? "pointer" : null; });
-	
+
 	    };
 	    c3_chart_internal_fn.updateBar = function (durationForExit) {
 	        var $$ = this,
@@ -16110,17 +15747,17 @@
 	        return function (d, i) {
 	            // 4 points that make a bar
 	            var points = getPoints(d, i);
-	
+
 	            // switch points if axis is rotated, not applicable for sub chart
 	            var indexX = config.axis_rotated ? 1 : 0;
 	            var indexY = config.axis_rotated ? 0 : 1;
-	
+
 	            var path = 'M ' + points[0][indexX] + ',' + points[0][indexY] + ' ' +
 	                    'L' + points[1][indexX] + ',' + points[1][indexY] + ' ' +
 	                    'L' + points[2][indexX] + ',' + points[2][indexY] + ' ' +
 	                    'L' + points[3][indexX] + ',' + points[3][indexY] + ' ' +
 	                    'z';
-	
+
 	            return path;
 	        };
 	    };
@@ -16158,7 +15795,7 @@
 	            sx = x - offset, ex = x + w + offset, sy = y + h + offset, ey = y - offset;
 	        return sx < mouse[0] && mouse[0] < ex && ey < mouse[1] && mouse[1] < sy;
 	    };
-	
+
 	    c3_chart_internal_fn.initText = function () {
 	        var $$ = this;
 	        $$.main.select('.' + CLASS.chart).append("g")
@@ -16283,7 +15920,7 @@
 	        }
 	        return yPos;
 	    };
-	
+
 	    c3_chart_internal_fn.setTargetType = function (targetIds, type) {
 	        var $$ = this, config = $$.config;
 	        $$.mapToTargetIds(targetIds).forEach(function (id) {
@@ -16378,7 +16015,7 @@
 	    c3_chart_internal_fn.isInterpolationType = function (type) {
 	        return ['linear', 'linear-closed', 'basis', 'basis-open', 'basis-closed', 'bundle', 'cardinal', 'cardinal-open', 'cardinal-closed', 'monotone'].indexOf(type) >= 0;
 	    };
-	
+
 	    c3_chart_internal_fn.initGrid = function () {
 	        var $$ = this, config = $$.config, d3 = $$.d3;
 	        $$.grid = $$.main.append('g')
@@ -16412,7 +16049,7 @@
 	        var $$ = this, config = $$.config, d3 = $$.d3,
 	            xgridData = $$.generateGridData(config.grid_x_type, $$.x),
 	            tickOffset = $$.isCategorized() ? $$.xAxis.tickOffset() : 0;
-	
+
 	        $$.xgridAttr = config.axis_rotated ? {
 	            'x1': 0,
 	            'x2': $$.width,
@@ -16424,7 +16061,7 @@
 	            'y1': 0,
 	            'y2': $$.height
 	        };
-	
+
 	        $$.xgrid = $$.main.select('.' + CLASS.xgrids).selectAll('.' + CLASS.xgrid)
 	            .data(xgridData);
 	        $$.xgrid.enter().append('line').attr("class", CLASS.xgrid);
@@ -16434,7 +16071,7 @@
 	        }
 	        $$.xgrid.exit().remove();
 	    };
-	
+
 	    c3_chart_internal_fn.updateYGrid = function () {
 	        var $$ = this, config = $$.config,
 	            gridValues = $$.yAxis.tickValues() || $$.y.ticks(config.grid_y_ticks);
@@ -16449,7 +16086,7 @@
 	        $$.ygrid.exit().remove();
 	        $$.smoothLines($$.ygrid, 'grid');
 	    };
-	
+
 	    c3_chart_internal_fn.gridTextAnchor = function (d) {
 	        return d.position ? d.position : "end";
 	    };
@@ -16465,10 +16102,10 @@
 	    c3_chart_internal_fn.updateGrid = function (duration) {
 	        var $$ = this, main = $$.main, config = $$.config,
 	            xgridLine, ygridLine, yv;
-	
+
 	        // hide if arc type
 	        $$.grid.style('visibility', $$.hasArcType() ? 'hidden' : 'visible');
-	
+
 	        main.select('line.' + CLASS.xgridFocus).style("visibility", "hidden");
 	        if (config.grid_x_show) {
 	            $$.updateXGrid();
@@ -16492,7 +16129,7 @@
 	        $$.xgridLines.exit().transition().duration(duration)
 	            .style("opacity", 0)
 	            .remove();
-	
+
 	        // Y-Grid
 	        if (config.grid_y_show) {
 	            $$.updateYGrid();
@@ -16619,7 +16256,7 @@
 	            config.grid_y_lines = config.grid_y_lines.filter(toShow);
 	        }
 	    };
-	
+
 	    c3_chart_internal_fn.initTooltip = function () {
 	        var $$ = this, config = $$.config, i;
 	        $$.tooltip = $$.selectChart
@@ -16653,7 +16290,7 @@
 	            valueFormat = config.tooltip_format_value || defaultValueFormat,
 	            text, i, title, value, name, bgcolor,
 	            orderAsc = $$.isOrderAsc();
-	
+
 	        if (config.data_groups.length === 0) {
 	            d.sort(function(a, b){
 	                var v1 = a ? a.value : null, v2 = b ? b.value : null;
@@ -16672,22 +16309,22 @@
 	                return orderAsc ? v1 - v2 : v2 - v1;
 	            });
 	        }
-	
+
 	        for (i = 0; i < d.length; i++) {
 	            if (! (d[i] && (d[i].value || d[i].value === 0))) { continue; }
-	
+
 	            if (! text) {
 	                title = sanitise(titleFormat ? titleFormat(d[i].x) : d[i].x);
 	                text = "<table class='" + $$.CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>" + title + "</th></tr>" : "");
 	            }
-	
+
 	            value = sanitise(valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index, d));
 	            if (value !== undefined) {
 	                // Skip elements when their name is set to null
 	                if (d[i].name === null) { continue; }
 	                name = sanitise(nameFormat(d[i].name, d[i].ratio, d[i].id, d[i].index));
 	                bgcolor = $$.levelColor ? $$.levelColor(d[i].value) : color(d[i].id);
-	
+
 	                text += "<tr class='" + $$.CLASS.tooltipName + "-" + $$.getTargetSelectorSuffix(d[i].id) + "'>";
 	                text += "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + name + "</td>";
 	                text += "<td class='value'>" + value + "</td>";
@@ -16718,7 +16355,7 @@
 	                chartRight = svgLeft + $$.currentWidth - $$.getCurrentPaddingRight();
 	                tooltipTop = mouse[1] + 15;
 	            }
-	
+
 	            if (tooltipRight > chartRight) {
 	                // 20 is needed for Firefox to keep tooltip width
 	                tooltipLeft -= tooltipRight - chartRight + 20;
@@ -16742,11 +16379,11 @@
 	            return;
 	        }
 	        $$.tooltip.html(config.tooltip_contents.call($$, selectedData, $$.axis.getXAxisTickFormat(), $$.getYFormat(forArc), $$.color)).style("display", "block");
-	
+
 	        // Get tooltip dimensions
 	        tWidth = $$.tooltip.property('offsetWidth');
 	        tHeight = $$.tooltip.property('offsetHeight');
-	
+
 	        position = positionFunction.call(this, dataToShow, tWidth, tHeight, element);
 	        // Set tooltip
 	        $$.tooltip
@@ -16756,7 +16393,7 @@
 	    c3_chart_internal_fn.hideTooltip = function () {
 	        this.tooltip.style("display", "none");
 	    };
-	
+
 	    c3_chart_internal_fn.initLegend = function () {
 	        var $$ = this;
 	        $$.legendItemTextBox = {};
@@ -16780,7 +16417,7 @@
 	            top: $$.isLegendTop ? $$.getCurrentPaddingTop() + config.legend_inset_y + 5.5 : $$.currentHeight - legendHeight - $$.getCurrentPaddingBottom() - config.legend_inset_y,
 	            left: $$.isLegendLeft ? $$.getCurrentPaddingLeft() + config.legend_inset_x + 0.5 : $$.currentWidth - legendWidth - $$.getCurrentPaddingRight() - config.legend_inset_x + 0.5
 	        };
-	
+
 	        $$.margin3 = {
 	            top: $$.isLegendRight ? 0 : $$.isLegendInset ? insetLegendPosition.top : $$.currentHeight - legendHeight,
 	            right: NaN,
@@ -16877,23 +16514,23 @@
 	        var l, totalLength = 0, offsets = {}, widths = {}, heights = {}, margins = [0], steps = {}, step = 0;
 	        var withTransition, withTransitionForTransform;
 	        var texts, rects, tiles, background;
-	
+
 	        // Skip elements when their name is set to null
 	        targetIds = targetIds.filter(function(id) {
 	            return !isDefined(config.data_names[id]) || config.data_names[id] !== null;
 	        });
-	
+
 	        options = options || {};
 	        withTransition = getOption(options, "withTransition", true);
 	        withTransitionForTransform = getOption(options, "withTransitionForTransform", true);
-	
+
 	        function getTextBox(textElement, id) {
 	            if (!$$.legendItemTextBox[id]) {
 	                $$.legendItemTextBox[id] = $$.getTextRect(textElement.textContent, CLASS.legendItem, textElement);
 	            }
 	            return $$.legendItemTextBox[id];
 	        }
-	
+
 	        function updatePositions(textElement, id, index) {
 	            var reset = index === 0, isLast = index === targetIds.length - 1,
 	                box = getTextBox(textElement, id),
@@ -16902,7 +16539,7 @@
 	                itemLength = $$.isLegendRight || $$.isLegendInset ? itemHeight : itemWidth,
 	                areaLength = $$.isLegendRight || $$.isLegendInset ? $$.getLegendHeight() : $$.getLegendWidth(),
 	                margin, maxLength;
-	
+
 	            // MEMO: care about condifion of step, totalLength
 	            function updateValues(id, withoutStep) {
 	                if (!withoutStep) {
@@ -16918,26 +16555,26 @@
 	                offsets[id] = totalLength;
 	                totalLength += itemLength;
 	            }
-	
+
 	            if (reset) {
 	                totalLength = 0;
 	                step = 0;
 	                maxWidth = 0;
 	                maxHeight = 0;
 	            }
-	
+
 	            if (config.legend_show && !$$.isLegendToShow(id)) {
 	                widths[id] = heights[id] = steps[id] = offsets[id] = 0;
 	                return;
 	            }
-	
+
 	            widths[id] = itemWidth;
 	            heights[id] = itemHeight;
-	
+
 	            if (!maxWidth || itemWidth >= maxWidth) { maxWidth = itemWidth; }
 	            if (!maxHeight || itemHeight >= maxHeight) { maxHeight = itemHeight; }
 	            maxLength = $$.isLegendRight || $$.isLegendInset ? maxHeight : maxWidth;
-	
+
 	            if (config.legend_equally) {
 	                Object.keys(widths).forEach(function (id) { widths[id] = maxWidth; });
 	                Object.keys(heights).forEach(function (id) { heights[id] = maxHeight; });
@@ -16954,12 +16591,12 @@
 	                updateValues(id);
 	            }
 	        }
-	
+
 	        if ($$.isLegendInset) {
 	            step = config.legend_inset_step ? config.legend_inset_step : targetIds.length;
 	            $$.updateLegendStep(step);
 	        }
-	
+
 	        if ($$.isLegendRight) {
 	            xForLegend = function (id) { return maxWidth * steps[id]; };
 	            yForLegend = function (id) { return margins[steps[id]] + offsets[id]; };
@@ -16977,7 +16614,7 @@
 	        x1ForLegendTile = function (id, i) { return xForLegend(id, i) - 2; };
 	        x2ForLegendTile = function (id, i) { return xForLegend(id, i) - 2 + config.legend_item_tile_width; };
 	        yForLegendTile = function (id, i) { return yForLegend(id, i) + 4; };
-	
+
 	        // Define g for legend area
 	        l = $$.legend.selectAll('.' + CLASS.legendItem)
 	            .data(targetIds)
@@ -17038,7 +16675,7 @@
 	            .attr('x2', $$.isLegendRight || $$.isLegendInset ? x2ForLegendTile : -200)
 	            .attr('y2', $$.isLegendRight || $$.isLegendInset ? -200 : yForLegendTile)
 	            .attr('stroke-width', config.legend_item_tile_height);
-	
+
 	        // Set background for inset legend
 	        background = $$.legend.select('.' + CLASS.legendBackground + ' rect');
 	        if ($$.isLegendInset && maxWidth > 0 && background.size() === 0) {
@@ -17046,7 +16683,7 @@
 	                .attr("class", CLASS.legendBackground)
 	                .append('rect');
 	        }
-	
+
 	        texts = $$.legend.selectAll('text')
 	            .data(targetIds)
 	            .text(function (id) { return isDefined(config.data_names[id]) ? config.data_names[id] : id; }) // MEMO: needed for update
@@ -17054,7 +16691,7 @@
 	        (withTransition ? texts.transition() : texts)
 	            .attr('x', xForLegendText)
 	            .attr('y', yForLegendText);
-	
+
 	        rects = $$.legend.selectAll('rect.' + CLASS.legendItemEvent)
 	            .data(targetIds);
 	        (withTransition ? rects.transition() : rects)
@@ -17062,7 +16699,7 @@
 	            .attr('height', function (id) { return heights[id]; })
 	            .attr('x', xForLegendRect)
 	            .attr('y', yForLegendRect);
-	
+
 	        tiles = $$.legend.selectAll('line.' + CLASS.legendItemTile)
 	                .data(targetIds);
 	            (withTransition ? tiles.transition() : tiles)
@@ -17071,17 +16708,17 @@
 	                .attr('y1', yForLegendTile)
 	                .attr('x2', x2ForLegendTile)
 	                .attr('y2', yForLegendTile);
-	
+
 	        if (background) {
 	            (withTransition ? background.transition() : background)
 	                .attr('height', $$.getLegendHeight() - 12)
 	                .attr('width', maxWidth * (step + 1) + 10);
 	        }
-	
+
 	        // toggle legend state
 	        $$.legend.selectAll('.' + CLASS.legendItem)
 	            .classed(CLASS.legendItemHidden, function (id) { return !$$.isTargetToShow(id); });
-	
+
 	        // Update all to reflect change of legend
 	        $$.updateLegendItemWidth(maxWidth);
 	        $$.updateLegendItemHeight(maxHeight);
@@ -17094,7 +16731,7 @@
 	        $$.transformAll(withTransitionForTransform, transitions);
 	        $$.legendHasRendered = true;
 	    };
-	
+
 	    c3_chart_internal_fn.initTitle = function () {
 	        var $$ = this;
 	        $$.title = $$.svg.append("text")
@@ -17126,15 +16763,15 @@
 	        var $$ = this;
 	        return $$.yForTitle() + $$.config.title_padding.bottom;
 	    };
-	
+
 	    function Axis(owner) {
 	        API.call(this, owner);
 	    }
-	
+
 	    inherit(API, Axis);
-	
+
 	    Axis.prototype.init = function init() {
-	
+
 	        var $$ = this.owner, config = $$.config, main = $$.main;
 	        $$.axes.x = main.append("g")
 	            .attr("class", CLASS.axis + ' ' + CLASS.axisX)
@@ -17154,7 +16791,7 @@
 	            .attr("class", CLASS.axisYLabel)
 	            .attr("transform", config.axis_rotated ? "" : "rotate(-90)")
 	            .style("text-anchor", this.textAnchorForYAxisLabel.bind(this));
-	
+
 	        $$.axes.y2 = main.append("g")
 	            .attr("class", CLASS.axis + ' ' + CLASS.axisY2)
 	            // clip-path?
@@ -17176,11 +16813,11 @@
 	                withoutTransition: withoutTransition,
 	            },
 	            axis = c3_axis($$.d3, axisParams).scale(scale).orient(orient);
-	
+
 	        if ($$.isTimeSeries() && tickValues && typeof tickValues !== "function") {
 	            tickValues = tickValues.map(function (v) { return $$.parseDate(v); });
 	        }
-	
+
 	        // Set tick
 	        axis.tickFormat(tickFormat).tickValues(tickValues);
 	        if ($$.isCategorized()) {
@@ -17189,7 +16826,7 @@
 	                config.axis_x_tick_culling = false;
 	            }
 	        }
-	
+
 	        return axis;
 	    };
 	    Axis.prototype.updateXAxisTickValues = function updateXAxisTickValues(targets, axis) {
@@ -17426,7 +17063,7 @@
 	        $$.currentMaxTickWidths[id] = maxWidth <= 0 ? $$.currentMaxTickWidths[id] : maxWidth;
 	        return $$.currentMaxTickWidths[id];
 	    };
-	
+
 	    Axis.prototype.updateLabels = function updateLabels(withTransition) {
 	        var $$ = this.owner;
 	        var axisXLabel = $$.main.select('.' + CLASS.axisX + ' .' + CLASS.axisXLabel),
@@ -17510,7 +17147,7 @@
 	        transitions.axisY2.call($$.y2Axis);
 	        transitions.axisSubX.call($$.subXAxis);
 	    };
-	
+
 	    c3_chart_internal_fn.getClipPath = function (id) {
 	        var isIE9 = window.navigator.appVersion.toLowerCase().indexOf("msie 9.") >= 0;
 	        return "url(" + (isIE9 ? "" : document.URL.split('#')[0]) + "#" + id + ")";
@@ -17569,7 +17206,7 @@
 	        var $$ = this;
 	        return $$.getAxisClipHeight($$.config.axis_rotated);
 	    };
-	
+
 	    c3_chart_internal_fn.initPie = function () {
 	        var $$ = this, d3 = $$.d3, config = $$.config;
 	        $$.pie = d3.layout.pie().value(function (d) {
@@ -17579,7 +17216,7 @@
 	            $$.pie.sort(null);
 	        }
 	    };
-	
+
 	    c3_chart_internal_fn.updateRadius = function () {
 	        var $$ = this, config = $$.config,
 	            w = config.gauge_width || config.donut_width;
@@ -17588,23 +17225,23 @@
 	        $$.innerRadiusRatio = w ? ($$.radius - w) / $$.radius : 0.6;
 	        $$.innerRadius = $$.hasType('donut') || $$.hasType('gauge') ? $$.radius * $$.innerRadiusRatio : 0;
 	    };
-	
+
 	    c3_chart_internal_fn.updateArc = function () {
 	        var $$ = this;
 	        $$.svgArc = $$.getSvgArc();
 	        $$.svgArcExpanded = $$.getSvgArcExpanded();
 	        $$.svgArcExpandedSub = $$.getSvgArcExpanded(0.98);
 	    };
-	
+
 	    c3_chart_internal_fn.updateAngle = function (d) {
 	        var $$ = this, config = $$.config,
 	            found = false, index = 0,
 	            gMin, gMax, gTic, gValue;
-	
+
 	        if (!config) {
 	            return null;
 	        }
-	
+
 	        $$.pie($$.filterTargetsToShow($$.data.targets)).forEach(function (t) {
 	            if (! found && t.data.id === d.data.id) {
 	                found = true;
@@ -17629,7 +17266,7 @@
 	        }
 	        return found ? d : null;
 	    };
-	
+
 	    c3_chart_internal_fn.getSvgArc = function () {
 	        var $$ = this,
 	            arc = $$.d3.svg.arc().outerRadius($$.radius).innerRadius($$.innerRadius),
@@ -17643,7 +17280,7 @@
 	        newArc.centroid = arc.centroid;
 	        return newArc;
 	    };
-	
+
 	    c3_chart_internal_fn.getSvgArcExpanded = function (rate) {
 	        var $$ = this,
 	            arc = $$.d3.svg.arc().outerRadius($$.radiusExpanded * (rate ? rate : 1)).innerRadius($$.innerRadius);
@@ -17652,12 +17289,12 @@
 	            return updated ? arc(updated) : "M 0 0";
 	        };
 	    };
-	
+
 	    c3_chart_internal_fn.getArc = function (d, withoutUpdate, force) {
 	        return force || this.isArcType(d.data) ? this.svgArc(d, withoutUpdate) : "M 0 0";
 	    };
-	
-	
+
+
 	    c3_chart_internal_fn.transformForArcLabel = function (d) {
 	        var $$ = this, config = $$.config,
 	            updated = $$.updateAngle(d), c, x, y, h, ratio, translate = "";
@@ -17677,14 +17314,14 @@
 	        }
 	        return translate;
 	    };
-	
+
 	    c3_chart_internal_fn.getArcRatio = function (d) {
 	        var $$ = this,
 	            config = $$.config,
 	            whole = Math.PI * ($$.hasType('gauge') && !config.gauge_fullCircle ? 1 : 2);
 	        return d ? (d.endAngle - d.startAngle) / whole : null;
 	    };
-	
+
 	    c3_chart_internal_fn.convertToArcData = function (d) {
 	        return this.addName({
 	            id: d.data.id,
@@ -17693,7 +17330,7 @@
 	            index: d.index
 	        });
 	    };
-	
+
 	    c3_chart_internal_fn.textForArcLabel = function (d) {
 	        var $$ = this,
 	            updated, value, ratio, id, format;
@@ -17706,10 +17343,10 @@
 	        format = $$.getArcLabelFormat();
 	        return format ? format(value, ratio, id) : $$.defaultArcValueFormat(value, ratio);
 	    };
-	
+
 	    c3_chart_internal_fn.expandArc = function (targetIds) {
 	        var $$ = this, interval;
-	
+
 	        // MEMO: avoid to cancel transition
 	        if ($$.transiting) {
 	            interval = window.setInterval(function () {
@@ -17722,9 +17359,9 @@
 	            }, 10);
 	            return;
 	        }
-	
+
 	        targetIds = $$.mapToTargetIds(targetIds);
-	
+
 	        $$.svg.selectAll($$.selectorTargets(targetIds, '.' + CLASS.chartArc)).each(function (d) {
 	            if (! $$.shouldExpand(d.data.id)) { return; }
 	            $$.d3.select(this).selectAll('path')
@@ -17739,14 +17376,14 @@
 	                });
 	        });
 	    };
-	
+
 	    c3_chart_internal_fn.unexpandArc = function (targetIds) {
 	        var $$ = this;
-	
+
 	        if ($$.transiting) { return; }
-	
+
 	        targetIds = $$.mapToTargetIds(targetIds);
-	
+
 	        $$.svg.selectAll($$.selectorTargets(targetIds, '.' + CLASS.chartArc)).selectAll('path')
 	            .transition().duration(function(d) {
 	                return $$.expandDuration(d.data.id);
@@ -17755,10 +17392,10 @@
 	        $$.svg.selectAll('.' + CLASS.arc)
 	            .style("opacity", 1);
 	    };
-	
+
 	    c3_chart_internal_fn.expandDuration = function (id) {
 	        var $$ = this, config = $$.config;
-	
+
 	        if ($$.isDonutType(id)) {
 	            return config.donut_expand_duration;
 	        } else if ($$.isGaugeType(id)) {
@@ -17768,16 +17405,16 @@
 	        } else {
 	            return 50;
 	        }
-	
+
 	    };
-	
+
 	    c3_chart_internal_fn.shouldExpand = function (id) {
 	        var $$ = this, config = $$.config;
 	        return ($$.isDonutType(id) && config.donut_expand) ||
 	               ($$.isGaugeType(id) && config.gauge_expand) ||
 	               ($$.isPieType(id) && config.pie_expand);
 	    };
-	
+
 	    c3_chart_internal_fn.shouldShowArcLabel = function () {
 	        var $$ = this, config = $$.config, shouldShow = true;
 	        if ($$.hasType('donut')) {
@@ -17788,13 +17425,13 @@
 	        // when gauge, always true
 	        return shouldShow;
 	    };
-	
+
 	    c3_chart_internal_fn.meetsArcLabelThreshold = function (ratio) {
 	        var $$ = this, config = $$.config,
 	            threshold = $$.hasType('donut') ? config.donut_label_threshold : config.pie_label_threshold;
 	        return ratio >= threshold;
 	    };
-	
+
 	    c3_chart_internal_fn.getArcLabelFormat = function () {
 	        var $$ = this, config = $$.config,
 	            format = config.pie_label_format;
@@ -17805,12 +17442,12 @@
 	        }
 	        return format;
 	    };
-	
+
 	    c3_chart_internal_fn.getArcTitle = function () {
 	        var $$ = this;
 	        return $$.hasType('donut') ? $$.config.donut_title : "";
 	    };
-	
+
 	    c3_chart_internal_fn.updateTargetsForArc = function (targets) {
 	        var $$ = this, main = $$.main,
 	            mainPieUpdate, mainPieEnter,
@@ -17832,7 +17469,7 @@
 	        // MEMO: can not keep same color..., but not bad to update color in redraw
 	        //mainPieUpdate.exit().remove();
 	    };
-	
+
 	    c3_chart_internal_fn.initArc = function () {
 	        var $$ = this;
 	        $$.arcs = $$.main.select('.' + CLASS.chart).append("g")
@@ -17843,7 +17480,7 @@
 	            .style("text-anchor", "middle")
 	            .text($$.getArcTitle());
 	    };
-	
+
 	    c3_chart_internal_fn.redrawArc = function (duration, durationForExit, withTransform) {
 	        var $$ = this, d3 = $$.d3, config = $$.config, main = $$.main,
 	            mainArc;
@@ -17960,7 +17597,7 @@
 	            .style("opacity", function (d) { return $$.isTargetToShow(d.data.id) && $$.isArcType(d.data) ? 1 : 0; });
 	        main.select('.' + CLASS.chartArcsTitle)
 	            .style("opacity", $$.hasType('donut') || $$.hasType('gauge') ? 1 : 0);
-	
+
 	        if ($$.hasType('gauge')) {
 	            $$.arcs.select('.' + CLASS.chartArcsBackground)
 	                .attr("d", function () {
@@ -18006,7 +17643,7 @@
 	    c3_chart_internal_fn.getGaugeLabelHeight = function () {
 	        return this.config.gauge_label_show ? 20 : 0;
 	    };
-	
+
 	    c3_chart_internal_fn.initRegion = function () {
 	        var $$ = this;
 	        $$.region = $$.main.append('g')
@@ -18015,10 +17652,10 @@
 	    };
 	    c3_chart_internal_fn.updateRegion = function (duration) {
 	        var $$ = this, config = $$.config;
-	
+
 	        // hide if arc type
 	        $$.region.style('visibility', $$.hasArcType() ? 'hidden' : 'visible');
-	
+
 	        $$.mainRegion = $$.main.select('.' + CLASS.regions).selectAll('.' + CLASS.region)
 	            .data(config.regions);
 	        $$.mainRegion.enter().append('g')
@@ -18095,16 +17732,16 @@
 	    c3_chart_internal_fn.isRegionOnX = function (d) {
 	        return !d.axis || d.axis === 'x';
 	    };
-	
+
 	    c3_chart_internal_fn.drag = function (mouse) {
 	        var $$ = this, config = $$.config, main = $$.main, d3 = $$.d3;
 	        var sx, sy, mx, my, minX, maxX, minY, maxY;
-	
+
 	        if ($$.hasArcType()) { return; }
 	        if (! config.data_selection_enabled) { return; } // do nothing if not selectable
 	        if (config.zoom_enabled && ! $$.zoom.altDomain) { return; } // skip if zoomable because of conflict drag dehavior
 	        if (!config.data_selection_multiple) { return; } // skip when single selection because drag is used for multiple selection
-	
+
 	        sx = $$.dragStart[0];
 	        sy = $$.dragStart[1];
 	        mx = mouse[0];
@@ -18113,7 +17750,7 @@
 	        maxX = Math.max(sx, mx);
 	        minY = (config.data_selection_grouped) ? $$.margin.top : Math.min(sy, my);
 	        maxY = (config.data_selection_grouped) ? $$.height : Math.max(sy, my);
-	
+
 	        main.select('.' + CLASS.dragarea)
 	            .attr('x', minX)
 	            .attr('y', minY)
@@ -18153,7 +17790,7 @@
 	                }
 	            });
 	    };
-	
+
 	    c3_chart_internal_fn.dragstart = function (mouse) {
 	        var $$ = this, config = $$.config;
 	        if ($$.hasArcType()) { return; }
@@ -18164,7 +17801,7 @@
 	            .style('opacity', 0.1);
 	        $$.dragging = true;
 	    };
-	
+
 	    c3_chart_internal_fn.dragend = function () {
 	        var $$ = this, config = $$.config;
 	        if ($$.hasArcType()) { return; }
@@ -18177,7 +17814,7 @@
 	            .classed(CLASS.INCLUDED, false);
 	        $$.dragging = false;
 	    };
-	
+
 	    c3_chart_internal_fn.selectPoint = function (target, d, i) {
 	        var $$ = this, config = $$.config,
 	            cx = (config.axis_rotated ? $$.circleY : $$.circleX).bind($$),
@@ -18245,7 +17882,7 @@
 	        var $$ = this, d3 = $$.d3, config = $$.config,
 	            shape = d3.select(that), isSelected = shape.classed(CLASS.SELECTED),
 	            toggle = $$.getToggle(that, d).bind($$);
-	
+
 	        if (config.data_selection_enabled && config.data_selection_isselectable(d)) {
 	            if (!config.data_selection_multiple) {
 	                $$.main.selectAll('.' + CLASS.shapes + (config.data_selection_grouped ? $$.getTargetSelectorSuffix(d.id) : "")).selectAll('.' + CLASS.shape).each(function (d, i) {
@@ -18257,7 +17894,7 @@
 	            toggle(!isSelected, shape, d, i);
 	        }
 	    };
-	
+
 	    c3_chart_internal_fn.initBrush = function () {
 	        var $$ = this, d3 = $$.d3;
 	        $$.brush = d3.svg.brush().on("brush", function () { $$.redrawForBrush(); });
@@ -18273,28 +17910,28 @@
 	        var $$ = this, config = $$.config,
 	            context = $$.context = $$.svg.append("g").attr("transform", $$.getTranslate('context')),
 	            visibility = config.subchart_show ? 'visible' : 'hidden';
-	
+
 	        context.style('visibility', visibility);
-	
+
 	        // Define g for chart area
 	        context.append('g')
 	            .attr("clip-path", $$.clipPathForSubchart)
 	            .attr('class', CLASS.chart);
-	
+
 	        // Define g for bar chart area
 	        context.select('.' + CLASS.chart).append("g")
 	            .attr("class", CLASS.chartBars);
-	
+
 	        // Define g for line chart area
 	        context.select('.' + CLASS.chart).append("g")
 	            .attr("class", CLASS.chartLines);
-	
+
 	        // Add extent rect for Brush
 	        context.append("g")
 	            .attr("clip-path", $$.clipPath)
 	            .attr("class", CLASS.brush)
 	            .call($$.brush);
-	
+
 	        // ATTENTION: This must be called AFTER chart added
 	        // Add Axis
 	        $$.axes.subx = context.append("g")
@@ -18311,7 +17948,7 @@
 	            classChartLine = $$.classChartLine.bind($$),
 	            classLines = $$.classLines.bind($$),
 	            classAreas = $$.classAreas.bind($$);
-	
+
 	        if (config.subchart_show) {
 	            //-- Bar --//
 	            contextBarUpdate = context.select('.' + CLASS.chartBars).selectAll('.' + CLASS.chartBar)
@@ -18323,7 +17960,7 @@
 	            // Bars for each data
 	            contextBarEnter.append('g')
 	                .attr("class", classBars);
-	
+
 	            //-- Line --//
 	            contextLineUpdate = context.select('.' + CLASS.chartLines).selectAll('.' + CLASS.chartLine)
 	                .data(targets)
@@ -18337,7 +17974,7 @@
 	            // Area
 	            contextLineEnter.append("g")
 	                .attr("class", classAreas);
-	
+
 	            //-- Brush --//
 	            context.selectAll('.' + CLASS.brush + ' rect')
 	                .attr(config.axis_rotated ? "width" : "height", config.axis_rotated ? $$.width2 : $$.height2);
@@ -18403,9 +18040,9 @@
 	    c3_chart_internal_fn.redrawSubchart = function (withSubchart, transitions, duration, durationForExit, areaIndices, barIndices, lineIndices) {
 	        var $$ = this, d3 = $$.d3, config = $$.config,
 	            drawAreaOnSub, drawBarOnSub, drawLineOnSub;
-	
+
 	        $$.context.style('visibility', config.subchart_show ? 'visible' : 'hidden');
-	
+
 	        // subchart
 	        if (config.subchart_show) {
 	            // reflect main chart to extent on subchart if zoomed
@@ -18414,7 +18051,7 @@
 	            }
 	            // update subchart elements if needed
 	            if (withSubchart) {
-	
+
 	                // extent rect
 	                if (!$$.brush.empty()) {
 	                    $$.brush.extent($$.x.orgDomain()).update();
@@ -18423,11 +18060,11 @@
 	                drawAreaOnSub = $$.generateDrawArea(areaIndices, true);
 	                drawBarOnSub = $$.generateDrawBar(barIndices, true);
 	                drawLineOnSub = $$.generateDrawLine(lineIndices, true);
-	
+
 	                $$.updateBarForSubchart(duration);
 	                $$.updateLineForSubchart(duration);
 	                $$.updateAreaForSubchart(duration);
-	
+
 	                $$.redrawBarForSubchart(drawBarOnSub, duration, duration);
 	                $$.redrawLineForSubchart(drawLineOnSub, duration, duration);
 	                $$.redrawAreaForSubchart(drawAreaOnSub, duration, duration);
@@ -18464,10 +18101,10 @@
 	        }
 	        return extent;
 	    };
-	
+
 	    c3_chart_internal_fn.initZoom = function () {
 	        var $$ = this, d3 = $$.d3, config = $$.config, startEvent;
-	
+
 	        $$.zoom = d3.behavior.zoom()
 	            .on("zoomstart", function () {
 	                startEvent = d3.event.sourceEvent;
@@ -18540,17 +18177,17 @@
 	        }
 	        config.zoom_onzoom.call($$.api, x.orgDomain());
 	    };
-	
+
 	    c3_chart_internal_fn.generateColor = function () {
 	        var $$ = this, config = $$.config, d3 = $$.d3,
 	            colors = config.data_colors,
 	            pattern = notEmpty(config.color_pattern) ? config.color_pattern : d3.scale.category10().range(),
 	            callback = config.data_color,
 	            ids = [];
-	
+
 	        return function (d) {
 	            var id = d.id || (d.data && d.data.id) || d, color;
-	
+
 	            // if callback function is provided
 	            if (colors[id] instanceof Function) {
 	                color = colors[id](d);
@@ -18587,7 +18224,7 @@
 	            return color;
 	        } : null;
 	    };
-	
+
 	    c3_chart_internal_fn.getYFormat = function (forArc) {
 	        var $$ = this,
 	            formatForY = forArc && !$$.hasType('gauge') ? $$.defaultArcValueFormat : $$.yFormat,
@@ -18630,7 +18267,7 @@
 	        }
 	        return format;
 	    };
-	
+
 	    c3_chart_internal_fn.hasCaches = function (ids) {
 	        for (var i = 0; i < ids.length; i++) {
 	            if (! (ids[i] in this.cache)) { return false; }
@@ -18647,7 +18284,7 @@
 	        }
 	        return targets;
 	    };
-	
+
 	    var CLASS = c3_chart_internal_fn.CLASS = {
 	        target: 'c3-target',
 	        chart: 'c3-chart',
@@ -18823,7 +18460,7 @@
 	        var $$ = this;
 	        return ids && ids.length ? ids.map(function (id) { return $$.selectorLegend(id); }) : null;
 	    };
-	
+
 	    var isValue = c3_chart_internal_fn.isValue = function (v) {
 	        return v || v === 0;
 	    },
@@ -18873,13 +18510,13 @@
 	                minX = items[0].x, minY = Math.min(items[0].y, items[1].y);
 	            return {x: minX, y: minY, width: box.width, height: box.height};
 	        };
-	
+
 	    c3_chart_fn.focus = function (targetIds) {
 	        var $$ = this.internal, candidates;
-	
+
 	        targetIds = $$.mapToTargetIds(targetIds);
 	        candidates = $$.svg.selectAll($$.selectorTargets(targetIds.filter($$.isTargetToShow, $$))),
-	
+
 	        this.revert();
 	        this.defocus();
 	        candidates.classed(CLASS.focused, true).classed(CLASS.defocused, false);
@@ -18887,37 +18524,37 @@
 	            $$.expandArc(targetIds);
 	        }
 	        $$.toggleFocusLegend(targetIds, true);
-	
+
 	        $$.focusedTargetIds = targetIds;
 	        $$.defocusedTargetIds = $$.defocusedTargetIds.filter(function (id) {
 	            return targetIds.indexOf(id) < 0;
 	        });
 	    };
-	
+
 	    c3_chart_fn.defocus = function (targetIds) {
 	        var $$ = this.internal, candidates;
-	
+
 	        targetIds = $$.mapToTargetIds(targetIds);
 	        candidates = $$.svg.selectAll($$.selectorTargets(targetIds.filter($$.isTargetToShow, $$))),
-	
+
 	        candidates.classed(CLASS.focused, false).classed(CLASS.defocused, true);
 	        if ($$.hasArcType()) {
 	            $$.unexpandArc(targetIds);
 	        }
 	        $$.toggleFocusLegend(targetIds, false);
-	
+
 	        $$.focusedTargetIds = $$.focusedTargetIds.filter(function (id) {
 	            return targetIds.indexOf(id) < 0;
 	        });
 	        $$.defocusedTargetIds = targetIds;
 	    };
-	
+
 	    c3_chart_fn.revert = function (targetIds) {
 	        var $$ = this.internal, candidates;
-	
+
 	        targetIds = $$.mapToTargetIds(targetIds);
 	        candidates = $$.svg.selectAll($$.selectorTargets(targetIds)); // should be for all targets
-	
+
 	        candidates.classed(CLASS.focused, false).classed(CLASS.defocused, false);
 	        if ($$.hasArcType()) {
 	            $$.unexpandArc(targetIds);
@@ -18930,62 +18567,62 @@
 	                })
 	                .classed(CLASS.legendItemFocused, false);
 	        }
-	
+
 	        $$.focusedTargetIds = [];
 	        $$.defocusedTargetIds = [];
 	    };
-	
+
 	    c3_chart_fn.show = function (targetIds, options) {
 	        var $$ = this.internal, targets;
-	
+
 	        targetIds = $$.mapToTargetIds(targetIds);
 	        options = options || {};
-	
+
 	        $$.removeHiddenTargetIds(targetIds);
 	        targets = $$.svg.selectAll($$.selectorTargets(targetIds));
-	
+
 	        targets.transition()
 	            .style('opacity', 1, 'important')
 	            .call($$.endall, function () {
 	                targets.style('opacity', null).style('opacity', 1);
 	            });
-	
+
 	        if (options.withLegend) {
 	            $$.showLegend(targetIds);
 	        }
-	
+
 	        $$.redraw({withUpdateOrgXDomain: true, withUpdateXDomain: true, withLegend: true});
 	    };
-	
+
 	    c3_chart_fn.hide = function (targetIds, options) {
 	        var $$ = this.internal, targets;
-	
+
 	        targetIds = $$.mapToTargetIds(targetIds);
 	        options = options || {};
-	
+
 	        $$.addHiddenTargetIds(targetIds);
 	        targets = $$.svg.selectAll($$.selectorTargets(targetIds));
-	
+
 	        targets.transition()
 	            .style('opacity', 0, 'important')
 	            .call($$.endall, function () {
 	                targets.style('opacity', null).style('opacity', 0);
 	            });
-	
+
 	        if (options.withLegend) {
 	            $$.hideLegend(targetIds);
 	        }
-	
+
 	        $$.redraw({withUpdateOrgXDomain: true, withUpdateXDomain: true, withLegend: true});
 	    };
-	
+
 	    c3_chart_fn.toggle = function (targetIds, options) {
 	        var that = this, $$ = this.internal;
 	        $$.mapToTargetIds(targetIds).forEach(function (targetId) {
 	            $$.isTargetToShow(targetId) ? that.hide(targetId, options) : that.show(targetId, options);
 	        });
 	    };
-	
+
 	    c3_chart_fn.zoom = function (domain) {
 	        var $$ = this.internal;
 	        if (domain) {
@@ -19008,7 +18645,7 @@
 	        $$.brush.clear().update();
 	        $$.redraw({withUpdateXDomain: true});
 	    };
-	
+
 	    c3_chart_fn.zoom.max = function (max) {
 	        var $$ = this.internal, config = $$.config, d3 = $$.d3;
 	        if (max === 0 || max) {
@@ -19018,7 +18655,7 @@
 	            return config.zoom_x_max;
 	        }
 	    };
-	
+
 	    c3_chart_fn.zoom.min = function (min) {
 	        var $$ = this.internal, config = $$.config, d3 = $$.d3;
 	        if (min === 0 || min) {
@@ -19028,7 +18665,7 @@
 	            return config.zoom_x_min;
 	        }
 	    };
-	
+
 	    c3_chart_fn.zoom.range = function (range) {
 	        if (arguments.length) {
 	            if (isDefined(range.max)) { this.domain.max(range.max); }
@@ -19040,7 +18677,7 @@
 	            };
 	        }
 	    };
-	
+
 	    c3_chart_fn.load = function (args) {
 	        var $$ = this.internal, config = $$.config;
 	        // update xs if specified
@@ -19088,7 +18725,7 @@
 	            $$.loadFromArgs(args);
 	        }
 	    };
-	
+
 	    c3_chart_fn.unload = function (args) {
 	        var $$ = this.internal;
 	        args = args || {};
@@ -19102,12 +18739,12 @@
 	            if (args.done) { args.done(); }
 	        });
 	    };
-	
+
 	    c3_chart_fn.flow = function (args) {
 	        var $$ = this.internal,
 	            targets, data, notfoundIds = [], orgDataCount = $$.getMaxDataCount(),
 	            dataCount, domain, baseTarget, baseValue, length = 0, tail = 0, diff, to;
-	
+
 	        if (args.json) {
 	            data = $$.convertJsonToData(args.json, args.keys);
 	        }
@@ -19121,19 +18758,19 @@
 	            return;
 	        }
 	        targets = $$.convertDataToTargets(data, true);
-	
+
 	        // Update/Add data
 	        $$.data.targets.forEach(function (t) {
 	            var found = false, i, j;
 	            for (i = 0; i < targets.length; i++) {
 	                if (t.id === targets[i].id) {
 	                    found = true;
-	
+
 	                    if (t.values[t.values.length - 1]) {
 	                        tail = t.values[t.values.length - 1].index + 1;
 	                    }
 	                    length = targets[i].values.length;
-	
+
 	                    for (j = 0; j < length; j++) {
 	                        targets[i].values[j].index = tail + j;
 	                        if (!$$.isTimeSeries()) {
@@ -19141,14 +18778,14 @@
 	                        }
 	                    }
 	                    t.values = t.values.concat(targets[i].values);
-	
+
 	                    targets.splice(i, 1);
 	                    break;
 	                }
 	            }
 	            if (!found) { notfoundIds.push(t.id); }
 	        });
-	
+
 	        // Append null for not found targets
 	        $$.data.targets.forEach(function (t) {
 	            var i, j;
@@ -19166,7 +18803,7 @@
 	                }
 	            }
 	        });
-	
+
 	        // Generate null values for new target
 	        if ($$.data.targets.length) {
 	            targets.forEach(function (t) {
@@ -19189,12 +18826,12 @@
 	            });
 	        }
 	        $$.data.targets = $$.data.targets.concat(targets); // add remained
-	
+
 	        // check data count because behavior needs to change when it's only one
 	        dataCount = $$.getMaxDataCount();
 	        baseTarget = $$.data.targets[0];
 	        baseValue = baseTarget.values[0];
-	
+
 	        // Update length to flow if needed
 	        if (isDefined(args.to)) {
 	            length = 0;
@@ -19205,7 +18842,7 @@
 	        } else if (isDefined(args.length)) {
 	            length = args.length;
 	        }
-	
+
 	        // If only one data, update the domain to flow from left edge of the chart
 	        if (!orgDataCount) {
 	            if ($$.isTimeSeries()) {
@@ -19226,10 +18863,10 @@
 	                $$.updateXDomain(null, true, true, false, domain);
 	            }
 	        }
-	
+
 	        // Set targets
 	        $$.updateTargets($$.data.targets);
-	
+
 	        // Redraw with new targets
 	        $$.redraw({
 	            flow: {
@@ -19245,10 +18882,10 @@
 	            withUpdateXAxis: true,
 	        });
 	    };
-	
+
 	    c3_chart_internal_fn.generateFlow = function (args) {
 	        var $$ = this, config = $$.config, d3 = $$.d3;
-	
+
 	        return function () {
 	            var targets = args.targets,
 	                flow = args.flow,
@@ -19261,7 +18898,7 @@
 	                xForText = args.xForText,
 	                yForText = args.yForText,
 	                duration = args.duration;
-	
+
 	            var translateX, scaleX = 1, transform,
 	                flowIndex = flow.index,
 	                flowLength = flow.length,
@@ -19271,7 +18908,7 @@
 	                durationForFlow = flow.duration || duration,
 	                done = flow.done || function () {},
 	                wait = $$.generateWait();
-	
+
 	            var xgrid = $$.xgrid || d3.selectAll([]),
 	                xgridLines = $$.xgridLines || d3.selectAll([]),
 	                mainRegion = $$.mainRegion || d3.selectAll([]),
@@ -19280,20 +18917,20 @@
 	                mainLine = $$.mainLine || d3.selectAll([]),
 	                mainArea = $$.mainArea || d3.selectAll([]),
 	                mainCircle = $$.mainCircle || d3.selectAll([]);
-	
+
 	            // set flag
 	            $$.flowing = true;
-	
+
 	            // remove head data after rendered
 	            $$.data.targets.forEach(function (d) {
 	                d.values.splice(0, flowLength);
 	            });
-	
+
 	            // update x domain to generate axis elements for flow
 	            domain = $$.updateXDomain(targets, true, true);
 	            // update elements related to x scale
 	            if ($$.updateXGrid) { $$.updateXGrid(true); }
-	
+
 	            // generate transform to flow
 	            if (!flow.orgDataCount) { // if empty
 	                if ($$.data.targets[0].values.length !== 1) {
@@ -19318,9 +18955,9 @@
 	            }
 	            scaleX = (diffDomain(orgDomain) / diffDomain(domain));
 	            transform = 'translate(' + translateX + ',0) scale(' + scaleX + ',1)';
-	
+
 	            $$.hideXGridFocus();
-	
+
 	            d3.transition().ease('linear').duration(durationForFlow).each(function () {
 	                wait.add($$.axes.x.transition().call($$.xAxis));
 	                wait.add(mainBar.transition().attr('transform', transform));
@@ -19334,7 +18971,7 @@
 	            })
 	            .call(wait, function () {
 	                var i, shapes = [], texts = [], eventRects = [];
-	
+
 	                // remove flowed elements
 	                if (flowLength) {
 	                    for (i = 0; i < flowLength; i++) {
@@ -19347,7 +18984,7 @@
 	                    $$.svg.selectAll('.' + CLASS.eventRects).selectAll(eventRects).remove();
 	                    $$.svg.select('.' + CLASS.xgrid).remove();
 	                }
-	
+
 	                // draw again for removing flowed elements and reverting attr
 	                xgrid
 	                    .attr('transform', null)
@@ -19383,19 +19020,19 @@
 	                mainRegion.select('rect').filter($$.isRegionOnX)
 	                    .attr("x", $$.regionX.bind($$))
 	                    .attr("width", $$.regionWidth.bind($$));
-	
+
 	                if (config.interaction_enabled) {
 	                    $$.redrawEventRect();
 	                }
-	
+
 	                // callback for end of flow
 	                done();
-	
+
 	                $$.flowing = false;
 	            });
 	        };
 	    };
-	
+
 	    c3_chart_fn.selected = function (targetId) {
 	        var $$ = this.internal, d3 = $$.d3;
 	        return d3.merge(
@@ -19450,13 +19087,13 @@
 	            }
 	        });
 	    };
-	
+
 	    c3_chart_fn.transform = function (type, targetIds) {
 	        var $$ = this.internal,
 	            options = ['pie', 'donut'].indexOf(type) >= 0 ? {withTransform: true} : null;
 	        $$.transformTo(targetIds, type, options);
 	    };
-	
+
 	    c3_chart_internal_fn.transformTo = function (targetIds, type, optionsForRedraw) {
 	        var $$ = this,
 	            withTransitionForAxis = !$$.hasArcType(),
@@ -19467,7 +19104,7 @@
 	        $$.updateTargets($$.data.targets); // this is needed when transforming to arc
 	        $$.updateAndRedraw(options);
 	    };
-	
+
 	    c3_chart_fn.groups = function (groups) {
 	        var $$ = this.internal, config = $$.config;
 	        if (isUndefined(groups)) { return config.data_groups; }
@@ -19475,7 +19112,7 @@
 	        $$.redraw();
 	        return config.data_groups;
 	    };
-	
+
 	    c3_chart_fn.xgrids = function (grids) {
 	        var $$ = this.internal, config = $$.config;
 	        if (! grids) { return config.grid_x_lines; }
@@ -19491,7 +19128,7 @@
 	        var $$ = this.internal;
 	        $$.removeGridLines(params, true);
 	    };
-	
+
 	    c3_chart_fn.ygrids = function (grids) {
 	        var $$ = this.internal, config = $$.config;
 	        if (! grids) { return config.grid_y_lines; }
@@ -19507,7 +19144,7 @@
 	        var $$ = this.internal;
 	        $$.removeGridLines(params, false);
 	    };
-	
+
 	    c3_chart_fn.regions = function (regions) {
 	        var $$ = this.internal, config = $$.config;
 	        if (!regions) { return config.regions; }
@@ -19525,16 +19162,16 @@
 	    c3_chart_fn.regions.remove = function (options) {
 	        var $$ = this.internal, config = $$.config,
 	            duration, classes, regions;
-	
+
 	        options = options || {};
 	        duration = $$.getOption(options, "duration", config.transition_duration);
 	        classes = $$.getOption(options, "classes", [CLASS.region]);
-	
+
 	        regions = $$.main.select('.' + CLASS.regions).selectAll(classes.map(function (c) { return '.' + c; }));
 	        (duration ? regions.transition().duration(duration) : regions)
 	            .style('opacity', 0)
 	            .remove();
-	
+
 	        config.regions = config.regions.filter(function (region) {
 	            var found = false;
 	            if (!region['class']) {
@@ -19545,10 +19182,10 @@
 	            });
 	            return !found;
 	        });
-	
+
 	        return config.regions;
 	    };
-	
+
 	    c3_chart_fn.data = function (targetIds) {
 	        var targets = this.internal.data.targets;
 	        return typeof targetIds === 'undefined' ? targets : targets.filter(function (t) {
@@ -19576,7 +19213,7 @@
 	    c3_chart_fn.data.axes = function (axes) {
 	        return this.internal.updateDataAttributes('axes', axes);
 	    };
-	
+
 	    c3_chart_fn.category = function (i, category) {
 	        var $$ = this.internal, config = $$.config;
 	        if (arguments.length > 1) {
@@ -19592,13 +19229,13 @@
 	        $$.redraw();
 	        return config.axis_x_categories;
 	    };
-	
+
 	    // TODO: fix
 	    c3_chart_fn.color = function (id) {
 	        var $$ = this.internal;
 	        return $$.color(id); // more patterns
 	    };
-	
+
 	    c3_chart_fn.x = function (x) {
 	        var $$ = this.internal;
 	        if (arguments.length) {
@@ -19615,7 +19252,7 @@
 	        }
 	        return $$.data.xs;
 	    };
-	
+
 	    c3_chart_fn.axis = function () {};
 	    c3_chart_fn.axis.labels = function (labels) {
 	        var $$ = this.internal;
@@ -19676,7 +19313,7 @@
 	            };
 	        }
 	    };
-	
+
 	    c3_chart_fn.legend = function () {};
 	    c3_chart_fn.legend.show = function (targetIds) {
 	        var $$ = this.internal;
@@ -19688,28 +19325,28 @@
 	        $$.hideLegend($$.mapToTargetIds(targetIds));
 	        $$.updateAndRedraw({withLegend: true});
 	    };
-	
+
 	    c3_chart_fn.resize = function (size) {
 	        var $$ = this.internal, config = $$.config;
 	        config.size_width = size ? size.width : null;
 	        config.size_height = size ? size.height : null;
 	        this.flush();
 	    };
-	
+
 	    c3_chart_fn.flush = function () {
 	        var $$ = this.internal;
 	        $$.updateAndRedraw({withLegend: true, withTransition: false, withTransitionForTransform: false});
 	    };
-	
+
 	    c3_chart_fn.destroy = function () {
 	        var $$ = this.internal;
-	
+
 	        window.clearInterval($$.intervalForObserveInserted);
-	
+
 	        if ($$.resizeTimeout !== undefined) {
 	            window.clearTimeout($$.resizeTimeout);
 	        }
-	
+
 	        if (window.detachEvent) {
 	            window.detachEvent('onresize', $$.resizeFunction);
 	        } else if (window.removeEventListener) {
@@ -19721,26 +19358,26 @@
 	                wrapper.remove($$.resizeFunction);
 	            }
 	        }
-	
+
 	        $$.selectChart.classed('c3', false).html("");
-	
+
 	        // MEMO: this is needed because the reference of some elements will not be released, then memory leak will happen.
 	        Object.keys($$).forEach(function (key) {
 	            $$[key] = null;
 	        });
-	
+
 	        return null;
 	    };
-	
+
 	    c3_chart_fn.tooltip = function () {};
 	    c3_chart_fn.tooltip.show = function (args) {
 	        var $$ = this.internal, index, mouse;
-	
+
 	        // determine mouse position on the chart
 	        if (args.mouse) {
 	            mouse = args.mouse;
 	        }
-	
+
 	        // determine focus data
 	        if (args.data) {
 	            if ($$.isMultipleX()) {
@@ -19758,20 +19395,20 @@
 	        else if (typeof args.index !== 'undefined') {
 	            index = args.index;
 	        }
-	
+
 	        // emulate mouse events to show
 	        $$.dispatchEvent('mouseover', index, mouse);
 	        $$.dispatchEvent('mousemove', index, mouse);
-	
+
 	        $$.config.tooltip_onshow.call($$, args.data);
 	    };
 	    c3_chart_fn.tooltip.hide = function () {
 	        // TODO: get target data by checking the state of focus
 	        this.internal.dispatchEvent('mouseout', 0);
-	
+
 	        this.internal.config.tooltip_onhide.call(this);
 	    };
-	
+
 	    // Features:
 	    // 1. category axis
 	    // 2. ceil values of translate/x/y to int for half pixel antialiasing
@@ -19779,12 +19416,12 @@
 	    var tickTextCharSize;
 	    function c3_axis(d3, params) {
 	        var scale = d3.scale.linear(), orient = "bottom", innerTickSize = 6, outerTickSize, tickPadding = 3, tickValues = null, tickFormat, tickArguments;
-	
+
 	        var tickOffset = 0, tickCulling = true, tickCentered;
-	
+
 	        params = params || {};
 	        outerTickSize = params.withOuterTick ? 6 : 0;
-	
+
 	        function axisX(selection, x) {
 	            selection.attr("transform", function (d) {
 	                return "translate(" + Math.ceil(x(d) + tickOffset) + ", 0)";
@@ -19852,9 +19489,9 @@
 	        function axis(g) {
 	            g.each(function () {
 	                var g = axis.g = d3.select(this);
-	
+
 	                var scale0 = this.__chart__ || scale, scale1 = this.__chart__ = copyScale();
-	
+
 	                var ticks = tickValues ? tickValues : generateTicks(scale1),
 	                    tick = g.selectAll(".tick").data(ticks, scale1),
 	                    tickEnter = tick.enter().insert("g", ".domain").attr("class", "tick").style("opacity", 1e-6),
@@ -19862,18 +19499,18 @@
 	                    tickExit = tick.exit().remove(),
 	                    tickUpdate = transitionise(tick).style("opacity", 1),
 	                    tickTransform, tickX, tickY;
-	
+
 	                var range = scale.rangeExtent ? scale.rangeExtent() : scaleExtent(scale.range()),
 	                    path = g.selectAll(".domain").data([ 0 ]),
 	                    pathUpdate = (path.enter().append("path").attr("class", "domain"), transitionise(path));
 	                tickEnter.append("line");
 	                tickEnter.append("text");
-	
+
 	                var lineEnter = tickEnter.select("line"),
 	                    lineUpdate = tickUpdate.select("line"),
 	                    textEnter = tickEnter.select("text"),
 	                    textUpdate = tickUpdate.select("text");
-	
+
 	                if (params.isCategory) {
 	                    tickOffset = Math.ceil((scale1(1) - scale1(0)) / 2);
 	                    tickX = tickCentered ? 0 : tickOffset;
@@ -19881,24 +19518,24 @@
 	                } else {
 	                    tickOffset = tickX = 0;
 	                }
-	
+
 	                var text, tspan, sizeFor1Char = getSizeFor1Char(g.select('.tick')), counts = [];
 	                var tickLength = Math.max(innerTickSize, 0) + tickPadding,
 	                    isVertical = orient === 'left' || orient === 'right';
-	
+
 	                // this should be called only when category axis
 	                function splitTickText(d, maxWidth) {
 	                    var tickText = textFormatted(d),
 	                        subtext, spaceIndex, textWidth, splitted = [];
-	
+
 	                    if (Object.prototype.toString.call(tickText) === "[object Array]") {
 	                        return tickText;
 	                    }
-	
+
 	                    if (!maxWidth || maxWidth <= 0) {
 	                        maxWidth = isVertical ? 95 : params.isCategory ? (Math.ceil(scale1(ticks[1]) - scale1(ticks[0])) - 12) : 110;
 	                    }
-	
+
 	                    function split(splitted, text) {
 	                        spaceIndex = undefined;
 	                        for (var i = 1; i < text.length; i++) {
@@ -19917,10 +19554,10 @@
 	                        }
 	                        return splitted.concat(text);
 	                    }
-	
+
 	                    return split(splitted, tickText + "");
 	                }
-	
+
 	                function tspanDy(d, i) {
 	                    var dy = sizeFor1Char.h;
 	                    if (i === 0) {
@@ -19932,12 +19569,12 @@
 	                    }
 	                    return dy;
 	                }
-	
+
 	                function tickSize(d) {
 	                    var tickPosition = scale(d) + (tickCentered ? 0 : tickOffset);
 	                    return range[0] < tickPosition && tickPosition < range[1] ? innerTickSize : 0;
 	                }
-	
+
 	                text = tick.select("text");
 	                tspan = text.selectAll('tspan')
 	                    .data(function (d, i) {
@@ -19950,9 +19587,9 @@
 	                tspan.enter().append('tspan');
 	                tspan.exit().remove();
 	                tspan.text(function (d) { return d.splitted; });
-	
+
 	                var rotate = params.tickTextRotate;
-	
+
 	                function textAnchorForText(rotate) {
 	                    if (!rotate) {
 	                        return 'middle';
@@ -19977,7 +19614,7 @@
 	                    }
 	                    return 11.5 - 2.5 * (rotate / 15) * (rotate > 0 ? 1 : -1);
 	                }
-	
+
 	                switch (orient) {
 	                case "bottom":
 	                    {
@@ -20102,7 +19739,7 @@
 	        };
 	        return axis;
 	    }
-	
+
 	    c3_chart_internal_fn.isSafari = function () {
 	        var ua = window.navigator.userAgent;
 	        return ua.indexOf('Safari') >= 0 && ua.indexOf('Chrome') < 0;
@@ -20111,13 +19748,13 @@
 	        var ua = window.navigator.userAgent;
 	        return ua.indexOf('Chrome') >= 0;
 	    };
-	
+
 	    /* jshint ignore:start */
-	
+
 	    // PhantomJS doesn't have support for Function.prototype.bind, which has caused confusion. Use
 	    // this polyfill to avoid the confusion.
 	    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind#Polyfill
-	
+
 	    if (!Function.prototype.bind) {
 	      Function.prototype.bind = function(oThis) {
 	        if (typeof this !== 'function') {
@@ -20125,21 +19762,21 @@
 	          // internal IsCallable function
 	          throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable');
 	        }
-	
+
 	        var aArgs   = Array.prototype.slice.call(arguments, 1),
 	            fToBind = this,
 	            fNOP    = function() {},
 	            fBound  = function() {
 	              return fToBind.apply(this instanceof fNOP ? this : oThis, aArgs.concat(Array.prototype.slice.call(arguments)));
 	            };
-	
+
 	        fNOP.prototype = this.prototype;
 	        fBound.prototype = new fNOP();
-	
+
 	        return fBound;
 	      };
 	    }
-	
+
 	    //SVGPathSeg API polyfill
 	    //https://github.com/progers/pathseg
 	    //
@@ -20147,7 +19784,7 @@
 	    //SVG2 (https://lists.w3.org/Archives/Public/www-svg/2015Jun/0044.html), including the latest spec
 	    //changes which were implemented in Firefox 43 and Chrome 46.
 	    //Chrome 48 removes these APIs, so this polyfill is required.
-	
+
 	    (function() { "use strict";
 	     if (!("SVGPathSeg" in window)) {
 	         // Spec: http://www.w3.org/TR/SVG11/single-page.html#paths-InterfaceSVGPathSeg
@@ -20156,7 +19793,7 @@
 	             this.pathSegTypeAsLetter = typeAsLetter;
 	             this._owningPathSegList = owningPathSegList;
 	         }
-	
+
 	         SVGPathSeg.PATHSEG_UNKNOWN = 0;
 	         SVGPathSeg.PATHSEG_CLOSEPATH = 1;
 	         SVGPathSeg.PATHSEG_MOVETO_ABS = 2;
@@ -20177,13 +19814,13 @@
 	         SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_REL = 17;
 	         SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS = 18;
 	         SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL = 19;
-	
+
 	         // Notify owning PathSegList on any changes so they can be synchronized back to the path element.
 	         SVGPathSeg.prototype._segmentChanged = function() {
 	             if (this._owningPathSegList)
 	                 this._owningPathSegList.segmentChanged(this);
 	         }
-	
+
 	         window.SVGPathSegClosePath = function(owningPathSegList) {
 	             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CLOSEPATH, "z", owningPathSegList);
 	         }
@@ -20191,7 +19828,7 @@
 	         SVGPathSegClosePath.prototype.toString = function() { return "[object SVGPathSegClosePath]"; }
 	         SVGPathSegClosePath.prototype._asPathString = function() { return this.pathSegTypeAsLetter; }
 	         SVGPathSegClosePath.prototype.clone = function() { return new SVGPathSegClosePath(undefined); }
-	
+
 	         window.SVGPathSegMovetoAbs = function(owningPathSegList, x, y) {
 	             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_MOVETO_ABS, "M", owningPathSegList);
 	             this._x = x;
@@ -20203,7 +19840,7 @@
 	         SVGPathSegMovetoAbs.prototype.clone = function() { return new SVGPathSegMovetoAbs(undefined, this._x, this._y); }
 	         Object.defineProperty(SVGPathSegMovetoAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegMovetoAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-	
+
 	         window.SVGPathSegMovetoRel = function(owningPathSegList, x, y) {
 	             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_MOVETO_REL, "m", owningPathSegList);
 	             this._x = x;
@@ -20215,7 +19852,7 @@
 	         SVGPathSegMovetoRel.prototype.clone = function() { return new SVGPathSegMovetoRel(undefined, this._x, this._y); }
 	         Object.defineProperty(SVGPathSegMovetoRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegMovetoRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-	
+
 	         window.SVGPathSegLinetoAbs = function(owningPathSegList, x, y) {
 	             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_LINETO_ABS, "L", owningPathSegList);
 	             this._x = x;
@@ -20227,7 +19864,7 @@
 	         SVGPathSegLinetoAbs.prototype.clone = function() { return new SVGPathSegLinetoAbs(undefined, this._x, this._y); }
 	         Object.defineProperty(SVGPathSegLinetoAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegLinetoAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-	
+
 	         window.SVGPathSegLinetoRel = function(owningPathSegList, x, y) {
 	             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_LINETO_REL, "l", owningPathSegList);
 	             this._x = x;
@@ -20239,7 +19876,7 @@
 	         SVGPathSegLinetoRel.prototype.clone = function() { return new SVGPathSegLinetoRel(undefined, this._x, this._y); }
 	         Object.defineProperty(SVGPathSegLinetoRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegLinetoRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-	
+
 	         window.SVGPathSegCurvetoCubicAbs = function(owningPathSegList, x, y, x1, y1, x2, y2) {
 	             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_CUBIC_ABS, "C", owningPathSegList);
 	             this._x = x;
@@ -20259,7 +19896,7 @@
 	         Object.defineProperty(SVGPathSegCurvetoCubicAbs.prototype, "y1", { get: function() { return this._y1; }, set: function(y1) { this._y1 = y1; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegCurvetoCubicAbs.prototype, "x2", { get: function() { return this._x2; }, set: function(x2) { this._x2 = x2; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegCurvetoCubicAbs.prototype, "y2", { get: function() { return this._y2; }, set: function(y2) { this._y2 = y2; this._segmentChanged(); }, enumerable: true });
-	
+
 	         window.SVGPathSegCurvetoCubicRel = function(owningPathSegList, x, y, x1, y1, x2, y2) {
 	             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_CUBIC_REL, "c", owningPathSegList);
 	             this._x = x;
@@ -20279,7 +19916,7 @@
 	         Object.defineProperty(SVGPathSegCurvetoCubicRel.prototype, "y1", { get: function() { return this._y1; }, set: function(y1) { this._y1 = y1; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegCurvetoCubicRel.prototype, "x2", { get: function() { return this._x2; }, set: function(x2) { this._x2 = x2; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegCurvetoCubicRel.prototype, "y2", { get: function() { return this._y2; }, set: function(y2) { this._y2 = y2; this._segmentChanged(); }, enumerable: true });
-	
+
 	         window.SVGPathSegCurvetoQuadraticAbs = function(owningPathSegList, x, y, x1, y1) {
 	             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_ABS, "Q", owningPathSegList);
 	             this._x = x;
@@ -20295,7 +19932,7 @@
 	         Object.defineProperty(SVGPathSegCurvetoQuadraticAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegCurvetoQuadraticAbs.prototype, "x1", { get: function() { return this._x1; }, set: function(x1) { this._x1 = x1; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegCurvetoQuadraticAbs.prototype, "y1", { get: function() { return this._y1; }, set: function(y1) { this._y1 = y1; this._segmentChanged(); }, enumerable: true });
-	
+
 	         window.SVGPathSegCurvetoQuadraticRel = function(owningPathSegList, x, y, x1, y1) {
 	             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_REL, "q", owningPathSegList);
 	             this._x = x;
@@ -20311,7 +19948,7 @@
 	         Object.defineProperty(SVGPathSegCurvetoQuadraticRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegCurvetoQuadraticRel.prototype, "x1", { get: function() { return this._x1; }, set: function(x1) { this._x1 = x1; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegCurvetoQuadraticRel.prototype, "y1", { get: function() { return this._y1; }, set: function(y1) { this._y1 = y1; this._segmentChanged(); }, enumerable: true });
-	
+
 	         window.SVGPathSegArcAbs = function(owningPathSegList, x, y, r1, r2, angle, largeArcFlag, sweepFlag) {
 	             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_ARC_ABS, "A", owningPathSegList);
 	             this._x = x;
@@ -20333,7 +19970,7 @@
 	         Object.defineProperty(SVGPathSegArcAbs.prototype, "angle", { get: function() { return this._angle; }, set: function(angle) { this._angle = angle; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegArcAbs.prototype, "largeArcFlag", { get: function() { return this._largeArcFlag; }, set: function(largeArcFlag) { this._largeArcFlag = largeArcFlag; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegArcAbs.prototype, "sweepFlag", { get: function() { return this._sweepFlag; }, set: function(sweepFlag) { this._sweepFlag = sweepFlag; this._segmentChanged(); }, enumerable: true });
-	
+
 	         window.SVGPathSegArcRel = function(owningPathSegList, x, y, r1, r2, angle, largeArcFlag, sweepFlag) {
 	             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_ARC_REL, "a", owningPathSegList);
 	             this._x = x;
@@ -20355,7 +19992,7 @@
 	         Object.defineProperty(SVGPathSegArcRel.prototype, "angle", { get: function() { return this._angle; }, set: function(angle) { this._angle = angle; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegArcRel.prototype, "largeArcFlag", { get: function() { return this._largeArcFlag; }, set: function(largeArcFlag) { this._largeArcFlag = largeArcFlag; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegArcRel.prototype, "sweepFlag", { get: function() { return this._sweepFlag; }, set: function(sweepFlag) { this._sweepFlag = sweepFlag; this._segmentChanged(); }, enumerable: true });
-	
+
 	         window.SVGPathSegLinetoHorizontalAbs = function(owningPathSegList, x) {
 	             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_ABS, "H", owningPathSegList);
 	             this._x = x;
@@ -20365,7 +20002,7 @@
 	         SVGPathSegLinetoHorizontalAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x; }
 	         SVGPathSegLinetoHorizontalAbs.prototype.clone = function() { return new SVGPathSegLinetoHorizontalAbs(undefined, this._x); }
 	         Object.defineProperty(SVGPathSegLinetoHorizontalAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-	
+
 	         window.SVGPathSegLinetoHorizontalRel = function(owningPathSegList, x) {
 	             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_REL, "h", owningPathSegList);
 	             this._x = x;
@@ -20375,7 +20012,7 @@
 	         SVGPathSegLinetoHorizontalRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x; }
 	         SVGPathSegLinetoHorizontalRel.prototype.clone = function() { return new SVGPathSegLinetoHorizontalRel(undefined, this._x); }
 	         Object.defineProperty(SVGPathSegLinetoHorizontalRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-	
+
 	         window.SVGPathSegLinetoVerticalAbs = function(owningPathSegList, y) {
 	             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_LINETO_VERTICAL_ABS, "V", owningPathSegList);
 	             this._y = y;
@@ -20385,7 +20022,7 @@
 	         SVGPathSegLinetoVerticalAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._y; }
 	         SVGPathSegLinetoVerticalAbs.prototype.clone = function() { return new SVGPathSegLinetoVerticalAbs(undefined, this._y); }
 	         Object.defineProperty(SVGPathSegLinetoVerticalAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-	
+
 	         window.SVGPathSegLinetoVerticalRel = function(owningPathSegList, y) {
 	             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_LINETO_VERTICAL_REL, "v", owningPathSegList);
 	             this._y = y;
@@ -20395,7 +20032,7 @@
 	         SVGPathSegLinetoVerticalRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._y; }
 	         SVGPathSegLinetoVerticalRel.prototype.clone = function() { return new SVGPathSegLinetoVerticalRel(undefined, this._y); }
 	         Object.defineProperty(SVGPathSegLinetoVerticalRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-	
+
 	         window.SVGPathSegCurvetoCubicSmoothAbs = function(owningPathSegList, x, y, x2, y2) {
 	             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_ABS, "S", owningPathSegList);
 	             this._x = x;
@@ -20411,7 +20048,7 @@
 	         Object.defineProperty(SVGPathSegCurvetoCubicSmoothAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegCurvetoCubicSmoothAbs.prototype, "x2", { get: function() { return this._x2; }, set: function(x2) { this._x2 = x2; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegCurvetoCubicSmoothAbs.prototype, "y2", { get: function() { return this._y2; }, set: function(y2) { this._y2 = y2; this._segmentChanged(); }, enumerable: true });
-	
+
 	         window.SVGPathSegCurvetoCubicSmoothRel = function(owningPathSegList, x, y, x2, y2) {
 	             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_REL, "s", owningPathSegList);
 	             this._x = x;
@@ -20427,7 +20064,7 @@
 	         Object.defineProperty(SVGPathSegCurvetoCubicSmoothRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegCurvetoCubicSmoothRel.prototype, "x2", { get: function() { return this._x2; }, set: function(x2) { this._x2 = x2; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegCurvetoCubicSmoothRel.prototype, "y2", { get: function() { return this._y2; }, set: function(y2) { this._y2 = y2; this._segmentChanged(); }, enumerable: true });
-	
+
 	         window.SVGPathSegCurvetoQuadraticSmoothAbs = function(owningPathSegList, x, y) {
 	             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS, "T", owningPathSegList);
 	             this._x = x;
@@ -20439,7 +20076,7 @@
 	         SVGPathSegCurvetoQuadraticSmoothAbs.prototype.clone = function() { return new SVGPathSegCurvetoQuadraticSmoothAbs(undefined, this._x, this._y); }
 	         Object.defineProperty(SVGPathSegCurvetoQuadraticSmoothAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegCurvetoQuadraticSmoothAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-	
+
 	         window.SVGPathSegCurvetoQuadraticSmoothRel = function(owningPathSegList, x, y) {
 	             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL, "t", owningPathSegList);
 	             this._x = x;
@@ -20451,7 +20088,7 @@
 	         SVGPathSegCurvetoQuadraticSmoothRel.prototype.clone = function() { return new SVGPathSegCurvetoQuadraticSmoothRel(undefined, this._x, this._y); }
 	         Object.defineProperty(SVGPathSegCurvetoQuadraticSmoothRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
 	         Object.defineProperty(SVGPathSegCurvetoQuadraticSmoothRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-	
+
 	         // Add createSVGPathSeg* functions to SVGPathElement.
 	         // Spec: http://www.w3.org/TR/SVG11/single-page.html#paths-InterfaceSVGPathElement.
 	         SVGPathElement.prototype.createSVGPathSegClosePath = function() { return new SVGPathSegClosePath(undefined); }
@@ -20474,19 +20111,19 @@
 	         SVGPathElement.prototype.createSVGPathSegCurvetoQuadraticSmoothAbs = function(x, y) { return new SVGPathSegCurvetoQuadraticSmoothAbs(undefined, x, y); }
 	         SVGPathElement.prototype.createSVGPathSegCurvetoQuadraticSmoothRel = function(x, y) { return new SVGPathSegCurvetoQuadraticSmoothRel(undefined, x, y); }
 	     }
-	
+
 	     if (!("SVGPathSegList" in window)) {
 	         // Spec: http://www.w3.org/TR/SVG11/single-page.html#paths-InterfaceSVGPathSegList
 	         window.SVGPathSegList = function(pathElement) {
 	             this._pathElement = pathElement;
 	             this._list = this._parsePath(this._pathElement.getAttribute("d"));
-	
+
 	             // Use a MutationObserver to catch changes to the path's "d" attribute.
 	             this._mutationObserverConfig = { "attributes": true, "attributeFilter": ["d"] };
 	             this._pathElementMutationObserver = new MutationObserver(this._updateListFromPathMutations.bind(this));
 	             this._pathElementMutationObserver.observe(this._pathElement, this._mutationObserverConfig);
 	         }
-	
+
 	         Object.defineProperty(SVGPathSegList.prototype, "numberOfItems", {
 	             get: function() {
 	                 this._checkPathSynchronizedToList();
@@ -20494,7 +20131,7 @@
 	             },
 	             enumerable: true
 	         });
-	
+
 	         // Add the pathSegList accessors to SVGPathElement.
 	         // Spec: http://www.w3.org/TR/SVG11/single-page.html#paths-InterfaceSVGAnimatedPathData
 	         Object.defineProperty(SVGPathElement.prototype, "pathSegList", {
@@ -20509,14 +20146,14 @@
 	         Object.defineProperty(SVGPathElement.prototype, "normalizedPathSegList", { get: function() { return this.pathSegList; }, enumerable: true });
 	         Object.defineProperty(SVGPathElement.prototype, "animatedPathSegList", { get: function() { return this.pathSegList; }, enumerable: true });
 	         Object.defineProperty(SVGPathElement.prototype, "animatedNormalizedPathSegList", { get: function() { return this.pathSegList; }, enumerable: true });
-	
+
 	         // Process any pending mutations to the path element and update the list as needed.
 	         // This should be the first call of all public functions and is needed because
 	         // MutationObservers are not synchronous so we can have pending asynchronous mutations.
 	         SVGPathSegList.prototype._checkPathSynchronizedToList = function() {
 	             this._updateListFromPathMutations(this._pathElementMutationObserver.takeRecords());
 	         }
-	
+
 	         SVGPathSegList.prototype._updateListFromPathMutations = function(mutationRecords) {
 	             if (!this._pathElement)
 	                 return;
@@ -20528,53 +20165,53 @@
 	             if (hasPathMutations)
 	                 this._list = this._parsePath(this._pathElement.getAttribute("d"));
 	         }
-	
+
 	         // Serialize the list and update the path's 'd' attribute.
 	         SVGPathSegList.prototype._writeListToPath = function() {
 	             this._pathElementMutationObserver.disconnect();
 	             this._pathElement.setAttribute("d", SVGPathSegList._pathSegArrayAsString(this._list));
 	             this._pathElementMutationObserver.observe(this._pathElement, this._mutationObserverConfig);
 	         }
-	
+
 	         // When a path segment changes the list needs to be synchronized back to the path element.
 	         SVGPathSegList.prototype.segmentChanged = function(pathSeg) {
 	             this._writeListToPath();
 	         }
-	
+
 	         SVGPathSegList.prototype.clear = function() {
 	             this._checkPathSynchronizedToList();
-	
+
 	             this._list.forEach(function(pathSeg) {
 	                 pathSeg._owningPathSegList = null;
 	             });
 	             this._list = [];
 	             this._writeListToPath();
 	         }
-	
+
 	         SVGPathSegList.prototype.initialize = function(newItem) {
 	             this._checkPathSynchronizedToList();
-	
+
 	             this._list = [newItem];
 	             newItem._owningPathSegList = this;
 	             this._writeListToPath();
 	             return newItem;
 	         }
-	
+
 	         SVGPathSegList.prototype._checkValidIndex = function(index) {
 	             if (isNaN(index) || index < 0 || index >= this.numberOfItems)
 	                 throw "INDEX_SIZE_ERR";
 	         }
-	
+
 	         SVGPathSegList.prototype.getItem = function(index) {
 	             this._checkPathSynchronizedToList();
-	
+
 	             this._checkValidIndex(index);
 	             return this._list[index];
 	         }
-	
+
 	         SVGPathSegList.prototype.insertItemBefore = function(newItem, index) {
 	             this._checkPathSynchronizedToList();
-	
+
 	             // Spec: If the index is greater than or equal to numberOfItems, then the new item is appended to the end of the list.
 	             if (index > this.numberOfItems)
 	                 index = this.numberOfItems;
@@ -20587,10 +20224,10 @@
 	             this._writeListToPath();
 	             return newItem;
 	         }
-	
+
 	         SVGPathSegList.prototype.replaceItem = function(newItem, index) {
 	             this._checkPathSynchronizedToList();
-	
+
 	             if (newItem._owningPathSegList) {
 	                 // SVG2 spec says to make a copy.
 	                 newItem = newItem.clone();
@@ -20601,20 +20238,20 @@
 	             this._writeListToPath();
 	             return newItem;
 	         }
-	
+
 	         SVGPathSegList.prototype.removeItem = function(index) {
 	             this._checkPathSynchronizedToList();
-	
+
 	             this._checkValidIndex(index);
 	             var item = this._list[index];
 	             this._list.splice(index, 1);
 	             this._writeListToPath();
 	             return item;
 	         }
-	
+
 	         SVGPathSegList.prototype.appendItem = function(newItem) {
 	             this._checkPathSynchronizedToList();
-	
+
 	             if (newItem._owningPathSegList) {
 	                 // SVG2 spec says to make a copy.
 	                 newItem = newItem.clone();
@@ -20625,7 +20262,7 @@
 	             this._writeListToPath();
 	             return newItem;
 	         }
-	
+
 	         SVGPathSegList._pathSegArrayAsString = function(pathSegArray) {
 	             var string = "";
 	             var first = true;
@@ -20639,42 +20276,42 @@
 	             });
 	             return string;
 	         }
-	
+
 	         // This closely follows SVGPathParser::parsePath from Source/core/svg/SVGPathParser.cpp.
 	         SVGPathSegList.prototype._parsePath = function(string) {
 	             if (!string || string.length == 0)
 	                 return [];
-	
+
 	             var owningPathSegList = this;
-	
+
 	             var Builder = function() {
 	                 this.pathSegList = [];
 	             }
-	
+
 	             Builder.prototype.appendSegment = function(pathSeg) {
 	                 this.pathSegList.push(pathSeg);
 	             }
-	
+
 	             var Source = function(string) {
 	                 this._string = string;
 	                 this._currentIndex = 0;
 	                 this._endIndex = this._string.length;
 	                 this._previousCommand = SVGPathSeg.PATHSEG_UNKNOWN;
-	
+
 	                 this._skipOptionalSpaces();
 	             }
-	
+
 	             Source.prototype._isCurrentSpace = function() {
 	                 var character = this._string[this._currentIndex];
 	                 return character <= " " && (character == " " || character == "\n" || character == "\t" || character == "\r" || character == "\f");
 	             }
-	
+
 	             Source.prototype._skipOptionalSpaces = function() {
 	                 while (this._currentIndex < this._endIndex && this._isCurrentSpace())
 	                     this._currentIndex++;
 	                 return this._currentIndex < this._endIndex;
 	             }
-	
+
 	             Source.prototype._skipOptionalSpacesOrDelimiter = function() {
 	                 if (this._currentIndex < this._endIndex && !this._isCurrentSpace() && this._string.charAt(this._currentIndex) != ",")
 	                     return false;
@@ -20686,16 +20323,16 @@
 	                 }
 	                 return this._currentIndex < this._endIndex;
 	             }
-	
+
 	             Source.prototype.hasMoreData = function() {
 	                 return this._currentIndex < this._endIndex;
 	             }
-	
+
 	             Source.prototype.peekSegmentType = function() {
 	                 var lookahead = this._string[this._currentIndex];
 	                 return this._pathSegTypeFromChar(lookahead);
 	             }
-	
+
 	             Source.prototype._pathSegTypeFromChar = function(lookahead) {
 	                 switch (lookahead) {
 	                 case "Z":
@@ -20741,7 +20378,7 @@
 	                     return SVGPathSeg.PATHSEG_UNKNOWN;
 	                 }
 	             }
-	
+
 	             Source.prototype._nextCommandHelper = function(lookahead, previousCommand) {
 	                 // Check for remaining coordinates in the current command.
 	                 if ((lookahead == "+" || lookahead == "-" || lookahead == "." || (lookahead >= "0" && lookahead <= "9")) && previousCommand != SVGPathSeg.PATHSEG_CLOSEPATH) {
@@ -20753,7 +20390,7 @@
 	                 }
 	                 return SVGPathSeg.PATHSEG_UNKNOWN;
 	             }
-	
+
 	             Source.prototype.initialCommandIsMoveTo = function() {
 	                 // If the path is empty it is still valid, so return true.
 	                 if (!this.hasMoreData())
@@ -20762,7 +20399,7 @@
 	                 // Path must start with moveTo.
 	                 return command == SVGPathSeg.PATHSEG_MOVETO_ABS || command == SVGPathSeg.PATHSEG_MOVETO_REL;
 	             }
-	
+
 	             // Parse a number from an SVG path. This very closely follows genericParseNumber(...) from Source/core/svg/SVGParserUtilities.cpp.
 	             // Spec: http://www.w3.org/TR/SVG11/single-page.html#paths-PathDataBNF
 	             Source.prototype._parseNumber = function() {
@@ -20772,11 +20409,11 @@
 	                 var decimal = 0;
 	                 var sign = 1;
 	                 var expsign = 1;
-	
+
 	                 var startIndex = this._currentIndex;
-	
+
 	                 this._skipOptionalSpaces();
-	
+
 	                 // Read the sign.
 	                 if (this._currentIndex < this._endIndex && this._string.charAt(this._currentIndex) == "+")
 	                     this._currentIndex++;
@@ -20784,16 +20421,16 @@
 	                     this._currentIndex++;
 	                     sign = -1;
 	                 }
-	
+
 	                 if (this._currentIndex == this._endIndex || ((this._string.charAt(this._currentIndex) < "0" || this._string.charAt(this._currentIndex) > "9") && this._string.charAt(this._currentIndex) != "."))
 	                     // The first character of a number must be one of [0-9+-.].
 	                     return undefined;
-	
+
 	                 // Read the integer part, build right-to-left.
 	                 var startIntPartIndex = this._currentIndex;
 	                 while (this._currentIndex < this._endIndex && this._string.charAt(this._currentIndex) >= "0" && this._string.charAt(this._currentIndex) <= "9")
 	                     this._currentIndex++; // Advance to first non-digit.
-	
+
 	                 if (this._currentIndex != startIntPartIndex) {
 	                     var scanIntPartIndex = this._currentIndex - 1;
 	                     var multiplier = 1;
@@ -20802,22 +20439,22 @@
 	                         multiplier *= 10;
 	                     }
 	                 }
-	
+
 	                 // Read the decimals.
 	                 if (this._currentIndex < this._endIndex && this._string.charAt(this._currentIndex) == ".") {
 	                     this._currentIndex++;
-	
+
 	                     // There must be a least one digit following the .
 	                     if (this._currentIndex >= this._endIndex || this._string.charAt(this._currentIndex) < "0" || this._string.charAt(this._currentIndex) > "9")
 	                         return undefined;
 	                     while (this._currentIndex < this._endIndex && this._string.charAt(this._currentIndex) >= "0" && this._string.charAt(this._currentIndex) <= "9")
 	                         decimal += (this._string.charAt(this._currentIndex++) - "0") * (frac *= 0.1);
 	                 }
-	
+
 	                 // Read the exponent part.
 	                 if (this._currentIndex != startIndex && this._currentIndex + 1 < this._endIndex && (this._string.charAt(this._currentIndex) == "e" || this._string.charAt(this._currentIndex) == "E") && (this._string.charAt(this._currentIndex + 1) != "x" && this._string.charAt(this._currentIndex + 1) != "m")) {
 	                     this._currentIndex++;
-	
+
 	                     // Read the sign of the exponent.
 	                     if (this._string.charAt(this._currentIndex) == "+") {
 	                         this._currentIndex++;
@@ -20825,32 +20462,32 @@
 	                         this._currentIndex++;
 	                         expsign = -1;
 	                     }
-	
+
 	                     // There must be an exponent.
 	                     if (this._currentIndex >= this._endIndex || this._string.charAt(this._currentIndex) < "0" || this._string.charAt(this._currentIndex) > "9")
 	                         return undefined;
-	
+
 	                     while (this._currentIndex < this._endIndex && this._string.charAt(this._currentIndex) >= "0" && this._string.charAt(this._currentIndex) <= "9") {
 	                         exponent *= 10;
 	                         exponent += (this._string.charAt(this._currentIndex) - "0");
 	                         this._currentIndex++;
 	                     }
 	                 }
-	
+
 	                 var number = integer + decimal;
 	                 number *= sign;
-	
+
 	                 if (exponent)
 	                     number *= Math.pow(10, expsign * exponent);
-	
+
 	                 if (startIndex == this._currentIndex)
 	                     return undefined;
-	
+
 	                 this._skipOptionalSpacesOrDelimiter();
-	
+
 	                 return number;
 	             }
-	
+
 	             Source.prototype._parseArcFlag = function() {
 	                 if (this._currentIndex >= this._endIndex)
 	                     return undefined;
@@ -20862,11 +20499,11 @@
 	                     flag = true;
 	                 else
 	                     return undefined;
-	
+
 	                 this._skipOptionalSpacesOrDelimiter();
 	                 return flag;
 	             }
-	
+
 	             Source.prototype.parseSegment = function() {
 	                 var lookahead = this._string[this._currentIndex];
 	                 var command = this._pathSegTypeFromChar(lookahead);
@@ -20880,9 +20517,9 @@
 	                 } else {
 	                     this._currentIndex++;
 	                 }
-	
+
 	                 this._previousCommand = command;
-	
+
 	                 switch (command) {
 	                 case SVGPathSeg.PATHSEG_MOVETO_REL:
 	                     return new SVGPathSegMovetoRel(owningPathSegList, this._parseNumber(), this._parseNumber());
@@ -20935,10 +20572,10 @@
 	                     throw "Unknown path seg type."
 	                 }
 	             }
-	
+
 	             var builder = new Builder();
 	             var source = new Source(string);
-	
+
 	             if (!source.initialCommandIsMoveTo())
 	                 return [];
 	             while (source.hasMoreData()) {
@@ -20947,90 +20584,24 @@
 	                     return [];
 	                 builder.appendSegment(pathSeg);
 	             }
-	
+
 	             return builder.pathSegList;
 	         }
 	     }
 	    }());
-	
+
 	    /* jshint ignore:end */
-	
+
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! d3 */ 3)], __WEBPACK_AMD_DEFINE_RESULT__ = function () { return c3; }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(3)], __WEBPACK_AMD_DEFINE_RESULT__ = function () { return c3; }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if ('undefined' !== typeof exports && 'undefined' !== typeof module) {
 	        module.exports = c3;
 	    } else {
 	        window.c3 = c3;
 	    }
-	
+
 	})(window);
 
 
-/***/ },
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */
-/*!*********************!*\
-  !*** ./tag/pie.tag ***!
-  \*********************/
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(riot) {riot.tag2('pie', '<h1> {opts.header}</h1> <article> <h2> {opts.title}</h2> <div id="dest"></div> <div class="btn-back"> <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--green-300 mdl-color-text--white" onclick="{back}">back</button> </div> </article> <footer> <span>(c) 2016 k-kuwahara</span> </footer>', '', '', function(opts) {
-	     const c3   = __webpack_require__(/*! c3 */ 4)
-	     const self = this;
-	     self.name  = ''
-	     self.page  = ''
-	
-	     self.on('before-mount', () => {
-	        if (location.search.search('name') != -1) {
-	           self.name = decodeURI(location.search.split('=')[1])
-	        }
-	        if (location.search.search('page') != -1) {
-	          self.page = location.search.split('=')[1]
-	        }
-	     })
-	
-	     self.on('mount', () => {
-	        if (self.name.length > 0) {
-	          let c3_col = []
-	          opts.dataset['year'].map((r, i) => {
-	            r[i+1].map((item) => {
-	               if (item.name == self.name) {
-	                  c3_col.push(item.count)
-	               }
-	            })
-	          })
-	          chart_opts.data.types[self.name] = 'area-spline'
-	          chart_opts.data.columns[0] = [self.name].concat(c3_col)
-	          c3.generate(chart_opts)
-	        }
-	        else if (self.page.length > 0) {
-	           let max = opts.dataset[self.page].length
-	
-	           opts.dataset[self.page].forEach((item, key) => {
-	              chart_opts.data.columns[key] = [item.name].concat(item.data)
-	              chart_opts.data.types[item.name] = 'area-spline'
-	           })
-	           c3.generate(chart_opts)
-	        }
-	     })
-	
-	     let chart_opts = {
-	        bindto: '#dest',
-	        data: {
-	            columns: [],
-	            types : {}
-	        }
-	     }
-	
-	     this.back = function() {
-	        history.back()
-	     }.bind(this)
-	});
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! riot */ 1)))
-
 /***/ }
 /******/ ]);
-//# sourceMappingURL=pie.bundle.js.map

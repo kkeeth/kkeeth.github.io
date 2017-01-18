@@ -16,16 +16,26 @@ module.exports = [
        new webpack.ProvidePlugin({ riot: 'riot' })
       ],
       module: {
-         loaders: [
+         preLoaders: [
             {
                test: /\.tag$/,
                exclude: /node_modules/,
-               loader : 'riotjs-loader',
-               query  : {
-                  presets: ['es2015-riot']
+               loader: 'riotjs-loader',
+               query: {
+                  type: 'babel'
                }
             }
+         ],
+         loaders: [
+            {
+               test: /\.js|\.tag$/,
+               exclude: /node_modules/,
+               loader : 'babel-loader'
+            }
          ]
+      },
+      resolve: {
+         extensions: ['', '.js', '.tag']
       }
    },
    {

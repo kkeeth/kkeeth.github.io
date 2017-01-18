@@ -64,7 +64,7 @@
      }
 
      // location back
-     back() {
+     function back() {
         history.back()
      }
   </script>

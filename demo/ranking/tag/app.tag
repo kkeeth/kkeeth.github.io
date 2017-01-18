@@ -60,13 +60,13 @@
      // routing part
      route.start(true)
 
-     select (e) {
+     function select (e) {
         $('.nav-items').removeClass('is-active')
         $(e.target).addClass('is-active')
      }
 
      // filtering
-     search (e) {
+     function search (e) {
         self.data = self.old_data
         let tmp = []
         if (e.target.value.length > 0) {
@@ -95,7 +95,7 @@
         self.update()
      })
 
-     is_top (num) {
+     function is_top (num) {
          switch (num) {
             case 1:
                return 'top'

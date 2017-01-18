@@ -9,7 +9,9 @@
   "author": "k-kuwahara",
   "license": "MIT",
   "scripts": {
-    "build": "webpack -d --watch"
+    "build": "webpack --watch --progress",
+    "dev"  : "lite-server",
+    "start": "concurrently \"npm run lite\" \"npm run webpack\""
   },
   "keywords": [
     "riot",
@@ -17,6 +19,7 @@
   ],
   "devDependencies": {
     "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
     "babel-preset-es2015-riot": "^1.1.0",
     "c3": "^0.4.11",
     "css-loader": "^0.26.1",
