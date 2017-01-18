@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+//import { ConfirmComponent } from "./confirm.component";
 
 import { SAKES } from './sake-list';
 
@@ -27,7 +28,7 @@ import { SAKES } from './sake-list';
               <td>{{ sake.name }}</td>
               <td>{{ sake.sp_name }}</td>
               <td>{{ sake.rice_per }}%</td>
-              <td>{{ sake.salty_sweet }}</td>
+              <td>{{ sake.sake_per }}</td>
               <td>{{ sake.assessment }}</td>
               <td>{{ sake.detail }}</td>
             </tr>
@@ -39,4 +40,7 @@ import { SAKES } from './sake-list';
 })
 export class AppComponent {
   sakes = SAKES;
+
+//  @ViewChild(ConfirmComponent) confirmModal:ConfirmComponent;
+  private text:string;
 }
