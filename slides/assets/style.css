@@ -1,0 +1,30 @@
+body.shower.list {
+	padding: 80px 0 40px 100px;
+}
+header p.desc {
+	line-height: 1.5;
+	color: #fff;
+}
+ol {
+	margin-left: 2em;
+}
+.slide.center-text .shout {
+	font-size: 75px;
+}
+.slide a {
+	text-decoration: none !important;
+}
+.slide p.after {
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	left: 0;
+	top: 60%;
+}
+
+p.codicil {
+	position: absolute;
+	right: 50px;
+	bottom: 0;
+	font-size: 32px;
+}
