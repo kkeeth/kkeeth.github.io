@@ -20,7 +20,7 @@ module.exports = [
             {
                test: /\.tag$/,
                exclude: /node_modules/,
-               loader: 'tag-loader'
+               loader: 'riotjs-loader'
             }
          ],
          loaders: [
