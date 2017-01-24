@@ -5,6 +5,12 @@ header p.desc {
 	line-height: 1.5;
 	color: #fff;
 }
+h2 {
+   line-height: 1.2 !important;
+}
+span.red {
+   color: #ee827c;
+}
 #cover h2 {
 	margin:30px 80px 50px;
 	text-align:center;
