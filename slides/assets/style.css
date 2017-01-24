@@ -5,6 +5,18 @@ header p.desc {
 	line-height: 1.5;
 	color: #fff;
 }
+#cover h2 {
+	margin:30px 80px 50px;
+	text-align:center;
+	font-size:70px;
+}
+#cover p {
+	text-align:center;
+	font-style:italic;
+	font-size: 45px;
+	line-height: 1.5;
+}
+
 ol {
 	margin-left: 2em;
 }
@@ -17,9 +29,10 @@ ol {
 .slide p.after {
 	position: absolute;
 	text-align: center;
+	font-size: 30px;
 	width: 100%;
 	left: 0;
-	top: 60%;
+	top: 70%;
 }
 
 p.codicil {
