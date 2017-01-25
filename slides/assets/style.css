@@ -6,10 +6,10 @@ header p.desc {
 	color: #fff;
 }
 h2 {
-   line-height: 1.2 !important;
+	line-height: 1.2 !important;
 }
 span.red {
-   color: #ee827c;
+	color: #ee827c;
 }
 #cover h2 {
 	margin:30px 80px 50px;
@@ -28,6 +28,10 @@ ol {
 }
 .slide.center-text .shout {
 	font-size: 75px;
+}
+.slide.code {
+	font-family: PT Mono,monospace,monospace;
+	line-height: 2;
 }
 .slide a {
 	text-decoration: none !important;
