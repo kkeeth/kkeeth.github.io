@@ -33,6 +33,10 @@ ol {
 	font-family: PT Mono,monospace,monospace;
 	line-height: 2;
 }
+.slide .expand {
+   min-width: 90%;
+   min-height: 90%;
+}
 .slide a {
 	text-decoration: none !important;
 }
