@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>riotjs</title>
+    <link rel="stylesheet" href="../../talkiejs/talkie.min.css">
+    <link rel="stylesheet" href="../../talkiejs/talkie-default.min.css">
+    <link rel="stylesheet" href="../../talkiejs/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+  </head>
+  <body>
+<template layout="cover" type="text/x-markdown">
+# Riot.jsに向いている案件、向いていない案件
+## 2017/02/02
+## [@kuwahara_jsng](https://twitter.com/kuwahara_jsng)
+</template>
+
+<template layout="title-invert" type="text/x-markdown">
+## 自己紹介
+
+```
+var my_info = {
+   name:  'Kiyohito Kuwahara',
+   twitter:  '@kuwahara_jsng',
+   github:  'k-kuwahara',
+   qiita:  '@clown0082',
+   workplace:  'Leprachaun Corp.'
+}
+```
+</template>
+
+<script layout="cover" type="text/x-markdown">
+# セクションタイトル
+</script>
+
+<template layout="bullets" type="text/x-markdown">
+# セクションタイトル
+- ほげ
+- ふが
+  - foo
+  - bar
+</template>
+
+<template layout="code" type="text/x-markdown">
+## デモコード
+<font size="3px">
+
+``` javascript
+(function() {
+   // 何かしらの処理
+})()
+```
+
+</font>
+</template>
+
+  <script src="../../talkiejs/talkie.min.js"></script>
+  <script>
+  var talkie = Talkie({wide: false});
+  document.addEventListener('DOMContentLoaded', function() {
+    var slides = Array.prototype.slice.call(document.querySelectorAll('[layout]'));
+    talkie.changed.onValue(function(current) {
+      console.clear();
+      // print presenter notes
+      console.info(talkie.notes[current.getAttribute('page')]);
+    });
+  });
+  </script>
+  </body>
+</html>
