@@ -11,8 +11,8 @@
   <body>
 <template layout="cover" type="text/x-markdown">
 # CodeIgniter4-devで開発してみた話
-## 2017/01/31
-## [@kuwahara_jsng](https://twitter.com/kuwahara_jsng)
+### 2017/01/31　PHP勉強会@東京
+### [@kuwahara_jsng](https://twitter.com/kuwahara_jsng)
 </template>
 
 <template layout="title-invert" type="text/x-markdown">
@@ -20,11 +20,11 @@
 
 ```
 var my_info = {
-   name:  'Kiyohito Kuwahara',
+   name:  '桑原聖仁',
    twitter:  '@kuwahara_jsng',
    github:  'k-kuwahara',
    qiita:  '@clown0082',
-   workplace:  'Leprachaun Corp.'
+   workplace:  'レプラホーン株式会社'
 }
 ```
 </template>
@@ -37,26 +37,53 @@ var my_info = {
 # CodeIgniter4は　　　なかなか良いですぞ
 </script>
 
-<template layout="bullets" type="text/x-markdown">
-# セクションタイトル
-- ほげ
-- ふが
-  - foo
-  - bar
+<script layout="bullets" type="text/x-markdown">
+## 個人的に気に入っているところ
+- namespaceの導入
+- クエリビルダ（v3に引き続き）
+- 新しくなったModelクラス
+  - 自動データベース接続
+  - モデルでのバリデーション
+- デバッガツール
+</script>
+
+<script layout="cover" type="text/x-markdown">
+# 今回は簡単なwebアプリを作ってみました
+</script>
+
+<script layout="cover" type="text/x-markdown">
+# Demo
+プログラム: [github](https://github.com/k-kuwahara/event_manage/tree/ci4)
+</script>
+
+<script layout="cover" type="text/x-markdown">
+# 現時点でこれくらいのものなら作れるまでには開発が進んでいます
+</script>
+
+<script layout="cover" type="text/x-markdown">
+# とは言え、まだdevlopmentですので地雷はあります（笑）
+<p class="next">（migrationが動かないとか…）</p>
+</script>
+
+<script layout="cover" type="text/x-markdown">
+# リリース（と言われている）今年の4月を楽しみに待ちましょう♪
+</script>
+
+<script layout="cover" type="text/x-markdown">
+# 最後に…
+</script>
+
+<template layout="title-invert" type="text/x-markdown">
+# レプラホーンの宣伝
+
+- エンジニア募集！
+- 話し聞くだけ、遊びに来たでも大歓迎♪
 </template>
 
-<template layout="code" type="text/x-markdown">
-## デモコード
-<font size="3px">
+<script layout="cover" type="text/x-markdown">
+# ご清聴ありがとうございました！
+</script>
 
-``` javascript
-(function() {
-   // 何かしらの処理
-})()
-```
-
-</font>
-</template>
 
   <script src="../../talkiejs/talkie.min.js"></script>
   <script>
