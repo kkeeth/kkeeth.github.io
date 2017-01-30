@@ -1,12 +1,12 @@
 [layout] h1 {
    font-size: 4em;
-   margin: 20px 70px 60px;
+   margin: 20px 64px 60px;
 }
 [layout] h2 {
    margin: 0 100px;
 }
 code {
-   font-size: 36px;
+   font-size: 40px;
 }
 span {
    line-height: 1.8;
