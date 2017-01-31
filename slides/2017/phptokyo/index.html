@@ -10,7 +10,7 @@
   </head>
   <body>
 <template layout="cover" type="text/x-markdown">
-# CodeIgniter4-devで開発してみた話
+# CodeIgniter4(develop)で開発してみた話
 ### 2017/01/31　PHP勉強会@東京
 ### [@kuwahara_jsng](https://twitter.com/kuwahara_jsng)
 </template>
@@ -20,14 +20,22 @@
 
 ```
 var my_info = {
-   name:  '桑原聖仁',
-   twitter:  '@kuwahara_jsng',
-   github:  'k-kuwahara',
-   qiita:  '@clown0082',
-   workplace:  'レプラホーン株式会社'
+    name:  '桑原聖仁',
+    twitter:  '@kuwahara_jsng',
+    github:  'k-kuwahara',
+    qiita:  '@clown0082',
+    workplace:  'レプラホーン株式会社'
 }
 ```
 </template>
+
+<script layout="title-invert" type="text/x-markdown">
+## CodeIgniterとは
+
+CodeIgniter は PHP を使って Web サイトを構築する人向けの  
+アプリケーション 開発フレームワーク - ツールキット - です。  
+（[日本語翻訳マニュアルより）](https://ci-trans-jp.gitlab.io/user_guide_4_jp/intro/index.html)
+</script>
 
 <script layout="cover" type="text/x-markdown">
 # CodeIgniter4を触ったことある方はいますか？
@@ -111,8 +119,11 @@ $model = new HogeModel();
 </script>
 
 <script layout="cover" type="text/x-markdown">
-# とは言え、まだdevlopmentですので地雷はあります（笑）
-<p class="next">（migrationが動かないとか…）</p>
+# とは言え、まだ「devlopment」ですので地雷はあります（笑）
+<p class="text-right">
+  migrationが動かないとか…<br>
+  バリデーションのエラーハンドリングとか…
+</p>
 </script>
 
 <script layout="cover" type="text/x-markdown">
@@ -123,12 +134,9 @@ $model = new HogeModel();
 # 最後に…
 </script>
 
-<template layout="title-invert" type="text/x-markdown">
-# レプラホーンの宣伝
-
-- エンジニア募集！
-- 話し聞くだけ、遊びに来たでも大歓迎♪
-</template>
+<script layout="title" type="text/x-markdown" backface="./picture/lepra_2.png" backface-filter="blur(5px) brightness(.8)" id="blur">
+# レプラホーン株式会社はエンジニアを募集しています！話し聞くだけ、遊びに来た！でも大歓迎♪
+</script>
 
 <script layout="cover" type="text/x-markdown">
 # ご清聴ありがとうございました！
