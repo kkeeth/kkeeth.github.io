@@ -49,7 +49,11 @@ var my_info = {
 </script>
 
 <script layout="code" type="text/x-markdown">
-## コード例（v3）
+## コード例
+</script>
+
+<script layout="code" type="text/x-markdown">
+## バリデーション（v3）
 
 ```php
 <?php
@@ -61,7 +65,7 @@ $this->form_validation->run();
 </script>
 
 <script layout="code" type="text/x-markdown">
-## コード例（v4）
+## バリデーション（v4）
 
 ```php
 <?php
@@ -73,6 +77,25 @@ $this->validate($this->request, [
 ```
 </script>
 
+<script layout="code" type="text/x-markdown">
+## モデルの読み込み（v3）
+
+```php
+$model = $this->load->model('hoge_model');
+
+```
+</script>
+
+<script layout="code" type="text/x-markdown">
+## モデルの読み込み（v4）
+
+```php
+use \App\Models\HogeModel;
+
+$model = new HogeModel();
+
+```
+</script>
 
 <script layout="cover" type="text/x-markdown">
 # 今回は簡単なwebアプリを作ってみました
