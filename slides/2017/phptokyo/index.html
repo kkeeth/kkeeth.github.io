@@ -40,12 +40,39 @@ var my_info = {
 <script layout="bullets" type="text/x-markdown">
 ## 個人的に気に入っているところ
 - namespaceの導入
-- クエリビルダ（v3に引き続き）
+- クエリビルダ（ORMも実装されてますが…）
 - 新しくなったModelクラス
   - 自動データベース接続
   - モデルでのバリデーション
 - デバッガツール
+- バリデーションの書き方
 </script>
+
+<script layout="code" type="text/x-markdown">
+## コード例（v3）
+
+```php
+<?php
+// バリデーションのセット
+$this->form_validation->set_rules('title', 'タイトル', 'required|max_length[50]');
+$this->form_validation->run();
+
+```
+</script>
+
+<script layout="code" type="text/x-markdown">
+## コード例（v4）
+
+```php
+<?php
+$this->validate($this->request, [
+   'title' => 'required|max_length[50]'
+]);
+
+
+```
+</script>
+
 
 <script layout="cover" type="text/x-markdown">
 # 今回は簡単なwebアプリを作ってみました
