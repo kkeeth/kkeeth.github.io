@@ -50,8 +50,9 @@ CodeIgniter は PHP を使って Web サイトを構築する人向けの
 - namespaceの導入
 - クエリビルダ（ORMも実装されてますが…）
 - 新しくなったModelクラス
-  - 自動データベース接続
-  - モデルでのバリデーション
+    - 自動データベース接続
+    - CRUD メソッドの実装
+    - モデルでのバリデーション
 - デバッガツール
 </script>
 
@@ -125,6 +126,47 @@ return view('evnts', $data);
 // または
 echo view('events', $data);
 
+```
+</script>
+
+<script layout="code" type="text/x-markdown">
+## CRUDメソッド（検索系）
+
+```php
+$users = $UserModel->find($user_id);
+$users = $UserModel->findAll();
+$users = $userModel->findWhere([
+        'status'  => 'active',
+        'deleted' => 0
+]);
+
+```
+</script>
+
+<script layout="code" type="text/x-markdown">
+## CRUDメソッド（保存系）
+
+```php
+$data = [
+        'username' => 'ダース',
+        'email'    => 'd.vader@theempire.com'
+];
+
+$userModel->insert($data);
+$userModel->update($id, $data);
+$userModel->save($data);
+```
+</script>
+
+<script layout="code" type="text/x-markdown">
+## CRUDメソッド（削除系）
+
+```php
+$userModel->delete(12);
+$userModel->deleteWhere([
+        'status' => 'inactive',
+        'warn_lvl >=' => 50
+]);
 ```
 </script>
 
