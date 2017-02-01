@@ -12,7 +12,7 @@ span.red {
 	color: #ee827c;
 }
 #cover h2 {
-	margin: 30px 80px 50px;
+	margin: 30px 40px 50px;
 	text-align: center;
 	font-size: 65px;
 }
@@ -29,13 +29,18 @@ ol {
 .slide.center-text .shout {
 	font-size: 75px;
 }
-.slide.code {
-	font-family: PT Mono,monospace,monospace;
-	line-height: 2;
+.slide pre {
+	margin-left: 30px;
+}
+.slide code key {
+	color: #b58900;
+}
+.slide code value {
+	color: #2aa198;
 }
 .slide .expand {
-   min-width: 90%;
-   min-height: 90%;
+	min-width: 90%;
+	min-height: 90%;
 }
 .slide a {
 	text-decoration: none !important;
@@ -48,7 +53,14 @@ ol {
 	left: 0;
 	top: 70%;
 }
-
+.slide img.blur {
+	min-height: 100%;
+	-webkit-filter: blur(5px) brightness(70%);
+	filter: blur(5px) brightness(70%);
+}
+.slide .white {
+	color: #FFF;
+}
 p.codicil {
 	position: absolute;
 	right: 50px;
