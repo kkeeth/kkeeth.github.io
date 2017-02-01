@@ -26,6 +26,9 @@ span.red {
 ol {
 	margin-left: 2em;
 }
+ol li {
+	font-size: 32px;
+}
 .slide.center-text .shout {
 	font-size: 75px;
 }
