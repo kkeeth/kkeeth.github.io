@@ -65,7 +65,8 @@ CodeIgniter は PHP を使って Web サイトを構築する人向けの
 ## namespace（コントローラ）
 
 ```php
-<?php namespace App\Controllers;
+<?php
+namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\EventsModel;
@@ -78,7 +79,8 @@ class Events extends Controller{}
 ## namespace（モデル）
 
 ```php
-<?php namespace App\Models;
+<?php
+namespace App\Models;
 
 use CodeIgniter\Model;
 
@@ -101,7 +103,7 @@ $model = $this->load->model('evnts_model');
 ## モデルの読み込み（v4）
 
 ```php
-$model = new HogeModel();
+$model = new EventsModel();
 
 ```
 </script>
@@ -169,6 +171,11 @@ $userModel->deleteWhere([
         'warn_lvl >=' => 50
 ]);
 ```
+</script>
+
+<script layout="cover" type="text/x-markdown">
+# ※注意
+# CodeIgniter4は、PHP7じゃないと動作しません
 </script>
 
 <script layout="cover" type="text/x-markdown">
