@@ -50,6 +50,7 @@
 				<li>向いていない案件</li>
 				<li>Riot.jsで行き詰まったら</li>
 			</ul>
+			<p class="concil">※ 技術的な話はありません</p>
 		</section>
 
 		<section class="slide center-text">
@@ -60,9 +61,28 @@
 			<h2 class="shout">1. ミニマムかつ簡単に書けるライブラリを求めている</h2>
 		</section>
 
+		<section class="slide">
+			<img class="cover" src="./pictures/riot.png">
+		</section>
+
 		<section class="slide center-text">
 			<h2 class="shout">2. フロントがRiot.jsで完結</h2>
 		</section>
+
+		<section class="slide">
+			<h2>グッドパターン</h2>
+			<img class="cover" src="./pictures/flow_good.png">
+		</section>
+
+		<section class="slide">
+			<h2>アンチパターン</h2>
+			<img class="cover" src="./pictures/flow_bad.png">
+		</section>
+
+		<section class="slide center-text">
+			<h2 class="shout">3. Reactで苦労していて<br>何かに乗り換えたい</h2>
+		</section>
+
 
 		<section class="slide">
 			<h2>向いている案件（まとめ）</h2>
@@ -75,12 +95,7 @@
 					</ul>
 				</li>
 				<li>フロントがRiot.jsで完結</li>
-				<li>
-					（ある意味で）Internetにつながっていない現場
-					<ul>
-						<li>ソースコードを読めばいけるw</li>
-					</ul>
-				</li>
+				<li>Reactで苦労していて何かに乗り換えたい</li>
 			</ol>
 		</section>
 
@@ -89,7 +104,8 @@
 		</section>
 
 		<section class="slide center-text">
-			<h2 class="shout">1. 新しい技術の導入に<br>拒絶反応</h2>
+			<h2 class="shout">1. コンポーネント指向<br>拒絶反応</h2>
+			<p class="codicil next">最近のフレームワークは軒並みアウトなんじゃ…</p>
 		</section>
 
 		<section class="slide center-text">
@@ -119,21 +135,43 @@
 			</pre>
 		</section>
 
+		<section class="slide center-text">
+			<h2 class="shout">4. ハイパフォーマンスな<br>サイトを作りたい</h2>
+		</section>
+
 		<section class="slide">
-			<h2>向いていない案件（まとめ）</h2>
+			<h2>向いていない案件（まとめ1）</h2>
 			<ol>
-				<li>新しい技術の導入に拒絶反応</li>
+				<li>
+					コンポーネント指向に拒絶反応
+					<ul>
+						<li>最近のフレームワークはおそらくアウト</li>
+					</ul>
+				</li>
 				<li>
 					きちんとMVCモデルで開発したい
 					<ul>
 						<li>Riot.jsはあくまでViewに特化したライブラリ</li>
-						<li>デザインパターン、Flux・Reduxなど</li>
+						<li>デザインパターン、Flux・Reduxなどを入れる</li>
+						<li>別のフレームワーク（Angularなど）を使う</li>
 					</ul>
 				</li>
+			</ol>
+		</section>
+
+		<section class="slide">
+			<h2>向いていない案件（まとめ2）</h2>
+			<ol start="4">
 				<li>
 					ライブラリの更新に拒絶反応
 					<ul>
 						<li>v3は最新のものを使うことが望ましい</li>
+					</ul>
+				</li>
+				<li>
+					ハイパフォーマンスなサイトを作りたい
+					<ul>
+						<li>v3で速くなっとは言えDOMが多すぎると…</li>
 					</ul>
 				</li>
 			</ol>

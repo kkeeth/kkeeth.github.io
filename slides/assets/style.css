@@ -23,10 +23,10 @@ span.red {
 	line-height: 1.5;
 }
 
-ol {
+ol, ul {
 	margin-left: 2em;
 }
-ol li {
+ol, li {
 	font-size: 32px;
 }
 .slide.center-text .shout {
