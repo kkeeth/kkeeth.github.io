@@ -1,19 +1,24 @@
 {
-  "name": "TOF by nodejs",
+  "name": "TOH-by-nodejs",
   "version": "0.0.0",
   "description": "",
   "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://k-kuwahara@github.com/k-kuwahara/k-kuwahara.github.io.git"
+  },
   "dependencies": {
-    "express": "^4.14.1"
+    "express": "^4.14.1",
+    "jade": "^1.11.0",
+    "body-parser": "^1.16.0"
   },
   "devDependencies": {
     "morgan": "^1.8.0",
     "nodemon": "^1.11.0"
   },
   "scripts": {
-    "nodemon": "nodemon",
+    "start": "nodemon app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "k-kuwahara",
-  "license": "MIT"
+  "author": "k-kuwahara"
 }

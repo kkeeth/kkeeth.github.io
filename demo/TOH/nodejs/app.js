@@ -3,31 +3,19 @@ const express = require('express'),
       bodyParser = require('body-parser')
 const app = express()
 
-// テンプレート
+
+// settings
 app.set('views', __dirname + '/views')
 app.set('view engine', 'jade')
 
-// 以下の２つは順番が大事
+
+// designation of parser
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded())
-
-// ログの表示
+app.use(bodyParser.urlencoded({ extended: true }))
+// show logs
 app.use(logger('dev'))
-// 静的ファイルの配信のディレクトリを指定
-app.use(express.static(__dirname + '/public'))
-// middlewareを自作
-app.use((req, res, next) => {
-   console.log('my custom middleware!!')
-   next()   // 必須
-})
-// パラメータによって処理を分ける
-app.param('id', (req, res, next, id) => {
-   let users = ['hoge', 'fuga', 'piyo']
-   req.params.name = users[id] || 'nobody'
-   next()
-})
 
-// GETの処理
+// GET processing
 app
    // viewのエンジンを指定しない場合
    /*
@@ -37,8 +25,8 @@ app
    */
    .get('/', (req, res) => {
       // エンジンを使う場合拡張子は不要
-      res.render('index', {mess: 'by node.js'})
-   })
+      res.render('index', { heroes: store.heroes })
+  })
    .get('/new', (req, res) => {
       // フォーム用の画面
       res.render('new')
@@ -81,5 +69,20 @@ app
       res.send(req.body.name)
    })
 
+const store = {
+   heroes: [
+      { id: 11, name: 'Mr. Nice' },
+      { id: 12, name: 'Narco' },
+      { id: 13, name: 'Bombasto' },
+      { id: 14, name: 'Celeritas' },
+      { id: 15, name: 'Magneta' },
+      { id: 16, name: 'RubberMan' },
+      { id: 17, name: 'Dynama' },
+      { id: 18, name: 'Dr IQ' },
+      { id: 19, name: 'Magma' },
+      { id: 20, name: 'Tornado' }
+   ],
+   selected_hero: ''
+}
 app.listen(3000)
 console.log('server starting...')

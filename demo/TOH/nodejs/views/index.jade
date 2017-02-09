@@ -1,4 +1,17 @@
 doctype html
 html
-  h1 Hello Node.js
-  p=mess
+  head
+    meta(charset="UTF-8")
+    title Tour of Heros demo Node.js
+    link(rel="stylesheet", href="./style.css")
+  body
+    h1 Tour of Heros demo by 
+      a(href="https://nodejs.org/en/") Node.js
+
+    h2 My Heroes
+    ul(class="heroes")
+      each hero in heroes
+        li(class="selected", onclick="onSelect()")
+          span(class="badge") #{ hero.id } #{ hero.name }
+
+    include detail
