@@ -1,0 +1,10 @@
+a {
+  text-decoration: none; }
+
+header {
+  left: 0;
+  top: 0;
+  width: 10rem;
+  background-color: #008080;
+  color: #fff;
+  font-weight: 700; }

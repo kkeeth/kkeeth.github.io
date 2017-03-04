@@ -1,0 +1,40 @@
+{
+  "name": "k-kuwahara.github.io-top",
+  "version": "1.0.0",
+  "description": "this is the website about k-kuwahara",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/k-kuwahara/k-kuwahara.github.io.git"
+  },
+  "keywords": [
+    "k-kuwahara",
+    "k-kuwahara.github.io"
+  ],
+  "author": "k-kuwahara",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/k-kuwahara/k-kuwahara.github.io/issues"
+  },
+  "homepage": "https://github.com/k-kuwahara/k-kuwahara.github.io#readme",
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "buble-loader": "^0.4.1",
+    "css-loader": "^0.26.2",
+    "extract-text-webpack-plugin": "^2.0.0",
+    "node-sass": "^4.5.0",
+    "riot-hot-reload": "0.0.2",
+    "riot-tag-loader": "^1.0.0",
+    "sass-loader": "^6.0.2",
+    "style-loader": "^0.13.2",
+    "webpack": "^2.2.1"
+  },
+  "dependencies": {
+    "bootstrap-material-design": "^0.5.10",
+    "riot": "^3.3.1",
+    "riot-route": "^3.1.0",
+    "riotcontrol": "0.0.3"
+  },
+  "scripts": {
+    "build": "webpack --watch --progress"
+  }
+}
