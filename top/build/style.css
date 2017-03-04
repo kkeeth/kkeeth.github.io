@@ -2,9 +2,20 @@ a {
   text-decoration: none; }
 
 header {
+  position: fixed;
   left: 0;
   top: 0;
-  width: 10rem;
+  width: 12rem;
+  height: 100%;
   background-color: #008080;
   color: #fff;
   font-weight: 700; }
+  header h1 {
+    text-align: center; }
+  header #main-logo {
+    text-align: center; }
+    header #main-logo img {
+      width: 6rem;
+      border-radius: 3rem; }
+  header #menu-section a {
+    width: 100%; }

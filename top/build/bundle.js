@@ -3002,7 +3002,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 
 riot.tag2('header',
-  '<div class="columns header-container"> <h1 class="header">Navbar</h1> <div id="main-logo" class="column col-sm-6 col-2"> <a href="/"> <img src="../img/logo.png"> </a> </div> <div show="{!mode.sp}" id="menu-pc" class="column col-10"> <div id="menu-section" class="btn-group"> <a href="{paths.index}"> <button class="{current-page:current_page == paths.index} btn">HOME</button> </a> <a href="{paths.about}"> <button class="{current-page:current_page == paths.index} btn">ABOUT</button> </a> <a href="{paths.skill}"> <button class="{current-page:current_page == paths.skill} btn">SKILL</button> </a> <a href="{paths.links}"> <button class="{current-page:current_page == paths.links} btn">LINKS</button> </a> <a href="{paths.development}"> <button class="{current-page:current_page == paths.development} btn">DEVELOPMENT</button> </a> </div> <lang-change></lang-change> </div> <div show="{mode.sp}" onclick="{toggle_menu}" id="menu-hamburger" class="column col-sm-6 col-10"> <div class="{is-active: menu_active} hamburger hamburger--collapse-r"> <div class="hamburger-box"> <div class="hamburger-inner {bg-white: menu_sp_overlay}"></div> </div> </div> </div> </div>',
+  '<div class="columns header-container"> <h1 class="header">k-kuwahara</h1> <div id="main-logo" class="column col-sm-6 col-2"> <a href="/"> <img src="top/img/logo.png"> </a> </div> <div id="menu-section" class="column col-10"> <lang-change></lang-change> <div class="btn-group"> <a href="{paths.index}"> <button class="{current-page:current_page == paths.index} btn">HOME</button> </a> <a href="{paths.about}"> <button class="{current-page:current_page == paths.index} btn">ABOUT</button> </a> <a href="{paths.skill}"> <button class="{current-page:current_page == paths.skill} btn">SKILL</button> </a> <a href="{paths.links}"> <button class="{current-page:current_page == paths.links} btn">LINKS</button> </a> <a href="{paths.development}"> <button class="{current-page:current_page == paths.development} btn">DEVELOPMENT</button> </a> </div> </div> <div show="{mode.sp}" onclick="{toggle_menu}" id="menu-hamburger" class="column col-sm-6 col-10"> <div class="{is-active: menu_active} hamburger hamburger--collapse-r"> <div class="hamburger-box"> <div class="hamburger-inner {bg-white: menu_sp_overlay}"></div> </div> </div> </div> </div>',
   '',
   '', function(opts) {
 var _this = this;
@@ -3082,7 +3082,6 @@ riot.tag2('lang-change',
   '',
   '', function(opts) {
 this.lang = '';
-// this.mixin("localize-lang")
 
 // change language
 this.change = function (e) {};

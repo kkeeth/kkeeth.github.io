@@ -3,10 +3,30 @@ a {
 }
 
 header {
+	position: fixed;
 	left: 0;
 	top: 0;
-	width: 10rem;
+	width: 12rem;
+	height: 100%;
 	background-color: #008080;
 	color: #fff;
 	font-weight: 700;
+
+	h1 {
+		text-align: center;
+	}
+
+	#main-logo {
+		text-align: center;
+		img {
+			width: 6rem;
+			border-radius: 3rem;
+		}
+	}
+
+	#menu-section {
+		a {
+			width: 100%;
+		}
+	}
 }

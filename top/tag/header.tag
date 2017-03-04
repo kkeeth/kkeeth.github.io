@@ -1,13 +1,14 @@
 <header>
 	<div class="columns header-container">
-		<h1 class="header">Navbar</h1>
+		<h1 class="header">k-kuwahara</h1>
 		<div id="main-logo" class="column col-sm-6 col-2">
 			<a href="/">
-				<img src="../img/logo.png">
+				<img src="top/img/logo.png">
 			</a>
 		</div>
-		<div show="{!mode.sp}" id="menu-pc" class="column col-10">
-			<div id="menu-section" class="btn-group">
+		<div id="menu-section" class="column col-10">
+			<lang-change></lang-change>
+			<div class="btn-group">
 				<a href="{ paths.index }">
 					<button class="{ current-page:current_page == paths.index } btn">HOME</button>
 				</a>
@@ -24,7 +25,6 @@
 					<button class="{ current-page:current_page == paths.development } btn">DEVELOPMENT</button>
 				</a>
 			</div>
-			<lang-change></lang-change>
 		</div>
 		<div show="{mode.sp}" onclick="{ toggle_menu }" id="menu-hamburger" class="column col-sm-6 col-10">
 			<div class="{is-active: menu_active} hamburger hamburger--collapse-r">

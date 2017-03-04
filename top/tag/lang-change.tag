@@ -7,7 +7,6 @@
 
 	<script>
 		this.lang = ''
-		// this.mixin("localize-lang")
 
 		// change language
 		this.change = (e) => {
