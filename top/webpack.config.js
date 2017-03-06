@@ -38,7 +38,9 @@ module.exports = [
       plugins: [
          new webpack.ProvidePlugin({
             riot: 'riot',
-            riot_control: 'riotcontrol'
+            riot_control: 'riotcontrol',
+            $: 'jquery',
+            jQuery: 'jquery'
          })
       ]
    },
@@ -63,10 +65,7 @@ module.exports = [
          ]
       },
       plugins: [
-         new ExtractTextPlugin("style.css"),
-         new webpack.ProvidePlugin({
-            bootstrap_material_design: 'bootstrap-material-design'
-         })
+         new ExtractTextPlugin("style.css")
       ]
    }
 ]

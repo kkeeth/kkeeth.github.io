@@ -1,15 +1,27 @@
+@import "./hamburgers";
+
 a {
 	text-decoration: none;
 }
 
 header {
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 12rem;
-	height: 100%;
-	background-color: #008080;
-	color: #fff;
+	@media (max-width: 780px) {
+		.hamburger {
+		}
+	}
+	@media (min-width: 781px) {
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 10rem;
+		height: 100%;
+		.hamburger {
+			display: none;
+		}
+	}
+	padding: 2rem;
+	background-color: #2B3A42;
+	color: #fff	;
 	font-weight: 700;
 
 	h1 {
@@ -19,14 +31,17 @@ header {
 	#main-logo {
 		text-align: center;
 		img {
-			width: 6rem;
-			border-radius: 3rem;
+			width: 7rem;
+			border-radius: 3.5rem;
 		}
 	}
 
 	#menu-section {
 		a {
 			width: 100%;
+			&:hover {
+				background-color: #008080;
+			}
 		}
 	}
 }
