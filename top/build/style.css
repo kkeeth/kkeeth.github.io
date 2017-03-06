@@ -723,11 +723,25 @@
 a {
   text-decoration: none; }
 
+.hide {
+  display: none; }
+
 header {
   padding: 2rem;
   background-color: #2B3A42;
   color: #fff;
   font-weight: 700; }
+  @media (max-width: 780px) {
+    header .hamburger-box {
+      float: left; }
+    header #main-logo {
+      text-align: center; }
+      header #main-logo img {
+        width: 3rem;
+        border-radius: 1.5rem; }
+    header #lang-section {
+      text-align: right;
+      float: right; } }
   @media (min-width: 781px) {
     header {
       position: fixed;
@@ -736,14 +750,18 @@ header {
       width: 10rem;
       height: 100%; }
       header .hamburger {
-        display: none; } }
+        display: none; }
+      header #main-logo {
+        text-align: center; }
+        header #main-logo img {
+          width: 7rem;
+          border-radius: 3.5rem; }
+      header #lang-section {
+        text-align: center; }
+      header #menu-list {
+        display: inline; } }
   header h1 {
     text-align: center; }
-  header #main-logo {
-    text-align: center; }
-    header #main-logo img {
-      width: 7rem;
-      border-radius: 3.5rem; }
   header #menu-section a {
     width: 100%; }
     header #menu-section a:hover {

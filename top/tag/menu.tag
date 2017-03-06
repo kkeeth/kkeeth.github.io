@@ -1,5 +1,5 @@
 <menu>
-	<div class="">
+	<div id="menu-list" class="hide">
 		<a href="{ paths.index }">
 			<button class="{ current-page:current_page == paths.index } btn">HOME</button>
 		</a>

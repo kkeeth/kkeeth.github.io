@@ -1,6 +1,5 @@
 <header>
 	<div class="columns header-container">
-		<h1 class="header"></h1>
 		<div id="main-logo" class="">
 			<a href="/">
 				<img src="top/img/logo.png">
@@ -12,8 +11,8 @@
 					<span class="hamburger-inner"></span>
 				</span>
 			</button>
-			<lang-change></lang-change>
 			<menu></menu>
+			<lang-change></lang-change>
 		</div>
 	</div>
 

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2999,14 +2999,14 @@ Object.defineProperty(exports, '__esModule', { value: true });
 "use strict";
 /* WEBPACK VAR INJECTION */(function($, riot_control) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lang_change_tag__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lang_change_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__lang_change_tag__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__menu_tag__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__menu_tag__ = __webpack_require__(9);
 
     var riot = __webpack_require__(0)
     //src: tag/header.tag
 
 
 riot.tag2('header',
-  '<div class="columns header-container"> <h1 class="header"></h1> <div id="main-logo" class=""> <a href="/"> <img src="top/img/logo.png"> </a> </div> <div id="menu-section"> <button type="button" class="hamburger hamburger--squeeze" ref="hamburger" onclick="{toggle_menu}"> <span class="hamburger-box"> <span class="hamburger-inner"></span> </span> </button> <lang-change></lang-change> <menu></menu> </div> </div>',
+  '<div class="columns header-container"> <div id="main-logo" class=""> <a href="/"> <img src="top/img/logo.png"> </a> </div> <div id="menu-section"> <button type="button" class="hamburger hamburger--squeeze" ref="hamburger" onclick="{toggle_menu}"> <span class="hamburger-box"> <span class="hamburger-inner"></span> </span> </button> <menu></menu> <lang-change></lang-change> </div> </div>',
   '',
   '', function(opts) {
 var _this = this;
@@ -3078,7 +3078,7 @@ console.info(riot_control);
     }
   }
   
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(10), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(11), __webpack_require__(1)))
 
 /***/ }),
 /* 7 */
@@ -3088,7 +3088,7 @@ console.info(riot_control);
     var riot = __webpack_require__(0)
     //src: tag/lang-change.tag
 riot.tag2('lang-change',
-  '<div id="translation-section" class="btn-group"> <div onclick="{change(\'ja\')}" class="btn translation {current-language: lang == \'ja\'}">JP</div> <div class="hide btn translation disabled">/</div> <div onclick="{change(\'en\')}" class="btn translation {current-language: lang == \'en\'}">EN</div> </div>',
+  '<div id="lang-section" class="btn-group"> <div> <span onclick="{change(\'ja\')}" class="btn translation {current-language: lang == \'ja\'}">JP</span> <span class="hide btn translation disabled">/</span> <span onclick="{change(\'en\')}" class="btn translation {current-language: lang == \'en\'}">EN</span> </div> </div>',
   '',
   '', function(opts) {
 this.lang = '';
@@ -3124,6 +3124,35 @@ this.change = function (e) {};
 
 /***/ }),
 /* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_mixin_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_mixin_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__util_mixin_js__);
+
+    var riot = __webpack_require__(0)
+    //src: tag/menu.tag
+
+riot.tag2('menu',
+  '<div id="menu-list" class="hide"> <a href="{paths.index}"> <button class="{current-page:current_page == paths.index} btn">HOME</button> </a> <a href="{paths.about}"> <button class="{current-page:current_page == paths.index} btn">ABOUT</button> </a> <a href="{paths.skill}"> <button class="{current-page:current_page == paths.skill} btn">SKILL</button> </a> <a href="{paths.links}"> <button class="{current-page:current_page == paths.links} btn">LINKS</button> </a> <a href="{paths.development}"> <button class="{current-page:current_page == paths.development} btn">DEVELOPMENT</button> </a> </div>',
+  '',
+  '', function(opts) {
+var self = this;
+
+self.paths = __WEBPACK_IMPORTED_MODULE_0__util_mixin_js___default.a.paths;
+self.mixin(__WEBPACK_IMPORTED_MODULE_0__util_mixin_js___default.a);
+});
+    
+  if (false) {
+    module.hot.accept()
+    if (module.hot.data) {
+      riot.reload('menu')
+    }
+  }
+  
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports) {
 
 var util_mixin = {
@@ -3138,7 +3167,7 @@ var util_mixin = {
 module.exports = util_mixin
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -14153,7 +14182,7 @@ return jQuery;
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14171,35 +14200,6 @@ riot_control.addStore(__WEBPACK_IMPORTED_MODULE_1__my_store_js___default.a)
 riot.mount('*')
 
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1), __webpack_require__(0)))
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_mixin_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_mixin_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__util_mixin_js__);
-
-    var riot = __webpack_require__(0)
-    //src: tag/menu.tag
-
-riot.tag2('menu',
-  '<div class=""> <a href="{paths.index}"> <button class="{current-page:current_page == paths.index} btn">HOME</button> </a> <a href="{paths.about}"> <button class="{current-page:current_page == paths.index} btn">ABOUT</button> </a> <a href="{paths.skill}"> <button class="{current-page:current_page == paths.skill} btn">SKILL</button> </a> <a href="{paths.links}"> <button class="{current-page:current_page == paths.links} btn">LINKS</button> </a> <a href="{paths.development}"> <button class="{current-page:current_page == paths.development} btn">DEVELOPMENT</button> </a> </div>',
-  '',
-  '', function(opts) {
-var self = this;
-
-self.paths = __WEBPACK_IMPORTED_MODULE_0__util_mixin_js___default.a.paths;
-self.mixin(__WEBPACK_IMPORTED_MODULE_0__util_mixin_js___default.a);
-});
-    
-  if (false) {
-    module.hot.accept()
-    if (module.hot.data) {
-      riot.reload('menu')
-    }
-  }
-  
 
 /***/ })
 /******/ ]);
