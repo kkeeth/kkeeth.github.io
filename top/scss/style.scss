@@ -1,5 +1,12 @@
 @import "./hamburgers";
 
+/**
+ * 共通スタイル
+ */
+body {
+	font-family: sans-serif;
+	background-color: #eee;
+}
 a {
 	text-decoration: none;
 }
@@ -7,23 +14,25 @@ a {
 	display: none;
 }
 
+/**
+ * headerスタイル
+ */
 header {
 	@media (max-width: 780px) {
+
 		.hamburger-box {
-			float: left
 		}
 
 		#main-logo {
 			text-align: center;
 			img {
-				width: 3rem;
-				border-radius: 1.5rem;
+				width: 5rem;
+				border-radius: 2.5rem;
 			}
 		}
 
-		#lang-section {
-			text-align: right;
-			float: right;
+		#menu-section {
+			text-align: left;
 		}
 	}
 	@media (min-width: 781px) {
@@ -44,15 +53,11 @@ header {
 			}
 		}
 
-		#lang-section {
-			text-align: center;
-		}
-
 		#menu-list {
 			display: inline;
 		}
 	}
-	padding: 2rem;
+	padding: 1.5rem;
 	background-color: #2B3A42;
 	color: #fff	;
 	font-weight: 700;
@@ -69,5 +74,22 @@ header {
 				background-color: #008080;
 			}
 		}
+	}
+}
+
+/**
+ * mainスタイル
+ */
+main {
+	text-align: center;
+	color: #666;
+	margin-top: 2rem;
+
+	#container {
+		background-color: #fff;
+		padding: 2rem;
+		border: 1px solid #dedede;
+		border-radius: 0.2rem;
+		box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2);
 	}
 }

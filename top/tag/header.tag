@@ -6,19 +6,13 @@
 			</a>
 		</div>
 		<div id="menu-section">
-			<button type="button" class="hamburger hamburger--squeeze" ref="hamburger" onclick="{ toggle_menu }">
-				<span class="hamburger-box">
-					<span class="hamburger-inner"></span>
-				</span>
-			</button>
-			<menu></menu>
-			<lang-change></lang-change>
+			<menu-list></menu-list>
 		</div>
 	</div>
 
 	<script>
 		import './lang-change.tag'
-		import './menu.tag'
+		import './menu-list.tag'
 
 		const self = this
 		this.loaded = false
@@ -73,10 +67,5 @@
 		this.update_page = () => {
 			this.current_page = ""
 		}
-
-		this.toggle_menu = (e) => {
-			$(this.refs.hamburger).toggleClass('is-active')
-		}
-		console.info(riot_control)
 	</script>
 </header>

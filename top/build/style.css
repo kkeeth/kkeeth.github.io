@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*!
  * Hamburgers
  * @description Tasty CSS-animated hamburgers
@@ -720,28 +721,35 @@
   bottom: 0;
   transform: rotate(-90deg); }
 
+/**
+ * 共通スタイル
+ */
+body {
+  font-family: sans-serif;
+  background-color: #eee; }
+
 a {
   text-decoration: none; }
 
 .hide {
   display: none; }
 
+/**
+ * headerスタイル
+ */
 header {
-  padding: 2rem;
+  padding: 1.5rem;
   background-color: #2B3A42;
   color: #fff;
   font-weight: 700; }
   @media (max-width: 780px) {
-    header .hamburger-box {
-      float: left; }
     header #main-logo {
       text-align: center; }
       header #main-logo img {
-        width: 3rem;
-        border-radius: 1.5rem; }
-    header #lang-section {
-      text-align: right;
-      float: right; } }
+        width: 5rem;
+        border-radius: 2.5rem; }
+    header #menu-section {
+      text-align: left; } }
   @media (min-width: 781px) {
     header {
       position: fixed;
@@ -756,8 +764,6 @@ header {
         header #main-logo img {
           width: 7rem;
           border-radius: 3.5rem; }
-      header #lang-section {
-        text-align: center; }
       header #menu-list {
         display: inline; } }
   header h1 {
@@ -766,3 +772,17 @@ header {
     width: 100%; }
     header #menu-section a:hover {
       background-color: #008080; }
+
+/**
+ * mainスタイル
+ */
+main {
+  text-align: center;
+  color: #666;
+  margin-top: 2rem; }
+  main #container {
+    background-color: #fff;
+    padding: 2rem;
+    border: 1px solid #dedede;
+    border-radius: 0.2rem;
+    box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2); }

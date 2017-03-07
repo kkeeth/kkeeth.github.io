@@ -1,5 +1,11 @@
-<menu>
-	<div id="menu-list" class="hide">
+<menu-list>
+	<button type="button" class="hamburger hamburger--squeeze" onclick="{ toggle_menu }">
+		<span class="hamburger-box">
+			<span class="hamburger-inner"></span>
+		</span>
+	</button>
+
+	<div id="nav-list" class="">
 		<a href="{ paths.index }">
 			<button class="{ current-page:current_page == paths.index } btn">HOME</button>
 		</a>
@@ -15,6 +21,7 @@
 		<a href="{ paths.development }">
 			<button class="{ current-page:current_page == paths.development } btn">DEVELOPMENT</button>
 		</a>
+		<lang-change></lang-change>
 	</div>
 
 	<script>
@@ -25,4 +32,4 @@
 		self.mixin(util_mixin)
 
 	</script>
-</menu>
+</menu-list>

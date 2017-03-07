@@ -1,6 +1,6 @@
 <app>
 	<header></header>
-	<div data-is="main"></div>
+	<main></main>
 	<footer></footer>
 
 	<script>
