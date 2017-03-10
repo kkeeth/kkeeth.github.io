@@ -1,5 +1,4 @@
 export class Sake {
-   id: number;
    name: string;
    sp_name: string;
    rice_per: string;

@@ -23,8 +23,8 @@ import { SAKES } from './sake-list';
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let sake of sakes">
-              <td>{{ sake.id }}</td>
+            <tr *ngFor="let sake of sakes; let idx = index;">
+              <td>{{ idx+1 }}</td>
               <td>{{ sake.name }}</td>
               <td>{{ sake.sp_name }}</td>
               <td>{{ sake.rice_per }}%</td>

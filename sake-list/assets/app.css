@@ -21,7 +21,7 @@ h2 {
 .card-table {
   border: solid 1px #e0e0e0;
   width: 86%;
-  height: 50vh;
+  height: 65vh;
   overflow-y: scroll;
   margin: 0 auto;
   z-index: 1;
@@ -35,7 +35,7 @@ table th {
   text-align: center !important;
 }
 table td {
-  font-size: 16px;
+  font-size: 14px;
 }
 table td a, pie table td a {
   text-decoration: none;
