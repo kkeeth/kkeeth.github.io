@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 	<head>
-		<title>riotjs</title>
+		<title>JavaScript質問会</title>
 		<meta charset="utf-8">
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +10,7 @@
 	</head>
 	<body class="shower list">
 		<header class="caption">
-			<h1>Riot.jsに向いている案件、向いていない案件</h1>
+			<h1>JavaScript質問会（桑原を責める会）</h1>
 			<p class="desc">
 				Click：　スライドスタート<br>
 				Enter：　次へ進む<br>
@@ -21,11 +21,11 @@
 		</header>
 		<section class="slide" id="cover">
 			<h2>
-				Riot.jsに向いている案件<br>向いていない案件
+				JavaScript質問会<br>（桑原を責める会）
 			</h2>
 			<p>
-				2017/02/02　Riot.js勉強会 @Tokyo #2<br>
-				<a href="https://twitter.com/kuwahara_jsng">@kuwahara_jsng</a>
+				2017/04/12　@レプラホーン本社<br>
+				<a href="https://twitter.com/kuwahara_ngv2">@kuwahara_ngv2</a>
 			</p>
 		</section>
 
@@ -34,10 +34,10 @@
 			<pre>
 <code>var my_info = {
 	<key>name</key>: <value>'Kiyohito Kuwahara'</value>,
-	<key>twitter</key>: <value>'@kuwahara_jsng'</value>,
+	<key>twitter</key>: <value>'@kuwahara_ngv2'（たまに変わります）</value>,
 	<key>github</key> : <value>'k-kuwahara'</value>,
 	<key>qiita</key>  : <value>'@clown0082'</value>,
-	<key>skill</key>  : <value>'PHP, CodeIgniter, JS, Riot'</value>,
+	<key>skill</key>  : <value>'PHP, CodeIgniter, JS, Riot, Angular'</value>,
 	<key>workplace</key>: <value>'Leprachaun Corp.'</value>
 }</code>
 			</pre>
@@ -45,107 +45,65 @@
 
 		<section class="slide">
 			<h2>アジェンダ</h2>
+			<ol>
+				<li>質問リストへの回答</li>
+				<li>飛び入り質問</li>
+				<li>ちょっと宣伝</li>
+			</ol>
+			<p class="concil">※ 何かあれが随時聞いていただいて問題ありません。</p>
+		</section>
+
+		<section class="slide center-text">
+			<h2 class="shout">1. 質問リストへの回答</h2>
+		</section>
+
+		<section class="slide center-text">
+			<h1>1. 質問リストへの回答</h1>
+			<h3>Q. JavaScriptのスコープって？</h3>
+			<h3>A. 「グローバルスコープ」と「ブロックスコープ」の2つだけ！</h3>
+		</section>
+
+		<section class="slide center-text">
+			<h1>1. 質問リストへの回答</h1>
+			<h3>Q. クロージャってなに？</h3>
+			<h3>A. <span class="assert">「自分を囲むスコープにある変数を参照できる関数」</span>と言われますね。</h3>
+			<p>誤解を恐れず言うと、「JSの全ての関数はクロージャ」と言えます。</p>
+		</section>
+
+		<section class="slide center-text">
+			<h1>1. 質問リストへの回答</h1>
+			<h3>Q. クロージャってどうやって使うの？</h3>
+			<h3>
+				A.
+				<ul>
+					<li>ボタンのダブルクリック防止</li>
+					<li>プライベート変数・オブジェクトの生成</li>
+					<li>…など</li>
+				</ul>
+			</h3>
+		</section>
+
+		<section class="slide center-text">
+			<h1>1. 質問リストへの回答</h1>
+			<h3>Q. コンテキストって何？</h3>
+			<h3>A. 定義付けが難しいです…thisが指すものと言いましょうか…</h3>
 			<ul>
-				<li>向いている案件</li>
-				<li>向いていない案件</li>
-				<li>まとめ</li>
-				<li>Riot.jsで行き詰まったら</li>
+				<li>日本語にすると<span class="assert">文脈</span>と訳されることが多いです。</li>
 			</ul>
-			<p class="concil">※ 技術的な話はありません</p>
 		</section>
 
 		<section class="slide center-text">
-			<h2 class="shout">向いている案件</h2>
+			<h1>1. 質問リストへの回答</h1>
+			<h3>Q. new したときのコンテキストがわからない。</h3>
+			<h3>A. newした時に内部でオブジェクトが生成され、そのオブジェクトがコンテキストになります。</h3>
 		</section>
 
 		<section class="slide center-text">
-			<h2 class="shout">1. ミニマムかつ簡単に書けるライブラリを求めている</h2>
+			<h2 class="shout">2. 飛び入り質問</h2>
 		</section>
 
 		<section class="slide center-text">
-			<h2 class="shout">公式HPを見てみましょう。</h2>
-		</section>
-
-		<section class="slide">
-			<img class="cover" src="./pictures/riot.png">
-		</section>
-
-		<section class="slide">
-			<img class="cover" src="./pictures/riot2.png">
-		</section>
-
-		<section class="slide">
-			<img class="cover" src="./pictures/riot3.png">
-		</section>
-
-		<section class="slide center-text">
-			<h2 class="shout">Riot.jsで決まりでしょう！</h2>
-		</section>
-
-		<section class="slide center-text">
-			<h2 class="shout">2. フロントエンドが<br>Riot.jsで完結</h2>
-		</section>
-
-		<section class="slide">
-			<h2>グッドパターン</h2>
-			<img class="cover mt" src="./pictures/flow_good.png">
-		</section>
-
-		<section class="slide">
-			<h2>アンチパターン</h2>
-			<img class="cover mt" src="./pictures/flow_bad.png">
-
-			<style>
-				img.mt { top: 56% !important; }
-			</style>
-		</section>
-
-		<section class="slide center-text">
-			<h2 class="shout">3. Reactで苦労していて<br>何かに乗り換えたい</h2>
-		</section>
-
-		<section class="slide center-text">
-			<h2 class="shout">向いていない案件</h2>
-		</section>
-
-		<section class="slide center-text">
-			<h2 class="shout">1. コンポーネント指向<br>拒絶反応</h2>
-			<p class="codicil">最近のフレームワークは軒並みアウトなんじゃ…</p>
-		</section>
-
-		<section class="slide center-text">
-			<h2 class="shout">2. きちんとMVCモデルで<br>開発したい</h2>
-		</section>
-
-		<section class="slide center-text">
-			<h2 class="shout">Riot.jsはあくまでViewに<br>特化したライブラリ</h2>
-			<p class="codicil">MVCなら個人的にはAngularがおすすめ</p>
-		</section>
-
-		<section class="slide center-text">
-			<h2 class="shout">3. ライブラリの更新に<br>拒絶反応</h2>
-		</section>
-
-		<section class="slide">
-			<h2>Riot.js（v3）のリリース履歴</h2>
-			<pre>
-<code>	<key>3.1.0</key>: <value>January 29, 2017</value>,
-	<key>3.0.7</key>: <value>January 10, 2017</value>,
-	<key>3.0.6</key>: <value>January 10, 2017</value>,
-	…
-	<key>3.0.2</key>: <value>December 4, 2016</value>,
-	<key>3.0.1</key>: <value>November 26, 2016</value>,
-	<key>3.0.0</key>: <value>November 22, 2016</value>
-</code>
-			</pre>
-		</section>
-
-		<section class="slide center-text">
-			<h2 class="shout">4. ハイパフォーマンスな<br>サイトを作りたい</h2>
-		</section>
-
-		<section class="slide center-text">
-			<h2 class="shout">まとめ</h2>
+			<h2 class="shout">3. 宣伝</h2>
 		</section>
 
 		<section class="slide">
@@ -203,61 +161,6 @@
 
 		<section class="slide center-text">
 			<h2 class="shout">Riot.jsで行き詰まったら</h2>
-		</section>
-
-		<section class="slide">
-			<h2>Riot.jsで行き詰まったら</h2>
-			<ul>
-				<li>
-					ググっても記事が見つからなかったらslackで聞く！
-					<ul>
-						<li>slackに<a href="https://riot-jp.slack.com/messages/questions/">質問部屋</a>も用意されてます！</li>
-					</ul>
-				</li>
-			</ul>
-		</section>
-
-		<section class="slide">
-			<h2>Riot.jsで行き詰まったら</h2>
-			<ul>
-				<li>
-					ググっても記事が見つからなかったらslackで聞く！
-					<ul>
-						<li>slackに<a href="https://riot-jp.slack.com/messages/questions/">質問部屋</a>も用意されてます！</li>
-					</ul>
-				</li>
-				<li>
-					本家リポジトリの<a href="https://github.com/riot/riot/issues">issues</a>を探す！
-					<ul>
-						<li>海外の方が活発にissuesで議論されてますよ！</li>
-					</ul>
-				</li>
-			</ul>
-		</section>
-
-		<section class="slide">
-			<h2>Riot.jsで行き詰まったら</h2>
-			<ul>
-				<li>
-					ググっても記事が見つからなかったらslackで聞く！
-					<ul>
-						<li>slackに<a href="https://riot-jp.slack.com/messages/questions/">質問部屋</a>も用意されてます！</li>
-					</ul>
-				</li>
-				<li>
-					本家リポジトリの<a href="https://github.com/riot/riot/issues">issues</a>を探す！
-					<ul>
-						<li>海外の方が活発にissuesで議論されてますよ！</li>
-					</ul>
-				</li>
-				<li>
-					最後は<a href="https://cdnjs.cloudflare.com/ajax/libs/riot/3.1.0/riot+compiler.js">本体のソース</a>を読む！
-					<ul>
-						<li>3600行程なのでそれほど難しくはない（はず）</li>
-						<li>JavaScript 1年目の自分でもなんとか読めます</li>
-					</ul>
-				</li>
-			</ul>
 		</section>
 
 		<section class="slide center-text">

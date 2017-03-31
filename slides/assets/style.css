@@ -8,8 +8,21 @@ header p.desc {
 h2 {
 	line-height: 1.2 !important;
 }
+h1 {
+	margin-bottom: 10px;
+	font-weight: bold;
+	font: 700 30px/1.5 PT Sans Narrow,sans-serif;
+}
+h3 {
+	margin: 20px 40px;
+	font: 700 45px/1.5 PT Sans Narrow,sans-serif;
+}
 span.red {
 	color: #ee827c;
+}
+span.assert {
+	font-weight: bold;
+	color: #008080;
 }
 #cover h2 {
 	margin: 30px 40px 50px;
