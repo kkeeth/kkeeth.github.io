@@ -1,0 +1,257 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>NPMコマンドの使い方</title>
+    <link rel="stylesheet" href="../../../talkiejs/talkie.min.css">
+    <link rel="stylesheet" href="../../../talkiejs/talkie-default.min.css">
+    <link rel="stylesheet" href="../../../talkiejs/style.css">
+    <link rel="shortcut icon" href="../../../assets/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+  </head>
+  <body>
+<template layout="cover" type="text/x-markdown">
+# NPMコマンドの使い方
+### 2017/04/28　@レプラホーン本社
+</template>
+
+<template layout="title-invert" type="text/x-markdown">
+## 自己紹介
+
+```
+var my_info = {
+    name:   '桑原聖仁',
+    twitter: '@kuwahara_ngv2（たまに変わります）',
+    github: 'k-kuwahara',
+    qiita:    '@clown0082',
+    skill: 'PHP, CodeIgniter, JavaScript, Riot.js, Angular',
+    workplace:  'Leprachaun Corp.'
+}
+```
+</template>
+
+<section layout="title-invert" type="text/x-markdown">
+## Node.jsをまだインストールしていない方はいらっしゃいますか？
+　
+※この先Node.jsをインストールしていないと先に進めないです…w
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## 　　まだ => [__install_nodejs()__](https://nodejs.org/ja/)
+## 入ってる => __next_page()__
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+### Node.jsのバージョンが`0.x`、`4.x`、`5.x`の方はいますか？
+　
+## 最低でも`6.x`以上にアップグレードしてください(ﾟ∀ﾟ)
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## これで準備完了です！
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- npmについて
+- packages.jsonを作成
+- 実際にパッケージ管理してみよう
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- __npmについて__ <= 今ココ
+- packages.jsonを作成
+- 実際にパッケージ管理してみよう
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## NPM（Node Package Manager）
+
+『npm is the package manager for JavaScript and the world’s largest software registry. Discover packages of reusable code — and assemble them in powerful new ways.』
+（[npm公式より）](https://www.npmjs.com/)
+</section>
+
+<section layout="cover" type="text/x-markdown">
+## 試しにnpmのバージョンを確認してみましょう！
+
+# $ npm -v
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- npmについて
+- __packages.jsonを作成__  <= 今ココ
+- 実際にパッケージ管理してみよう
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- npmについて
+- packages.jsonを作成
+- __実際にパッケージ管理してみよう__  <= 今ココ
+</section>
+
+<script layout="code" type="text/x-markdown">
+## コード例
+</script>
+
+<script layout="code" type="text/x-markdown">
+## namespace（コントローラ）
+
+```php
+<?php
+namespace App\Controllers;
+
+use CodeIgniter\Controller;
+use App\Models\EventsModel;
+
+class Events extends Controller{}
+```
+</script>
+
+<script layout="code" type="text/x-markdown">
+## namespace（モデル）
+
+```php
+<?php
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class EventsModel extends Model{}
+
+```
+</script>
+
+
+<script layout="code" type="text/x-markdown">
+## モデルの読み込み（v3）
+
+```php
+$model = $this->load->model('evnts_model');
+
+```
+</script>
+
+<script layout="code" type="text/x-markdown">
+## モデルの読み込み（v4）
+
+```php
+$model = new EventsModel();
+
+```
+</script>
+
+<script layout="code" type="text/x-markdown">
+## viewのコール（v3）
+
+```php
+$this->load->view('evnts', $data);
+
+// smartyを利用している場合
+$this->_assign('data', $data);
+$this->_view('events.tpl');
+
+```
+</script>
+
+<script layout="code" type="text/x-markdown">
+## viewのコール（v4）
+
+```php
+return view('evnts', $data);
+// または
+echo view('events', $data);
+
+```
+</script>
+
+<script layout="code" type="text/x-markdown">
+## CRUDメソッド（検索系）
+
+```php
+$users = $UserModel->find($user_id);
+$users = $UserModel->findAll();
+$users = $userModel->findWhere([
+        'status'  => 'active',
+        'deleted' => 0
+]);
+
+```
+</script>
+
+<script layout="code" type="text/x-markdown">
+## CRUDメソッド（保存系）
+
+```php
+$data = [
+    'username' => 'ダース',
+    'email'    => 'd.vader@theempire.com'
+];
+
+$userModel->insert($data);
+$userModel->update($id, $data);
+$userModel->save($data);
+```
+</script>
+
+<script layout="code" type="text/x-markdown">
+## CRUDメソッド（削除系）
+
+```php
+$userModel->delete(12);
+$userModel->deleteWhere([
+        'status' => 'inactive',
+        'warn_lvl >=' => 50
+]);
+```
+</script>
+
+<script layout="cover" type="text/x-markdown">
+# ※注意
+# CodeIgniter4は、PHP7じゃないと動作しません
+</script>
+
+<script layout="cover" type="text/x-markdown">
+# 今回は簡単なwebアプリを作ってみました
+
+プログラム↓（※まだ開発途中）<br>
+https://github.com/k-kuwahara/event_manage/tree/ci4
+</script>
+
+<script layout="cover" type="text/x-markdown">
+# 現時点でも簡単なwebアプリならば作れるところまで開発が進んでいます
+</script>
+
+<script layout="cover" type="text/x-markdown">
+# とは言え、まだ「devlopment」ですので地雷はあります（笑）
+<p class="text-right">
+  migrationが動かないとか…<br>
+  バリデーションのエラーハンドリングとか…
+</p>
+</script>
+
+<script layout="cover" type="text/x-markdown">
+# リリース（と言われている）今年の4月を楽しみに待ちましょう♪
+</script>
+
+<script layout="cover" type="text/x-markdown">
+# ご清聴ありがとう<br>ございました！
+</script>
+
+
+  <script src="../../../talkiejs/talkie.min.js"></script>
+  <script>
+  var talkie = Talkie({wide: false});
+  document.addEventListener('DOMContentLoaded', function() {
+    var slides = Array.prototype.slice.call(document.querySelectorAll('[layout]'));
+    talkie.changed.onValue(function(current) {
+      console.clear();
+      // print presenter notes
+      console.info(talkie.notes[current.getAttribute('page')]);
+    });
+  });
+  </script>
+  </body>
+</html>
