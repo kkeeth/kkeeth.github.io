@@ -79,24 +79,27 @@ var my_info = {
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
-# $ npm -v
+# npm -v
 npmのバージョンが出力されたかと思います。<br>
 （ちなみに私は`4.2.0`でした）
 </section>
 
-<section layout="title-invert" type="text/x-markdown">
-## では、本格的にnpmの使い方に入っていきましょう！
+<section layout="cover" type="text/x-markdown">
+## では、本格的にnpmの使い方を見ていきましょう！
 </section>
 
-<section layout="code" type="text/x-markdown">
+<section layout="code invert" type="text/x-markdown">
 ## npmの基本コマンド
 
-```javascript
-$ npm install
-$ npm uninstall
-$ npm update
-$ npm list
+```shell
+・ npm install
+・ npm uninstall
+・ npm update
+・ npm list
+・ npm search
 ```
+
+日常で使うのはこの5つだと思います(ﾟ∀ﾟ)
 
 </section>
 
@@ -114,134 +117,12 @@ $ npm list
 - __実際にパッケージ管理してみよう__  <= 今ココ
 </section>
 
-<script layout="code" type="text/x-markdown">
-## namespace（モデル）
-
-```php
-<?php
-namespace App\Models;
-
-use CodeIgniter\Model;
-
-class EventsModel extends Model{}
-
-```
-</script>
-
-
-<script layout="code" type="text/x-markdown">
-## モデルの読み込み（v3）
-
-```php
-$model = $this->load->model('evnts_model');
-
-```
-</script>
-
-<script layout="code" type="text/x-markdown">
-## モデルの読み込み（v4）
-
-```php
-$model = new EventsModel();
-
-```
-</script>
-
-<script layout="code" type="text/x-markdown">
-## viewのコール（v3）
-
-```php
-$this->load->view('evnts', $data);
-
-// smartyを利用している場合
-$this->_assign('data', $data);
-$this->_view('events.tpl');
-
-```
-</script>
-
-<script layout="code" type="text/x-markdown">
-## viewのコール（v4）
-
-```php
-return view('evnts', $data);
-// または
-echo view('events', $data);
-
-```
-</script>
-
-<script layout="code" type="text/x-markdown">
-## CRUDメソッド（検索系）
-
-```php
-$users = $UserModel->find($user_id);
-$users = $UserModel->findAll();
-$users = $userModel->findWhere([
-        'status'  => 'active',
-        'deleted' => 0
-]);
-
-```
-</script>
-
-<script layout="code" type="text/x-markdown">
-## CRUDメソッド（保存系）
-
-```php
-$data = [
-    'username' => 'ダース',
-    'email'    => 'd.vader@theempire.com'
-];
-
-$userModel->insert($data);
-$userModel->update($id, $data);
-$userModel->save($data);
-```
-</script>
-
-<script layout="code" type="text/x-markdown">
-## CRUDメソッド（削除系）
-
-```php
-$userModel->delete(12);
-$userModel->deleteWhere([
-        'status' => 'inactive',
-        'warn_lvl >=' => 50
-]);
-```
+<script layout="cover" type="text/x-markdown">
+# 次回はES6（ES2015）についてです！
 </script>
 
 <script layout="cover" type="text/x-markdown">
-# ※注意
-# CodeIgniter4は、PHP7じゃないと動作しません
-</script>
-
-<script layout="cover" type="text/x-markdown">
-# 今回は簡単なwebアプリを作ってみました
-
-プログラム↓（※まだ開発途中）<br>
-https://github.com/k-kuwahara/event_manage/tree/ci4
-</script>
-
-<script layout="cover" type="text/x-markdown">
-# 現時点でも簡単なwebアプリならば作れるところまで開発が進んでいます
-</script>
-
-<script layout="cover" type="text/x-markdown">
-# とは言え、まだ「devlopment」ですので地雷はあります（笑）
-<p class="text-right">
-  migrationが動かないとか…<br>
-  バリデーションのエラーハンドリングとか…
-</p>
-</script>
-
-<script layout="cover" type="text/x-markdown">
-# リリース（と言われている）今年の4月を楽しみに待ちましょう♪
-</script>
-
-<script layout="cover" type="text/x-markdown">
-# ご清聴ありがとう<br>ございました！
+# お疲れ様でした！
 </script>
 
 
