@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="../../../talkiejs/talkie.min.css">
     <link rel="stylesheet" href="../../../talkiejs/talkie-default.min.css">
     <link rel="stylesheet" href="../../../talkiejs/style.css">
+    <link rel="stylesheet" href="../../../talkiejs/font-awesome.min.css">
     <link rel="shortcut icon" href="../../../assets/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/solarized-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
@@ -37,8 +38,8 @@ var my_info = {
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
-## 　　まだ => [__install_nodejs()__](https://nodejs.org/ja/)
-## 入ってる => __next_page()__
+## 　　まだ => [__install_nodejs__()](https://nodejs.org/ja/)
+## 入ってる => [__next_page()__](#5)
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
@@ -60,7 +61,7 @@ var my_info = {
 
 <section layout="bullets" type="text/x-markdown">
 ## 今回のアジェンダ
-- __npmについて__ <= 今ココ
+- __npmについて__ <= イマココ
 - packages.jsonを作成
 - 実際にパッケージ管理してみよう
 </section>
@@ -72,10 +73,31 @@ var my_info = {
 （[npm公式より）](https://www.npmjs.com/)
 </section>
 
-<section layout="cover" type="text/x-markdown">
-## 試しにnpmのバージョンを確認してみましょう！
+<section layout="title-invert" type="text/x-markdown">
+## <span class="assert">npmも一つのコマンド</span>です。
+## 試しにnpmコマンドを実行してみましょう！
+</section>
 
+<section layout="title-invert" type="text/x-markdown">
 # $ npm -v
+npmのバージョンが出力されたかと思います。<br>
+（ちなみに私は`4.2.0`でした）
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## では、本格的にnpmの使い方に入っていきましょう！
+</section>
+
+<section layout="code" type="text/x-markdown">
+## npmの基本コマンド
+
+```javascript
+$ npm install
+$ npm uninstall
+$ npm update
+$ npm list
+```
+
 </section>
 
 <section layout="bullets" type="text/x-markdown">
@@ -91,21 +113,6 @@ var my_info = {
 - packages.jsonを作成
 - __実際にパッケージ管理してみよう__  <= 今ココ
 </section>
-
-
-<script layout="code" type="text/x-markdown">
-## namespace（コントローラ）
-
-```php
-<?php
-namespace App\Controllers;
-
-use CodeIgniter\Controller;
-use App\Models\EventsModel;
-
-class Events extends Controller{}
-```
-</script>
 
 <script layout="code" type="text/x-markdown">
 ## namespace（モデル）
