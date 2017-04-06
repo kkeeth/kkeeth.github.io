@@ -25,11 +25,17 @@
 	</div>
 
 	<script>
+		import './lang-change.tag'
 		import util_mixin from '../util-mixin.js'
 		const self = this
 
 		self.paths = util_mixin.paths
+		self.current_page = ''
 		self.mixin(util_mixin)
+
+		riot_control.on('init', (obj) => {
+			self.current_page = obj.page
+		})
 
 	</script>
 </menu-list>

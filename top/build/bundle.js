@@ -2822,7 +2822,33 @@ Object.defineProperty(exports, '__esModule', { value: true });
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(riot) {function MyStore() {
+var RiotControl = {
+  _stores: [],
+  addStore: function(store) {
+    this._stores.push(store);
+  },
+  reset: function() {
+    this._stores = [];
+  }
+};
+
+['on','one','off','trigger'].forEach(function(api){
+  RiotControl[api] = function() {
+    var args = [].slice.call(arguments);
+    this._stores.forEach(function(el){
+      el[api].apply(el, args);
+    });
+  };
+});
+
+if (true) module.exports = RiotControl;
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(riot) {function My_store() {
 	riot.observable(this)
 
 	var self = this
@@ -2830,21 +2856,37 @@ Object.defineProperty(exports, '__esModule', { value: true });
 	var current_page = '/'
 	var current_lang = 'ja'
 
-	return {
-		set_current_page: function (page) { return self.current_page = page; },
-		set_current_lang: function (lang) { return self.current_lang = lang; }
-	}
+	self.on('init_page', function () {
+		self.trigger('init', {
+			lang: current_lang,
+			page: current_page
+		})
+	})
+
+	self.on('set_page', function (page) {
+		self.current_page = page
+	})
+
+	self.on('set_lang', function (lang) {
+		self.current_lang = lang
+		self.trigger('chagne_lang')
+	})
+
+	self.on('toggle_menu', function () {
+		self.menu_open = !self.menu_open
+		self.trigger('chagne_lang')
+	})
 }
 
-module.exports = new MyStore()
+module.exports = new My_store()
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__header_tag__ = __webpack_require__(7);
+/* WEBPACK VAR INJECTION */(function(riot_control) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__header_tag__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__main_tag__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__main_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__main_tag__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__footer_tag__ = __webpack_require__(6);
@@ -2859,18 +2901,23 @@ riot.tag2('app',
   '<header></header> <main></main> <footer></footer>',
   '',
   '', function(opts) {
+
+this.on('before-mount', function () {
+	riot_control.trigger('init_page');
 });
-    
+});
+
   if (false) {
     module.hot.accept()
     if (module.hot.data) {
       riot.reload('app')
     }
   }
-  
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (global, factory) {
@@ -2935,42 +2982,16 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var RiotControl = {
-  _stores: [],
-  addStore: function(store) {
-    this._stores.push(store);
-  },
-  reset: function() {
-    this._stores = [];
-  }
-};
-
-['on','one','off','trigger'].forEach(function(api){
-  RiotControl[api] = function() {
-    var args = [].slice.call(arguments);
-    this._stores.forEach(function(el){
-      el[api].apply(el, args);
-    });
-  };
-});
-
-if (true) module.exports = RiotControl;
-
-
-/***/ }),
 /* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(riot_control, riot) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_riot_hot_reload__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_riot_hot_reload__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_riot_hot_reload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_riot_hot_reload__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__my_store_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__my_store_js__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__my_store_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__my_store_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tag_app_tag__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tag_app_tag__ = __webpack_require__(3);
 
 
 
@@ -2978,159 +2999,128 @@ if (true) module.exports = RiotControl;
 riot_control.addStore(__WEBPACK_IMPORTED_MODULE_1__my_store_js___default.a)
 riot.mount('*')
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4), __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1), __webpack_require__(0)))
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
+/* WEBPACK VAR INJECTION */(function(riot_control) {
     var riot = __webpack_require__(0)
     //src: tag/footer.tag
+riot.tag2('footer',
+  '',
+  '',
+  '', function(opts) {
+riot_control.on('change_lang', function () { return self.update(); });
+});
 
-    
   if (false) {
     module.hot.accept()
     if (module.hot.data) {
-      
+      riot.reload('footer')
     }
   }
-  
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lang_change_tag__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lang_change_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__lang_change_tag__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__menu_list_tag__ = __webpack_require__(10);
+/* WEBPACK VAR INJECTION */(function(riot_control) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__menu_list_tag__ = __webpack_require__(10);
 
     var riot = __webpack_require__(0)
     //src: tag/header.tag
-
 
 riot.tag2('header',
   '<div class="columns header-container"> <div id="main-logo" class=""> <a href="/"> <img src="top/img/logo.png"> </a> </div> <div id="menu-section"> <menu-list></menu-list> </div> </div>',
   '',
   '', function(opts) {
-var _this = this;
-
 var self = this;
-this.loaded = false;
-this.menu_sp_overlay = false;
-this.menu_active = false;
-this.mode = false;
-this.current_page = '';
 
-self.on("mount", function () {
-
-	// riot_control.on(i.ActionTypes.PAGE_CHANGED, () => {
-	// 	self.current_page = i.data.current_page
-	// 	i.data.menu_open = false
-	// 	self.menu_sp_overlay = false
-	// 	self.menu_active = false
-	// 	self.update()
-	// })
-
-	// riot_control.on(r.ON_MENU_CLOSE, () => {
-	// 	self.menu_active = false
-	// 	setTimeout(() => {
-	// 		self.menu_sp_overlay = false
-	// 		self.update()
-	// 	}, 100)
-	// 	self.update()
-	// })
-
-	// riot_control.on(r.WINDOW_ON_SCROLL, () => {
-	// 	self.loaded = false
-	// 	self.update()
-	// })
-
-	// riot_control.on(r.WINDOW_ON_SCROLL_TOP, () => {
-	// 	self.loaded = true
-	// 	self.update()
-	// })
-
-	// riot_control.on(r.ON_MOUSE_AT_TOP, () => {
-	// 	self.loaded = true,
-	// 	self.update()
-	// })
-
-	// riot_control.on(r.ON_CATEGORY_SP_OPEN, () => {
-	// 	i.data.menu_open = true,
-	// 	self.categoryMode = true,
-	// 	self.menu_sp_overlay = true,
-	// 	self.menu_active = true,
-	// 	self.update()
-	// })
+riot_control.on('change_lang', function () { return self.update(); });
 });
 
-this.update_page = function () {
-	_this.current_page = "";
-};
-});
-    
   if (false) {
     module.hot.accept()
     if (module.hot.data) {
       riot.reload('header')
     }
   }
-  
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
+/* WEBPACK VAR INJECTION */(function(riot_control) {
     var riot = __webpack_require__(0)
     //src: tag/lang-change.tag
 riot.tag2('lang-change',
-  '<div> <span onclick="{parent.toggle_lang(\'ja\')}" class="btn translation {current-language: lang == \'ja\'}">JP</span> <span class="hide btn translation disabled">/</span> <span onclick="{parent.toggle_lang(\'en\')}" class="btn translation {current-language: lang == \'en\'}">EN</span> </div>',
-  '',
+  '<div> <span onclick="{set_lang}" class="btn translation" data-val="ja">JP</span> <span class="hide btn translation">/</span> <span onclick="{set_lang}" class="btn translation" data-val="en">EN</span> </div>',
+  'lang-change div,[data-is="lang-change"] div{ margin-top: 10px; text-align: center; } lang-change span,[data-is="lang-change"] span{ padding: 0 10px; } lang-change span:hover,[data-is="lang-change"] span:hover{ background-color: #008080; cursor: pointer; }',
   '', function(opts) {
+var self = this;
+self.lang = '';
+
+function set_lang() {
+	console.info(this);
+	riot_control.trigger('set_lang', 'ja');
+}
+
+riot_control.on('init', function (obj) {
+	self.lang = obj.lang;
 });
-    
+});
+
   if (false) {
     module.hot.accept()
     if (module.hot.data) {
       riot.reload('lang-change')
     }
   }
-  
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
+/* WEBPACK VAR INJECTION */(function(riot_control) {
     var riot = __webpack_require__(0)
     //src: tag/main.tag
 riot.tag2('main',
   '<div id="container"> <h1>hoge</h1> </div>',
   '',
   '', function(opts) {
+riot_control.on('change_lang', function () { return self.update(); });
 });
-    
+
   if (false) {
     module.hot.accept()
     if (module.hot.data) {
       riot.reload('main')
     }
   }
-  
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_mixin_js__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_mixin_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__util_mixin_js__);
+/* WEBPACK VAR INJECTION */(function(riot_control) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lang_change_tag__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lang_change_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__lang_change_tag__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_mixin_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_mixin_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__util_mixin_js__);
 
     var riot = __webpack_require__(0)
     //src: tag/menu-list.tag
+
 
 riot.tag2('menu-list',
   '<button type="button" class="hamburger hamburger--squeeze" onclick="{toggle_menu}"> <span class="hamburger-box"> <span class="hamburger-inner"></span> </span> </button> <div id="nav-list" class=""> <a href="{paths.index}"> <button class="{current-page:current_page == paths.index} btn">HOME</button> </a> <a href="{paths.about}"> <button class="{current-page:current_page == paths.index} btn">ABOUT</button> </a> <a href="{paths.skill}"> <button class="{current-page:current_page == paths.skill} btn">SKILL</button> </a> <a href="{paths.links}"> <button class="{current-page:current_page == paths.links} btn">LINKS</button> </a> <a href="{paths.development}"> <button class="{current-page:current_page == paths.development} btn">DEVELOPMENT</button> </a> <lang-change></lang-change> </div>',
@@ -3138,17 +3128,23 @@ riot.tag2('menu-list',
   '', function(opts) {
 var self = this;
 
-self.paths = __WEBPACK_IMPORTED_MODULE_0__util_mixin_js___default.a.paths;
-self.mixin(__WEBPACK_IMPORTED_MODULE_0__util_mixin_js___default.a);
+self.paths = __WEBPACK_IMPORTED_MODULE_1__util_mixin_js___default.a.paths;
+self.current_page = '';
+self.mixin(__WEBPACK_IMPORTED_MODULE_1__util_mixin_js___default.a);
+
+riot_control.on('init', function (obj) {
+	self.current_page = obj.page;
 });
-    
+});
+
   if (false) {
     module.hot.accept()
     if (module.hot.data) {
       riot.reload('menu-list')
     }
   }
-  
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
 /* 11 */
