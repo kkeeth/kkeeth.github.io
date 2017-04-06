@@ -1,6 +1,7 @@
 const path    = require('path'),
       webpack = require('webpack'),
-      ExtractTextPlugin = require('extract-text-webpack-plugin')
+      ExtractTextPlugin = require('extract-text-webpack-plugin'),
+      autoprefixer = require('autoprefixer')
 
 module.exports = [
    {
@@ -55,7 +56,7 @@ module.exports = [
             {
                test: /\.css$/,
                enforce: 'post',
-               use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' })
+               use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader!postcss-loader' })
             },
             {
                test: /\.scss$/,
@@ -65,7 +66,16 @@ module.exports = [
          ]
       },
       plugins: [
-         new ExtractTextPlugin("style.css")
+         new ExtractTextPlugin("style.css"),
+         new webpack.LoaderOptionsPlugin({
+            options: {
+               postcss: [
+                  require('autoprefixer')({
+                     browsers: ['last 2 versions']
+                  })
+               ]
+            }
+         })
       ]
    }
 ]
