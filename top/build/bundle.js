@@ -2906,14 +2906,14 @@ this.on('before-mount', function () {
 	riot_control.trigger('init_page');
 });
 });
-
+    
   if (false) {
     module.hot.accept()
     if (module.hot.data) {
       riot.reload('app')
     }
   }
-
+  
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
@@ -3014,14 +3014,14 @@ riot.tag2('footer',
   '', function(opts) {
 riot_control.on('change_lang', function () { return self.update(); });
 });
-
+    
   if (false) {
     module.hot.accept()
     if (module.hot.data) {
       riot.reload('footer')
     }
   }
-
+  
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
@@ -3042,14 +3042,14 @@ var self = this;
 
 riot_control.on('change_lang', function () { return self.update(); });
 });
-
+    
   if (false) {
     module.hot.accept()
     if (module.hot.data) {
       riot.reload('header')
     }
   }
-
+  
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
@@ -3075,14 +3075,14 @@ riot_control.on('init', function (obj) {
 	self.lang = obj.lang;
 });
 });
-
+    
   if (false) {
     module.hot.accept()
     if (module.hot.data) {
       riot.reload('lang-change')
     }
   }
-
+  
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
@@ -3098,14 +3098,14 @@ riot.tag2('main',
   '', function(opts) {
 riot_control.on('change_lang', function () { return self.update(); });
 });
-
+    
   if (false) {
     module.hot.accept()
     if (module.hot.data) {
       riot.reload('main')
     }
   }
-
+  
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
@@ -3123,8 +3123,8 @@ riot_control.on('change_lang', function () { return self.update(); });
 
 
 riot.tag2('menu-list',
-  '<button type="button" class="hamburger hamburger--squeeze" onclick="{toggle_menu}"> <span class="hamburger-box"> <span class="hamburger-inner"></span> </span> </button> <div id="nav-list" class=""> <a href="{paths.index}"> <button class="{current-page:current_page == paths.index} btn">HOME</button> </a> <a href="{paths.about}"> <button class="{current-page:current_page == paths.index} btn">ABOUT</button> </a> <a href="{paths.skill}"> <button class="{current-page:current_page == paths.skill} btn">SKILL</button> </a> <a href="{paths.links}"> <button class="{current-page:current_page == paths.links} btn">LINKS</button> </a> <a href="{paths.development}"> <button class="{current-page:current_page == paths.development} btn">DEVELOPMENT</button> </a> <lang-change></lang-change> </div>',
-  '',
+  '<button type="button" class="hamburger hamburger--squeeze" onclick="{toggle_menu}"> <span class="hamburger-box"> <span class="hamburger-inner"></span> </span> </button> <div id="nav-list" class=""> <div> <a href="{paths.index}"> <button class="{current-page:current_page == paths.index} btn">HOME</button> </a> </div> <div> <a href="{paths.about}"> <button class="{current-page:current_page == paths.index} btn">ABOUT</button> </a> </div> <div> <a href="{paths.skill}"> <button class="{current-page:current_page == paths.skill} btn">SKILL</button> </a> </div> <div> <a href="{paths.links}"> <button class="{current-page:current_page == paths.links} btn">LINKS</button> </a> </div> <div> <a href="{paths.development}"> <button class="{current-page:current_page == paths.development} btn">DEVELOPMENT</button> </a> </div> <lang-change></lang-change> </div>',
+  'menu-list #nav-list div,[data-is="menu-list"] #nav-list div{ text-align: center; }',
   '', function(opts) {
 var self = this;
 
@@ -3136,14 +3136,14 @@ riot_control.on('init', function (obj) {
 	self.current_page = obj.page;
 });
 });
-
+    
   if (false) {
     module.hot.accept()
     if (module.hot.data) {
       riot.reload('menu-list')
     }
   }
-
+  
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
