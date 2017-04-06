@@ -1,7 +1,7 @@
 <lang-change>
 	<div>
 		<span onclick="{ set_lang }" class="btn translation" data-val="ja">JP</span>
-		<span class="hide btn translation">/</span>
+		<span class="translation">/</span>
 		<span onclick="{ set_lang }" class="btn translation" data-val="en">EN</span>
 	</div>
 
@@ -25,10 +25,10 @@
 			margin-top: 10px;
 			text-align: center;
 		}
-		span {
+		span.btn {
 			padding: 0 10px;
 		}
-		span:hover {
+		span.btn:hover {
 			background-color: #008080;
 			cursor: pointer;
 		}

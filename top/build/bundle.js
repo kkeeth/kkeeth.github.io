@@ -3060,8 +3060,8 @@ riot_control.on('change_lang', function () { return self.update(); });
     var riot = __webpack_require__(0)
     //src: tag/lang-change.tag
 riot.tag2('lang-change',
-  '<div> <span onclick="{set_lang}" class="btn translation" data-val="ja">JP</span> <span class="hide btn translation">/</span> <span onclick="{set_lang}" class="btn translation" data-val="en">EN</span> </div>',
-  'lang-change div,[data-is="lang-change"] div{ margin-top: 10px; text-align: center; } lang-change span,[data-is="lang-change"] span{ padding: 0 10px; } lang-change span:hover,[data-is="lang-change"] span:hover{ background-color: #008080; cursor: pointer; }',
+  '<div> <span onclick="{set_lang}" class="btn translation" data-val="ja">JP</span> <span class="translation">/</span> <span onclick="{set_lang}" class="btn translation" data-val="en">EN</span> </div>',
+  'lang-change div,[data-is="lang-change"] div{ margin-top: 10px; text-align: center; } lang-change span.btn,[data-is="lang-change"] span.btn{ padding: 0 10px; } lang-change span.btn:hover,[data-is="lang-change"] span.btn:hover{ background-color: #008080; cursor: pointer; }',
   '', function(opts) {
 var self = this;
 self.lang = '';
