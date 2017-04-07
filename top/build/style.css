@@ -755,7 +755,7 @@ header {
       position: fixed;
       left: 0;
       top: 0;
-      width: 10rem;
+      width: 9rem;
       height: 100%; }
       header .hamburger {
         display: none; }
@@ -780,6 +780,9 @@ main {
   text-align: center;
   color: #666;
   margin-top: 2rem; }
+  @media (min-width: 781px) {
+    main {
+      margin-left: 12rem; } }
   main #container {
     background-color: #fff;
     padding: 2rem;

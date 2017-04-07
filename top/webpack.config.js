@@ -16,14 +16,7 @@ module.exports = [
                test: /\.tag$/,
                enforce: 'pre',
                exclude: /node_modules/,
-               use: {
-                  loader: 'riot-tag-loader',
-                  options: {
-                     type: 'es6',
-                     hot: true,
-                     debug: true
-                  }
-               }
+               use: ['riot-tag-loader']
             },
             {
                test: /\.js|\.tag$/,

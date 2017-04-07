@@ -9,7 +9,7 @@
 		let self = this
 		self.lang = ''
 
-		function set_lang() {
+		set_lang() {
 			console.info(this)
 			riot_control.trigger('set_lang', 'ja')
 		}

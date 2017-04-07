@@ -43,6 +43,10 @@
 		self.current_page = ''
 		self.mixin(util_mixin)
 
+		toggle_menu(e) {
+			console.info(this)
+		}
+
 		riot_control.on('init', (obj) => {
 			self.current_page = obj.page
 		})

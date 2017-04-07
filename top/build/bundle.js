@@ -2893,26 +2893,16 @@ module.exports = new My_store()
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__footer_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__footer_tag__);
 
     var riot = __webpack_require__(0)
-    //src: tag/app.tag
+    
 
 
+riot.tag2('app', '<header></header> <main></main> <footer></footer>', '', '', function(opts) {
 
-riot.tag2('app',
-  '<header></header> <main></main> <footer></footer>',
-  '',
-  '', function(opts) {
-
-this.on('before-mount', function () {
-	riot_control.trigger('init_page');
-});
+		this.on('before-mount', function () {
+			riot_control.trigger('init_page')
+		})
 });
     
-  if (false) {
-    module.hot.accept()
-    if (module.hot.data) {
-      riot.reload('app')
-    }
-  }
   
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
@@ -3007,20 +2997,10 @@ riot.mount('*')
 
 /* WEBPACK VAR INJECTION */(function(riot_control) {
     var riot = __webpack_require__(0)
-    //src: tag/footer.tag
-riot.tag2('footer',
-  '',
-  '',
-  '', function(opts) {
-riot_control.on('change_lang', function () { return self.update(); });
+    riot.tag2('footer', '', '', '', function(opts) {
+		riot_control.on('change_lang', function () { return self.update(); })
 });
     
-  if (false) {
-    module.hot.accept()
-    if (module.hot.data) {
-      riot.reload('footer')
-    }
-  }
   
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
@@ -3032,23 +3012,13 @@ riot_control.on('change_lang', function () { return self.update(); });
 /* WEBPACK VAR INJECTION */(function(riot_control) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__menu_list_tag__ = __webpack_require__(10);
 
     var riot = __webpack_require__(0)
-    //src: tag/header.tag
+    
+riot.tag2('header', '<div class="columns header-container"> <div id="main-logo" class=""> <a href="/"> <img src="top/img/logo.png"> </a> </div> <div id="menu-section"> <menu-list></menu-list> </div> </div>', '', '', function(opts) {
+		var self = this
 
-riot.tag2('header',
-  '<div class="columns header-container"> <div id="main-logo" class=""> <a href="/"> <img src="top/img/logo.png"> </a> </div> <div id="menu-section"> <menu-list></menu-list> </div> </div>',
-  '',
-  '', function(opts) {
-var self = this;
-
-riot_control.on('change_lang', function () { return self.update(); });
+		riot_control.on('change_lang', function () { return self.update(); })
 });
     
-  if (false) {
-    module.hot.accept()
-    if (module.hot.data) {
-      riot.reload('header')
-    }
-  }
   
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
@@ -3058,30 +3028,21 @@ riot_control.on('change_lang', function () { return self.update(); });
 
 /* WEBPACK VAR INJECTION */(function(riot_control) {
     var riot = __webpack_require__(0)
-    //src: tag/lang-change.tag
-riot.tag2('lang-change',
-  '<div> <span onclick="{set_lang}" class="btn translation" data-val="ja">JP</span> <span class="translation">/</span> <span onclick="{set_lang}" class="btn translation" data-val="en">EN</span> </div>',
-  'lang-change div,[data-is="lang-change"] div{ margin-top: 10px; text-align: center; } lang-change span.btn,[data-is="lang-change"] span.btn{ padding: 0 10px; } lang-change span.btn:hover,[data-is="lang-change"] span.btn:hover{ background-color: #008080; cursor: pointer; }',
-  '', function(opts) {
-var self = this;
-self.lang = '';
+    riot.tag2('lang-change', '<div> <span onclick="{set_lang}" class="btn translation" data-val="ja">JP</span> <span class="translation">/</span> <span onclick="{set_lang}" class="btn translation" data-val="en">EN</span> </div>', 'lang-change div,[data-is="lang-change"] div{ margin-top: 10px; text-align: center; } lang-change span.btn,[data-is="lang-change"] span.btn{ padding: 0 10px; } lang-change span.btn:hover,[data-is="lang-change"] span.btn:hover{ background-color: #008080; cursor: pointer; }', '', function(opts) {
+		var self = this
+		self.lang = ''
 
-function set_lang() {
-	console.info(this);
-	riot_control.trigger('set_lang', 'ja');
-}
+		function set_lang() {
+			console.info(this)
+			riot_control.trigger('set_lang', 'ja')
+		}
 
-riot_control.on('init', function (obj) {
-	self.lang = obj.lang;
-});
+		riot_control.on('init', function (obj) {
+			self.lang = obj.lang
+		})
+
 });
     
-  if (false) {
-    module.hot.accept()
-    if (module.hot.data) {
-      riot.reload('lang-change')
-    }
-  }
   
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
@@ -3091,20 +3052,14 @@ riot_control.on('init', function (obj) {
 
 /* WEBPACK VAR INJECTION */(function(riot_control) {
     var riot = __webpack_require__(0)
-    //src: tag/main.tag
-riot.tag2('main',
-  '<div id="container"> <h1>hoge</h1> </div>',
-  '',
-  '', function(opts) {
-riot_control.on('change_lang', function () { return self.update(); });
+    riot.tag2('main', '<div id="container"> <h1>hoge</h1> </div>', '', '', function(opts) {
+
+		this.on('mount', function () {
+		})
+
+		riot_control.on('change_lang', function () { return self.update(); })
 });
     
-  if (false) {
-    module.hot.accept()
-    if (module.hot.data) {
-      riot.reload('main')
-    }
-  }
   
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
@@ -3119,30 +3074,24 @@ riot_control.on('change_lang', function () { return self.update(); });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_mixin_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__util_mixin_js__);
 
     var riot = __webpack_require__(0)
-    //src: tag/menu-list.tag
+    
 
+riot.tag2('menu-list', '<button type="button" class="hamburger hamburger--squeeze" onclick="{toggle_menu}"> <span class="hamburger-box"> <span class="hamburger-inner"></span> </span> </button> <div id="nav-list" class=""> <div> <a href="{paths.index}"> <button class="{current-page:current_page == paths.index} btn">HOME</button> </a> </div> <div> <a href="{paths.about}"> <button class="{current-page:current_page == paths.index} btn">ABOUT</button> </a> </div> <div> <a href="{paths.skill}"> <button class="{current-page:current_page == paths.skill} btn">SKILL</button> </a> </div> <div> <a href="{paths.links}"> <button class="{current-page:current_page == paths.links} btn">LINKS</button> </a> </div> <div> <a href="{paths.development}"> <button class="{current-page:current_page == paths.development} btn">DEVELOPMENT</button> </a> </div> <lang-change></lang-change> </div>', 'menu-list #nav-list div,[data-is="menu-list"] #nav-list div{ text-align: center; }', '', function(opts) {
+		var self = this
 
-riot.tag2('menu-list',
-  '<button type="button" class="hamburger hamburger--squeeze" onclick="{toggle_menu}"> <span class="hamburger-box"> <span class="hamburger-inner"></span> </span> </button> <div id="nav-list" class=""> <div> <a href="{paths.index}"> <button class="{current-page:current_page == paths.index} btn">HOME</button> </a> </div> <div> <a href="{paths.about}"> <button class="{current-page:current_page == paths.index} btn">ABOUT</button> </a> </div> <div> <a href="{paths.skill}"> <button class="{current-page:current_page == paths.skill} btn">SKILL</button> </a> </div> <div> <a href="{paths.links}"> <button class="{current-page:current_page == paths.links} btn">LINKS</button> </a> </div> <div> <a href="{paths.development}"> <button class="{current-page:current_page == paths.development} btn">DEVELOPMENT</button> </a> </div> <lang-change></lang-change> </div>',
-  'menu-list #nav-list div,[data-is="menu-list"] #nav-list div{ text-align: center; }',
-  '', function(opts) {
-var self = this;
+		self.paths = __WEBPACK_IMPORTED_MODULE_1__util_mixin_js___default.a.paths
+		self.current_page = ''
+		self.mixin(__WEBPACK_IMPORTED_MODULE_1__util_mixin_js___default.a)
 
-self.paths = __WEBPACK_IMPORTED_MODULE_1__util_mixin_js___default.a.paths;
-self.current_page = '';
-self.mixin(__WEBPACK_IMPORTED_MODULE_1__util_mixin_js___default.a);
+		this.toggle_menu = function(e) {
+			console.info(this)
+		}.bind(this)
 
-riot_control.on('init', function (obj) {
-	self.current_page = obj.page;
-});
+		riot_control.on('init', function (obj) {
+			self.current_page = obj.page
+		})
 });
     
-  if (false) {
-    module.hot.accept()
-    if (module.hot.data) {
-      riot.reload('menu-list')
-    }
-  }
   
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 

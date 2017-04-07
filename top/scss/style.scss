@@ -39,7 +39,7 @@ header {
 		position: fixed;
 		left: 0;
 		top: 0;
-		width: 10rem;
+		width: 9rem;
 		height: 100%;
 		.hamburger {
 			display: none;
@@ -84,6 +84,10 @@ main {
 	text-align: center;
 	color: #666;
 	margin-top: 2rem;
+
+	@media (min-width: 781px) {
+		margin-left: 12rem;
+	}
 
 	#container {
 		background-color: #fff;

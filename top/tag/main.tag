@@ -4,6 +4,10 @@
 	</div>
 
 	<script>
+
+		this.on('mount', () => {
+		})
+
 		riot_control.on('change_lang', () => self.update())
 	</script>
 </main>
