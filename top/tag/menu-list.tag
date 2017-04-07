@@ -31,20 +31,31 @@
 	<script>
 		import './lang-change.tag'
 		import util_mixin from '../util-mixin.js'
+		import route from 'riot-route'
 		const self = this
 
 		self.paths = util_mixin.paths
 		self.current_page = ''
 		self.mixin(util_mixin)
+		route.start(true)
 
 		riot_control.on('init', (obj) => {
 			self.current_page = obj.page
+		})
+
+		// ルーティング
+		route('/*', (item) => {
+			riot.mount('main')
 		})
 	</script>
 
 	<style scoped>
 		:scope #nav-list div {
 			text-align: center;
+		}
+		.btn {
+			color: #FFF;
+			font-weight: bold;
 		}
 	</style>
 </menu-list>

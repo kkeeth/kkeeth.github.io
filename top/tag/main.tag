@@ -5,8 +5,7 @@
 
 	<script>
 
-		this.on('mount', () => {
-		})
+		this.on('mount', () => {})
 
 		riot_control.on('change_lang', () => self.update())
 	</script>
