@@ -1,5 +1,3 @@
-@import "./hamburgers";
-
 /**
  * 共通スタイル
  */
@@ -20,9 +18,6 @@ a {
 header {
 	@media (max-width: 780px) {
 
-		.hamburger-box {
-		}
-
 		#main-logo {
 			text-align: center;
 			img {
@@ -41,9 +36,6 @@ header {
 		top: 0;
 		width: 9rem;
 		height: 100%;
-		.hamburger {
-			display: none;
-		}
 
 		#main-logo {
 			text-align: center;

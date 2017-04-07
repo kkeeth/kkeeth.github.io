@@ -1,10 +1,4 @@
 <menu-list>
-	<button type="button" class="hamburger hamburger--squeeze" onclick="{ toggle_menu }">
-		<span class="hamburger-box">
-			<span class="hamburger-inner"></span>
-		</span>
-	</button>
-
 	<div id="nav-list" class="">
 		<div>
 			<a href="{ paths.index }">
@@ -42,10 +36,6 @@
 		self.paths = util_mixin.paths
 		self.current_page = ''
 		self.mixin(util_mixin)
-
-		toggle_menu(e) {
-			console.info(this)
-		}
 
 		riot_control.on('init', (obj) => {
 			self.current_page = obj.page

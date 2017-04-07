@@ -3032,10 +3032,10 @@ riot.tag2('header', '<div class="columns header-container"> <div id="main-logo" 
 		var self = this
 		self.lang = ''
 
-		function set_lang() {
+		this.set_lang = function() {
 			console.info(this)
 			riot_control.trigger('set_lang', 'ja')
-		}
+		}.bind(this)
 
 		riot_control.on('init', function (obj) {
 			self.lang = obj.lang
@@ -3076,16 +3076,12 @@ riot.tag2('header', '<div class="columns header-container"> <div id="main-logo" 
     var riot = __webpack_require__(0)
     
 
-riot.tag2('menu-list', '<button type="button" class="hamburger hamburger--squeeze" onclick="{toggle_menu}"> <span class="hamburger-box"> <span class="hamburger-inner"></span> </span> </button> <div id="nav-list" class=""> <div> <a href="{paths.index}"> <button class="{current-page:current_page == paths.index} btn">HOME</button> </a> </div> <div> <a href="{paths.about}"> <button class="{current-page:current_page == paths.index} btn">ABOUT</button> </a> </div> <div> <a href="{paths.skill}"> <button class="{current-page:current_page == paths.skill} btn">SKILL</button> </a> </div> <div> <a href="{paths.links}"> <button class="{current-page:current_page == paths.links} btn">LINKS</button> </a> </div> <div> <a href="{paths.development}"> <button class="{current-page:current_page == paths.development} btn">DEVELOPMENT</button> </a> </div> <lang-change></lang-change> </div>', 'menu-list #nav-list div,[data-is="menu-list"] #nav-list div{ text-align: center; }', '', function(opts) {
+riot.tag2('menu-list', '<div id="nav-list" class=""> <div> <a href="{paths.index}"> <button class="{current-page:current_page == paths.index} btn">HOME</button> </a> </div> <div> <a href="{paths.about}"> <button class="{current-page:current_page == paths.index} btn">ABOUT</button> </a> </div> <div> <a href="{paths.skill}"> <button class="{current-page:current_page == paths.skill} btn">SKILL</button> </a> </div> <div> <a href="{paths.links}"> <button class="{current-page:current_page == paths.links} btn">LINKS</button> </a> </div> <div> <a href="{paths.development}"> <button class="{current-page:current_page == paths.development} btn">DEVELOPMENT</button> </a> </div> <lang-change></lang-change> </div>', 'menu-list #nav-list div,[data-is="menu-list"] #nav-list div{ text-align: center; }', '', function(opts) {
 		var self = this
 
 		self.paths = __WEBPACK_IMPORTED_MODULE_1__util_mixin_js___default.a.paths
 		self.current_page = ''
 		self.mixin(__WEBPACK_IMPORTED_MODULE_1__util_mixin_js___default.a)
-
-		this.toggle_menu = function(e) {
-			console.info(this)
-		}.bind(this)
 
 		riot_control.on('init', function (obj) {
 			self.current_page = obj.page
