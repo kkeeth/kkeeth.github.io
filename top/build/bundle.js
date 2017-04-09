@@ -2887,7 +2887,7 @@ module.exports = new My_store()
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(riot_control) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__header_tag__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__main_tag__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__main_tag__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__main_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__main_tag__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__footer_tag__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__footer_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__footer_tag__);
@@ -3009,8 +3009,7 @@ riot.mount('*')
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(riot_control) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__menu_list_tag__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__menu_list_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__menu_list_tag__);
+/* WEBPACK VAR INJECTION */(function(riot_control) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__menu_list_tag__ = __webpack_require__(10);
 
     var riot = __webpack_require__(0)
     
@@ -3029,6 +3028,30 @@ riot.tag2('header', '<div class="columns header-container"> <div id="main-logo" 
 
 /* WEBPACK VAR INJECTION */(function(riot_control) {
     var riot = __webpack_require__(0)
+    riot.tag2('lang-change', '<div> <span onclick="{set_lang}" class="btn translation" data-val="ja">JP</span> <span class="translation">/</span> <span onclick="{set_lang}" class="btn translation" data-val="en">EN</span> </div>', 'lang-change div,[data-is="lang-change"] div{ margin-top: 10px; text-align: center; } lang-change span.btn,[data-is="lang-change"] span.btn{ padding: 0 10px; } lang-change span.btn:hover,[data-is="lang-change"] span.btn:hover{ background-color: #008080; cursor: pointer; }', '', function(opts) {
+		var self = this
+		self.lang = ''
+
+		this.set_lang = function() {
+			console.info(this)
+			riot_control.trigger('set_lang', 'ja')
+		}.bind(this)
+
+		riot_control.on('init', function (obj) {
+			self.lang = obj.lang
+		})
+
+});
+    
+  
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(riot_control) {
+    var riot = __webpack_require__(0)
     riot.tag2('main', '<div id="container"> <h1>hoge</h1> </div>', '', '', function(opts) {
 
 		this.on('mount', function () {})
@@ -3040,11 +3063,11 @@ riot.tag2('header', '<div class="columns header-container"> <div id="main-logo" 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(riot_control) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lang_change_tag__ = __webpack_require__(10);
+/* WEBPACK VAR INJECTION */(function(riot_control) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lang_change_tag__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lang_change_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__lang_change_tag__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_mixin_js__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_mixin_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__util_mixin_js__);
@@ -3073,30 +3096,6 @@ riot.tag2('menu-list', '<div id="nav-list" class=""> <div> <a href="{paths.index
     
   
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(riot_control) {
-    var riot = __webpack_require__(0)
-    riot.tag2('lang-change', '<div> <span onclick="{set_lang}" class="btn translation" data-val="ja">JP</span> <span class="translation">/</span> <span onclick="{set_lang}" class="btn translation" data-val="en">EN</span> </div>', 'lang-change div,[data-is="lang-change"] div{ margin-top: 10px; text-align: center; } lang-change span.btn,[data-is="lang-change"] span.btn{ padding: 0 10px; } lang-change span.btn:hover,[data-is="lang-change"] span.btn:hover{ background-color: #008080; cursor: pointer; }', '', function(opts) {
-		var self = this
-		self.lang = ''
-
-		this.set_lang = function() {
-			console.info(this)
-			riot_control.trigger('set_lang', 'ja')
-		}.bind(this)
-
-		riot_control.on('init', function (obj) {
-			self.lang = obj.lang
-		})
-
-});
-    
-  
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 11 */

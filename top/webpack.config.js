@@ -47,19 +47,24 @@ module.exports = [
       module: {
          rules: [
             {
-               test: /\.css$/,
+               test: /\.(css|scss)$/,
                enforce: 'post',
-               use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader!postcss-loader' })
-            },
-            {
-               test: /\.scss$/,
-               enforce: 'post',
-               use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader!sass-loader' })
+               use: ExtractTextPlugin.extract({
+                  fallback: 'style-loader',
+                  use: [
+                     'css-loader',
+                     'sass-loader',
+                     'postcss-loader'
+                  ]
+               })
             }
          ]
       },
       plugins: [
-         new ExtractTextPlugin("style.css"),
+         new ExtractTextPlugin({
+            filename: 'style.css',
+            allChunks: true
+         }),
          new webpack.LoaderOptionsPlugin({
             options: {
                postcss: [
