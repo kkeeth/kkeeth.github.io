@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="../../../talkiejs/talkie.min.css">
     <link rel="stylesheet" href="../../../talkiejs/talkie-default.min.css">
     <link rel="stylesheet" href="../../../talkiejs/style.css">
-    <link rel="stylesheet" href="../../../talkiejs/font-awesome.min.css">
     <link rel="shortcut icon" href="../../../assets/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/monokai.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
@@ -280,11 +279,11 @@ npm search
   var talkie = Talkie({wide: false});
   document.addEventListener('DOMContentLoaded', function() {
     var slides = Array.prototype.slice.call(document.querySelectorAll('[layout]'));
-    talkie.changed.onValue(function(current) {
-      console.clear();
-      // print presenter notes
-      console.info(talkie.notes[current.getAttribute('page')]);
-    });
+    // talkie.changed.onValue(function(current) {
+    //   console.clear();
+    //   // print presenter notes
+    //   console.info(talkie.notes[current.getAttribute('page')]);
+    // });
   });
   </script>
   </body>
