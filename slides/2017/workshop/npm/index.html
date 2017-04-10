@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../../../talkiejs/style.css">
     <link rel="stylesheet" href="../../../talkiejs/font-awesome.min.css">
     <link rel="shortcut icon" href="../../../assets/favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/solarized-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/monokai.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
   </head>
   <body>
@@ -16,7 +16,7 @@
 ### 2017/04/28　@レプラホーン本社
 </template>
 
-<template layout="cover" type="text/x-markdown">
+<template layout="title" type="text/x-markdown">
 ## 自己紹介
 
 ```
@@ -61,9 +61,13 @@ var my_info = {
 
 <section layout="bullets" type="text/x-markdown">
 ## 今回のアジェンダ
-- __npmについて__ <= イマココ
+- __<span class="assert">npmについて</span>__　<= まずはココ
 - packages.jsonを作成
 - 実際にパッケージ管理してみよう
+</section>
+
+<section layout="code" type="text/x-markdown">
+# npmについて
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
@@ -84,7 +88,7 @@ npmのバージョンが出力されたかと思います。<br>
 （ちなみに私は`4.2.0`でした）
 </section>
 
-<section layout="cover" type="text/x-markdown">
+<section layout="title-invert" type="text/x-markdown">
 ## では、本格的にnpmの使い方を見ていきましょう！
 </section>
 
@@ -93,9 +97,9 @@ npmのバージョンが出力されたかと思います。<br>
 
 ```shell
 ・ npm install
+・ npm list
 ・ npm uninstall
 ・ npm update
-・ npm list
 ・ npm search
 ```
 
@@ -103,19 +107,120 @@ npmのバージョンが出力されたかと思います。<br>
 </section>
 
 <section layout="code" type="text/x-markdown">
-## パッケージのインストール
 
-```cmd
-npm install [--save|--save-dev|-g] <pkg>
-（省略形： npm i）
+```shell
+npm install [-g|--save|--save-dev] module
 ```
 
+### 意味：モジュールのインストール<br>（省略形： npm i）
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `[-g|--save|--save-dev]`の意味は？
+</section>
+
+<section layout="code" type="text/x-markdown">
+## こうです。
+
+```css
+ -g: グローバルでインストールするもの
+ --save: 実際のアプリ稼働時に利用するもの
+ --save-dev: 開発時に利用するもの
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 実際に`lite-server`というモジュールを<br>インストールしてみましょう♪
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+$ npm install -g lite-server
+```
+又は
+
+```shell
+$ npm i -g lite-server
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Next!!
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+npm list [-g|--depth=n] (module)
+```
+
+### 意味：インストールされたモジュールの一覧表示
+</section>
+
+<section layout="code" type="text/x-markdown">
+### `lite-server`がインストールされたか確認してみましょう！<br>以下のコマンドを実行して下さい♪
+
+```shell
+$ npm list -g [--depth=0]
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### では起動してみましょう！<br>以下のコマンドを実行して下さい♪
+
+```shell
+$ lite-server
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Next!!
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+npm uninstall [-g|--save|--save-dev] module
+```
+
+### 意味：モジュールの削除
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 先程インストールした`lite-server`を削除してみましょう！<br>以下のコマンドを実行して下さい♪
+
+```shell
+$ npm uninstall -g lite-server
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### `lite-server`が削除されたか確認してみましょう！
+
+```shell
+$ npm list -g [--depth=0]
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Next!!
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+npm update [-g|--save|--save-dev] module
+```
+
+### 意味：モジュールの削除
 </section>
 
 <section layout="bullets" type="text/x-markdown">
 ## 今回のアジェンダ
 - npmについて
-- __packages.jsonを作成__  <= 今ココ
+- __<span class="assert">packages.jsonを作成</span>__  <= 次はココ
 - 実際にパッケージ管理してみよう
 </section>
 
@@ -123,7 +228,7 @@ npm install [--save|--save-dev|-g] <pkg>
 ## 今回のアジェンダ
 - npmについて
 - packages.jsonを作成
-- __実際にパッケージ管理してみよう__  <= 今ココ
+- __<span class="assert">実際にパッケージ管理してみよう</span>__  <= 最後にココ
 </section>
 
 <script layout="cover" type="text/x-markdown">

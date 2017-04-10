@@ -11,6 +11,15 @@ code {
 span {
 	line-height: 1.8;
 }
+span.hljs-string {
+	color: #008080;
+}
+span.hljs-attribute {
+	color: #b58900;
+}
+span.hljs-reserved {
+	color: #f92672;
+}
 #blur {
 	color: #fff;
 }
