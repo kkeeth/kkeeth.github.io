@@ -132,7 +132,7 @@
 			<h1>1. 質問リストへの回答</h1>
 			<h3>Q. prototypeベース？</h3>
 			<h3>A. はい。クラスではなく、<span class="assert">prototype</span>です。</h3>
-			<p>JavaScriptはクラスが存在せず（ただしclassは予約後）、prototypeというオブジェクトをベースにしたオブジェクト指向言語です。</p>
+			<p>JavaScriptはクラスが存在せず（ただしclassは予約語）、prototypeというオブジェクトをベースにしたオブジェクト指向言語です。</p>
 		</section>
 
 		<section class="slide center-text">
@@ -154,18 +154,24 @@
 		<section class="slide center-text">
 			<h1>1. 質問リストへの回答</h1>
 			<ul>
-				<li>!function(){~}(), ~function(){~}()　←頭の「!」の意味</li>
-				<ul>
-					<li>即時関数として実行して実行結果をboolean型で返す</li>
-				</ul>
-				<li>!!hoge　←頭の「!!」の意味</li>
-				<ul>
-					<li>変数hogeの値をboolean型で返す</li>
-				</ul>
-				<li>hoge === void 0</li>
-				<ul>
-					<li>undefinedか否かの判定</li>
-				</ul>
+				<li>
+					!function(){~}(), ~function(){~}()　←頭の「!, ~」の意味
+					<ul>
+						<li>即時関数として実行して実行結果をboolean型で返す</li>
+					</ul>
+				</li>
+				<li class="next">
+					!!hoge　←頭の「!!」の意味
+					<ul>
+						<li>変数hogeの値をboolean型で返す</li>
+					</ul>
+				</li>
+				<li class="next">
+					hoge === void 0
+					<ul>
+						<li>undefinedか否かの判定</li>
+					</ul>
+				</li>
 			</ul>
 		</section>
 
@@ -176,7 +182,21 @@
 
 		<section class="slide center-text">
 			<h1>1. 質問リストへの回答</h1>
-			<h3>A. Cordovaなどのプラグインを使って、それぞれのプラットフォームのプログラムにビルドすることが一般的です。</h3>
+			<h3>A. <a href="https://cordova.apache.org/" target="_blank">Cordova</a>などのツールを使って、それぞれのプラットフォームのプログラムにビルドすることが一般的です。（他には<a href="http://phonegap.com/" target="_blank">PhoneGap</a>があります）</h3>
+		</section>
+
+		<section class="slide center-text">
+			<h1>1. 質問リストへの回答</h1>
+			<h3>A. 以下はCordovaのコマンド一覧</h3>
+			<pre>
+<code>
+$ <key>npm</key> i -g <value>cordova</value>
+$ <key>cordova</key> create <value>hoge</value>
+$ <key>cordova</key> platform add <value>browser (or ios or android)</value>
+$ <key>cordova</key> run <value>browser (or ios or android)</value>
+</code>
+			</pre>
+
 		</section>
 
 		<section class="slide center-text">
@@ -186,11 +206,11 @@
 
 		<section class="slide center-text">
 			<h1>1. 質問リストへの回答</h1>
-			<h3>A. 万能な方法はありませんね…強いてあげるならば、</h3>
+			<h3>A. 正直なところ、万能な方法はないかと…強いてあげるならば、</h3>
 			<ol>
 				<li>ページ単位でクラスを生成</li>
 				<li>イベントハンドラは一つにまとめる</li>
-				<li>モジュール化する（いわゆるCommonJSによるrequire/export）</li>
+				<li>モジュール化する<br>（いわゆるCommonJSによるrequire, import/export）</li>
 			</ol>
 		</section>
 
