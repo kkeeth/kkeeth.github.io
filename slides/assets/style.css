@@ -45,6 +45,9 @@ ol, li {
 .slide.center-text .shout {
 	font-size: 75px;
 }
+.slide h3.h-center {
+	margin-top: 15%;
+}
 .slide pre {
 	margin-left: 30px;
 }
@@ -60,6 +63,12 @@ ol, li {
 }
 .slide a {
 	text-decoration: none !important;
+}
+.slide p.f30 {
+	font-size: 30px;
+}
+.slide p.mright {
+	text-align: right;
 }
 .slide p.after {
 	position: absolute;
@@ -80,6 +89,6 @@ ol, li {
 p.codicil {
 	position: absolute;
 	right: 50px;
-	bottom: 0;
+	bottom: 10px;
 	font-size: 32px;
 }
