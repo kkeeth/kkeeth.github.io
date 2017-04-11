@@ -54,19 +54,15 @@ var my_info = {
 <section layout="bullets" type="text/x-markdown">
 ## 今回のアジェンダ
 - NPMについて
-- packages.jsonを作成
+- package.jsonを作成
 - 実際にパッケージ管理してみよう
 </section>
 
 <section layout="bullets" type="text/x-markdown">
 ## 今回のアジェンダ
 - __<span class="assert">NPMについて</span>__　<= まずはココ
-- packages.jsonを作成
+- package.jsonを作成
 - 実際にパッケージ管理してみよう
-</section>
-
-<section layout="code" type="text/x-markdown">
-# NPMについて
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
@@ -279,6 +275,10 @@ npm search module
 </section>
 
 <section layout="code" type="text/x-markdown">
+## Others!!
+</section>
+
+<section layout="code" type="text/x-markdown">
 ## npmのその他使いそうなコマンド
 
 ```shell
@@ -294,23 +294,208 @@ npm search module
 <section layout="bullets" type="text/x-markdown">
 ## 今回のアジェンダ
 - npmについて
-- __<span class="assert">packages.jsonを作成</span>__  <= 次はココ
+- __<span class="assert">package.jsonを作成</span>__  <= 次はココ
 - 実際にパッケージ管理してみよう
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## package.json
+
+node.jsのパッケージ（モジュール）を管理するための設定ファイルです。
+<span class="assert">Dockerで言うところのDockerfile</span>といったところでしょうか。
+<br>（ワタシDockerヨクワカリマセン←）
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## ではさっそくpackage.jsonを作って設定しましょう！
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 以下のコマンドを実行して下さい。<br>package.jsonが生成されます！
+
+```shell
+・ npm init
+```
+
+※とりあえずは全てEnterで問題ないです。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 中身を見てみましょう！
+
+```shell
+・ name: アプリケーションの名前
+・ version: アプリケーションのバージョン
+・ scripts: npm runで実行するためのコマンドリスト
+・ author: アプリケーションの開発者
+・ license: ライセンス（困ったらMITで良いかと）
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## その他の項目
+
+```shell
+・ homepage: ホームページのURL
+・ repository: リポジトリのURL（npmではない）
+・ bugs: 問題やバグ報告先（urlとemailを指定）
+・ contributor: author以外の開発者
+```
+
+詳しくは[日本語取扱説明書](http://liberty-technology.biz/PublicItems/npm/package.json.html)を御覧ください( ﾟ∀ﾟ)
+</section>
+
+<section layout="code" type="text/x-markdown">
+## では、このpackage.jsonを<br>更新していきましょう！
 </section>
 
 <section layout="bullets" type="text/x-markdown">
 ## 今回のアジェンダ
 - npmについて
-- packages.jsonを作成
+- package.jsonを作成
 - __<span class="assert">実際にパッケージ管理してみよう</span>__  <= 最後にココ
 </section>
 
+<section layout="code" type="text/x-markdown">
+### まずは`gulp, webpack`という<br>2つのモジュールをインストールしてみましょう！
+
+```shell
+$ npm i --save-dev webpack@1.7.0
+$ npm i --save gulp
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+### ① `node_modules`ディレクトリが作成され、<br>　その中にモジュールがインストールされます。
+### ② package.jsonが更新されます。
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+```JSON
+// package.jsonの中身抜粋
+...
+  "devDependencies": {
+    "webpack": "^1.7.0"
+  },
+  "dependencies": {
+    "gulp": "^3.9.1"
+  }
+...
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `dependencies, devDependencies`という<br>2つの項目が追加されました。
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 今後モジュールをインストールすると、<br>package.jsonに`名前: バージョン`形式で<br>自動で追記されます。
+
+<br>
+
+※ `--save|--save-dev`がないと追記されませんので注意！
+</section>
+
+<section layout="code" type="text/x-markdown">
+### `webpack`のアップデートを行ってみましょう！<br>以下のコマンドを実行して下さい。
+
+```shell
+$ npm up webpack
+$ npm ls --depth=0
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 以下のように、webpackのバージョンが<br>更新されたと思います。
+
+```node
+├── gulp@3.9.1
+└── webpack@1.14.0
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+### しかし、package.jsonは更新されません。
+
+```JSON
+...
+  "devDependencies": {
+    // 1.7.0のまま!!
+    "webpack": "^1.7.0"
+  },
+...
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+### package.jsonも更新したい場合は、<br>インストールコマンドを実行して下さい。
+
+```shell
+$ npm i -D webpack
+```
+
+※ `-D`は`--save-dev`の省略形
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 今度はpackage.jsonが更新されたと思います♪
+
+```JSON
+...
+  "devDependencies": {
+    "webpack": "^1.14.0"
+  },
+...
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+### ここで`node_modules`ディレクトリを削除し、<br>以下のコマンドを実行してみてください。
+
+```shell
+$ npm i
+$ npm ls --depth=0
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 以下のように、必要なモジュールが<br>全てインストールされたことが確認できます！
+
+```node
+├── gulp@3.9.1
+└── webpack@1.14.0
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### npmはinstallコマンドが実行されたとき、<br>自動でpackage.jsonを確認し、<br>（依存性も含めて）必要なモジュールを<br>一括でインストールしてくれます。
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+### この`package.json`を共有すれば、他のメンバーも同じ開発環境を作ることができます♪（便利だなー）
+
+</section>
+
+<section layout="cover" type="text/x-markdown">
+# 以上で今回のワークショップは終了です！
+</section>
+
 <script layout="cover" type="text/x-markdown">
-# 次回はES6（ES2015）についてです！
+# 次回は<span class="assert">ES6(ES2015)</span>について触れます♪
 </script>
 
 <script layout="cover" type="text/x-markdown">
-# お疲れ様でした！
+# 以上、お疲れ様でした！
 </script>
 
 
