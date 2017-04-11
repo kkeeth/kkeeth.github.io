@@ -119,7 +119,12 @@ npm install
 npm install [-g|--save|--save-dev] module
 ```
 
-### 意味：モジュールのインストール<br>（省略形： npm i）
+### 意味：モジュールのインストール
+
+```shell
+（省略形： npm i）
+```
+
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -168,6 +173,11 @@ npm list [-g|--depth=n] (module)
 ```
 
 ### 意味：インストールされたモジュールの一覧表示
+
+```shell
+（省略形： npm ls）
+```
+
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -200,7 +210,11 @@ npm uninstall
 npm uninstall [-g|--save|--save-dev] module
 ```
 
-### 意味：モジュールの削除<br>（省略形： npm rm, npm un）
+### 意味：モジュールの削除
+```shell
+（省略形: npm rm, npm up）
+```
+
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -233,9 +247,11 @@ npm update
 npm update [-g|--save|--save-dev] (module)
 ```
 
-### 意味：モジュールのアップデート<br>（省略形: npm up）
+### 意味：モジュールのアップデート<br>※moduleを指定しなければ全モジュールが対象
+```shell
+（省略形: npm up）
+```
 
-※モジュールを指定しなければ全モジュールが対象
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -250,6 +266,30 @@ npm search
 ```
 </section>
 
+<section layout="code" type="text/x-markdown">
+
+```shell
+npm search module
+```
+
+### 意味：対象モジュールに関連するモジュールの一覧を表示
+```shell
+（省略形: npm s, npm find）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## npmのその他使いそうなコマンド
+
+```shell
+・ npm info module
+　→ モジュールのバージョン情報を表示
+・ npm init
+　→ package.jsonの初期化（後述）
+```
+
+これらもたまに使うかと思います( ﾟ∀ﾟ)
+</section>
 
 <section layout="bullets" type="text/x-markdown">
 ## 今回のアジェンダ
