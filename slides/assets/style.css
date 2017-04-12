@@ -57,6 +57,12 @@ ol, li {
 .slide code value {
 	color: #2aa198;
 }
+.slide code comment {
+	color: #585a5e;
+}
+.slide code error {
+	color: #ee827c;
+}
 .slide .expand {
 	min-width: 90%;
 	min-height: 90%;

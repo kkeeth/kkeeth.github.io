@@ -77,6 +77,110 @@
     </section>
 
     <section class="slide center-text">
+      <h3 class="h-center">ちなみにES6はNode.jsのv6からも動作します♪</h3>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="h-center">それでは、その<span class="assert">飛躍的に増えた仕様</span>を見ていきましょう！</h3>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">var, let, const</h2>
+      <ul>
+        <li>「var」 => いらない子</li>
+        <li>「let」 => 変数</li>
+        <li>「const」 => 定数</li>
+      </ul>
+      <p>
+        実際に試してみるため、<span class="red">「Google Chrome（重要）」</span>を開き、<br>
+        F12から「Console」を開いて下さい！
+      </p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">以下のコードを実行してみましょう！</h3>
+      <pre>
+<!-- <code>  <key>let</key> hoge = <value>'hoge'</value>
+  hoge = <value>'fuga'</value> <comment>// 問題なし</comment>
+
+  <key>const</key> foo = <value>'bar'</value>
+  foo = <value>'bar'</value> <error>// Uncaught TypeError</error>
+</code>
+ -->
+         <code>  <key>let</key> hoge = <value>'hoge'</value></code>
+        <code>  hoge = <value>'fuga'</value> <comment>// => 問題なし</comment></code>
+        <code>  </code>
+        <code>  <key>const</key> foo = <value>'bar'</value></code>
+        <code>  foo = <value>'bar'</value> <error>// => Uncaught TypeError</error></code>
+
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">アロー関数（Arrow functions）</h2>
+      <pre>
+<!-- <code>  <comment>// bad pattern</comment>
+  function <key>hoge</key> () {
+  }
+  <comment>// good pattern</comment>
+  const <key>hoge</key> = () => {
+  }
+</code>
+ -->
+        <code>  <comment>// bad pattern</comment></code>
+        <code>  function <value>hoge</value> (x) {</code>
+        <code>     return 2 * x</code>
+        <code>  }</code>
+        <code>  <comment>// good pattern</comment></code>
+        <code>  <key>const</key> <value>hoge</value> = (x) => {   <comment>// もうfunctionはいらない</comment></code>
+        <code>     return 2 * x</code>
+        <code>  }</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">アロー関数のいろんな書き方</h2>
+      <pre>
+        <code>  <comment>// 丸カッコの省略</comment></code>
+        <code>  <key>const</key> <value>hoge</value> = x => {</code>
+        <code>     return 2 * x</code>
+        <code>  }</code>
+        <code>  <comment>// 波カッコ, returnの省略</comment></code>
+        <code>  <key>const</key> <value>hoge</value> = (x) => 2 * x</code>
+        <code>  <comment>// 両方の省略</comment></code>
+        <code>  <key>const</key> <value>hoge</value> = x => 2 * x</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">テンプレート文字列</h2>
+      <pre>
+        <code>  <key>const</key> <value>hoge</value> = 123</code>
+        <code>  </code>
+        <code>  <comment>// 従来の書き方</comment></code>
+        <code>  <key>const</key> <value>str1</value> = 'hoge = ' + hoge + '!'</code>
+        <code>  </code>
+        <code>  <comment>// ES6の書き方（バッククォートで挟む）</comment></code>
+        <code>  <comment>// ※let でも動作する</comment></code>
+        <code>  <key>const</key> <value>str2</value> = `hoge = ${hoge}!`</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">この子の便利さを体感しよう！</h2>
+      <pre>
+        <code>  <key>const</key> <value>str3</value> = `</code>
+        <code>    文字列内で</code>
+        <code>    改行が</code>
+        <code>    維持される！</code>
+        <code>  `</code>
+        <code>  str3</code>
+      </pre>
+
+      <p>上記のコードをConsole上で実行してみて下さい♪</p>
+    </section>
+
+    <section class="slide center-text">
       <h3 class="h-center">皆さん、歓喜しましょう。<br>ついに<span class="assert">クラス</span>が実装されました。</h3>
     </section>
 
