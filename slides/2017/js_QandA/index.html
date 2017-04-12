@@ -65,7 +65,8 @@
 		<section class="slide center-text">
 			<h1>1. 質問リストへの回答</h1>
 			<h3>Q. JavaScriptのスコープって？</h3>
-			<h3>A. 「グローバルスコープ」と「ブロックスコープ」の2つだけ！</h3>
+			<h3>A. 「グローバルスコープ」と「ブロックスコープ」の2つだけです！</h3>
+			<p><span class="red">※ if, for文で使われるブロック内はグローバルスコープ</span>ですのでご注意。</p>
 		</section>
 
 		<section class="slide center-text">
@@ -96,6 +97,7 @@
 					<li>…など</li>
 				</ul>
 			</h3>
+			コード例はこちら→ <a href="https://gist.github.com/k-kuwahara/6943600b7a4992b848039682f264b7f1#file-js_clojure_sample-js" target="_blank">クロージャの使用例</a>
 		</section>
 
 		<section class="slide center-text">
@@ -106,9 +108,9 @@
 		<section class="slide center-text">
 			<h1>1. 質問リストへの回答</h1>
 			<h3>Q. コンテキストって何？</h3>
-			<h3>A. 定義付けが難しいです…thisが指すものと言いましょうか…</h3>
+			<h3>A. thisが指すものと言いましょうか…「呼び出しコンテキスト」と言う方が近いです。</h3>
 			<ul>
-				<li>日本語にすると<span class="assert">文脈</span>と訳されることが多いです。</li>
+				<li>日本語にすると<span class="assert">文脈</span>と訳されることが多いですが、明確な定義付けは難しいです…</li>
 			</ul>
 		</section>
 
@@ -218,7 +220,7 @@ $ <key>cordova</key> run <value>browser (or ios or android)</value>
 			<h1>1. 質問リストへの回答</h1>
 			<h3>Q. クラス設計のコツを知りたい。</h3>
 			<h3>A. 具体的にコードを見ながら回答させていただきます！</h3>
-			<p>URL： <a href="https://gist.github.com/k-kuwahara/6943600b7a4992b848039682f264b7f1" target="_blank">JavaScriptクラス設計サンプル</a>
+			<p>URL： <a href="https://gist.github.com/k-kuwahara/6943600b7a4992b848039682f264b7f1#file-js_class_sample-js" target="_blank">JavaScriptクラス設計サンプル</a>
 		</section>
 
 		<section class="slide center-text">
@@ -226,9 +228,13 @@ $ <key>cordova</key> run <value>browser (or ios or android)</value>
 			<h3>Q. bindって何？</h3>
 			<h3>A. <span class="assert">thisの値, 引数を束縛</span>する関数です。ただし、jQueryのbindメソッドとは別物ですので注意！</h3>
 			<p class="">
-				コード例はこちら→ <a href="https://gist.github.com/k-kuwahara/6943600b7a4992b848039682f264b7f1" target="_blank">bind関数の具体例</a><br>
+				コード例はこちら→ <a href="https://gist.github.com/k-kuwahara/6943600b7a4992b848039682f264b7f1#file-js_bind_demo-js" target="_blank">bind関数の具体例</a><br>
 				詳細はこちら→ <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Function/bind" target="_blank">Function.prototype.bind()</a>
 			</p>
+		</section>
+
+		<section class="slide center-text">
+			<h3 class="h-center">困ったら<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript" target="_blank">MDN</a>を見るとだいたい答えが載ってますので覗いてみて下さい♪</h2>
 		</section>
 
 		<section class="slide center-text">
