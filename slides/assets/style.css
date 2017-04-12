@@ -73,6 +73,9 @@ ol, li {
 .slide p.f30 {
 	font-size: 30px;
 }
+.slide p.no-mb {
+	margin-bottom: 0px;
+}
 .slide p.mright {
 	text-align: right;
 }
