@@ -346,13 +346,66 @@
     </section>
 
     <section class="slide center-text">
-      <h3 class="">bubleでバベる</h3>
-      <p class="f30">「余計なこと考えずに、とにかくhoge.jsをES5にコンパイルしたいんじゃぁあああ！」という方向けですw</p>
+      <h3 class="">1. bubleでバベる</h3>
+      <p class="f30">「余計なこと考えずに、とにかくhoge.jsをES5にコンパイルしたいんじゃぁあああ！」という方向けですw コマンドラインから実行できるので試してみましょう！</p>
 
-      <p class="f30">まずはbubleをインストールしましょう( ﾟдﾟ)／</p>
-      <pre>
+      <pre class="">
+        <code>  <comment>// bubleのグローバルインストール</comment></code>
         <code>  $ <key>npm</key> i -g <value>buble</value></code>
       </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">1. bubleでバベる</h3>
+      <p class="f30">先程試したクラス構文を適当なjsファイルを作成し、コピペして保存して下さい。完了したら、以下のコマンドを実行してみましょう！</p>
+      <pre class="">
+        <code>  <comment>// コンパイルの実行</comment></code>
+        <code>  $ <key>buble</key> <value>hoge.js</value> -o fuga.js</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">2. gulpでバベる</h3>
+      <p class="f30">今度は、「ファイルの変更を検知し自動でES5に変換する」方法です。1. と同様に適当なjsファイルを作成して下さい。</p>
+      <pre class="">
+        <code>  <comment>// package.jsonがない人</comment></code>
+        <code>  $ <key>npm</key> <value>init</value></code>
+        <code>  <comment>// 必要なモジュールのインストール</comment></code>
+        <code>  $ <key>npm</key> i -D <value>gulp gulp-buble</value></code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">2. gulpでバベる</h3>
+      <p class="f30">ローカルでもグローバルでもインストールが完了しましたら、次はgulpfile.jsを作成し、gulp.taskを設定します。</p>
+      <p class="f30">コード例→ <a href="https://gist.github.com/k-kuwahara/a9e93d131a4a01325cd7b2c7be306a36#file-gulpfile-js" target="_blank">gulpfile.jsの例</a></p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">2. gulpでバベる</h3>
+      <p class="f30">設定が完了しましたら、package.jsonのscriptsに実行用のコマンドを設定します。</p>
+      <pre class="">
+        <code>  <comment>// package.jsonのscripts</comment></code>
+        <code>  <key>"scripts"</key>: {</code>
+        <code>    <key>"gulp"</key>: <value>"gulp" </value></code>
+        <code>  } </code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">2. gulpでバベる</h3>
+      <p class="f30">最後に実行してみましょう！</p>
+      <pre class="">
+        <code>  <comment>// gulpの起動</comment></code>
+        <code>  $ <key>npm</key> run <value>gulp</value> watch (←これはなくても良い)</code>
+        <code>  <comment>// [20:32:20] Starting 'watch'...</comment></code>
+        <code>  <comment>// [20:32:20] Finished 'watch' after 26 ms</comment></code>
+        <code>  <comment>// これ以降勝手にコンパイルが走ります</comment></code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. webpack2でバベる</h3>
     </section>
 
     <section class="slide center-text">
