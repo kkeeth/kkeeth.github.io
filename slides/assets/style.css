@@ -70,7 +70,8 @@ ol, li {
 .slide a {
 	text-decoration: none !important;
 }
-.slide p.f30 {
+.slide p.f30,
+.slide span.f30 {
 	font-size: 30px;
 }
 .slide p.no-mb {
@@ -86,6 +87,9 @@ ol, li {
 	width: 100%;
 	left: 0;
 	top: 70%;
+}
+.slide p.fright {
+	float: right;
 }
 .slide img.blur {
 	min-height: 100%;
