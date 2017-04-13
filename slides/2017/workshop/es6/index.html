@@ -307,16 +307,66 @@
     </section>
 
     <section class="slide center-text">
-      <h2 class="shout h-center">ですので、<s>わざわざ</s>ES5に<br>変換する必要があります。</h3>
+      <h2 class="shout h-center">ですので、<s>わざわざ</s>ES5に<br>変換する必要があります。</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="h-center">※ IEなにそれ？おいしいの？な環境では、この後の「2. Babel（バベる）」は飛ばしちゃって下さい♪</h3>
     </section>
 
     <section class="slide center-text">
       <h2 class="shout">2. Babel（バベる）</h2>
+      <p class="next codicil">フロント界隈ではES6をコンパイルすることを<br>「バベる」と良く言いますw</p>
     </section>
 
+    <section class="slide center-text">
+      <h2 class="">Babelとは</h2>
+      <p class="f30"><span class="assert">Babel</span>は、世界中で使用されているJavaScriptコンパイラの一つです。後ほど触れるgulp, webpackなどの様々ライブラリにも利用されており、これを知らないJSerはいないのではないかと。</p>
+      <p class="mright"><img src="img/babel.png"></p>
+    </section>
 
     <section class="slide center-text">
-      <h2 class="shout">3. 最近のES界隈</h2>
+      <h3 class="">バベり方は大まかに以下の3つかと。</h3>
+      <ol>
+        <li>cliを使う (babel-cli, bubleなど)</li>
+        <li>タスクランナーを使う (Gulp, Gruntなど)</li>
+        <li>バンドラーを使う (Webpack2, Rollupなど)</li>
+      </ol>
+      <p class="codicil">2, 3はビルドと一緒にバベる形です</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">今回は以下の3つをご紹介。</h3>
+      <ol>
+        <li>cliを使う (babel-cli, <span class="assert">buble</span>など)</li>
+        <li>タスクランナーを使う (<span class="assert">Gulp</span>, Gruntなど)</li>
+        <li>バンドラーを使う (<span class="assert">Webpack2</span>, Rollupなど)</li>
+      </ol>
+      <p class="codicil">※ 他は私が触ったことないため…</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">bubleでバベる</h3>
+      <p class="f30">「余計なこと考えずに、とにかくhoge.jsをES5にコンパイルしたいんじゃぁあああ！」という方向けですw</p>
+
+      <p class="f30">まずはbubleをインストールしましょう( ﾟдﾟ)／</p>
+      <pre>
+        <code>  $ <key>npm</key> i -g <value>buble</value></code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">その他参考リンク</h2>
+      <ul>
+        <li><a href="http://babeljs.io/docs/usage/cli/" target="_blank">babel-cli</a></li>
+        <li><a href="https://www.npmjs.com/package/buble" target="_blank">buble</a></li>
+        <li><a href="https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md" target="_blank">gulp</a></li>
+        <li><a href="https://webpack.js.org/guides/get-started/" target="_blank">webpack2</a></li>
+      </ul>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="shout">3. 最近のES界隈<br>（余談ですw）</h2>
     </section>
 
 
