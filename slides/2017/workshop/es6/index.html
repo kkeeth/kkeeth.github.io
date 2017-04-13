@@ -209,6 +209,86 @@
     </section>
 
     <section class="slide center-text">
+      <h2 class="">クラス構文</h2>
+      <p class="f30">JavaScriptにおけるクラス構文は<span class="assert">prototypeベースの糖衣構文</span>となります。<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Classes" target="_blank">MDN</a>でも記述がありますが、新しいオブジェクト指向継承モデルを JavaScript に導入しているわけではありません。</p>
+
+      <p class="f30">また、クラスは実際には「特別な関数」であり、クラス構文には<span class="assert">クラス式</span>と<span class="assert">クラス宣言</span>という２つの定義方法があります。</p>
+
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">1. クラス式の書き方</h3>
+      <pre>
+        <code>  <key>const</key> <value>Animal</value> = class {</code>
+        <code>     <key>constructor</key>(name, age) {</code>
+        <code>        this.name = name</code>
+        <code>        this.age  = age</code>
+        <code>     }</code>
+        <code>  }</code>
+        <code>  <key>let</key> <value>dog</value> = new Animal('snoopy', 67)</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">2. クラス宣言の書き方</h3>
+      <pre>
+        <code>  <key>class</key> <value>Animal</value> {</code>
+        <code>     <key>constructor</key>(name, age) {</code>
+        <code>        this.name = name</code>
+        <code>        this.age  = age</code>
+        <code>     }</code>
+        <code>  }</code>
+        <code>  <key>let</key> <value>cat</value> = new Animal('kitty', 42)</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="h-center">他の言語同様に、クラスの<span class="assert">継承</span>もできますので、やってみましょう♪</h3>
+    </section>
+
+    <section class="slide center-text">
+      <h2>Catクラスの定義</h2>
+      <pre>
+        <code>  <key>class</key> <value>Cat</value> {</code>
+        <code>     <key>constructor</key>(name) {</code>
+        <code>        this.name = name</code>
+        <code>     }</code>
+        <code>     <key>speak</key>() {</code>
+        <code>        alert(`${this.name} by Cat class`)</code>
+        <code>     }</code>
+        <code>  }</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h2>Catクラスを継承したLionクラスの定義</h2>
+      <pre>
+        <code>  <key>class</key> <value>Lion</value> extends <value>Cat</value> {</code>
+        <code>     <key>speak</key>() {</code>
+        <code>        <comment>// 親クラスのspeakを呼ぶ</comment></code>
+        <code>        <error>super.speak()</error></code>
+        <code>        console.info(`${this.name} by Lion class`)</code>
+        <code>     }</code>
+        <code>  }</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h2>Lionクラスのインスタンスを生成</h2>
+      <pre>
+        <code>  <key>let</key> <value>lion</value> = new Lion('JSer') {</code>
+        <code>  lion.name</code>
+        <code>  lion.speak()</code>
+      </pre>
+
+      <p class="f30">親のCatクラスを継承しているため、speak()を実行すると、<br>alertとconsole.infoが出力されます。</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="h-center">まだまだ仰山ありますので、皆さん調べてみて下さい( ﾟ∀ﾟ)</h3>
+    </section>
+
+    <section class="slide center-text">
       <h2 class="">その他参考リンク</h2>
       <ul>
         <li><a href="http://qiita.com/takeharu/items/cbbe017bbdd120015ca0" target="_blank">もうはじめよう、ES6~ECMAScript6の基本構文まとめ(JavaScript)~</a></li>
