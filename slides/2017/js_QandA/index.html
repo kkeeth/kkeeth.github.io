@@ -228,11 +228,75 @@ $ <key>cordova</key> run <value>browser (or ios or android)</value>
 		<section class="slide center-text">
 			<h1>1. 質問リストへの回答</h1>
 			<h3>Q. bindって何？</h3>
-			<h3>A. <span class="assert">thisの値, 引数を束縛</span>する関数です。ただし、jQueryのbindメソッドとは別物ですので注意！</h3>
+			<h3>A. <span class="assert">thisの値, 引数を束縛</span>するメソッドです。ただし、jQueryのbindメソッドとは別物ですので注意！</h3>
 			<p class="">
-				コード例はこちら→ <a href="https://gist.github.com/k-kuwahara/6943600b7a4992b848039682f264b7f1#file-js_bind_demo-js" target="_blank">bind関数の具体例</a><br>
+				コード例はこちら→ <a href="https://gist.github.com/k-kuwahara/6943600b7a4992b848039682f264b7f1#file-js_bind_demo-js" target="_blank">bindメソッドの具体例</a><br>
 				詳細はこちら→ <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Function/bind" target="_blank">Function.prototype.bind()</a>
 			</p>
+		</section>
+
+		<section class="slide center-text">
+			<h1>1. 質問リストへの回答</h1>
+			<h3>Q. 桑原がしゃべりたい<br>「call, applyメソッド」</h3>
+			<p class="mright">（質問ではないですが）</p>
+		</section>
+
+		<section class="slide center-text">
+			<h1>1. 質問リストへの回答</h1>
+			<h3>A. 「this（オブジェクト）を束縛してhoge()メソッドを実行させるメソッド」です。</h3>
+			<p class-"f30">※ bindメソッドとはちょっと違いますのでご注意ください。</p>
+		</section>
+
+		<section class="slide center-text">
+			<h1>1. 質問リストへの回答</h1>
+			<h3>Q. 何が凄いの？</h3>
+		</section>
+
+		<section class="slide center-text">
+			<h1>1. 質問リストへの回答</h1>
+			<h3>Q. 何が凄いの？</h3>
+			<h3>A. オブジェクトが、<span class="assert">本来使えないはずのメソッドを実行できる</span>んですよ！</h3>
+			<p class="f30 next"><span class="red">戦士が覚えてもいない黒魔法使えたらヤバイでしょ！？</span></p>
+			<p class="f30 next">コード例はこちら→ <a href="https://gist.github.com/k-kuwahara/6943600b7a4992b848039682f264b7f1#file-js_call_sample-js" target="_blank">callメソッドの具体例</a></p>
+		</section>
+
+		<section class="slide center-text">
+			<h1>1. 質問リストへの回答</h1>
+			<h3>Q. applyメソッドとの違いは？</h3>
+		</section>
+
+		<section class="slide center-text">
+			<h1>1. 質問リストへの回答</h1>
+			<h3>Q. applyメソッドとの違いは？</h3>
+			<h3>A. こうです。</h3>
+			<ul>
+				<li>call: 引数を一つずつカンマ区切りで指定</li>
+				<li>apply: 引数をオブジェクトや配列に纏めて指定</li>
+			</ul>
+		</section>
+
+		<section class="slide center-text">
+			<h1>1. 質問リストへの回答</h1>
+			<h3>Q. 処理負荷がかからないように書くコツを知りたい</h3>
+		</section>
+
+		<section class="slide center-text">
+			<h1>1. 質問リストへの回答</h1>
+			<h3>A. 以下が考えられます。</h3>
+			<ul>
+				<li>ライブラリはCDNで取得する（キャッシュ化する）</li>
+				<li>操作するDOMをなるべく小さく区切る<br>（appendするときは特に）</li>
+				<li>それでも操作するDOMが大きい場合は、非同期でデータを取得し、DOMを生成する</li>
+			</ul>
+		</section>
+		<section class="slide center-text">
+			<h1>1. 質問リストへの回答</h1>
+			<h3>A. 以下が考えられます。</h3>
+			<ul>
+				<li>キャッシュ化を使う（ブラウザキャッシュではない）</li>
+				<li>CSSの設定を見直す（重複している場合、超複数 × DOM数の計算処理が必要となるため）</li>
+				<li>jQuery使用している場合、セレクタで取得するDOMの範囲をなるべく小さくする</li>
+			</ul>
 		</section>
 
 		<section class="slide center-text">
