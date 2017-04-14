@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>ビルドツールを導入し、自動ビルド</title>
+    <title>自動ビルドしながらの開発</title>
     <link rel="stylesheet" href="../../../talkiejs/talkie.min.css">
     <link rel="stylesheet" href="../../../talkiejs/talkie-default.min.css">
     <link rel="stylesheet" href="../../../talkiejs/style.css">
@@ -33,34 +33,93 @@ var my_info = {
 <section layout="bullets" type="text/x-markdown">
 ## 今回のアジェンダ
 - ビルドツールの紹介
-- gulpの導入
-- webpackの導入
+- Gulpの導入
+- Webpackの導入
 </section>
 
 <section layout="bullets" type="text/x-markdown">
 ## 今回のアジェンダ
 - <span class="assert">ビルドツールの紹介</span>  <= まずはココ
-- gulpの導入
-- webpackの導入
-</section>
-
-<section layout="bullets" type="text/x-markdown">
-## 今回のアジェンダ
-- ビルドツールの紹介</span>
-- <span class="assert">gulpの導入</span>  <= 次はココ
-- webpackの導入
-</section>
-
-<section layout="bullets" type="text/x-markdown">
-## 今回のアジェンダ
-- ビルドツールの紹介</span>
-- <span class="assert">gulpの導入</span>
-- <span class="assert">webpackの導入</span>  <= 最後にココ
+- Gulpの導入
+- Webpackの導入
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
-## では、本格的にnpmの使い方を見ていきましょう！
+## 最近のJavaScript開発環境
+
+「モダン開発環境」という言葉をいたるところで耳にする昨今ですが、「つまりどんな環境なの？」と思いますよね。
+一言で言うと、<span class="assert">「面倒な作業は自動化して楽しよう」</span>という環境、と私は考えています。
+
 </section>
+
+<section layout="title-invert" type="text/x-markdown">
+## 「面倒な作業」って？
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## こんなやつです。
+
+- ES6, TypeScriptのコンパイル
+- テンプレートエンジンを用いたファイルのコンパイル
+- PostCSS, LESS, Sassなどのプリプロセッサーのコンパイル
+- ESLint, JSLint, JSHintなどのリンターのチェック
+- js, cssの圧縮（minify）、ファイルのリネーム
+- 画像ファイルの圧縮
+- バンドル
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## これらを自動でやってくれる<br>素晴らしいツールが<br>世の中にはあります( ﾟ∀ﾟ)
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## こやつらです。
+
+|__タスクランナー__|__評価__|__バンドラ__|__評価__|
+|:--:|:--:|:--:|:--:|
+|Grant|D|Webpack|A|
+|Gulp|B|Rollup|C|
+
+※評価は私の独断と偏見に基づきます（笑）
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回は触れるのはこの子ら。
+
+|__タスクランナー__|__評価__|__バンドラ__|__評価__|
+|:--:|:--:|:--:|:--:|
+|Grant|D|<span class="assert f38">Webpack</span>|A|
+|<span class="assert f38">Gulp</span>|B|Rollup|C|
+
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## ではみていきましょう！<br>まずはGulpです！
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- ビルドツールの紹介</span>
+- Gspan class="assert">gulpの導入</span>  <= 次はココ
+- Webpackの導入
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## package.json
+
+node.jsのパッケージ（モジュール）を管理するための設定ファイルです。
+<span class="assert">Dockerで言うところのDockerfile</span>といったところでしょうか。
+<br>（ワタシDockerヨクワカリマセン←）
+</section>
+
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- ビルドツールの紹介</span>
+- gulpの導G
+- <span class="assert">Webpackの導入</span>  <= 最後にココ
+</section>
+
 
 <section layout="code" type="text/x-markdown">
 ## npmの基本コマンド
@@ -271,14 +330,6 @@ npm search module
 - npmについて
 - __<span class="assert">package.jsonを作成</span>__  <= 次はココ
 - 実際にパッケージ管理してみよう
-</section>
-
-<section layout="title-invert" type="text/x-markdown">
-## package.json
-
-node.jsのパッケージ（モジュール）を管理するための設定ファイルです。
-<span class="assert">Dockerで言うところのDockerfile</span>といったところでしょうか。
-<br>（ワタシDockerヨクワカリマセン←）
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
