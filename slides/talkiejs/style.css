@@ -23,6 +23,9 @@ span.hljs-reserved {
 span.f38 {
 	font-size: 38px;
 }
+span.mright {
+	float: right;
+}
 #blur {
 	color: #fff;
 }
@@ -32,4 +35,9 @@ span.f38 {
 }
 .sans {
 	font-family: Futura,Helvetica,Arial,"Hiragino Kaku Gothic ProN","Meiryo",sans-serif;
+}
+img.logo {
+	position: absolute;
+	top: 10px;
+	right: 0px;
 }
