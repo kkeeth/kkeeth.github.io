@@ -1,0 +1,15 @@
+{
+  "name": "books",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "gb-riot": "gitbook serve riot",
+    "gb-js"  : "gitbook serve js"
+  },
+  "author": "k-kuwahara",
+  "license": "MIT",
+  "devDependencies": {
+    "gitbook-cli": "^2.3.0"
+  }
+}
