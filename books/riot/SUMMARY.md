@@ -1,4 +1,4 @@
 # Summary
 
-* [Introduction](README.md)
-  * [1. hoge](hoge.md)
+* [init](docs/README.md)
+  * [1. hoge](docs/hoge.md)
