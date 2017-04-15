@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "gb-riot": "gitbook serve riot",
-    "gb-js"  : "gitbook serve js"
+    "init": "gitbook init",
+    "start": "gitbook serve",
+    "build": "gitbook build",
+    "publish": "gh-pages -d _book -m  'auto publish book'",
+    "deploy": "npm run build && npm run publish"
   },
   "author": "k-kuwahara",
   "license": "MIT",
   "devDependencies": {
+    "gh-pages": "^0.12.0",
     "gitbook-cli": "^2.3.0"
   }
 }
