@@ -116,11 +116,11 @@ gulp is a toolkit for automating painful or time-consuming tasks in your develop
 <section layout="bullets" type="text/x-markdown">
 ## 今回は以下のタスクを自動化
 
-- ファイルの変更を検知する
-- jsファイルをESLintにかける
-- 問題なければ圧縮する
-- 圧縮したものを.minという名前で出力する
-- 上記実行中にエラーが起こってもgulpを止めない
+1. ファイルの変更を検知する
+1. jsファイルをESLintにかける
+1. 問題なければ圧縮する
+1. 圧縮したものを.minという名前で出力する
+1. 上記実行中にエラーが起こってもgulpを止めない
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -222,12 +222,88 @@ $ npm run gulp
 <section layout="bullets" type="text/x-markdown">
 ## 【再掲】今回のタスク
 
-- ファイルの変更を検知する
-- jsファイルをESLintにかける
-- 問題なければ圧縮する
-- 圧縮したものを.minという名前で出力する
-- 上記実行中にエラーが起こってもgulpを止めない
+1. ファイルの変更を検知する
+1. jsファイルをESLintにかける
+1. 問題なければ圧縮する
+1. 圧縮したものを.minという名前で出力する
+1. 上記実行中にエラーが起こってもgulpを止めない
+</section>
 
+<section layout="code" type="text/x-markdown">
+## 1. ファイルの変更を検知する
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `js`というディレクトリ内の<br>`.js`ファイルに変更がある度に<br>`test`タスクが実行されるように<br>設定してみましょう。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## ディレクトリの構成
+
+```JavaScript
+├ node_modules/
+├ package.json
+├ gulpfile.js
+├ js/   ← 変更の検知対象
+└ build/   ← ビルドの出力先
+```
+
+※ 今は`js`ディレクトリのみ作成して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `js`ディレクトリに`(適当な名前).js`<br>ファイルを作成してください。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 次に、ファイルに変更があることを検知する設定をします。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `gulpfile.js`に以下を追記して下さい。
+<br>
+
+```JavaScript
+// 適当な箇所に追記
+gulp.task('watch', function() {
+   gulp.watch('./js/*.js', ['test'])
+})
+
+gulp.task('default', ['watch'])
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `watch`タスクを実行しましょう。
+
+```shell
+$ npm run gulp
+```
+
+※`default`タスクに設定しているため`watch`は不要。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## これで準備完了です。<br>先程作成した`.js`ファイルを変更、<br>保存して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```shell
+[17:12:19] Starting 'watch'...
+[17:12:19] Finished 'watch' after 17 ms
+[17:12:22] Starting 'test'...
+gulp run !!
+
+[17:12:22] Finished 'test' after 875 μs
+[17:18:29] Starting 'test'...
+gulp run !!
+
+[17:18:29] Finished 'test' after 113 μs
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上でタスク1は終了です。
 </section>
 
 <section layout="bullets" type="text/x-markdown">
@@ -250,247 +326,6 @@ webpack is a module bundler. Its main purpose is to bundle JavaScript files for 
 ## `[-g|--save|--save-dev]`の意味は？
 </section>
 
-<section layout="code" type="text/x-markdown">
-## こうです。
-
-```css
- -g: グローバルでインストールするもの
- --save: 実際のアプリ稼働時に利用するもの
- --save-dev: 開発時に利用するもの
-```
-
-</section>
-
-<section layout="code" type="text/x-markdown">
-## 実際に`lite-server`というモジュールを<br>インストールしてみましょう♪
-</section>
-
-<section layout="code" type="text/x-markdown">
-
-```shell
-$ npm install -g lite-server
-```
-又は
-
-```shell
-$ npm i -g lite-server
-```
-</section>
-
-<section layout="code" type="text/x-markdown">
-## Next!!
-
-```shell
-npm list
-```
-</section>
-
-<section layout="code" type="text/x-markdown">
-
-```shell
-npm list [-g|--depth=n] (module)
-```
-
-### 意味：インストールされたモジュールの一覧表示
-
-```shell
-（省略形： npm ls）
-```
-
-</section>
-
-<section layout="code" type="text/x-markdown">
-### `lite-server`がインストールされたか確認してみましょう！<br>以下のコマンドを実行して下さい♪
-
-```shell
-$ npm list -g [--depth=0]
-```
-</section>
-
-<section layout="code" type="text/x-markdown">
-### では起動してみましょう！<br>以下のコマンドを実行して下さい♪
-
-```shell
-$ lite-server
-```
-</section>
-
-<section layout="code" type="text/x-markdown">
-## Next!!
-
-```shell
-npm uninstall
-```
-</section>
-
-<section layout="code" type="text/x-markdown">
-
-```shell
-npm uninstall [-g|--save|--save-dev] module
-```
-
-### 意味：モジュールの削除
-```shell
-（省略形: npm rm, npm up）
-```
-
-</section>
-
-<section layout="code" type="text/x-markdown">
-### 先程インストールした`lite-server`を削除してみましょう！<br>以下のコマンドを実行して下さい♪
-
-```shell
-$ npm uninstall -g lite-server
-```
-</section>
-
-<section layout="code" type="text/x-markdown">
-### `lite-server`が削除されたか確認してみましょう！
-
-```shell
-$ npm list -g [--depth=0]
-```
-</section>
-
-<section layout="code" type="text/x-markdown">
-## Next!!
-
-```shell
-npm update
-```
-</section>
-
-<section layout="code" type="text/x-markdown">
-
-```shell
-npm update [-g|--save|--save-dev] (module)
-```
-
-### 意味：モジュールのアップデート<br>※moduleを指定しなければ全モジュールが対象
-```shell
-（省略形: npm up）
-```
-
-</section>
-
-<section layout="code" type="text/x-markdown">
-## updateは後ほど実際に叩いてもらいますm(_ _)m
-</section>
-
-<section layout="code" type="text/x-markdown">
-## Last!!
-
-```shell
-npm search
-```
-</section>
-
-<section layout="code" type="text/x-markdown">
-
-```shell
-npm search module
-```
-
-### 意味：対象モジュールに関連するモジュールの一覧を表示
-```shell
-（省略形: npm s, npm find）
-```
-</section>
-
-<section layout="code" type="text/x-markdown">
-## Others!!
-</section>
-
-<section layout="code" type="text/x-markdown">
-## npmのその他使いそうなコマンド
-
-```shell
-・ npm info module
-　→ モジュールのバージョン情報を表示
-・ npm init
-　→ package.jsonの初期化（後述）
-```
-
-これらもたまに使うかと思います( ﾟ∀ﾟ)
-</section>
-
-<section layout="bullets" type="text/x-markdown">
-## 今回のアジェンダ
-- npmについて
-- __<span class="assert">package.jsonを作成</span>__  <= 次はココ
-- 実際にパッケージ管理してみよう
-</section>
-
-<section layout="title-invert" type="text/x-markdown">
-## ではさっそくpackage.jsonを作って設定しましょう！
-</section>
-
-<section layout="code" type="text/x-markdown">
-### 以下のコマンドを実行して下さい。<br>package.jsonが生成されます！
-
-```shell
-$ npm init
-```
-
-※とりあえずは全てEnterで問題ないです。
-</section>
-
-<section layout="code" type="text/x-markdown">
-## 中身を見てみましょう！
-
-```shell
-・ name: アプリケーションの名前
-・ version: アプリケーションのバージョン
-・ scripts: npm runで実行するためのコマンドリスト
-・ author: アプリケーションの開発者
-・ license: ライセンス（困ったらMITで良いかと）
-```
-
-</section>
-
-<section layout="code" type="text/x-markdown">
-## その他の項目
-
-```shell
-・ homepage: ホームページのURL
-・ repository: リポジトリのURL（npmではない）
-・ bugs: 問題やバグ報告先（urlとemailを指定）
-・ contributor: author以外の開発者
-```
-
-詳しくは[日本語取扱説明書](http://liberty-technology.biz/PublicItems/npm/package.json.html)を御覧ください( ﾟ∀ﾟ)
-</section>
-
-<section layout="code" type="text/x-markdown">
-### まずは`gulp, webpack`という<br>2つのモジュールをインストールしてみましょう！
-
-```shell
-$ npm i --save-dev webpack@1.7.0
-$ npm i --save gulp
-```
-
-</section>
-
-<section layout="code" type="text/x-markdown">
-### ① `node_modules`ディレクトリが作成され、<br>　その中にモジュールがインストールされます。
-### ② package.jsonが更新されます。
-
-</section>
-
-<section layout="code" type="text/x-markdown">
-```JSON
-// package.jsonの中身抜粋
-...
-  "devDependencies": {
-    "webpack": "^1.7.0"
-  },
-  "dependencies": {
-    "gulp": "^3.9.1"
-  }
-...
-```
-
-</section>
 
 <section layout="code" type="text/x-markdown">
 ## `dependencies, devDependencies`という<br>2つの項目が追加されました。
