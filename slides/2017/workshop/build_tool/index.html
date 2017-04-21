@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../../../talkiejs/style.css">
     <link rel="shortcut icon" href="../../../assets/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/monokai.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script src="../../../talkiejs/highlight.min.js"></script>
   </head>
   <body>
 <template layout="cover" type="text/x-markdown">
@@ -84,17 +84,13 @@ var my_info = {
 </section>
 
 <section layout="bullets" type="text/x-markdown">
-## 今回は触れるのはこの子ら。
+## 今回触れるのはこの子ら。
 
 |__タスクランナー__|__評価__|__バンドラ__|__評価__|
 |:--:|:--:|:--:|:--:|
 |Grant|D|<span class="assert f38">Webpack</span>|A|
 |<span class="assert f38">Gulp</span>|B|Rollup|C|
 
-</section>
-
-<section layout="title-invert" type="text/x-markdown">
-## ではみていきましょう！
 </section>
 
 <section layout="bullets" type="text/x-markdown">
@@ -147,10 +143,91 @@ $ npm i [--save|-D] gulp
 ```JavaScript
 const gulp = require('gulp')
 
-gulp.task('test', () => {
-   console.info('gulp run !!')
+// 'test'という名前のタスクを設定
+gulp.task('test', function() {
+   console.info('gulp run !!\n')
 })
 ```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Gulpのタスクを起動させるために<br>コマンドを設定
+
+### `package.json`を開き、次のコードを追記して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```JSON
+// package.jsonの中身抜粋
+...
+  "scripts": {
+    "gulp": "gulp"
+  },
+...
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 準備完了です。以下の<br>コマンドを実行して下さい。
+
+```shell
+$ npm run gulp test
+```
+
+※ `test`は必須です！
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+// 実行結果例
+[15:09:08] Starting 'test'...
+gulp run !!
+
+[15:09:08] Finished 'test' after 251 μs
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 動きましたが、`test`と、いちいちタスク名を入力するのは煩わしいですね。省略しましょう。
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `gulpfile.js`に以下を追記して下さい。
+<br>
+
+```JavaScript
+// 末尾に追記
+gulp.task('default', ['test'])
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 再度実行してみましょう。
+
+```shell
+$ npm run gulp
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上が、最小限のGulpの<br>動かし方です。
+
+## それでは、今回のタスクに<br>入っていきます。
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 【再掲】今回のタスク
+
+- ファイルの変更を検知する
+- jsファイルをESLintにかける
+- 問題なければ圧縮する
+- 圧縮したものを.minという名前で出力する
+- 上記実行中にエラーが起こってもgulpを止めない
+
 </section>
 
 <section layout="bullets" type="text/x-markdown">
