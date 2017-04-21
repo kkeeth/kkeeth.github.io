@@ -141,7 +141,7 @@ $ npm i [--save|-D] gulp
 
 <section layout="code" type="text/x-markdown">
 ```JavaScript
-const gulp = require('gulp')
+var gulp = require('gulp')
 
 // 'test'という名前のタスクを設定
 gulp.task('test', function() {
@@ -306,6 +306,88 @@ gulp run !!
 ## 以上でタスク1は終了です。
 </section>
 
+<section layout="code" type="text/x-markdown">
+## 2. jsファイルを`ESLint`にかける
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Q: `ESLint`って？
+## A: JavaScriptで最も使われている静的検証ツールです。
+
+※主に文法のチェックに使われます。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 必要なモジュールをインストール
+
+```shell
+$ npm i [--save|-D] gulp-eslint
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `eslint`タスクを設定します。<br>`gulpfile.js`に次を追記して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```JavaScript
+var eslint = require('gulp-eslint')
+
+gulp.task('eslint', function() {
+   gulp.src('./js/*.js')
+       .pipe(eslint({ useEslintrc: false }))
+       .pipe(eslint.format())
+})
+gulp.task('watch', function() {
+   gulp.watch('./js/*.js', ['eslint'])
+})
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `watch`タスクを実行しましょう。
+
+```shell
+$ npm run gulp
+```
+
+※`default`タスクに設定しているたm (ry
+</section>
+
+<section layout="code" type="text/x-markdown">
+## これで準備完了です。<br>先程作成した`.js`ファイルを変更、<br>保存して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```shell
+[17:39:10] Starting 'eslint'...
+[17:39:10] Finished 'eslint' after 2.73 ms
+[17:39:10]
+/path/to/src_dir/js/hoge.js
+  4:6  error  Parsing error:
+  Unexpected token 'string' #本来は改行しません
+
+✖ 1 problem (1 error, 0 warnings)
+[17:39:14] Starting 'eslint'...
+[17:39:15] Finished 'eslint' after 15 ms
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 後は`.eslintrc`ファイルを作成し<br>細かなルールを設定して下さい。
+
+※ `gulpfile.js`の以下の行を変更する必要があります。
+
+```diff
+- .pipe(eslint({ useEslintrc: false }))
++ .pipe(eslint({ useEslintrc: true }))
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上でタスク2は終了です。
+</section>
+
 <section layout="bullets" type="text/x-markdown">
 ## 今回のアジェンダ
 - ビルドツールの紹介</span>
@@ -320,109 +402,6 @@ gulp run !!
 <img class="logo" src="./img/webpack-logo.png" width="120">
 
 webpack is a module bundler. Its main purpose is to bundle JavaScript files for usage in a browser, yet it is also capable of transforming, bundling, or packaging just about any resource or asset.<br><span class="mright">（[公式リポジトリ](https://github.com/webpack/webpack)より）</span>
-</section>
-
-<section layout="code" type="text/x-markdown">
-## `[-g|--save|--save-dev]`の意味は？
-</section>
-
-
-<section layout="code" type="text/x-markdown">
-## `dependencies, devDependencies`という<br>2つの項目が追加されました。
-
-</section>
-
-<section layout="code" type="text/x-markdown">
-### 今後モジュールをインストールすると、<br>package.jsonに`名前: バージョン`形式で<br>自動で追記されます。
-
-<br>
-
-※ `--save|--save-dev`がないと追記されませんので注意！
-</section>
-
-<section layout="code" type="text/x-markdown">
-### `webpack`のアップデートを行ってみましょう！<br>以下のコマンドを実行して下さい。
-
-```shell
-$ npm up webpack
-$ npm ls --depth=0
-```
-</section>
-
-<section layout="code" type="text/x-markdown">
-### 以下のように、webpackのバージョンが<br>更新されたと思います。
-
-```node
-├── gulp@3.9.1
-└── webpack@1.14.0
-```
-
-</section>
-
-<section layout="code" type="text/x-markdown">
-### しかし、package.jsonは更新されません。
-
-```JSON
-...
-  "devDependencies": {
-    // 1.7.0のまま!!
-    "webpack": "^1.7.0"
-  },
-...
-```
-
-</section>
-
-<section layout="code" type="text/x-markdown">
-### package.jsonも更新したい場合は、<br>インストールコマンドを実行して下さい。
-
-```shell
-$ npm i -D webpack
-```
-
-※ `-D`は`--save-dev`の省略形
-
-</section>
-
-<section layout="code" type="text/x-markdown">
-### 今度はpackage.jsonが更新されたと思います♪
-
-```JSON
-...
-  "devDependencies": {
-    "webpack": "^1.14.0"
-  },
-...
-```
-
-</section>
-
-<section layout="code" type="text/x-markdown">
-### ここで`node_modules`ディレクトリを削除し、<br>以下のコマンドを実行してみてください。
-
-```shell
-$ npm i
-$ npm ls --depth=0
-```
-</section>
-
-<section layout="code" type="text/x-markdown">
-### 以下のように、必要なモジュールが<br>全てインストールされたことが確認できます！
-
-```node
-├── gulp@3.9.1
-└── webpack@1.14.0
-```
-</section>
-
-<section layout="code" type="text/x-markdown">
-### npmはinstallコマンドが実行されたとき、<br>自動でpackage.jsonを確認し、<br>（依存性も含めて）必要なモジュールを<br>一括でインストールしてくれます。
-
-</section>
-
-<section layout="code" type="text/x-markdown">
-### この`package.json`を共有すれば、他のメンバーも同じ開発環境を作ることができます♪（便利だなー）
-
 </section>
 
 <section layout="cover" type="text/x-markdown">
