@@ -381,7 +381,97 @@ $ npm run gulp
 </section>
 
 <section layout="code" type="text/x-markdown">
+## `.eslintrc`の設定例<br>※詳しくは[こちら](http://eslint.org/docs/rules/)
+</section>
+
+<section layout="code" type="text/x-markdown">
+```JavaScript
+{
+  "env": {
+    "es6": true
+  },
+  "rules": {
+    "no-var": 1,
+    "indent": [2, 2]
+  }
+}
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
 ## 以上でタスク2は終了です。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 3. 問題なければ圧縮する
+## 4. 圧縮したものを`.min`という<br>ファイル名で出力する
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 圧縮と言っても`zip`ではなく、<br>いわゆる`難読化`のことですw
+</section>
+
+<section layout="code" type="text/x-markdown">
+## まずはモジュールをインストール
+
+```shell
+$ npm i [--save|-D] gulp-uglify
+```
+
+※今回は`gulp-uglify`にしましたが、他にも色々あります。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 圧縮用のタスクを設定します。<br>`gulpfile.js`に次を追記して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
++ var uglify = require('gulp-uglify')
+
+gulp.task('eslint', function() {
+   gulp.src('./js/*.js')
+       .pipe(eslint({ useEslintrc: false }))
+       .pipe(eslint.format())
++      .pipe(uglify())
++      .pipe(gulp.dest('build'))
+})
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `eslint`か`watch`タスクを<br>実行してみましょう。
+
+```shell
+$ npm run gulp (eslint)
+```
+
+※ここで自動で`build`ディレクトリが生成されます。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 終わりましたら、<br>`build`ディレクトリ内の適当な<br>`.js`ファイルを開いてみましょう。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## （実行結果例）
+```JavaScript
+var hoge=123;hoge="string";var hello=f
+unction(o){console.info(o)};hello(hoge);
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上でタスク3, 4は終了です。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 5. タスク実行中にエラーが起こってもgulpを止めない
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上でタスク5および、<br>`Gulp`の実践は終了です。
 </section>
 
 <section layout="bullets" type="text/x-markdown">
