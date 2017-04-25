@@ -471,7 +471,119 @@ unction(o){console.info(o)};hello(hoge);
 </section>
 
 <section layout="code" type="text/x-markdown">
+### エラーが原因でタスクが強制停止することを防止します。
+
+### 今回は`watch`中にエラーが発生すると`watch`自体が<br>停止してしまうため、これを防止します。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## まずはエラーを発生させるため、<br>`build`ディレクトリのパーミッションを`644`に変更します。
+
+```shell
+$ chmod -R 644 build
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## では`watch`タスクを実行します。
+
+```shell
+$ npm run gulp
+```
+
+※`default`タスクにs (ry
+</section>
+
+<section layout="code" type="text/x-markdown">
+## これで準備完了です。監視対象の<br>`.js`ファイルを変更、保存してみて下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```shell
+events.js:163
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: EACCES:
+ permission denied, open
+ '/path/to/build/hoge.js' #本来は改行しません
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## なんか大量の`npm ERR!`が出て、<br>`watch`タスクが停止しましたよね？
+<br>
+
+## では、防止しましょう！
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 必要なモジュールをインストール
+
+```shell
+$ npm i [--save|-D] gulp-plumber
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## エラー処理を設定します。<br>`gulpfile.js`に次を追記して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
++ var plumber = require('gulp-plumber')
+
+gulp.task('eslint', function() {
+   gulp.src('./js/*.js')
++      .pipe(plumber()))
+       .pipe(eslint({ useEslintrc: false }))
+       // 以下略
+})
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `watch`タスクを実行します。
+
+```shell
+$ npm run gulp
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## これで準備完了です。<br>監視対象の`.js`ファイルを変更、<br>保存して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```shell
+[16:43:34] Starting 'eslint'...
+[16:43:34] Finished 'eslint' after 62 ms
+[16:43:34] Plumber found unhandled error:
+ Error: EACCES:
+ permission denied, # 本来は改行しません
+ open '/path/to/build/hoge.js'
+
+[17:13:42] Starting 'eslint'...
+[17:13:42] Finished 'eslint' after 98 ms
+ ```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 今度は`watch`タスクが停止せず<br>待機状態を維持したと思います。
+</section>
+
+<section layout="code" type="text/x-markdown">
 ## 以上でタスク5および、<br>`Gulp`の実践は終了です。
+</section>
+
+<section layout="cover-invert" type="text/x-markdown">
+## 余談
+</section>
+
+<section layout="cover-invert" type="text/x-markdown">
+## Gulpにはたくさんのモジュールが作られており、例えば`gulp-notify`を使うとデスクトップ通知ができるなど、より自分にあった環境が作れます。
 </section>
 
 <section layout="bullets" type="text/x-markdown">
