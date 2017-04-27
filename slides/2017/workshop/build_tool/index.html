@@ -621,9 +621,9 @@ $ npm i [--save|-D] webpack
 <section layout="code" type="text/x-markdown">
 ```JavaScript
 module.exports = {
-  entry : './js/app.js',
+  entry : './js/hoge.js',
   output: {
-    filename: 'bundle.js'),
+    filename: 'bundle.js',
     // ※ここは絶対パス
     path: '/path/to/build/'
   }
@@ -632,21 +632,21 @@ module.exports = {
 </section>
 
 <section layout="code" type="text/x-markdown">
-## ちょっとNode.jsを使うと<br>こう書ける。
+## ちょっとNode.jsを使うと<br>こう書けます。
 </section>
 
 <section layout="code" type="text/x-markdown">
 ```diff
-+var path = require('path')
++ var path = require('path')
 
-module.exports = {
+  module.exports = {
     ...
 
     // 本来は以下を一行で書く
 +   path: path.resolve(__dirname
 +      + '/path/to/build/')
+    }
   }
-}
 ```
 </section>
 
@@ -708,11 +708,51 @@ bundle.js  2.73 kB       0  [emitted]  main
 </section>
 
 <section layout="code" type="text/x-markdown">
+## `webpack.config.js`を開き、<br>以下のコードを追記して下さい。
+<br>
+
+```diff
+  module.exports = {
+-   entry : './js/hoge.js',
++   entry : ['./js/hoge.js', './js/fuga.js'],
+
+    //（以下略）
+  }
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## jsディレクトリに`hoge.js`を作成し、<br>再度バンドルを実行して下さい。
+
+```shell
+$ npm run build
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
 ## 以上でタスク1は終了です。
 </section>
 
 <section layout="code" type="text/x-markdown">
 ## 2. 出力ファイル名を変更する
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `webpack.config.js`を開き、<br>次のコードを追記して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
+  module.exports = {
+-   entry : ['./js/hoge.js', './js/fuga.js'],
++   entry : {
++     piyo: ['./js/hoge.js', './js/fuga.js']
++   },
+    output: {
+-     filename: 'bundle.js',
++     filename: '[name].bundle.js',
+      //（以下略）
+```
 </section>
 
 <section layout="code" type="text/x-markdown">
