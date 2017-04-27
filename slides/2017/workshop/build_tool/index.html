@@ -109,10 +109,6 @@ var my_info = {
 gulp is a toolkit for automating painful or time-consuming tasks in your development workflow, so you can stop messing around and build something.<br><span class="mright">（[公式サイト](http://gulpjs.com/)より）</span>
 </section>
 
-<section layout="title-invert" type="text/x-markdown">
-## さっそく使ってみましょう！
-</section>
-
 <section layout="bullets" type="text/x-markdown">
 ## 今回は以下のタスクを自動化
 
@@ -121,6 +117,10 @@ gulp is a toolkit for automating painful or time-consuming tasks in your develop
 1. 問題なければ圧縮する
 1. 圧縮したものを.minという名前で出力する
 1. 上記実行中にエラーが起こってもgulpを止めない
+</section>
+
+<section layout="code" type="text/x-markdown">
+## その前に、Gulpの簡単な使い方
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -260,7 +260,7 @@ $ npm run gulp
 <br>
 
 ```JavaScript
-// 適当な箇所に追記
+// watchタスクの設定
 gulp.task('watch', function() {
    gulp.watch('./js/*.js', ['test'])
 })
@@ -477,25 +477,19 @@ unction(o){console.info(o)};hello(hoge);
 </section>
 
 <section layout="code" type="text/x-markdown">
-## まずはエラーを発生させるため、<br>`build`ディレクトリのパーミッションを`644`に変更します。
+## 以下のコマンドを実行して下さい
 
 ```shell
+# パーミッションを644に
 $ chmod -R 644 build
-```
-</section>
 
-<section layout="code" type="text/x-markdown">
-## では`watch`タスクを実行します。
-
-```shell
+# watchタスクを実行
 $ npm run gulp
 ```
-
-※`default`タスクにs (ry
 </section>
 
 <section layout="code" type="text/x-markdown">
-## これで準備完了です。監視対象の<br>`.js`ファイルを変更、保存してみて下さい。
+## 監視対象の`.js`ファイルを変更、<br>保存してみて下さい。
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -602,8 +596,138 @@ $ npm run gulp
 webpack is a module bundler. Its main purpose is to bundle JavaScript files for usage in a browser, yet it is also capable of transforming, bundling, or packaging just about any resource or asset.<br><span class="mright">（[公式リポジトリ](https://github.com/webpack/webpack)より）</span>
 </section>
 
+<section layout="bullets" type="text/x-markdown">
+## 今回は以下のタスクを自動化
+
+1. 複数のファイルをバンドルする
+1. 出力ファイル名を変更する
+1. `jQuery`もバンドルする
+</section>
+
+<section layout="code" type="text/x-markdown">
+## まずはWebpackの簡単な使い方
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Webpackをインストール
+
+```shell
+$ npm i [--save|-D] webpack
+```
+
+※ `--save, -D`はオプションです。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```JavaScript
+module.exports = {
+  entry : './js/app.js',
+  output: {
+    filename: 'bundle.js'),
+    // ※ここは絶対パス
+    path: '/path/to/build/'
+  }
+}
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## ちょっとNode.jsを使うと<br>こう書ける。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
++var path = require('path')
+
+module.exports = {
+    ...
+
+    // 本来は以下を一行で書く
++   path: path.resolve(__dirname
++      + '/path/to/build/')
+  }
+}
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Webpackを起動させるために<br>コマンドを設定
+
+### `package.json`を開き、次のコードを追記して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
+// package.jsonの一部抜粋
+...
+  "scripts": {
+-   "gulp": "gulp"
++   "gulp": "gulp",
+    // 「-w」はwatchモードのオプション
+    // これで変更を検知し自動でバンドル
++   "build": "webpack -w"
+  },
+...
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 準備完了です。以下の<br>コマンドを実行して下さい。
+
+```shell
+$ npm run build
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## （実行結果例）
+```shell
+Hash: b78690c05f52f020db88
+Version: webpack 2.4.1
+Time: 101ms
+    Asset     Size  Chunks  Chunk Names
+bundle.js  2.73 kB       0  [emitted]  main
+   [0] ./js/hoge.js 95 bytes {0} [built]
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上が、最小限のWebpackの<br>動かし方です。それでは<br>今回のタスクに入っていきます。
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 【再掲】今回のタスク
+
+1. 複数のファイルをバンドルする
+1. 出力ファイル名を変更する
+1. `jQuery`もバンドルする
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 1. 複数のファイルをバンドルする
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上でタスク1は終了です。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 2. 出力ファイル名を変更する
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上でタスク2は終了です。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 3. `jQuery`もバンドルする
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上でタスク3は終了です。
+</section>
 <section layout="cover" type="text/x-markdown">
-# 以上で今回のワークショップは終了です！
+# 以上で今回のワークショップは終了です！<br>楽しんで頂けましたか？
 </section>
 
 <script layout="cover" type="text/x-markdown">
@@ -611,7 +735,7 @@ webpack is a module bundler. Its main purpose is to bundle JavaScript files for 
 </script>
 
 <script layout="cover" type="text/x-markdown">
-# 以上、お疲れ様でした！
+# お疲れ様でした！
 </script>
 
 
