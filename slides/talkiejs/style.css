@@ -12,13 +12,14 @@ span {
 	line-height: 1.8;
 }
 span.hljs-string {
-	color: #008080;
+	color: #00a497;
 }
 span.hljs-attribute {
 	color: #b58900;
 }
-span.hljs-reserved {
-	color: #f92672;
+span.hljs-reserved,
+span.hljs-keyword {
+	color: #ff69b4;
 }
 span.f38 {
 	font-size: 38px;
