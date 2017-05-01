@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>demo app</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div id="container">
+      <h3>Demo App</h3>
+      <hr>
+      <p>
+        ID:<br>
+        <input type="text" id="user">
+      </p>
+      <p>
+        Password:<br>
+        <input type="password" id="pass">
+      </p>
+      <button id="send" type="button">Send</button>
+      <hr>
+      Result:
+      <p id="result"></p>
+    </div>
+
+    <script src="src/util.js"></script>
+    <script src="src/app.js"></script>
+    <script src="./build/bundle.js"></script>
+  </body>
+</html>
