@@ -1,14 +1,30 @@
 var correct = 'test1234'
 
 function valid_check(user, pass) {
-   var ret = ''
+   var key = ''
 
    if (user.length == 0 || pass.length == 0)
-      ret = 'Please enter ID and Password !!'
+      key = 'ng1'
    else if (pass != correct)
-      ret = 'Invalid ID or Password !!'
+      key = 'ng2'
    else if (pass.length > 0 && pass === correct)
-      ret = 'Correct !!'
+      key = 'ok'
 
-   return ret
+   return get_message(key)
+}
+
+function get_message(key) {
+	switch(key) {
+		case 'ng1':
+			return 'Please enter ID and Password !!'
+			break
+		case 'ng2':
+			return 'Invalid ID or Password !!'
+			break
+		case 'ok':
+			return 'Correct !!'
+			break
+		default:
+			break
+	}
 }
