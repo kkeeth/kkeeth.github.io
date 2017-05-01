@@ -62,7 +62,7 @@ var my_info = {
 - ES6, TypeScriptのコンパイル
 - テンプレートエンジンを用いたファイルのコンパイル
 - PostCSS, LESS, Sassなどのプリプロセッサーのコンパイル
-- ESLint, JSLint, JSHintなどのリンターのチェック
+- ESLint, JSLint, JSHintなどのリンターによるチェック
 - js, cssの圧縮（minify）、ファイルのリネーム
 - 画像ファイルの圧縮
 - バンドル
@@ -127,10 +127,10 @@ gulp is a toolkit for automating painful or time-consuming tasks in your develop
 ## まずはGulpをインストール
 
 ```shell
-$ npm i [--save|-D] gulp
+$ npm i [--save-dev|-D] gulp
 ```
 
-※ `--save, -D`はオプションです。
+※ `--save-dev, -D`はオプションです。
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -317,7 +317,7 @@ gulp run !!
 ## 必要なモジュールをインストール
 
 ```shell
-$ npm i [--save|-D] gulp-eslint
+$ npm i [--save-dev|-D] gulp-eslint
 ```
 </section>
 
@@ -416,7 +416,7 @@ $ npm run gulp
 ## まずはモジュールをインストール
 
 ```shell
-$ npm i [--save|-D] gulp-uglify
+$ npm i [--save-dev|-D] gulp-uglify
 ```
 
 ※今回は`gulp-uglify`にしましたが、他にも色々あります。
@@ -517,7 +517,7 @@ npm ERR! errno 1
 ## 必要なモジュールをインストール
 
 ```shell
-$ npm i [--save|-D] gulp-plumber
+$ npm i [--save-dev|-D] gulp-plumber
 ```
 </section>
 
@@ -602,6 +602,7 @@ webpack is a module bundler. Its main purpose is to bundle JavaScript files for 
 1. 複数のファイルを圧縮してバンドルする
 1. 出力ファイル名を変更する
 1. `jQuery`もバンドルする
+1. jsファイルを`ESLint`にかける
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -614,10 +615,10 @@ webpack is a module bundler. Its main purpose is to bundle JavaScript files for 
 ## Webpackをインストール
 
 ```shell
-$ npm i [--save|-D] webpack
+$ npm i [--save-dev|-D] webpack
 ```
 
-※ `--save, -D`はオプションです。
+※ `--save-dev, -D`はオプションです。
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -707,6 +708,7 @@ bundle.js  2.73 kB       0  [emitted]  main
 1. 複数のファイルを圧縮してバンドルする
 1. 出力ファイル名を変更する
 1. `jQuery`もバンドルする
+1. jsファイルを`ESLint`にかける
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -746,7 +748,7 @@ bundle.js  2.73 kB       0  [emitted]  main
 </section>
 
 <section layout="code" type="text/x-markdown">
-## jsディレクトリに`fuga.js`を作成し、<br>再度バンドルを実行して下さい。
+## jsディレクトリに`fuga.js`を作成し、<br>再度バンドルしましょう。
 
 ```shell
 $ npm run build
@@ -766,6 +768,17 @@ $ npm run build
 </section>
 
 <section layout="code" type="text/x-markdown">
+## 今回は以下のように、
+
+```JavaScript
+hoge.js: hoge.bundle.js
+fuga.js: fuga.bundle.js
+```
+
+## それぞれで出力します。
+</section>
+
+<section layout="code" type="text/x-markdown">
 ## `webpack.config.js`を開き、<br>次のコードを追記して下さい。
 </section>
 
@@ -774,13 +787,36 @@ $ npm run build
   module.exports = {
 -   entry : ['./js/hoge.js', './js/fuga.js'],
 +   entry : {
-+     piyo: ['./js/hoge.js', './js/fuga.js']
++      hoge: './js/hoge.js',
++      fuga: './js/fuga.js'
 +   },
     output: {
--     filename: 'bundle.js',
-+     filename: '[name].bundle.js',
+-      filename: 'bundle.js',
++      filename: '[name].bundle.js',
       //（以下略）
 ```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## ではバンドルしましょう。
+
+```shell
+$ npm run build
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `build`ディレクトリを開くと、
+
+```JavaScript
+build/
+  └ bundle.js
+  └ hoge.bundle.js ← new
+  └ fuga.bundle.js ← new
+
+```
+
+## となっていればOKです。
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -792,10 +828,166 @@ $ npm run build
 </section>
 
 <section layout="code" type="text/x-markdown">
+## webpackではライブラリも一緒に<br>バンドルすることができます。
+
+今回は`jQuery`をバンドルしてみましょう。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## まずは`jQuery`をインストール
+
+```shell
+$ npm i --save jquery
+```
+
+※バージョンを指定したい方は適宜指定して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 次に`hoge.js`を開き、<br>以下のコードを追記して下さい。
+
+<br>
+
+```JavaScript
+var jquery = require('jquery')
+
+// ES2015の書き方
+import { jquery } from 'jquery'
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## さらに`webpack.config.js`を開き、<br>次のコードを追記して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
+  // 一部抜粋
+  plugins: [
+    // 名前を予約
++   new webpack.ProvidePlugin({
++      jquery: 'jquery',
++      jQuery: 'jquery',
++      $     : 'jquery'
++   }),
+    // （以下略）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## ではバンドルしましょう。
+
+```shell
+$ npm run build
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## バンドルが完了したら<br>`build/hoge.bundle.js`を開いて下さい。
+
+<br>
+
+## `jQuery`のソースがバンドルされているかと思います。
+</section>
+
+<section layout="code" type="text/x-markdown">
 ## 以上でタスク3は終了です。
 </section>
+
+<section layout="code" type="text/x-markdown">
+## 4. jsファイルを`ESLint`にかける
+</section>
+
+<section layout="code" type="text/x-markdown">
+## まずはモジュールをインストール
+
+```shell
+# 長いため改行
+$ npm i [--save-dev|-D] eslint
+        eslint-loader webpack-notifier
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 次に`webpack.config.js`を開き、<br>次のコードを追記して下さい。
+
+※ あくまで設定の一例になります。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
++ var WebpackNotifierPlugin
++ = require('webpack-notifier')
+
+  // ...
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(`${__dirname}/build/`)
+- }
++ },
+  （続く）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
+  （続き）
++   module: {
++     rules: [
++       {
++         test: /\.js$/,
++         exclude: '/node_modules/',
++         loader: 'eslint-loader',
+  （まだ続く）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+```JavaScript
+  （続き）
++         options: {
++           fix: true,
++           failOnError: true
++         }
++       }
++     ]
++   },
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## さらにESLintのconfigを設定するため`.eslintrc`ファイルを作成し、次のコードを追記します。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```JSON
+// あくまで設定の一例
+{
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "eqeqeq": 1,
+    "prefer-const": 0,
+  }
+}
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## ではバンドルしましょう。
+
+```shell
+$ npm run build
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上でタスク4および、<br>`Webpack`の実践は終了です。
+</section>
+
 <section layout="cover" type="text/x-markdown">
-# 以上で今回のワークショップは終了です！<br>楽しんで頂けましたか？
+# これにて今回のワークショップは終了です！<br>楽しんで頂けましたか？
 </section>
 
 <script layout="cover" type="text/x-markdown">
