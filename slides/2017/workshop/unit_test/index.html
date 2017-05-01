@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>自動ユニットテスト</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../../shower/themes/ribbon/styles/screen-16x10.css">
+    <link rel="stylesheet" href="../../../assets/style.css">
+    <link rel="shortcut icon" href="../../../assets/favicon.ico">
+  </head>
+  <body class="shower list">
+    <header class="caption">
+      <h1>JavaScriptにおける自動ユニットテスト</h1>
+      <p class="desc">
+        Click：　スライドスタート<br>
+        Enter：　次へ進む<br>
+        →, ↓：　次へ進む<br>
+        ←, ↑：　前へ戻る<br>
+        ESC：　一覧へ戻る
+      </p>
+    </header>
+    <section class="slide" id="cover">
+      <h2>
+        JavaScriptにおける自動ユニットテスト
+      </h2>
+      <p>
+        2017/06/09　@レプラホーン本社<br>
+      </p>
+    </section>
+
+    <section class="slide">
+      <h2>自己紹介</h2>
+      <pre>
+<code>var my_info = {
+  <key>name</key>: <value>'Kiyohito Kuwahara'</value>,
+  <key>twitter</key>: <value>'@kuwahara_ngv2'（たまに変わります）</value>,
+  <key>github</key> : <value>'k-kuwahara'</value>,
+  <key>qiita</key>  : <value>'@clown0082'</value>,
+  <key>skill</key>  : <value>'PHP, CodeIgniter, JS, Riot, Angular'</value>,
+  <key>workplace</key>: <value>'Leprachaun Corp.'</value>
+}</code>
+      </pre>
+    </section>
+
+    <section class="slide">
+      <h2>アジェンダ</h2>
+      <ol>
+        <li>ES6(ES2015)</li>
+        <li>Babel（バベる）</li>
+        <li>最近のES界隈</li>
+      </ol>
+      <p>※ 何かあれが随時聞いていただいて問題ありません。</p>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="shout">1. ES6(ES2015)</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="shout">その前にES(ECMA Script)とは</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">ESとは</h2>
+      <p class="f30"><span class="assert">ES(ECMA Script)</span>は、JavaScript の標準であり、Ecma Internationalのもとで標準化手続きなどが行われている。 2015年6月に6th editionがリリースされている。</p>
+      <p class="mright">(<a href="https://www.google.co.jp/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ved=0ahUKEwjG8bXo9pvTAhVEfrwKHWZ6B0AQFggcMAE&url=https%3A%2F%2Fja.wikipedia.org%2Fwiki%2FECMAScript&usg=AFQjCNFyZ08rYRwI0T1ZRmmFcwGdN08iIQ&sig2=7BtbK17ZNN8EPmZ8XC7Lhg&bvm=bv.152180690,d.dGc">ECMAScript - ウィキペディア</a>より)</p>
+      <p class="next">※つまりES6とはESのバージョン6</p>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">ES2015とは</h2>
+      <p class="f30">
+        <span class="assert">ES2015</span>はES6の別名。2015年度から仕様策定フローを整理し、今後はES2016, ES2017…と毎年策定される形となりました。
+        ただしES2015は年次アップデートではなく、メジャーバージョンアップの起点となるバージョンであり、またES5から飛躍的に仕様が増えたバージョンであるため、<b>ES2015がデファクトスタンダード（後述）</b>として使用されています。
+      </p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="h-center">ちなみにES6はNode.jsのv6からも動作します♪</h3>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="h-center">それでは、その<span class="assert">飛躍的に増えた仕様</span>を見ていきましょう！</h3>
+      <p>※ただし、全ての新機能は網羅していないので、ご了承下さい</p>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">var, let, const</h2>
+      <ul>
+        <li>「var」 => いらない子</li>
+        <li>「let」 => 変数</li>
+        <li>「const」 => 定数</li>
+      </ul>
+      <p>
+        実際に試してみるため、<span class="red">「Google Chrome（重要）」</span>を開き、<br>
+        F12から「Console」を開いて下さい！
+      </p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">以下のコードを実行してみましょう！</h3>
+      <pre>
+         <code>  <key>let</key> hoge = <value>'hoge'</value></code>
+        <code>  hoge = <value>'fuga'</value> <comment>// => 問題なし</comment></code>
+        <code>  </code>
+        <code>  <key>const</key> foo = <value>'bar'</value></code>
+        <code>  foo = <value>'bar'</value> <error>// => Uncaught TypeError</error></code>
+
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">アロー関数（Arrow functions）</h2>
+      <pre>
+        <code>  <comment>// bad pattern</comment></code>
+        <code>  <key>var</key> <value>hoge</value> = function(x) {</code>
+        <code>     return 2 * x</code>
+        <code>  }</code>
+        <code>  <comment>// good pattern</comment></code>
+        <code>  <key>const</key> <value>hoge</value> = (x) => {   <comment>// もうfunctionはいらない</comment></code>
+        <code>     return 2 * x</code>
+        <code>  }</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">アロー関数のいろんな書き方</h2>
+      <pre>
+        <code>  <comment>// 丸カッコの省略</comment></code>
+        <code>  <key>const</key> <value>hoge</value> = x => {</code>
+        <code>     return 2 * x</code>
+        <code>  }</code>
+        <code>  <comment>// 波カッコ, returnの省略</comment></code>
+        <code>  <key>const</key> <value>hoge</value> = (x) => 2 * x</code>
+        <code>  <comment>// 両方の省略</comment></code>
+        <code>  <key>const</key> <value>hoge</value> = x => 2 * x</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">テンプレート文字列</h2>
+      <pre>
+        <code>  <key>const</key> <value>hoge</value> = 123</code>
+        <code>  </code>
+        <code>  <comment>// 従来の書き方</comment></code>
+        <code>  <key>const</key> <value>str1</value> = 'hoge = ' + hoge + '!'</code>
+        <code>  <comment>// ES6の書き方（バッククォートで挟む）</comment></code>
+        <code>  <comment>// ※let でも動作する</comment></code>
+        <code>  <key>const</key> <value>str2</value> = `hoge = ${hoge}!`</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">この子にはこんな便利さが！</h3>
+      <pre>
+        <code>  <key>const</key> <value>str3</value> = `</code>
+        <code>    文字列内で</code>
+        <code>    改行が</code>
+        <code>    維持される！</code>
+        <code>  `</code>
+        <code>  str3</code>
+      </pre>
+
+      <p>上記のコードをConsole上で実行してみて下さい♪</p>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">for-of</h2>
+      <p class="f30">以下のコードの結果を予想してから実行してみてください♪</p>
+      <pre>
+        <code>  <key>let</key> <value>arr</value> = [1, 2, 3, 4, 5]</code>
+        <code>  for (<key>const</key> <value>v</value> of arr) {</code>
+        <code>     console.info(v)</code>
+        <code>  }</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">従来の書き方2パターン</h2>
+      <pre>
+        <code>  <key>var</key> <value>arr</value> = [1, 2, 3, 4, 5]</code>
+        <code>  for (<key>var</key> <value>k</value> in arr) {   <comment>// いわゆるfor-in文</comment></code>
+        <code>     console.info(arr[k])</code>
+        <code>  }</code>
+        <code>  for (<key>var</key> <value>i</value> = 0; i < arr.length; i++) {</code>
+        <code>     console.info(arr[i])</code>
+        <code>  }</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">Set（コンストラクタ）</h2>
+      <p class="f30 no-mb">この子もまずは以下のコードを実行してみてください♪</p>
+      <pre>
+        <code>  <key>const</key> <value>arr</value> = [1, 2, 3, 1, 2, 1, 4]</code>
+        <code>  <key>const</key> <value>obj</value> = new Set(arr)</code>
+        <code>  obj</code>
+        <code>  obj.add(5)</code>
+        <code>  obj.delete(3)</code>
+        <code>  obj.has(1)</code>
+        <code>  obj</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="h-center">皆さん、歓喜しましょう。<br>ついに<span class="assert">クラス</span>が実装されました。</h3>
+      <p class="f30 mright">（ある意味でこれが一番の目玉です）</p>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">クラス構文</h2>
+      <p class="f30">JavaScriptにおけるクラス構文は<span class="assert">prototypeベースの糖衣構文</span>となります。<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Classes" target="_blank">MDN</a>でも記述がありますが、新しいオブジェクト指向継承モデルを JavaScript に導入しているわけではありません。</p>
+
+      <p class="f30">また、クラスは実際には「特別な関数」であり、クラス構文には<span class="assert">クラス式</span>と<span class="assert">クラス宣言</span>という２つの定義方法があります。</p>
+
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">1. クラス式の書き方</h3>
+      <pre>
+        <code>  <key>const</key> <value>Animal</value> = class {</code>
+        <code>     <key>constructor</key>(name, age) {</code>
+        <code>        this.name = name</code>
+        <code>        this.age  = age</code>
+        <code>     }</code>
+        <code>  }</code>
+        <code>  <key>let</key> <value>dog</value> = new Animal('snoopy', 67)</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">2. クラス宣言の書き方</h3>
+      <pre>
+        <code>  <key>class</key> <value>Animal</value> {</code>
+        <code>     <key>constructor</key>(name, age) {</code>
+        <code>        this.name = name</code>
+        <code>        this.age  = age</code>
+        <code>     }</code>
+        <code>  }</code>
+        <code>  <key>let</key> <value>cat</value> = new Animal('kitty', 42)</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="h-center">他の言語同様に、クラスの<span class="assert">継承</span>もできますので、やってみましょう♪</h3>
+    </section>
+
+    <section class="slide center-text">
+      <h2>Catクラスの定義</h2>
+      <pre>
+        <code>  <key>class</key> <value>Cat</value> {</code>
+        <code>     <key>constructor</key>(name) {</code>
+        <code>        this.name = name</code>
+        <code>     }</code>
+        <code>     <key>speak</key>() {</code>
+        <code>        alert(`${this.name} by Cat class`)</code>
+        <code>     }</code>
+        <code>  }</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h2>Catクラスを継承したLionクラスの定義</h2>
+      <pre>
+        <code>  <key>class</key> <value>Lion</value> extends <value>Cat</value> {</code>
+        <code>     <key>speak</key>() {</code>
+        <code>        <comment>// 親クラスのspeakを呼ぶ</comment></code>
+        <code>        <error>super.speak()</error></code>
+        <code>        console.info(`${this.name} by Lion class`)</code>
+        <code>     }</code>
+        <code>  }</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h2>Lionクラスのインスタンスを生成</h2>
+      <pre>
+        <code>  <key>let</key> <value>lion</value> = new Lion('JSer') {</code>
+        <code>  lion.name</code>
+        <code>  lion.speak()</code>
+      </pre>
+
+      <p class="f30">親のCatクラスを継承しているため、speak()を実行すると、<br>alertとconsole.infoが出力されます。</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="h-center">まだまだ仰山ありますので、皆さん調べてみて下さい( ﾟ∀ﾟ)</h3>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">その他参考リンク</h2>
+      <ul>
+        <li><a href="http://qiita.com/takeharu/items/cbbe017bbdd120015ca0" target="_blank">もうはじめよう、ES6~ECMAScript6の基本構文まとめ(JavaScript)~</a></li>
+        <li><a href="https://gist.github.com/likr/c4b9dda04562b6491674f3994d27111e" target="_blank">JavaScript コーディング TIPS</a></li>
+      </ul>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="shout">突然ですが一言。<br><s>IEはクソブラウザです。</s></h2>
+      <p class="codicil">Microsoft信者の方にはすみません</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="h-center"><span class="red">IEはES6に対応していない</span>ため、ES6がJavaScriptの標準仕様にはなれないからです。</h3>
+      <p class="codicil next"><s>クソが…</s></p>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="shout h-center">ですので、<s>わざわざ</s>ES5に<br>変換する必要があります。</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="h-center">※ IEなにそれ？おいしいの？な環境では、この後の「2. Babel（バベる）」は飛ばしちゃって下さい♪</h3>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="shout">2. Babel（バベる）</h2>
+      <p class="next codicil">フロント界隈ではES6をコンパイルすることを<br>「バベる」と良く言いますw</p>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">Babelとは</h2>
+      <p class="f30"><span class="assert">Babel</span>は、世界中で使用されているJavaScriptコンパイラの一つです。後ほど触れるgulp, webpackなどの様々ライブラリにも利用されており、これを知らないJSerはいないのではないかと。</p>
+      <p class="mright"><img src="img/babel.png"></p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="h-center">…と紹介しましたが、このさきBabelは使わず、<span class="assert">Buble</span>を使いますw</h3>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">Bubleとは</h2>
+      <p class="f30"><span class="assert">Buble</span>は、BabelをベースとしたJavaScriptコンパイラの一つで、Babelとは以下の点が異なります。</p>
+      <ul>
+        <li>仕様への準拠ではなくブラウザで動くことを目指す</li>
+        <li>設定ファイルは不要</li>
+        <li>高速なコンパイル</li>
+      </ul>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">バベり方は大まかに以下の3つかと。</h3>
+      <ol>
+        <li>cliを使う (babel-cli, bubleなど)</li>
+        <li>タスクランナーを使う (Gulp, Gruntなど)</li>
+        <li>バンドラーを使う (Webpack2, Rollupなど)</li>
+      </ol>
+      <p class="codicil">2, 3はビルドと一緒にバベる形です</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">今回は以下の3つをご紹介。</h3>
+      <ol>
+        <li>cliを使う (babel-cli, <span class="assert">buble</span>など)</li>
+        <li>タスクランナーを使う (<span class="assert">Gulp</span>, Gruntなど)</li>
+        <li>バンドラーを使う (<span class="assert">Webpack2</span>, Rollupなど)</li>
+      </ol>
+      <p class="codicil">※ 他は私が触ったことないため…</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="shout">1. bubleでバベる</h3>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">1. bubleでバベる</h3>
+      <p class="f30">「余計なこと考えずに、とにかくhoge.jsをES5にコンパイルしたいんじゃぁあああ！」という方向けですw コマンドラインから実行できるので試してみましょう！</p>
+
+      <pre class="">
+        <code>  <comment>// bubleのグローバルインストール</comment></code>
+        <code>  $ <key>npm</key> i -g <value>buble</value></code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">1. bubleでバベる</h3>
+      <p class="f30">先程試したクラス構文を適当なjsファイルを作成し、コピペして保存して下さい。完了したら、以下のコマンドを実行してみましょう！</p>
+      <pre class="">
+        <code>  <comment>// コンパイルの実行</comment></code>
+        <code>  $ <key>buble</key> <value>hoge.js</value> -o fuga.js</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="shout">2. gulpでバベる</h3>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">2. gulpでバベる</h3>
+      <p class="f30">今度は、「ファイルの変更を検知し自動でES5に変換する」方法です。以下を実行して下さい。</p>
+      <pre class="">
+        <code>  <comment>// package.jsonがない人</comment></code>
+        <code>  $ <key>npm</key> <value>init</value></code>
+        <code>  <comment>// 必要なモジュールのインストール</comment></code>
+        <code>  $ <key>npm</key> i -D <value>gulp gulp-buble</value></code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">2. gulpでバベる</h3>
+      <p class="f30">ローカルでもグローバルでもインストールが完了しましたら、次はgulpfile.jsを作成し、gulp.taskを設定します。</p>
+      <p class="f30">コード例→ <a href="https://gist.github.com/k-kuwahara/a9e93d131a4a01325cd7b2c7be306a36#file-gulpfile-js" target="_blank">gulpfile.jsの例</a></p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">2. gulpでバベる</h3>
+      <p class="f30">設定が完了しましたら、package.jsonのscriptsに実行用のコマンドを設定します。</p>
+      <pre class="">
+        <code>  <comment>// package.jsonのscripts</comment></code>
+        <code>  <key>"scripts"</key>: {</code>
+        <code>    <key>"gulp"</key>: <value>"gulp" </value></code>
+        <code>  } </code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">2. gulpでバベる</h3>
+      <p class="f30">最後に実行してみましょう！</p>
+      <pre class="">
+        <code>  <comment>// gulpの起動</comment></code>
+        <code>  $ <key>npm</key> run <value>gulp</value> watch (←これはなくても良い)</code>
+        <code>  <comment>// [20:32:20] Starting 'watch'...</comment></code>
+        <code>  <comment>// [20:32:20] Finished 'watch' after 26 ms</comment></code>
+        <code>  <comment>// これ以降勝手にコンパイルが走ります</comment></code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="shout">3. webpack2でバベる</h3>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. webpack2でバベる</h3>
+      <p class="f30">gulpと同様に「ファイルの変更を検知し自動でES5に変換する」方法です。以下を実行して下さい。</p>
+
+      <pre class="">
+        <code>  <comment>// package.jsonがない人</comment></code>
+        <code>  $ <key>npm</key> <value>init</value></code>
+        <code>  <comment>// 必要なモジュールのインストール</comment></code>
+        <code>  $ <key>npm</key> i <value>webpack buble-loader</value></code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. webpack2でバベる</h3>
+      <p class="f30">ローカルでもグローバルでもインストールが完了しましたら、次はwebpack.config.jsを作成し、バンドルの設定をします。</p>
+      <p class="f30">コード例→ <a href="https://gist.github.com/k-kuwahara/a9e93d131a4a01325cd7b2c7be306a36#file-webpack-config-js" target="_blank">webpack.config.jsの例</a></p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. webpack2でバベる</h3>
+      <p class="f30">設定が完了しましたら、package.jsonのscriptsに実行用のコマンドを設定します。</p>
+      <pre class="">
+        <code>  <comment>// package.jsonのscripts</comment></code>
+        <code>  <key>"scripts"</key>: {</code>
+        <code>    <key>"build"</key>: <value>"webpack -w (←これはなくても良い)" </value></code>
+        <code>  } </code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. webpack2でバベる</h3>
+      <p class="f30">最後に実行してみましょう！</p>
+      <pre class="">
+        <code>  <comment>// webpack2の起動</comment></code>
+        <code>  $ <key>npm</key> run <value>build</value></code>
+        <code>  ...</code>
+        <code>  <comment>bundle.js  3.27 kB       0  [emitted]  main</comment></code>
+        <code>  <comment>   [0] ./js/es6.js 642 bytes {0} [built]</comment></code>
+        <code>  <comment>// これ以降勝手にビルドが走ります</comment></code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="h-center">他にも色々ありますので、皆さんのお好きな方法でバベって下さい( ﾟ∀ﾟ)</h3>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">参考リンク</h2>
+      <ul>
+        <li><a href="http://babeljs.io/docs/usage/cli/" target="_blank">babel-cli</a></li>
+        <li><a href="https://www.npmjs.com/package/buble" target="_blank">buble</a></li>
+        <li><a href="https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md" target="_blank">gulp</a></li>
+        <li><a href="https://webpack.js.org/guides/get-started/" target="_blank">webpack2</a></li>
+        <li><a href="http://qiita.com/aggre/items/6f5d5d710a9e53bc77e8" target="_blank">もうBabelじゃない - Bubleだ。</a></li>
+        <li><a href="http://qiita.com/tonkotsuboy_com/items/2d4f3862e6d05dc0bea1" target="_blank">Gulpで始めるwebpack 2入門</a></li>
+      </ul>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="shout">3. 最近のES界隈</h2>
+      <p class="codicil next">完全に余談ですw</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">最近のES界隈</h3>
+      <ul class="f30">
+        <li>既にES2016, ES2017は公開、各ブラウザが随時対応中</li>
+        <li>実際のサービスでES2017まで導入されている事例もあり</li>
+        <li>babel, bubleも対応してきている</li>
+      </ul>
+      <p class="f30">乗り遅れないように！</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3>次回は…</h3>
+      <h2 class="shout">「JavaScriptにおける<br>ユニットテスト」</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="shout">お疲れ様でした！！</h2>
+    </section>
+
+    <script src="../../../shower/shower.min.js"></script>
+  </body>
+</html>
