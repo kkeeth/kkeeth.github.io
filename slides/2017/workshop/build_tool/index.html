@@ -248,7 +248,7 @@ $ npm run gulp
   └ *.js   ← 検知対象ファイル
 ```
 
-※`js`ディレクトリに`(適当な名前).js`<br>ファイルを作成してください。
+※`js`ディレクトリに`(適当な名前).js`<br>ファイルを作成して下さい。
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -599,13 +599,15 @@ webpack is a module bundler. Its main purpose is to bundle JavaScript files for 
 <section layout="bullets" type="text/x-markdown">
 ## 今回は以下のタスクを自動化
 
-1. 複数のファイルをバンドルする
+1. 複数のファイルを圧縮してバンドルする
 1. 出力ファイル名を変更する
 1. `jQuery`もバンドルする
 </section>
 
 <section layout="code" type="text/x-markdown">
 ## まずはWebpackの簡単な使い方
+
+### 「特定の.jsファイルを`build`ディレクトリに出力」します
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -641,10 +643,8 @@ module.exports = {
 
   module.exports = {
     ...
-
-    // 本来は以下を一行で書く
-+   path: path.resolve(__dirname
-+      + '/path/to/build/')
+-   path: '/path/to/build/'
++   path: path.resolve(`${__dirname}/build/`)
     }
   }
 ```
@@ -677,6 +677,8 @@ module.exports = {
 ```shell
 $ npm run build
 ```
+
+※ここで自動的に`build`ディレクトリが生成されます。
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -692,41 +694,67 @@ bundle.js  2.73 kB       0  [emitted]  main
 </section>
 
 <section layout="code" type="text/x-markdown">
+## `build/bundle.js`を開いてみて下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
 ## 以上が、最小限のWebpackの<br>動かし方です。それでは<br>今回のタスクに入っていきます。
 </section>
 
 <section layout="bullets" type="text/x-markdown">
 ## 【再掲】今回のタスク
 
-1. 複数のファイルをバンドルする
+1. 複数のファイルを圧縮してバンドルする
 1. 出力ファイル名を変更する
 1. `jQuery`もバンドルする
 </section>
 
 <section layout="code" type="text/x-markdown">
-## 1. 複数のファイルをバンドルする
+## 1. 複数のファイルを<br>圧縮してバンドルする
 </section>
 
 <section layout="code" type="text/x-markdown">
-## `webpack.config.js`を開き、<br>以下のコードを追記して下さい。
-<br>
+## `webpack.config.js`を開き、<br>次のコードを追記して下さい。
+</section>
 
+<section layout="code" type="text/x-markdown">
 ```diff
+-  var path = require('path')
++  var path = require('path'),
++      webpack = require('webpack')
+
   module.exports = {
 -   entry : './js/hoge.js',
 +   entry : ['./js/hoge.js', './js/fuga.js'],
 
-    //（以下略）
-  }
+    //（続く）
 ```
 </section>
 
 <section layout="code" type="text/x-markdown">
-## jsディレクトリに`hoge.js`を作成し、<br>再度バンドルを実行して下さい。
+```diff
+    // "output"の終わりから
+-   }
++   },
++   plugins: [
++     new webpack.optimize.UglifyJsPlugin({
++       compress: { warning: false },
++       output: { comments: false}
++     })
++   ]      //（以下略）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## jsディレクトリに`fuga.js`を作成し、<br>再度バンドルを実行して下さい。
 
 ```shell
 $ npm run build
 ```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## バンドルが完了したら<br>`build/bundle.js`を開いてみて下さい。
 </section>
 
 <section layout="code" type="text/x-markdown">
