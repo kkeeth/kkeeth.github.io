@@ -964,12 +964,15 @@ $ npm i [--save-dev|-D] eslint
 // あくまで設定の一例
 {
   "env": {
-    "browser": true
+    "browser": true,
+    "es6": true
   },
   "rules": {
     "eqeqeq": 1,
     "prefer-const": 0,
-  }
+  },
+  "parserOptions": {
+    "sourceType": "module"
 }
 ```
 </section>
