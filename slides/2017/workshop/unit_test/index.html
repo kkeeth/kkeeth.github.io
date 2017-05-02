@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <title>自動ユニットテスト</title>
+    <title>フロントエンドのユニットテスト</title>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +11,7 @@
   </head>
   <body class="shower list">
     <header class="caption">
-      <h1>JavaScriptにおける自動ユニットテスト</h1>
+      <h1>フロントエンドのユニットテスト</h1>
       <p class="desc">
         Click：　スライドスタート<br>
         Enter：　次へ進む<br>
@@ -22,7 +22,7 @@
     </header>
     <section class="slide" id="cover">
       <h2>
-        JavaScriptにおける自動ユニットテスト
+        フロントエンドの<br>ユニットテスト
       </h2>
       <p>
         2017/06/09　@レプラホーン本社<br>
@@ -46,11 +46,29 @@
     <section class="slide">
       <h2>アジェンダ</h2>
       <ol>
-        <li>ES6(ES2015)</li>
-        <li>Babel（バベる）</li>
-        <li>最近のES界隈</li>
+        <li>コンソールでのテスト</li>
+        <li>フレームワーク（Mocha）の導入</li>
+        <li>Node.jsで実行</li>
+        <li>karmaの導入</li>
+        <li>テストケースのバンドル</li>
       </ol>
       <p>※ 何かあれが随時聞いていただいて問題ありません。</p>
+    </section>
+
+    <section class="slide">
+      <h2>今回使うサンプルアプリ</h2>
+      よくあるログインフォームです。<br>
+      こんなやつ→
+      <p class="fright"><img src="img/demo.png"></p>
+      <ul class="mt20">
+        <li><a href="https://github.com/k-kuwahara/k-kuwahara.github.io/tree/master/slides/2017/workshop/unit_test/demo" target="_blank">ソース</a></li>
+        <li><a href="https://k-kuwahara.github.io/slides/2017/workshop/unit_test/demo/" target="_blank">デモ</a></li>
+      </ul>
+      <style>
+         img {
+            border: 1px solid #ccc;
+         }
+      </style>
     </section>
 
     <section class="slide center-text">
