@@ -1,6 +1,6 @@
 var correct = 'test1234'
 
-function valid_check(user, pass) {
+function auth_check(user, pass) {
 	var key = ''
 
 	if (user == void 0 || pass == void 0)
