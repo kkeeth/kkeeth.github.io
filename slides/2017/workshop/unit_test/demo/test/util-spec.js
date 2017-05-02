@@ -27,11 +27,14 @@ else
    console.error('NG')
 
 
-console.info('case4: パスワードの正解/不正解のケース')
+console.info('case4: パスワード不正解のケース')
 if (auth_check('hoge', 'test') === 'unauthenticated')
    console.log('OK')
 else
    console.error('NG')
+
+
+console.info('case5: パスワード正解のケース')
 if (auth_check('hoge', 'test1234') === 'login')
    console.log('OK')
 else
