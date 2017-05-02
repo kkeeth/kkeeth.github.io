@@ -4,26 +4,26 @@ function auth_check(user, pass) {
 	var key = ''
 
 	if (user == void 0 || pass == void 0)
-		key = 'ng1'
+		key = 'required'
 	else if (user.length == 0 || pass.length == 0)
-		key = 'ng1'
+		key = 'required'
 	else if (pass != correct)
-		key = 'ng2'
+		key = 'unauthenticated'
 	else if (pass.length > 0 && pass === correct)
-		key = 'ok'
+		key = 'login'
 
 	return key
 }
 
 function get_message(key) {
 	switch(key) {
-		case 'ng1':
+		case 'required':
 			return 'Please enter ID and Password !!'
 			break
-		case 'ng2':
+		case 'unauthenticated':
 			return 'Invalid ID or Password !!'
 			break
-		case 'ok':
+		case 'login':
 			return 'Correct !!'
 			break
 		default:
