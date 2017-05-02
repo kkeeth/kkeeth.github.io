@@ -6,7 +6,7 @@ console.info('どちらも空のケース')
 if (valid_check() === 'ng1')
    console.log('OK')
 else
-   console.log('NG')
+   console.error('NG')
 
 
 console.info('どちらも空文字列のケース')

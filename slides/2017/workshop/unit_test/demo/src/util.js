@@ -1,16 +1,18 @@
 var correct = 'test1234'
 
 function valid_check(user, pass) {
-   var key = ''
+	var key = ''
 
-   if (user.length == 0 || pass.length == 0)
-      key = 'ng1'
-   else if (pass != correct)
-      key = 'ng2'
-   else if (pass.length > 0 && pass === correct)
-      key = 'ok'
+	if (user == void 0 || pass == void 0)
+		key = 'ng1'
+	else if (user.length == 0 || pass.length == 0)
+		key = 'ng1'
+	else if (pass != correct)
+		key = 'ng2'
+	else if (pass.length > 0 && pass === correct)
+		key = 'ok'
 
-   return get_message(key)
+	return key
 }
 
 function get_message(key) {
