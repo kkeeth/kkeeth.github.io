@@ -62,6 +62,7 @@
       <p class="fright"><img src="img/demo.png"></p>
       <ul class="mt20">
         <li><a href="https://github.com/k-kuwahara/k-kuwahara.github.io/tree/master/slides/2017/workshop/unit_test/demo" target="_blank">ソース</a></li>
+        <li><a href="https://github.com/k-kuwahara/k-kuwahara.github.io/raw/master/slides/2017/workshop/unit_test/demo/demo.zip" target="_blank">ダウンロード</a></li>
         <li><a href="https://k-kuwahara.github.io/slides/2017/workshop/unit_test/demo/" target="_blank">デモ</a></li>
       </ul>
       <style>
@@ -72,7 +73,105 @@
     </section>
 
     <section class="slide center-text">
+      <h2 class="shout">軽くデモアプリの解説</h2>
+    </section>
+
+    <section class="slide center-text">
+      <p class="f30"><span class="assert">index.html</span></p>
+      <pre class="">
+        <code>    &lt;p&gt;</code>
+        <code>      ID: &lt;br&gt;&lt;input type="text" id="user"&gt;</code>
+        <code>    &lt;p&gt;</code>
+        <code>    &lt;/p&gt;</code>
+        <code>      Password: &lt;br&gt;&lt;input type="password" id="pass"&gt;</code>
+        <code>    &lt;/p&gt;</code>
+        <code>    &lt;button id="send" type="button"&gt;Send&lt;/button&gt;</code>
+        <code>  （続く）</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <p class="f30"><span class="assert">index.html</span></p>
+      <pre class="">
+        <code>    <comment>&lt;!-- ↓↓テスト対象のファイル --&gt;</comment></code>
+        <code>    <mark>&lt;script src="src/util.js"&gt;&lt;/script&gt;</mark></code>
+        <code>    &lt;script src="src/app.js"&gt;&lt;/script&gt;</code>
+        <code>    <comment>&lt;!-- ↓↓テストケースのファイル --&gt;</comment></code>
+        <code>    <mark>&lt;script src="src/util-spec.js"&gt;&lt;/script&gt;</mark></code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <p class="f30"><span class="assert">app.js</span></p>
+      <pre class="">
+        <code>  $(<key>'#send'</key>).on(<key>'click'</key>, <value>function</value>() {</code>
+        <code>     <error>var</error> user = $(<key>'#user'</key>).val(),</code>
+        <code>         pass = $(<key>'#pass'</key>).val(),</code>
+        <code>         <comment>// ↓↓テスト対象のメソッド</comment></code>
+        <code>         <mark>key  = auth_check(user, pass)</mark></code>
+        <code>     </code>
+        <code>     $(<key>'#result'</key>).text(<value>get_message</value>(key))</code>
+        <code>  }</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <p class="f30"><span class="assert">util.js</span></p>
+      <pre class="">
+        <code>  <comment>// 今回の説明のため正解を変数に保持</comment></code>
+        <code>  <error>var</error> correct = <key>'test1234'</key></code>
+        <code>  </code>
+        <code>  <key>function</key> <value>auth_check</value>(user, pass) {</code>
+        <code>     <error>var</error> key = ''</code>
+        <code>     <error>if</error> (user == void 0 || pass == void 0)</code>
+        <code>        <key>key</key> = <value>'required'</value></code>
+        <code>  （続く）</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <p class="f30"><span class="assert">util.js</span></p>
+      <pre class="">
+        <code>     <error>else if</error> (user.length == 0 || pass.length == 0)</code>
+        <code>        <key>key</key> = <value>'required'</value></code>
+        <code>     <error>else if</error> (pass != correct)</code>
+        <code>        <key>key</key> = <value>'unauthenticated'</value></code>
+        <code>     <error>else if</error> (pass.length > 0 && pass === correct)</code>
+        <code>        <key>key</key> = <value>'login'</value></code>
+        <code>     <error>return</error> key</code>
+        <code>  }</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="shout">閑話休題</h2>
+    </section>
+
+    <section class="slide center-text">
       <h2 class="shout">1. コンソールでのテスト</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">1. コンソールでのテスト</h3>
+      <p class="f30">
+        今回はindex.htmlにてutil-spec.jsファイルを読み込んでいるので、デモアプリを開いたタイミングでテストが実行されます。
+      </p>
+      <p class="f30">
+        デモアプリ開いた後、F12から「console」を開いて下さい。
+      </p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">1. コンソールでのテスト</h3>
+      <pre class="">
+<code><value>auth_check関数のテスト</value>
+<value>IDの文字数が0以上かつ、Passwordが'test1234'だったら正解</value>
+==========
+<value>case1: どちらも空のケース</value>
+OK
+<value>case2: どちらも空文字列のケース</value>
+OK    （以下略）</code>
+      </pre>
     </section>
 
     <section class="slide center-text">
@@ -80,7 +179,107 @@
     </section>
 
     <section class="slide center-text">
+      <h3 class="">2. フレームワーク（Mocha）の導入</h2>
+      <p class="f30">console関数で地道にガリガリ書いてもいいですが、見辛いかつ、いちいちconsole開かないといけなく、色々不便です。</p>
+      <p class="f30">これを解決するため、フレームワークを導入しましょう。<br>今回は<a href="https://mochajs.org/" target="_blank">Mocha</a>を使います。</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">2. フレームワーク（Mocha）の導入</h2>
+      <p class="f30">導入手順は以下です。</p>
+      <ol>
+        <li class="next">CDN等で<mark>mocha.js, mocha.css</mark>を取得</li>
+        <li class="next"><mark>&lt;div id="mocha"&gt;&lt;/div&gt;</mark>を設置</li>
+        <li class="next">テストケースの読み込み前に<mark>mocha.setup('bdd')</mark>を実行</li>
+        <li class="next">onload時に<mark>mocha.run()</mark>を実行</li>
+        <li class="next"><mark>テストケース(test/util-spec.js)</mark>を書き直す</li>
+      </ol>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">2. フレームワーク（Mocha）の導入</h3>
+      <p class="f30"><span class="assert-fwn">1. CDN等でmocha.js, mocha.cssを取得</span></p>
+      <p>今回は手っ取り早く<a href="https://cdnjs.com/libraries/mocha" target="_blank">CDN</a>でソースを取得します。以下のタグをindex.htmlのheadタグの最後に追記して下さい。</p>
+      <mark>&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.3.0/mocha.min.css"&gt;</mark>
+      <mark>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.3.0/mocha.min.js"&gt;&lt;/script&gt;</mark>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">2. フレームワーク（Mocha）の導入</h3>
+      <p class="f30"><span class="assert-fwn">2. &lt;div id="mocha"&gt;&lt;/div&gt;</mark>を設置</span></p>
+      <p>デモアプリのindex.htmlに以下を追記しましょう。</p>
+      <pre>
+      <div id="mocha"></div>
+    </div>
+        <code>    Result: &lt;span id="result"&gt;&lt;/span&gt;</code>
+        <code><value>+   &lt;div id="mocha"&gt;&lt;/div&gt;</value></code>
+        <code>  &lt;/div&gt;</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">2. フレームワーク（Mocha）の導入</h3>
+      <p class="f30"><span class="assert-fwn">3. テストケースの読み込み前にmocha.setup('bdd')を実行</span></p>
+      <p>デモアプリのindex.htmlに以下を追記しましょう。</p>
+      <pre>
+        <code><value>+   &lt;script&gt; mocha.setup('bdd') &lt;/script&gt;</value></code>
+        <code>    </code>
+        <code>    &lt;script src="src/util.js"&gt;&lt;/script&gt;</value></code>
+        <code>    &lt;script src="src/util-spec.js"&gt;&lt;/script&gt;</value></code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">2. フレームワーク（Mocha）の導入</h3>
+      <p class="f30"><span class="assert-fwn">4. onload時にmocha.run()を実行</span></p>
+      <p>デモアプリのapp.jsに以下を追記しましょう。</p>
+      <pre>
+        <code>      $('#result').text(get_message(key))</code>
+        <code>    })</code>
+        <code><value>+   // mochaの実行</value></code>
+        <code><value>+   mocha.run()</value></code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">2. フレームワーク（Mocha）の導入</h3>
+      <p class="f30"><span class="assert-fwn">5. テストケース(test/util-spec.js)を書き直す</span></p>
+      <p class="f30">デモアプリのutil-spec.js次のように変更しましょう。</p>
+    </section>
+    <section class="slide center-text">
+      <pre>
+        <code>  describe(<key>'valic_check関数のテスト'</key>, <value>function</value>() {</code>
+        <code>     it('<key>case1: どちらも空のケース'</key>, <value>function</value>() {</code>
+        <code>        <error>if</error> (auth_check() === <key>'required'</key>) {</code>
+        <code>           <value>console</value>.log(<key>'OK'</key>)</code>
+        <code>        } <error>else</error> {</code>
+        <code>           <error>throw</error> new <value>Error</value>(<key>'NG'</key>)</code>
+        <code>        }</code>
+        <code>     })</code>
+        <code>     （以下、同様）</code>
+        <code>  })</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">2. フレームワーク（Mocha）の導入</h3>
+      <br>
+      <h3 class="">再度デモアプリを開いてみて下さい。（多分感動する）</h3>
+    </section>
+
+    <section class="slide center-text">
       <h2 class="shout">3. Node.jsで実行</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. Node.jsで実行</h3>
+      <p class="f30">まだ以下の様な問題があります。</p>
+      <ul>
+        <li>いちいちブラウザ開くの面倒</li>
+        <li>これだとCIで使えない</li>
+        <li>コンソールから実行したい</li>
+      </ul>
+      <p class="f30 next"><span class="assert-fwn">=> Node.jsで実行すれば解決！</span></p>
     </section>
 
     <section class="slide center-text">
@@ -91,195 +290,6 @@
       <h2 class="shout">5. テストケースのバンドル</h2>
     </section>
 
-    <section class="slide center-text">
-      <h3 class="">以下のコードを実行してみましょう！</h3>
-      <pre>
-         <code>  <key>let</key> hoge = <value>'hoge'</value></code>
-        <code>  hoge = <value>'fuga'</value> <comment>// => 問題なし</comment></code>
-        <code>  </code>
-        <code>  <key>const</key> foo = <value>'bar'</value></code>
-        <code>  foo = <value>'bar'</value> <error>// => Uncaught TypeError</error></code>
-
-      </pre>
-    </section>
-
-    <section class="slide center-text">
-      <h2 class="">アロー関数（Arrow functions）</h2>
-      <pre>
-        <code>  <comment>// bad pattern</comment></code>
-        <code>  <key>var</key> <value>hoge</value> = function(x) {</code>
-        <code>     return 2 * x</code>
-        <code>  }</code>
-        <code>  <comment>// good pattern</comment></code>
-        <code>  <key>const</key> <value>hoge</value> = (x) => {   <comment>// もうfunctionはいらない</comment></code>
-        <code>     return 2 * x</code>
-        <code>  }</code>
-      </pre>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">バベり方は大まかに以下の3つかと。</h3>
-      <ol>
-        <li>cliを使う (babel-cli, bubleなど)</li>
-        <li>タスクランナーを使う (Gulp, Gruntなど)</li>
-        <li>バンドラーを使う (Webpack2, Rollupなど)</li>
-      </ol>
-      <p class="codicil">2, 3はビルドと一緒にバベる形です</p>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">今回は以下の3つをご紹介。</h3>
-      <ol>
-        <li>cliを使う (babel-cli, <span class="assert">buble</span>など)</li>
-        <li>タスクランナーを使う (<span class="assert">Gulp</span>, Gruntなど)</li>
-        <li>バンドラーを使う (<span class="assert">Webpack2</span>, Rollupなど)</li>
-      </ol>
-      <p class="codicil">※ 他は私が触ったことないため…</p>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="shout">1. bubleでバベる</h3>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">1. bubleでバベる</h3>
-      <p class="f30">「余計なこと考えずに、とにかくhoge.jsをES5にコンパイルしたいんじゃぁあああ！」という方向けですw コマンドラインから実行できるので試してみましょう！</p>
-
-      <pre class="">
-        <code>  <comment>// bubleのグローバルインストール</comment></code>
-        <code>  $ <key>npm</key> i -g <value>buble</value></code>
-      </pre>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">1. bubleでバベる</h3>
-      <p class="f30">先程試したクラス構文を適当なjsファイルを作成し、コピペして保存して下さい。完了したら、以下のコマンドを実行してみましょう！</p>
-      <pre class="">
-        <code>  <comment>// コンパイルの実行</comment></code>
-        <code>  $ <key>buble</key> <value>hoge.js</value> -o fuga.js</code>
-      </pre>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="shout">2. gulpでバベる</h3>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">2. gulpでバベる</h3>
-      <p class="f30">今度は、「ファイルの変更を検知し自動でES5に変換する」方法です。以下を実行して下さい。</p>
-      <pre class="">
-        <code>  <comment>// package.jsonがない人</comment></code>
-        <code>  $ <key>npm</key> <value>init</value></code>
-        <code>  <comment>// 必要なモジュールのインストール</comment></code>
-        <code>  $ <key>npm</key> i -D <value>gulp gulp-buble</value></code>
-      </pre>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">2. gulpでバベる</h3>
-      <p class="f30">ローカルでもグローバルでもインストールが完了しましたら、次はgulpfile.jsを作成し、gulp.taskを設定します。</p>
-      <p class="f30">コード例→ <a href="https://gist.github.com/k-kuwahara/a9e93d131a4a01325cd7b2c7be306a36#file-gulpfile-js" target="_blank">gulpfile.jsの例</a></p>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">2. gulpでバベる</h3>
-      <p class="f30">設定が完了しましたら、package.jsonのscriptsに実行用のコマンドを設定します。</p>
-      <pre class="">
-        <code>  <comment>// package.jsonのscripts</comment></code>
-        <code>  <key>"scripts"</key>: {</code>
-        <code>    <key>"gulp"</key>: <value>"gulp" </value></code>
-        <code>  } </code>
-      </pre>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">2. gulpでバベる</h3>
-      <p class="f30">最後に実行してみましょう！</p>
-      <pre class="">
-        <code>  <comment>// gulpの起動</comment></code>
-        <code>  $ <key>npm</key> run <value>gulp</value> watch (←これはなくても良い)</code>
-        <code>  <comment>// [20:32:20] Starting 'watch'...</comment></code>
-        <code>  <comment>// [20:32:20] Finished 'watch' after 26 ms</comment></code>
-        <code>  <comment>// これ以降勝手にコンパイルが走ります</comment></code>
-      </pre>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="shout">3. webpack2でバベる</h3>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">3. webpack2でバベる</h3>
-      <p class="f30">gulpと同様に「ファイルの変更を検知し自動でES5に変換する」方法です。以下を実行して下さい。</p>
-
-      <pre class="">
-        <code>  <comment>// package.jsonがない人</comment></code>
-        <code>  $ <key>npm</key> <value>init</value></code>
-        <code>  <comment>// 必要なモジュールのインストール</comment></code>
-        <code>  $ <key>npm</key> i <value>webpack buble-loader</value></code>
-      </pre>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">3. webpack2でバベる</h3>
-      <p class="f30">ローカルでもグローバルでもインストールが完了しましたら、次はwebpack.config.jsを作成し、バンドルの設定をします。</p>
-      <p class="f30">コード例→ <a href="https://gist.github.com/k-kuwahara/a9e93d131a4a01325cd7b2c7be306a36#file-webpack-config-js" target="_blank">webpack.config.jsの例</a></p>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">3. webpack2でバベる</h3>
-      <p class="f30">設定が完了しましたら、package.jsonのscriptsに実行用のコマンドを設定します。</p>
-      <pre class="">
-        <code>  <comment>// package.jsonのscripts</comment></code>
-        <code>  <key>"scripts"</key>: {</code>
-        <code>    <key>"build"</key>: <value>"webpack -w (←これはなくても良い)" </value></code>
-        <code>  } </code>
-      </pre>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">3. webpack2でバベる</h3>
-      <p class="f30">最後に実行してみましょう！</p>
-      <pre class="">
-        <code>  <comment>// webpack2の起動</comment></code>
-        <code>  $ <key>npm</key> run <value>build</value></code>
-        <code>  ...</code>
-        <code>  <comment>bundle.js  3.27 kB       0  [emitted]  main</comment></code>
-        <code>  <comment>   [0] ./js/es6.js 642 bytes {0} [built]</comment></code>
-        <code>  <comment>// これ以降勝手にビルドが走ります</comment></code>
-      </pre>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="h-center">他にも色々ありますので、皆さんのお好きな方法でバベって下さい( ﾟ∀ﾟ)</h3>
-    </section>
-
-    <section class="slide center-text">
-      <h2 class="">参考リンク</h2>
-      <ul>
-        <li><a href="http://babeljs.io/docs/usage/cli/" target="_blank">babel-cli</a></li>
-        <li><a href="https://www.npmjs.com/package/buble" target="_blank">buble</a></li>
-        <li><a href="https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md" target="_blank">gulp</a></li>
-        <li><a href="https://webpack.js.org/guides/get-started/" target="_blank">webpack2</a></li>
-        <li><a href="http://qiita.com/aggre/items/6f5d5d710a9e53bc77e8" target="_blank">もうBabelじゃない - Bubleだ。</a></li>
-        <li><a href="http://qiita.com/tonkotsuboy_com/items/2d4f3862e6d05dc0bea1" target="_blank">Gulpで始めるwebpack 2入門</a></li>
-      </ul>
-    </section>
-
-    <section class="slide center-text">
-      <h2 class="shout">3. 最近のES界隈</h2>
-      <p class="codicil next">完全に余談ですw</p>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">最近のES界隈</h3>
-      <ul class="f30">
-        <li>既にES2016, ES2017は公開、各ブラウザが随時対応中</li>
-        <li>実際のサービスでES2017まで導入されている事例もあり</li>
-        <li>babel, bubleも対応してきている</li>
-      </ul>
-      <p class="f30">乗り遅れないように！</p>
-    </section>
 
     <section class="slide center-text">
       <h3>次回は…</h3>

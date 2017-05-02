@@ -24,6 +24,9 @@ span.assert {
 	font-weight: bold;
 	color: #008080;
 }
+span.assert-fwn {
+	color: #008080;
+}
 #cover h2 {
 	margin: 30px 40px 50px;
 	text-align: center;
