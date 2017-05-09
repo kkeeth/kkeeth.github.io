@@ -25,7 +25,7 @@
         フロントエンドの<br>ユニットテスト
       </h2>
       <p>
-        2017/06/09　@レプラホーン本社<br>
+        2017/06/23　@レプラホーン本社<br>
       </p>
     </section>
 
@@ -272,6 +272,11 @@ OK    （以下略）</code>
     </section>
 
     <section class="slide center-text">
+      <p class="shout">※ この先<span class="red">Node.js, npm<br>コマンド</span>を使います</p>
+      <p class="f30 after">インストールしていない方は、<a href="https://nodejs.org/ja/" target="_blank">公式サイト</a>からインストールして下さい。npmコマンドがわからない方は<a href="https://k-kuwahara.github.io/slides/2017/workshop/npm/#">こちら</a>をご参照下さい。</p>
+    </section>
+
+    <section class="slide center-text">
       <h3 class="">3. Node.jsで実行</h3>
       <p class="f30">まだ以下の様な問題があります。</p>
       <ul>
@@ -279,8 +284,24 @@ OK    （以下略）</code>
         <li>これだとCIで使えない</li>
         <li>コンソールから実行したい</li>
       </ul>
-      <p class="f30 next"><span class="assert-fwn">=> Node.jsで実行すれば解決！</span></p>
+      <p class="next codicil"><span class="assert-fwn">=> Node.jsで実行すれば解決！</span></p>
     </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. Node.jsで実行</h3>
+      <p class="f30">導入手順は以下です。</p>
+      <ol>
+        <li class="next">npm initでpackage.jsonを作成</li>
+        <li class="next">npmからmochaをインストール</li>
+        <li class="next">テストケースの修正</li>
+        <li class="next">package.jsonにtestコマンドを設定</li>
+      </ol>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. Node.jsで実行</h3>
+      <p class="f30"><span class="assert-fwn">npm initでpackage.jsonを作成</span></p>
+      <p>デモアプリのapp.jsに以下を追記しましょう。</p>
 
     <section class="slide center-text">
       <h2 class="shout">4. karmaの導入</h2>
@@ -292,8 +313,8 @@ OK    （以下略）</code>
 
 
     <section class="slide center-text">
-      <h3>次回は…</h3>
-      <h2 class="shout">「JavaScriptにおける<br>ユニットテスト」</h2>
+      <h3>次回は第二部！まずは…</h3>
+      <h2 class="shout">「Node.jsの基本」</h2>
     </section>
 
     <section class="slide center-text">
