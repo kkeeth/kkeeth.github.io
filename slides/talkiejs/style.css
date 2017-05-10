@@ -27,6 +27,11 @@ span.f38 {
 span.mright {
 	float: right;
 }
+span.codicil {
+	position: absolute;
+	bottom: 100px;
+	right: 10px;
+}
 #blur {
 	color: #fff;
 }
