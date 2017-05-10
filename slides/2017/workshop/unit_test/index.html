@@ -62,14 +62,9 @@
       <p class="fright"><img src="img/demo.png"></p>
       <ul class="mt20">
         <li><a href="https://github.com/k-kuwahara/k-kuwahara.github.io/tree/master/slides/2017/workshop/unit_test/demo" target="_blank">ソース</a></li>
-        <li><a href="https://github.com/k-kuwahara/k-kuwahara.github.io/raw/master/slides/2017/workshop/unit_test/demo/demo.zip" target="_blank">ダウンロード</a></li>
+        <li><a href="https://github.com/k-kuwahara/k-kuwahara.github.io/raw/master/slides/2017/workshop/unit_test/demo.zip" target="_blank">ダウンロード</a></li>
         <li><a href="https://k-kuwahara.github.io/slides/2017/workshop/unit_test/demo/" target="_blank">デモ</a></li>
       </ul>
-      <style>
-         img {
-            border: 1px solid #ccc;
-         }
-      </style>
     </section>
 
     <section class="slide center-text">
@@ -282,7 +277,7 @@ OK    （以下略）</code>
       <ul>
         <li>いちいちブラウザ開くの面倒</li>
         <li>これだとCIで使えない</li>
-        <li>コンソールから実行したい</li>
+        <li>コマンドラインから実行したい</li>
       </ul>
       <p class="next codicil"><span class="assert-fwn">=> Node.jsで実行すれば解決！</span></p>
     </section>
@@ -293,15 +288,100 @@ OK    （以下略）</code>
       <ol>
         <li class="next">npm initでpackage.jsonを作成</li>
         <li class="next">npmからmochaをインストール</li>
-        <li class="next">テストケースの修正</li>
+        <li class="next">テストケース、テスト対象コードの修正</li>
         <li class="next">package.jsonにtestコマンドを設定</li>
       </ol>
     </section>
 
     <section class="slide center-text">
       <h3 class="">3. Node.jsで実行</h3>
-      <p class="f30"><span class="assert-fwn">npm initでpackage.jsonを作成</span></p>
-      <p>デモアプリのapp.jsに以下を追記しましょう。</p>
+      <p class="f30"><span class="assert-fwn">1. npm initでpackage.jsonを作成</span></p>
+
+      <pre>
+        <code>$ <error>npm</error> init</code>
+      </pre>
+
+      <p>
+        とりあえず、全てエンターで大丈夫です。<br>
+        package.jsonが作られたら次にいきましょう。
+      </p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. Node.jsで実行</h3>
+      <p class="f30"><span class="assert-fwn">2. npmからmochaをインストール</span></p>
+
+      <pre>
+        <code>$ <error>npm</error> i -D <value>mocha</value></code>
+      </pre>
+
+      <p>mochaのインストールが完了したら次にいきましょう。</p>
+
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. Node.jsで実行</h3>
+      <p class="f30"><span class="assert-fwn">3. テストケース、テスト対象コードの修正</span></p>
+
+      <p>テスト対象のsrc/util.jsを以下のように修正します。</p>
+      <pre>
+        <code>  <error>module.exports</error> = {</code>
+        <code>     <key>correct</key>: <value>'test1234'</value>,</code>
+        <code>     <key>auth_check</key>: <value>function</value>(user, pass) {</code>
+        <code>     （続く）</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. Node.jsで実行</h3>
+      <p class="f30"><span class="assert-fwn">3. テストケース、テスト対象コードの修正</span></p>
+
+      <pre>
+        <code>  <error>else if</error> (pass != <key>this.correct</key>)</code>
+        <code>     <key>key</key> = <value>'unauthenticated'</value></code>
+        <code>     ...</code>
+        <code>  },</code>
+        <code>  <key>get_message</key>: <value>function</value>(key) {</code>
+        <code>  （以下略）</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. Node.jsで実行</h3>
+      <p class="f30"><span class="assert-fwn">3. テストケース、テスト対象コードの修正</span></p>
+
+      <p>次にtest/util-spec.jsを以下のように修正します。</p>
+      <pre>
+        <code>  <value>+   var util = require('../src/util')</value></code>
+        <code>     ...</code>
+        <code>  <comment>-   if (auth_check() === 'required') {</comment></code>
+        <code>  <value>+   if (util.auth_check() === 'required') {</value></code>
+        <code>  <comment>-      console.info('OK')</comment></code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. Node.jsで実行</h3>
+      <p class="f30"><span class="assert-fwn">4. package.jsonにtestコマンドを設定</span></p>
+
+      <p>package.jsonを以下のように修正します。</p>
+      <pre>
+        <code>  "scripts": {</code>
+        <code>  <comment>-   "test": "echo \"Error: no test specified\" && exit 1"</comment></code>
+        <code>  <value>+   "test": "mocha"</value></code>
+        <code>  }</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. Node.jsで実行</h3>
+      <h3>それでは実行してみましょう！</h3>
+      <pre>
+        <code>  $ <error>npm</error> <value>test</value></code>
+      </pre>
+      <span class="f30">　　　結果はこんな感じ→</span>
+      <p class="fright"><img src="img/result.png" alt="result"></p>
+    </section>
 
     <section class="slide center-text">
       <h2 class="shout">4. karmaの導入</h2>
@@ -310,7 +390,6 @@ OK    （以下略）</code>
     <section class="slide center-text">
       <h2 class="shout">5. テストケースのバンドル</h2>
     </section>
-
 
     <section class="slide center-text">
       <h3>次回は第二部！まずは…</h3>
