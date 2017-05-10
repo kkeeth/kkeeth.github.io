@@ -15,7 +15,7 @@
 ### 2017/05/12　@レプラホーン本社
 </template>
 
-<template layout="title" type="text/x-markdown">
+<template layout="cover" type="text/x-markdown">
 ## 自己紹介
 
 ```
@@ -37,14 +37,14 @@ var my_info = {
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
-## 　　まだ => [__install_nodejs__()](https://nodejs.org/ja/)
+## 　　まだ => [__install_nodejs()__](https://nodejs.org/ja/)
 ## 入ってる => [__next_page()__](#5)
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
-### Node.jsのバージョンが`0.x`、`4.x`、`5.x`の方はいますか？
+### Node.jsのバージョンが`0.x`、`v4`、`v5`の方はいますか？
 　
-## 最低でも`6.x`以上にアップグレードしてください(ﾟ∀ﾟ)
+## 最低でも`v6`以上にアップグレードしてください(ﾟ∀ﾟ)
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
@@ -66,10 +66,24 @@ var my_info = {
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
+<svg viewBox="0 0 18 7" class="">
+  <path fill="#CB3837" d="M0,0v6h5v1h4v-1h9v-6"></path>
+  <path fill="#FFF" d="M1,1v4h2v-3h1v3h1v-4h1v5h2v-4h1v2h-1v1h2v-4h1v4h2v-3h1v3h1v-3h1v3h1v-4"></path>
+</svg>
+
 ## NPM（Node Package Manager）
 
 『npm is the package manager for JavaScript and the world’s largest software registry. Discover packages of reusable code — and assemble them in powerful new ways.』
 （[npm公式より）](https://www.npmjs.com/)
+
+<style>
+  svg {
+    width: 200px;
+    position: absolute;
+    right: 10px;
+    top: 80px;
+  }
+</style>
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
@@ -78,9 +92,9 @@ var my_info = {
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
-# npm -v
+## npm -v
 npmのバージョンが出力されたかと思います。<br>
-（ちなみに私は`4.2.0`でした）
+（ちなみに私は`4.5.0`でした）
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
@@ -136,6 +150,8 @@ npm install [-g|--save|--save-dev] module
  --save-dev: 開発時に利用するもの
 ```
 
+※ `--save-dev`は`-D`でも良いです。
+
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -151,6 +167,15 @@ $ npm install -g lite-server
 
 ```shell
 $ npm i -g lite-server
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `lite-server`を使ってみましょう。
+
+```shell
+$ lite-server
+# 自動でブラウザが起動します
 ```
 </section>
 
@@ -208,7 +233,7 @@ npm uninstall [-g|--save|--save-dev] module
 
 ### 意味：モジュールの削除
 ```shell
-（省略形: npm rm, npm up）
+（省略形: npm rm, npm un）
 ```
 
 </section>
@@ -282,10 +307,10 @@ npm search module
 ## npmのその他使いそうなコマンド
 
 ```shell
-・ npm info module
-　→ モジュールのバージョン情報を表示
+・ npm info moduxle
+　　→ モジュールのバージョン情報を表示
 ・ npm init
-　→ package.jsonの初期化（後述）
+　　→ package.jsonの初期化（後述）
 ```
 
 これらもたまに使うかと思います( ﾟ∀ﾟ)
@@ -377,11 +402,11 @@ $ npm i --save gulp
 ```JSON
 // package.jsonの中身抜粋
 ...
-  "devDependencies": {
-    "webpack": "^1.7.0"
-  },
   "dependencies": {
     "gulp": "^3.9.1"
+  },
+  "devDependencies": {
+    "webpack": "^1.7.0"
   }
 ...
 ```
@@ -415,7 +440,7 @@ $ npm ls --depth=0
 
 ```node
 ├── gulp@3.9.1
-└── webpack@1.14.0
+└── webpack@1.15.0
 ```
 
 </section>
@@ -451,11 +476,10 @@ $ npm i -D webpack
 ```JSON
 ...
   "devDependencies": {
-    "webpack": "^1.14.0"
+    "webpack": "^1.15.0"
   },
 ...
 ```
-
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -472,18 +496,55 @@ $ npm ls --depth=0
 
 ```node
 ├── gulp@3.9.1
-└── webpack@1.14.0
+└── webpack@1.15.0
 ```
 </section>
 
 <section layout="code" type="text/x-markdown">
-### npmはinstallコマンドが実行されたとき、<br>自動でpackage.jsonを確認し、<br>（依存性も含めて）必要なモジュールを<br>一括でインストールしてくれます。
+## モジュールのバージョン<br>の指定について
+</section>
 
+<section layout="code" type="text/x-markdown">
+### `package.json`でモジュールのバージョンを<br>指定できますが、書き方は2通りあります。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```JSON
+"devDependencies": {
+   // 「^」で指定
+   "webpack": "^1.7.0"
+   // 「~」で指定
+   "webpack": "~1.7.0"
+}
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 実際にインストールした結果は以下になります。
+
+<span class="hljs-attribute">"webpack": "^1.7.0"</span><br>
+  → <span class="hljs-keyword f38">v1.15.0</span>がインストールされる<br>
+
+<span class="hljs-attribute">"webpack": "~1.7.0"</span><br>
+  → <span class="hljs-keyword f38">v1.7.3</span>がインストールされる
+</section>
+
+<section layout="code" type="text/x-markdown">
+## つまり…
+
+`^`で指定<br>
+　→ <b><span class="hljs-keyword f38">メジャーバージョンは固定</span></b>で、最新のものをインストール
+
+`~`で指定<br>
+　→ <b><span class="hljs-keyword f38">マイナーバージョンまで固定</span></b>で、最新のものをインストール
+</section>
+
+<section layout="code" type="text/x-markdown">
+### npmはinstallコマンドが実行されたとき、<br>自動でpackage.jsonを確認し、<br>（依存性も含めて）必要なモジュールを<br>一括でインストールしてくれます。
 </section>
 
 <section layout="code" type="text/x-markdown">
 ### この`package.json`を共有すれば、他のメンバーも同じ開発環境を作ることができます♪（便利だなー）
-
 </section>
 
 <section layout="cover" type="text/x-markdown">
