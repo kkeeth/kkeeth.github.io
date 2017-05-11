@@ -15,14 +15,14 @@ describe('valic_check関数のテスト', function() {
          throw new Error('NG')
       }
    })
-   it('case3: どちらか一方が空のケース', function() {
+   it('case3-1: 1つ目が空のケース', function() {
       if (util.auth_check('hoge') === 'required') {
          console.info('OK')
       } else {
          throw new Error('NG')
       }
    })
-   it('case3: どちらか一方が空のケース', function() {
+   it('case3-2: 2つ目が空のケース', function() {
       if (util.auth_check('', 'test') === 'login') {
          console.info('OK')
       } else {

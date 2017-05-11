@@ -16,11 +16,14 @@ else
    console.error('NG')
 
 
-console.info('case3: どちらか一方が空のケース')
+console.info('case3-1: 1つ目が空のケース')
 if (auth_check('hoge') === 'required')
    console.log('OK')
 else
    console.error('NG')
+
+
+console.info('case3-2: 2つ目が空のケース')
 if (auth_check('', 'test') === 'required')
    console.log('OK')
 else
