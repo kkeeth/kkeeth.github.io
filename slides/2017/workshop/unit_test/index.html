@@ -380,20 +380,78 @@ OK    （以下略）</code>
         <code>  $ <error>npm</error> <value>test</value></code>
       </pre>
       <span class="f30">　　　結果はこんな感じ→</span>
-      <p class="fright"><img src="img/result.png" alt="result"></p>
+      <p class="fright"><img src="img/result.png" alt="result.png" width="430"></p>
     </section>
 
     <section class="slide center-text">
-      <h2 class="shout">4. karmaの導入</h2>
+      <h2 class="shout">4. assertの導入</h2>
     </section>
 
     <section class="slide center-text">
-      <h2 class="shout">5. テストケースのバンドル</h2>
+      <h3 class="">4. assertの導入</h3>
+      <p class="f30"><mark>if-else</mark>や<mark>throw</mark>でガリガリ書くのも正直面倒ですよね。</p>
+      <p class="f30">
+        これを解決してくれるのが<span class="assert">assert</span>です。
+        この子は、Node.jsに標準で実装されているモジュールです。
+      </p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">4. assertの導入</h3>
+
+      <p>test/util-spec.jsを以下のように修正します。</p>
+      <pre>
+        <code>  <value>+   var assert = require('assert')</value></code>
+        <code>  <comment>-   if (util.auth_check('hoge') === 'required') {</comment></code>
+        <code>  <comment>-      console.info('OK')</comment></code>
+        <code>  <comment>-   } else {</comment></code>
+        <code>  <comment>-      throw new Error('NG')</comment></code>
+        <code>  <value>+   assert(util.auth_check('hoge') === 'required')</value></code>
+        <code>  （以下同様）</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">4. assertの導入</h3>
+      <h3>それでは実行してみましょう！</h3>
+      <pre>
+        <code>  $ <error>npm</error> <value>test</value></code>
+      </pre>
+      <span class="f30">　結果の違いは<br>　こんな感じ→</span>
+      <p class="fright"><img src="img/result2.png" alt="result2.png"></p>
+    </section>
+
+    <section class="slide center-text">
+      <h3>以上で、JavaScriptのユニットテストをコマンドラインから実行できるようになりました。</h3>
+      <h3>後はそれぞれの自動化ツールでテストを自動実行すれば良いです。</h3>
+    </section>
+
+    <section class="slide center-text">
+      <h3></h3>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="shout">5. webpackの導入</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="shout">6. karmaの導入</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="shout">今回で第一部は終了です！</h3>
     </section>
 
     <section class="slide center-text">
       <h3>次回は第二部！まずは…</h3>
       <h2 class="shout">「Node.jsの基本」</h2>
+      <p class="after ">です！乞うご期待！</p>
+
+      <style>
+        .p45 {
+          position: absolute;
+        }
+      </style>
     </section>
 
     <section class="slide center-text">
