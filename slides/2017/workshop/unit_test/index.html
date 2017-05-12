@@ -417,21 +417,51 @@ OK    （以下略）</code>
       <pre>
         <code>  $ <error>npm</error> <value>test</value></code>
       </pre>
-      <span class="f30">　結果の違いは<br>　こんな感じ→</span>
+      <span class="f30">　結果のエラーは<br>　こんな感じ→</span>
       <p class="fright"><img src="img/result2.png" alt="result2.png"></p>
     </section>
 
     <section class="slide center-text">
       <h3>以上で、JavaScriptのユニットテストをコマンドラインから実行できるようになりました。</h3>
-      <h3>後はそれぞれの自動化ツールでテストを自動実行すれば良いです。</h3>
+      <h3>後は各々の環境でテストを自動実行して下さい(ﾟ∀ﾟ)</h3>
     </section>
 
     <section class="slide center-text">
-      <h3></h3>
+      <h3 class="shout">ここで一つ問題が…</h3>
+    </section>
+
+    <section class="slide center-text">
+      <h3>今ブラウザからデモアプリにアクセスすると、動作しないと思います。</h3>
+      <h3>Node.jsで動かす際に<mark>src/util.jsを変更した</mark>ことが原因です。</h3>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">解決ツール例</h3>
+      <p class="f30">この解決に良く使われるものとして、以下の3つがあります。</p>
+      <ul>
+        <li>webpack</li>
+        <li>rollup</li>
+        <li>browserify</li>
+      </ul>
+      <p class="f30">今回は<mark>webpack</mark>を使います！</p>
     </section>
 
     <section class="slide center-text">
       <h2 class="shout">5. webpackの導入</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">5. webpackの導入</h3>
+      <p class="f30"><a href="https://webpack.js.org/" target="_blank">webpack</a>を簡単にご紹介。</p>
+      <ul>
+        <li>諸々のassetファイルをバンドルするツール</li>
+        <li>スコープの問題をよしなに解決してくれる</li>
+        <li>コンパイル、Linterのチェックもやってくれる</li>
+      </ul>
+      <p>
+        詳しくは<a href="https://webpack.js.org/" target="_blank">公式サイト</a>を御覧ください！<br>
+        簡単な使い方は<a href="https://k-kuwahara.github.io/slides/2017/workshop/build_tool/#73" target="_blank">こちら</a>を御覧ください♪
+      </p>
     </section>
 
     <section class="slide center-text">
@@ -446,12 +476,6 @@ OK    （以下略）</code>
       <h3>次回は第二部！まずは…</h3>
       <h2 class="shout">「Node.jsの基本」</h2>
       <p class="after ">です！乞うご期待！</p>
-
-      <style>
-        .p45 {
-          position: absolute;
-        }
-      </style>
     </section>
 
     <section class="slide center-text">
