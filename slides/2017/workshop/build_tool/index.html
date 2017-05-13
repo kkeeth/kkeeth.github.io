@@ -145,7 +145,7 @@ var gulp = require('gulp')
 
 // 'test'という名前のタスクを設定
 gulp.task('test', function() {
-   console.info('gulp run !!\n')
+   console.log('gulp run !!\n')
 })
 ```
 </section>
@@ -175,7 +175,7 @@ gulp.task('test', function() {
 $ npm run gulp test
 ```
 
-※ `test`は必須です！
+※ `test`は必須です！（ここでどのタスクを実行するか指定）
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -352,7 +352,23 @@ $ npm run gulp
 </section>
 
 <section layout="code" type="text/x-markdown">
-## これで準備完了です。<br>先程作成した`.js`ファイルを変更、<br>保存して下さい。
+## これで準備完了です。<br>先程作成した`.js`ファイルにて、<br>文法を間違えてみましょう。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## （文法間違いの例）
+
+```JavaScript
+# 例1 変数への代入に「=」がたりない
+var hoge 123
+
+# 例2 文字列連結を「.」にした
+var hoge = 'hoge' . 123
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## コンソールには次のように<br>表示されたかと思います。
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -417,7 +433,7 @@ $ npm run gulp
 ## まずはモジュールをインストール
 
 ```shell
-$ npm i [--save-dev|-D] gulp-uglify
+$ npm i -D gulp-uglify gulp-rename
 ```
 
 ※今回は`gulp-uglify`にしましたが、他にも色々あります。
@@ -430,13 +446,13 @@ $ npm i [--save-dev|-D] gulp-uglify
 <section layout="code" type="text/x-markdown">
 ```diff
 + var uglify = require('gulp-uglify')
++ var rename = require('gulp-rename')
 
-gulp.task('eslint', function() {
-   gulp.src('./js/*.js')
-       .pipe(eslint({ useEslintrc: false }))
-       .pipe(eslint.format())
-+      .pipe(uglify())
-+      .pipe(gulp.dest('build'))
+...
+     .pipe(eslint.format())
++    .pipe(uglify())
++    .pipe(rename({suffix: '.min'}))
++    .pipe(gulp.dest('build'))
 })
 ```
 </section>
@@ -445,21 +461,21 @@ gulp.task('eslint', function() {
 ## `eslint`か`watch`タスクを<br>実行してみましょう。
 
 ```shell
-$ npm run gulp (eslint)
+$ npm run gulp (or eslint)
 ```
 
 ※ここで自動で`build`ディレクトリが生成されます。
 </section>
 
 <section layout="code" type="text/x-markdown">
-## 終わりましたら、<br>`build`ディレクトリ内の適当な<br>`.js`ファイルを開いてみましょう。
+## `build`ディレクトリ内の<br>`.js`ファイルを開いてみましょう。
 </section>
 
 <section layout="code" type="text/x-markdown">
 ## （実行結果例）
 ```JavaScript
 var hoge=123;hoge="string";var hello=f
-unction(o){console.info(o)};hello(hoge);
+unction(o){console.log(o)};hello(hoge);
 ```
 </section>
 
@@ -532,7 +548,7 @@ $ npm i [--save-dev|-D] gulp-plumber
 
 gulp.task('eslint', function() {
    gulp.src('./js/*.js')
-+      .pipe(plumber()))
++      .pipe(plumber())
        .pipe(eslint({ useEslintrc: false }))
        // 以下略
 })
