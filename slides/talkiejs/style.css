@@ -14,6 +14,9 @@ span {
 span.hljs-string {
 	color: #66ffcc;
 }
+.my-info span.hljs-string {
+	color: #008080;
+}
 span.hljs-attribute {
 	color: #b58900;
 }

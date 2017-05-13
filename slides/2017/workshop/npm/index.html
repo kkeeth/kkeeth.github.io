@@ -15,7 +15,7 @@
 ### 2017/05/12　@レプラホーン本社
 </template>
 
-<template layout="cover" type="text/x-markdown">
+<template class="my-info" layout="cover" type="text/x-markdown">
 ## 自己紹介
 
 ```
@@ -159,29 +159,39 @@ npm install [-g|--save|--save-dev] module
 </section>
 
 <section layout="code" type="text/x-markdown">
-## 実際に`lite-server`というモジュールを<br>インストールしてみましょう♪
+## 実際に`ja-greetings`というモジュールを<br>インストールしてみましょう！
+
+（手前味噌ですみません…w）
 </section>
 
 <section layout="code" type="text/x-markdown">
 
 ```shell
-$ npm install -g lite-server
+$ npm install -g ja-greetings
 ```
 又は
 
 ```shell
-$ npm i -g lite-server
+$ npm i -g ja-greetings
 ```
 </section>
 
 <section layout="code" type="text/x-markdown">
-## `lite-server`を使ってみましょう。
+## `ja-greetings`を使ってみましょう。
 
 ```shell
-$ lite-server
-# 自動でブラウザが起動します
+$ ja-greetings new
 ```
 </section>
+
+<section layout="code" type="text/x-markdown">
+## ちなみに、installは以下のように<br>複数まとめて実行もできます。
+
+```shell
+$ npm i [-g|--save|-D] hoge fuga piyo
+```
+</section>
+
 
 <section layout="code" type="text/x-markdown">
 ## Next!!
@@ -209,8 +219,15 @@ npm list [-g|--depth=n] (module)
 ### `lite-server`がインストールされたか確認してみましょう！<br>以下のコマンドを実行して下さい♪
 
 ```shell
-$ npm list -g [--depth=0]
+$ npm list -g --depth=0
 ```
+
+又は
+
+```shell
+$ npm ls -g --depth=0
+```
+
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -592,7 +609,7 @@ $ npm ls --depth=0
 </section>
 
 <script layout="cover" type="text/x-markdown">
-# 次回は<span class="assert">ES6(ES2015)</span>について触れます♪
+# 次回は<span class="assert">自動ビルドしながらの開発</span>をやります♪
 </script>
 
 <script layout="cover" type="text/x-markdown">
