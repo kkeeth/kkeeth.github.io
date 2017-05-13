@@ -56,6 +56,7 @@ var my_info = {
 - NPMについて
 - package.jsonを作成
 - 実際にパッケージ管理してみよう
+- もうnpmじゃない
 </section>
 
 <section layout="bullets" type="text/x-markdown">
@@ -257,13 +258,19 @@ npm uninstall [-g|--save|--save-dev] module
 ```shell
 $ npm uninstall -g ja-greetings
 ```
+
+又は
+
+```shell
+$ npm rm -g ja-greetings
+```
 </section>
 
 <section layout="code" type="text/x-markdown">
 ### `ja-greetings`が削除されたか確認してみましょう！
 
 ```shell
-$ npm list -g [--depth=0]
+$ npm ls -g --depth=0
 ```
 </section>
 
@@ -306,9 +313,23 @@ npm search
 npm search module
 ```
 
-### 意味：対象モジュールに関連するモジュールの一覧を表示
+### 意味：指定の文字列で部分一致するモジュールの一覧を表示
 ```shell
 （省略形: npm s, npm find）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 実際に`greeting`で検索してみましょう！<br>以下のコマンドを実行して下さい♪
+
+```shell
+$ npm search greeting
+```
+
+又は
+
+```shell
+$ npm s greeting
 ```
 </section>
 
@@ -329,11 +350,16 @@ npm search module
 これらもたまに使うかと思います( ﾟ∀ﾟ)
 </section>
 
+<section layout="code" type="text/x-markdown">
+## npmの基本は以上です。
+</section>
+
 <section layout="bullets" type="text/x-markdown">
 ## 今回のアジェンダ
 - npmについて
 - __<span class="assert">package.jsonを作成</span>__  <= 次はココ
 - 実際にパッケージ管理してみよう
+- もうnpmじゃない
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
@@ -392,7 +418,8 @@ $ npm init
 ## 今回のアジェンダ
 - npmについて
 - package.jsonを作成
-- __<span class="assert">実際にパッケージ管理してみよう</span>__  <= 最後にココ
+- __<span class="assert">実際にパッケージ管理してみよう</span>__  <= お次はココ
+- もうnpmじゃない
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -558,6 +585,14 @@ $ npm ls --depth=0
 
 <section layout="code" type="text/x-markdown">
 ### この`package.json`を共有すれば、他のメンバーも同じ開発環境を作ることができます♪（便利だなー）
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- NPMについて　
+- package.jsonを作成
+- 実際にパッケージ管理してみよう
+- __<span class="assert">もうnpmじゃない</span>__ <= 最後にココ
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
