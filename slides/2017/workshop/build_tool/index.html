@@ -259,13 +259,14 @@ $ npm run gulp
 ## `gulpfile.js`に以下を追記して下さい。
 <br>
 
-```JavaScript
+```diff
 // watchタスクの設定
-gulp.task('watch', function() {
-   gulp.watch('./js/*.js', ['test'])
-})
++ gulp.task('watch', function() {
++    gulp.watch('./js/*.js', ['test'])
++ })
 
-gulp.task('default', ['watch'])
+- gulp.task('default', ['test'])
++ gulp.task('default', ['watch'])
 ```
 </section>
 
@@ -326,16 +327,16 @@ $ npm i [--save-dev|-D] gulp-eslint
 </section>
 
 <section layout="code" type="text/x-markdown">
-```JavaScript
-var eslint = require('gulp-eslint')
-
-gulp.task('eslint', function() {
-   gulp.src('./js/*.js')
-       .pipe(eslint({ useEslintrc: false }))
-       .pipe(eslint.format())
-})
+```diff
++ var eslint = require('gulp-eslint')
++ gulp.task('eslint', function() {
++   gulp.src('./js/*.js')
++        .pipe(eslint({ useEslintrc: false }))
++        .pipe(eslint.format())
++ })
 gulp.task('watch', function() {
-   gulp.watch('./js/*.js', ['eslint'])
+-    gulp.watch('./js/*.js', ['test'])
++    gulp.watch('./js/*.js', ['eslint'])
 })
 ```
 </section>

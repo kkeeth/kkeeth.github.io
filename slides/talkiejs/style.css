@@ -12,13 +12,14 @@ span {
 	line-height: 1.8;
 }
 span.hljs-string {
-	color: #00a497;
+	color: #00ffcc;
 }
 span.hljs-attribute {
 	color: #b58900;
 }
 span.hljs-reserved,
-span.hljs-keyword {
+span.hljs-keyword,
+span.hljs-literal {
 	color: #ff69b4;
 }
 span.f38 {
