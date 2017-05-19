@@ -91,6 +91,7 @@ var my_info = {
 |Grant|D|<span class="assert f38">Webpack</span>|A|
 |<span class="assert f38">Gulp</span>|B|Rollup|C|
 
+※選択は私の独断と偏k…(ry
 </section>
 
 <section layout="bullets" type="text/x-markdown">
@@ -137,6 +138,7 @@ $ npm i [--save-dev|-D] gulp
 ## Gulpを動かすためにタスクを設定
 
 ### `gulpfile.js`というファイルを作成し、<br>次のコードを追記して下さい。
+
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -154,6 +156,8 @@ gulp.task('test', function() {
 ## Gulpのタスクを起動させるために<br>コマンドを設定
 
 ### `package.json`を開き、次のコードを追記して下さい。
+
+※`package.json`がない方は`npm init`を先に実行して下さい。
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -398,7 +402,9 @@ var hoge = 'hoge' . 123
 </section>
 
 <section layout="code" type="text/x-markdown">
-## `.eslintrc`の設定例<br>※詳しくは[こちら](http://eslint.org/docs/rules/)
+## `.eslintrc`の設定例を次に示します。
+
+### ※詳細は[こちら](http://eslint.org/docs/rules/)をご参照下さい。
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -458,13 +464,13 @@ $ npm i -D gulp-uglify gulp-rename
 </section>
 
 <section layout="code" type="text/x-markdown">
-## `eslint`か`watch`タスクを<br>実行してみましょう。
+## `watch`タスクを実行し、<br>`.js`ファイルのエラーを修正、<br>保存して下さい。
 
 ```shell
-$ npm run gulp (or eslint)
+$ npm run gulp
 ```
 
-※ここで自動で`build`ディレクトリが生成されます。
+※ 自動的に`build`ディレクトリが生成されます。
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -494,19 +500,12 @@ unction(o){console.log(o)};hello(hoge);
 </section>
 
 <section layout="code" type="text/x-markdown">
-## 以下のコマンドを実行して下さい
+## まず先程の文法エラーを再現
 
+※`watch`タスクを実行していない場合は<br>実行してから再現して下さい。
 ```shell
-# パーミッションを644に
-$ chmod -R 644 build
-
-# watchタスクを実行
 $ npm run gulp
 ```
-</section>
-
-<section layout="code" type="text/x-markdown">
-## 監視対象の`.js`ファイルを変更、<br>保存してみて下さい。
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -556,15 +555,9 @@ gulp.task('eslint', function() {
 </section>
 
 <section layout="code" type="text/x-markdown">
-## `watch`タスクを実行します。
+## 再度`watch`タスクを実行し、<br>`.js`ファイルを更新して下さい。
 
-```shell
-$ npm run gulp
-```
-</section>
-
-<section layout="code" type="text/x-markdown">
-## これで準備完了です。<br>監視対象の`.js`ファイルを変更、<br>保存して下さい。
+※ ここで文法エラーを修正しないで下さい。
 </section>
 
 <section layout="code" type="text/x-markdown">
