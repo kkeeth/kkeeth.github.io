@@ -21,7 +21,7 @@
 ```
 var my_info = {
     name:   '桑原聖仁',
-    twitter: '@kuwahara_ngv2（たまに変わります）',
+    twitter: '@kuwahara_ngv2（たまに変更）',
     github: 'k-kuwahara',
     qiita:    '@clown0082',
     skill: 'PHP, CodeIgniter, JavaScript, Riot.js, Angular',
@@ -633,31 +633,15 @@ $ npm i [--save-dev|-D] webpack
 
 <section layout="code" type="text/x-markdown">
 ```JavaScript
+var path = require('path')
+
 module.exports = {
   entry : './js/hoge.js',
   output: {
     filename: 'bundle.js',
-    // ※ここは絶対パス
-    path: '/path/to/build/'
+    path: path.resolve(`${__dirname}/build/`)
   }
 }
-```
-</section>
-
-<section layout="code" type="text/x-markdown">
-## ちょっとNode.jsを使うと<br>こう書けます。
-</section>
-
-<section layout="code" type="text/x-markdown">
-```diff
-+ var path = require('path')
-
-  module.exports = {
-    ...
--   path: '/path/to/build/'
-+   path: path.resolve(`${__dirname}/build/`)
-    }
-  }
 ```
 </section>
 
@@ -671,13 +655,13 @@ module.exports = {
 ```diff
 // package.jsonの一部抜粋
 ...
+
   "scripts": {
--   "gulp": "gulp"
-+   "gulp": "gulp",
     // 「-w」はwatchモードのオプション
     // これで変更を検知し自動でバンドル
 +   "build": "webpack -w"
   },
+
 ...
 ```
 </section>
@@ -726,14 +710,27 @@ bundle.js  2.73 kB       0  [emitted]  main
 </section>
 
 <section layout="code" type="text/x-markdown">
+## ディレクトリの構成
+
+```JavaScript
+├ node_modules/
+├ package.json
+├ webpack.config.js
+└ js/
+  └ *.js   ← 検知対象ファイル
+```
+
+※`js`ディレクトリに`(適当な名前).js`<br>ファイルを作成して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
 ## `webpack.config.js`を開き、<br>次のコードを追記して下さい。
 </section>
 
 <section layout="code" type="text/x-markdown">
 ```diff
--  var path = require('path')
-+  var path = require('path'),
-+      webpack = require('webpack')
+  var path = require('path')
++ var webpack = require('webpack')
 
   module.exports = {
 -   entry : './js/hoge.js',
@@ -750,8 +747,7 @@ bundle.js  2.73 kB       0  [emitted]  main
 +   },
 +   plugins: [
 +     new webpack.optimize.UglifyJsPlugin({
-+       compress: { warning: false },
-+       output: { comments: false}
++       output: { comments: false }
 +     })
 +   ]      //（以下略）
 ```
