@@ -6,9 +6,9 @@
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -70,7 +70,7 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(riot) {/* Riot v3.4.0, @license MIT */
+/* WEBPACK VAR INJECTION */(function(riot) {/* Riot v3.5.1, @license MIT */
 (function (global, factory) {
 	 true ? factory(exports) :
 	typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -88,15 +88,18 @@ var LOOP_DIRECTIVE = 'each';
 var LOOP_NO_REORDER_DIRECTIVE = 'no-reorder';
 var SHOW_DIRECTIVE = 'show';
 var HIDE_DIRECTIVE = 'hide';
+var RIOT_EVENTS_KEY = '__riot-events__';
 var T_STRING = 'string';
 var T_OBJECT = 'object';
 var T_UNDEF  = 'undefined';
 var T_FUNCTION = 'function';
 var XLINK_NS = 'http://www.w3.org/1999/xlink';
+var SVG_NS = 'http://www.w3.org/2000/svg';
 var XLINK_REGEX = /^xlink:(\w+)/;
 var WIN = typeof window === T_UNDEF ? undefined : window;
 var RE_SPECIAL_TAGS = /^(?:t(?:body|head|foot|[rhd])|caption|col(?:group)?|opt(?:ion|group))$/;
 var RE_SPECIAL_TAGS_NO_OPTION = /^(?:t(?:body|head|foot|[rhd])|caption|col(?:group)?)$/;
+var RE_EVENTS_PREFIX = /^on/;
 var RE_RESERVED_NAMES = /^(?:_(?:item|id|parent)|update|root|(?:un)?mount|mixin|is(?:Mounted|Loop)|tags|refs|parent|opts|trigger|o(?:n|ff|ne))$/;
 var RE_HTML_ATTRS = /([-\w]+) ?= ?(?:"([^"]*)|'([^']*)|({[^}]*}))/g;
 var CASE_SENSITIVE_ATTRIBUTES = { 'viewbox': 'viewBox' };
@@ -206,7 +209,7 @@ var check = Object.freeze({
  * @returns { Object } dom nodes found
  */
 function $$(selector, ctx) {
-  return (ctx || document).querySelectorAll(selector)
+  return Array.prototype.slice.call((ctx || document).querySelectorAll(selector))
 }
 
 /**
@@ -236,12 +239,22 @@ function createDOMPlaceholder() {
 }
 
 /**
+ * Check if a DOM node is an svg tag
+ * @param   { HTMLElement }  el - node we want to test
+ * @returns {Boolean} true if it's an svg node
+ */
+function isSvg(el) {
+  return !!el.ownerSVGElement
+}
+
+/**
  * Create a generic DOM node
  * @param   { String } name - name of the DOM node we want to create
+ * @param   { Boolean } isSvg - true if we need to use an svg node
  * @returns { Object } DOM node just created
  */
 function mkEl(name) {
-  return document.createElement(name)
+  return name === 'svg' ? document.createElementNS(SVG_NS, name) : document.createElement(name)
 }
 
 /**
@@ -369,6 +382,7 @@ var dom = Object.freeze({
 	$: $,
 	createFrag: createFrag,
 	createDOMPlaceholder: createDOMPlaceholder,
+	isSvg: isSvg,
 	mkEl: mkEl,
 	setInnerHTML: setInnerHTML,
 	toggleVisibility: toggleVisibility,
@@ -441,7 +455,7 @@ var styleManager = {
 
 /**
  * The riot template engine
- * @version v3.0.3
+ * @version v3.0.5
  */
 /**
  * riot.util.brackets
@@ -466,7 +480,7 @@ var brackets = (function (UNDEF) {
 
     S_QBLOCKS = R_STRINGS.source + '|' +
       /(?:\breturn\s+|(?:[$\w\)\]]|\+\+|--)\s*(\/)(?![*\/]))/.source + '|' +
-      /\/(?=[^*\/])[^[\/\\]*(?:(?:\[(?:\\.|[^\]\\]*)*\]|\\.)[^[\/\\]*)*?(\/)[gim]*/.source,
+      /\/(?=[^*\/])[^[\/\\]*(?:(?:\[(?:\\.|[^\]\\]*)*\]|\\.)[^[\/\\]*)*?([^<]\/)[gim]*/.source,
 
     UNSUPPORTED = RegExp('[\\' + 'x00-\\x1F<>a-zA-Z0-9\'",;\\\\]'),
 
@@ -667,7 +681,12 @@ var tmpl = (function () {
   function _tmpl (str, data) {
     if (!str) { return str }
 
-    return (_cache[str] || (_cache[str] = _create(str))).call(data, _logErr)
+    return (_cache[str] || (_cache[str] = _create(str))).call(
+      data, _logErr.bind({
+        data: data,
+        tmpl: str
+      })
+    )
   }
 
   _tmpl.hasExpr = brackets.hasExpr;
@@ -691,10 +710,9 @@ var tmpl = (function () {
       typeof console !== 'undefined' &&
       typeof console.error === 'function'
     ) {
-      if (err.riotData.tagName) {
-        console.error('Riot template error thrown in the <%s> tag', err.riotData.tagName);
-      }
-      console.error(err);
+      console.error(err.message);
+      console.log('<%s> %s', err.riotData.tagName || 'Unknown tag', this.tmpl); // eslint-disable-line
+      console.log(this.data); // eslint-disable-line
     }
   }
 
@@ -863,7 +881,7 @@ var tmpl = (function () {
     return expr
   }
 
-  _tmpl.version = brackets.version = 'v3.0.3';
+  _tmpl.version = brackets.version = 'v3.0.5';
 
   return _tmpl
 
@@ -1095,8 +1113,6 @@ var settings$1 = extend(Object.create(brackets.settings), {
   skipAnonymousTags: true
 });
 
-var EVENTS_PREFIX_REGEX = /^on/;
-
 /**
  * Trigger DOM events
  * @param   { HTMLElement } dom - dom element target of the event
@@ -1144,18 +1160,18 @@ function setEventHandler(name, handler, dom, tag) {
     cb = handleEvent.bind(tag, dom, handler);
 
   // avoid to bind twice the same event
+  // possible fix for #2332
   dom[name] = null;
 
   // normalize event name
-  eventName = name.replace(EVENTS_PREFIX_REGEX, '');
+  eventName = name.replace(RE_EVENTS_PREFIX, '');
 
-  // cache the callback directly on the DOM node
-  if (!dom._riotEvents) { dom._riotEvents = {}; }
+  // cache the listener into the listeners array
+  if (!contains(tag.__.listeners, dom)) { tag.__.listeners.push(dom); }
+  if (!dom[RIOT_EVENTS_KEY]) { dom[RIOT_EVENTS_KEY] = {}; }
+  if (dom[RIOT_EVENTS_KEY][name]) { dom.removeEventListener(eventName, dom[RIOT_EVENTS_KEY][name]); }
 
-  if (dom._riotEvents[name])
-    { dom.removeEventListener(eventName, dom._riotEvents[name]); }
-
-  dom._riotEvents[name] = cb;
+  dom[RIOT_EVENTS_KEY][name] = cb;
   dom.addEventListener(eventName, cb, false);
 }
 
@@ -1176,7 +1192,6 @@ function updateDataIs(expr, parent, tagName) {
   isVirtual = expr.dom.tagName === 'VIRTUAL';
   // sync _parent to accommodate changing tagnames
   if (expr.tag) {
-
     // need placeholder before unmount
     if(isVirtual) {
       head = expr.tag.__.head;
@@ -1186,6 +1201,8 @@ function updateDataIs(expr, parent, tagName) {
 
     expr.tag.unmount(true);
   }
+
+  if (!isString(tagName)) { return }
 
   expr.impl = __TAG_IMPL[tagName];
   conf = {root: expr.dom, parent: parent, hasImpl: true, tagName: tagName};
@@ -1237,6 +1254,7 @@ function updateExpression(expr) {
     // detect the style attributes
     isStyleAttr = attrName === 'style',
     isClassAttr = attrName === 'class',
+    hasValue,
     isObj,
     value;
 
@@ -1257,7 +1275,8 @@ function updateExpression(expr) {
   if (expr.update) { return expr.update() }
 
   // ...it seems to be a simple expression so we try to calculat its value
-  value = tmpl(expr.expr, this);
+  value = tmpl(expr.expr, isToggle ? extend({}, Object.create(this.parent), this) : this);
+  hasValue = !isBlank(value);
   isObj = isObject(value);
 
   // convert the style/class objects to strings
@@ -1268,6 +1287,12 @@ function updateExpression(expr) {
     } else if (isStyleAttr) {
       value = styleObjectToString(value);
     }
+  }
+
+  // remove original attribute
+  if (expr.attr && (!expr.isAttrRemoved || !hasValue || value === false)) {
+    remAttr(dom, expr.attr);
+    expr.isAttrRemoved = true;
   }
 
   // for the boolean attributes we don't need the value
@@ -1281,7 +1306,9 @@ function updateExpression(expr) {
   expr.wasParsedOnce = true;
 
   // if the value is an object we can not do much more with it
-  if (isObj) { return }
+  if (isObj && !isToggle) { return }
+  // avoid to render undefined/null values
+  if (isBlank(value)) { value = ''; }
 
   // textarea and text nodes have no attribute name
   if (!attrName) {
@@ -1302,11 +1329,6 @@ function updateExpression(expr) {
     return
   }
 
-  // remove original attribute
-  if (!expr.isAttrRemoved || !value) {
-    remAttr(dom, expr.attr);
-    expr.isAttrRemoved = true;
-  }
 
   // event handler
   if (isFunction(value)) {
@@ -1324,7 +1346,7 @@ function updateExpression(expr) {
       dom.value = value;
     }
 
-    if (!isBlank(value) && value !== false) {
+    if (hasValue && value !== false) {
       setAttr(dom, attrName, value);
     }
 
@@ -1369,8 +1391,9 @@ var IfExpr = {
       unmountAll(this.expressions);
       if (this.current._tag) {
         this.current._tag.unmount();
-      } else if (this.current.parentNode)
-        { this.current.parentNode.removeChild(this.current); }
+      } else if (this.current.parentNode) {
+        this.current.parentNode.removeChild(this.current);
+      }
       this.current = null;
       this.expressions = [];
     }
@@ -1379,9 +1402,6 @@ var IfExpr = {
   },
   unmount: function unmount() {
     unmountAll(this.expressions || []);
-    delete this.pristine;
-    delete this.parentNode;
-    delete this.stub;
   }
 };
 
@@ -1398,17 +1418,13 @@ var RefExpr = {
     var old = this.value;
     var customParent = this.parent && getImmediateCustomParentTag(this.parent);
     // if the referenced element is a custom tag, then we set the tag itself, rather than DOM
-    var tagOrDom = this.tag || this.dom;
+    var tagOrDom = this.dom.__ref || this.tag || this.dom;
 
     this.value = this.hasExp ? tmpl(this.rawValue, this.parent) : this.rawValue;
 
     // the name changed, so we need to remove it from the old key (if present)
     if (!isBlank(old) && customParent) { arrayishRemove(customParent.refs, old, tagOrDom); }
-
-    if (isBlank(this.value)) {
-      // if the value is blank, we remove it
-      remAttr(this.dom, this.attr);
-    } else {
+    if (!isBlank(this.value) && isString(this.value)) {
       // add it to the refs of parent tag (this behavior was changed >=3.0)
       if (customParent) { arrayishAdd(
         customParent.refs,
@@ -1418,17 +1434,23 @@ var RefExpr = {
         null,
         this.parent.__.index
       ); }
-      // set the actual DOM attr
-      setAttr(this.dom, this.attr, this.value);
+
+      if (this.value !== old) {
+        setAttr(this.dom, this.attr, this.value);
+      }
+    } else {
+      remAttr(this.dom, this.attr);
     }
+
+    // cache the ref bound to this dom node
+    // to reuse it in future (see also #2329)
+    if (!this.dom.__ref) { this.dom.__ref = tagOrDom; }
   },
   unmount: function unmount() {
     var tagOrDom = this.tag || this.dom;
     var customParent = this.parent && getImmediateCustomParentTag(this.parent);
     if (!isBlank(this.value) && customParent)
       { arrayishRemove(customParent.refs, this.value, tagOrDom); }
-    delete this.dom;
-    delete this.parent;
   }
 };
 
@@ -1579,6 +1601,10 @@ function _each(dom, parent, expr) {
       isObject$$1 = !isArray(items) && !isString(items),
       root = placeholder.parentNode;
 
+    // if this DOM was removed the update here is useless
+    // this condition fixes also a weird async issue on IE in our unit test
+    if (!root) { return }
+
     // object loop. any changes cause full redraw
     if (isObject$$1) {
       hasKeys = items || false;
@@ -1670,6 +1696,7 @@ function _each(dom, parent, expr) {
     // clone the items array
     oldItems = items.slice();
 
+    // this condition is weird u
     root.insertBefore(frag, placeholder);
   };
 
@@ -1762,8 +1789,6 @@ function parseExpressions(root, expressions, mustIncludeRoot) {
     // If this element had an if-attr, that's the parent for all child elements
     return {parent: parent}
   }, tree);
-
-  return { tree: tree, root: root }
 }
 
 /**
@@ -1778,6 +1803,8 @@ function parseAttributes(dom, attrs, fn) {
   var this$1 = this;
 
   each(attrs, function (attr) {
+    if (!attr) { return false }
+
     var name = attr.name, bool = isBoolAttr(name), expr;
 
     if (contains(REF_DIRECTIVES, name)) {
@@ -1803,6 +1830,7 @@ var reYieldDest = /<yield\s+from=['"]?([-\w]+)['"]?\s*(?:\/>|>([\S\s]*?)<\/yield
 var rootEls = { tr: 'tbody', th: 'tr', td: 'tr', col: 'colgroup' };
 var tblTags = IE_VERSION && IE_VERSION < 10 ? RE_SPECIAL_TAGS : RE_SPECIAL_TAGS_NO_OPTION;
 var GENERIC = 'div';
+var SVG = 'svg';
 
 
 /*
@@ -1865,12 +1893,13 @@ function replaceYield(tmpl, html) {
  * @param   { String } tmpl  - The template coming from the custom tag definition
  * @param   { String } html - HTML content that comes from the DOM element where you
  *           will mount the tag, mostly the original tag in the page
+ * @param   { Boolean } isSvg - true if the root node is an svg
  * @returns { HTMLElement } DOM element with _tmpl_ merged through `YIELD` with the _html_.
  */
-function mkdom(tmpl, html) {
+function mkdom(tmpl, html, isSvg$$1) {
   var match   = tmpl && tmpl.match(/^\s*<([-\w]+)/),
     tagName = match && match[1].toLowerCase(),
-    el = mkEl(GENERIC);
+    el = mkEl(isSvg$$1 ? SVG : GENERIC);
 
   // replace all the yield tags with the tag inner html
   tmpl = replaceYield(tmpl, html);
@@ -1972,10 +2001,11 @@ function tag2$1(name, tmpl, css, attrs, fn) {
  */
 function mount$1(selector, tagName, opts) {
   var tags = [];
+  var elem, allTags;
 
   function pushTagsTo(root) {
     if (root.tagName) {
-      var riotTag = getAttr(root, IS_DIRECTIVE);
+      var riotTag = getAttr(root, IS_DIRECTIVE), tag;
 
       // have tagName? force riot-tag to be the same
       if (tagName && riotTag !== tagName) {
@@ -1983,7 +2013,7 @@ function mount$1(selector, tagName, opts) {
         setAttr(root, IS_DIRECTIVE, tagName);
       }
 
-      var tag = mountTo(root, riotTag || root.tagName.toLowerCase(), opts);
+      tag = mountTo(root, riotTag || root.tagName.toLowerCase(), opts);
 
       if (tag)
         { tags.push(tag); }
@@ -1998,9 +2028,6 @@ function mount$1(selector, tagName, opts) {
     opts = tagName;
     tagName = 0;
   }
-
-  var elem;
-  var allTags;
 
   // crawl the DOM to find the tag
   if (isString(selector)) {
@@ -2058,7 +2085,7 @@ var mixins_id = 0;
 function mixin$1(name, mix, g) {
   // Unnamed global
   if (isObject(name)) {
-    mixin$1(("__unnamed_" + (mixins_id++)), name, true);
+    mixin$1(("__" + (mixins_id++) + "__"), name, true);
     return
   }
 
@@ -2067,7 +2094,7 @@ function mixin$1(name, mix, g) {
   // Getter
   if (!mix) {
     if (isUndefined(store[name]))
-      { throw new Error('Unregistered mixin: ' + name) }
+      { throw new Error(("Unregistered mixin: " + name)) }
 
     return store[name]
   }
@@ -2087,10 +2114,10 @@ function update$1() {
 }
 
 function unregister$1(name) {
-  delete __TAG_IMPL[name];
+  __TAG_IMPL[name] = null;
 }
 
-var version$1 = 'v3.4.0';
+var version$1 = 'v3.5.1';
 
 
 var core = Object.freeze({
@@ -2143,7 +2170,6 @@ function Tag$1(impl, conf, innerHTML) {
   if ( impl === void 0 ) impl = {};
   if ( conf === void 0 ) conf = {};
 
-
   var opts = extend({}, conf.opts),
     parent = conf.parent,
     isLoop = conf.isLoop,
@@ -2157,6 +2183,7 @@ function Tag$1(impl, conf, innerHTML) {
     root = conf.root,
     tagName = conf.tagName || getTagName(root),
     isVirtual = tagName === 'virtual',
+    isInline = !isVirtual && !impl.tmpl,
     propsInSyncWithParent = [],
     dom;
 
@@ -2175,6 +2202,10 @@ function Tag$1(impl, conf, innerHTML) {
     tagName: tagName,
     index: index,
     isLoop: isLoop,
+    isInline: isInline,
+    // tags having event listeners
+    // it would be better to use weak maps here but we can not introduce breaking changes now
+    listeners: [],
     // these vars will be needed only for the virtual tags
     virts: [],
     tail: null,
@@ -2193,7 +2224,12 @@ function Tag$1(impl, conf, innerHTML) {
   defineProperty(this, 'tags', {});
   defineProperty(this, 'refs', {});
 
-  dom = isLoop && isAnonymous ? root : mkdom(impl.tmpl, innerHTML, isLoop);
+  if (isInline || isLoop && isAnonymous) {
+    dom = root;
+  } else {
+    if (!isVirtual) { root.innerHTML = ''; }
+    dom = mkdom(impl.tmpl, innerHTML, isSvg(root));
+  }
 
   /**
    * Update the tag expressions and options
@@ -2327,7 +2363,7 @@ function Tag$1(impl, conf, innerHTML) {
 
     this.update(item);
 
-    if (!isAnonymous) {
+    if (!isAnonymous && !isInline) {
       while (dom.firstChild) { root.appendChild(dom.firstChild); }
     }
 
@@ -2371,7 +2407,15 @@ function Tag$1(impl, conf, innerHTML) {
     walkAttrs(impl.attrs, function (name) {
       if (startsWith(name, ATTRS_PREFIX))
         { name = name.slice(ATTRS_PREFIX.length); }
+
       remAttr(root, name);
+    });
+
+    // remove all the event listeners
+    this.__.listeners.forEach(function (dom) {
+      Object.keys(dom[RIOT_EVENTS_KEY]).forEach(function (eventName) {
+        dom.removeEventListener(eventName, dom[RIOT_EVENTS_KEY][eventName]);
+      });
     });
 
     // remove this tag instance from the global virtualDom variable
@@ -2388,20 +2432,17 @@ function Tag$1(impl, conf, innerHTML) {
           });
         } else {
           arrayishRemove(ptag.tags, tagName, this);
-          if(parent !== ptag) // remove from _parent too
-            { arrayishRemove(parent.tags, tagName, this); }
+          // remove from _parent too
+          if(parent !== ptag) {
+            arrayishRemove(parent.tags, tagName, this);
+          }
         }
       } else {
-        while (el.firstChild) { el.removeChild(el.firstChild); }
+        // remove the tag contents
+        setInnerHTML(el, '');
       }
 
-      if (p)
-        { if (!mustKeepRoot) {
-          p.removeChild(el);
-        } else {
-          // the riot-tag and the data-is attributes aren't needed anymore, remove them
-          remAttr(p, IS_DIRECTIVE);
-        } }
+      if (p && !mustKeepRoot) { p.removeChild(el); }
     }
 
     if (this.__.virts) {
@@ -2508,10 +2549,6 @@ function initChildTag(child, opts, innerHTML, parent) {
   if (ptag !== parent)
     { arrayishAdd(parent.tags, tagName, tag); }
 
-  // empty the child node once we got its template
-  // to avoid that its children get compiled multiple times
-  opts.root.innerHTML = '';
-
   return tag
 }
 
@@ -2536,6 +2573,7 @@ function getImmediateCustomParentTag(tag) {
 function unmountAll(expressions) {
   each(expressions, function(expr) {
     if (expr instanceof Tag$1) { expr.unmount(true); }
+    else if (expr.tagName) { expr.tag.unmount(true); }
     else if (expr.unmount) { expr.unmount(); }
   });
 }
@@ -2639,9 +2677,6 @@ function mountTo(root, tagName, opts, ctx) {
     tag = ctx || (implClass ? Object.create(implClass.prototype) : {}),
     // cache the inner HTML to fix #855
     innerHTML = root._innerHTML = root._innerHTML || root.innerHTML;
-
-  // clear the inner html
-  root.innerHTML = '';
 
   var conf = extend({ root: root, opts: opts }, { parent: opts ? opts.parent : null });
 
@@ -2893,16 +2928,26 @@ module.exports = new My_store()
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__footer_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__footer_tag__);
 
     var riot = __webpack_require__(0)
-    
+    //src: tag/app.tag
 
 
-riot.tag2('app', '<header></header> <main></main> <footer></footer>', '', '', function(opts) {
+
+riot.tag2('app',
+  '<header></header> <main></main> <footer></footer>',
+  '',
+  '', function(opts) {
 
 		this.on('before-mount', function () {
 			riot_control.trigger('init_page')
 		})
 });
     
+  if (false) {
+    module.hot.accept()
+    if (module.hot.data) {
+      riot.reload('app')
+    }
+  }
   
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
@@ -2976,8 +3021,8 @@ Object.defineProperty(exports, '__esModule', { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(riot_control, riot) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_riot_hot_reload__ = __webpack_require__(4);
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(riot_control, riot) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_riot_hot_reload__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_riot_hot_reload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_riot_hot_reload__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__my_store_js__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__my_store_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__my_store_js__);
@@ -2997,10 +3042,20 @@ riot.mount('*')
 
 /* WEBPACK VAR INJECTION */(function(riot_control) {
     var riot = __webpack_require__(0)
-    riot.tag2('footer', '', '', '', function(opts) {
+    //src: tag/footer.tag
+riot.tag2('footer',
+  '',
+  '',
+  '', function(opts) {
 		riot_control.on('change_lang', function () { return self.update(); })
 });
     
+  if (false) {
+    module.hot.accept()
+    if (module.hot.data) {
+      riot.reload('footer')
+    }
+  }
   
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
@@ -3012,13 +3067,29 @@ riot.mount('*')
 /* WEBPACK VAR INJECTION */(function(riot_control) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__menu_list_tag__ = __webpack_require__(10);
 
     var riot = __webpack_require__(0)
-    
-riot.tag2('header', '<div class="columns header-container"> <div id="main-logo" class=""> <a href="/"> <img src="top/img/logo.png"> </a> </div> <div id="menu-section"> <menu-list></menu-list> </div> </div>', '', '', function(opts) {
-		var self = this
+    //src: tag/header.tag
+
+riot.tag2('header',
+  '<ul id="nav-mobile" class="side-nav fixed"> <li> <div class="userView"> <div class="background"> </div> <a href="/"><img class="circle" src="top/img/logo.png"></a> <a href="#!name"><span class="white-text name">k-kuwahara</span></a> <a href="#!email"><span class="white-text email">zensin@gmail.com</span></a> </div> </li> <li><i class="material-icons">cloud</i>First Link With Icon</li> <li>Second Link</li> <li><div class="divider"></div></li> <li>Subheader</li> <li>Third Link With Waves</li> </ul> <a href="#" data-activates="slide-out" ref="menu" onclick="{menu_toggle}"><i class="material-icons">menu</i></a> <div class="columns header-container"> <div id="main-logo" class=""> <a href="/"> </a> </div> <div id="menu-section"> </div> </div>',
+  '',
+  '', function(opts) {
+		var this$1 = this;
+
 
 		riot_control.on('change_lang', function () { return self.update(); })
+
+		this.menu_toggle = function () {
+			console.info(this$1.refs.menu)
+			$(this$1.refs.menu).sideNav()
+		}
 });
     
+  if (false) {
+    module.hot.accept()
+    if (module.hot.data) {
+      riot.reload('header')
+    }
+  }
   
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
@@ -3028,7 +3099,11 @@ riot.tag2('header', '<div class="columns header-container"> <div id="main-logo" 
 
 /* WEBPACK VAR INJECTION */(function(riot_control) {
     var riot = __webpack_require__(0)
-    riot.tag2('lang-change', '<div> <span onclick="{set_lang}" class="btn translation" data-val="ja">JP</span> <span class="translation">/</span> <span onclick="{set_lang}" class="btn translation" data-val="en">EN</span> </div>', 'lang-change div,[data-is="lang-change"] div{ margin-top: 10px; text-align: center; } lang-change span.btn,[data-is="lang-change"] span.btn{ padding: 0 10px; } lang-change span.btn:hover,[data-is="lang-change"] span.btn:hover{ background-color: #008080; cursor: pointer; }', '', function(opts) {
+    //src: tag/lang-change.tag
+riot.tag2('lang-change',
+  '<div> <span onclick="{set_lang}" class="btn translation" data-val="ja">JP</span> <span class="translation">/</span> <span onclick="{set_lang}" class="btn translation" data-val="en">EN</span> </div>',
+  'lang-change div,[data-is="lang-change"] div{ margin-top: 10px; text-align: center; } lang-change span.btn,[data-is="lang-change"] span.btn{ padding: 0 10px; } lang-change span.btn:hover,[data-is="lang-change"] span.btn:hover{ background-color: #008080; cursor: pointer; }',
+  '', function(opts) {
 		var self = this
 		self.lang = ''
 
@@ -3043,6 +3118,12 @@ riot.tag2('header', '<div class="columns header-container"> <div id="main-logo" 
 
 });
     
+  if (false) {
+    module.hot.accept()
+    if (module.hot.data) {
+      riot.reload('lang-change')
+    }
+  }
   
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
@@ -3052,13 +3133,23 @@ riot.tag2('header', '<div class="columns header-container"> <div id="main-logo" 
 
 /* WEBPACK VAR INJECTION */(function(riot_control) {
     var riot = __webpack_require__(0)
-    riot.tag2('main', '<div id="container"> <h1>hoge</h1> </div>', '', '', function(opts) {
+    //src: tag/main.tag
+riot.tag2('main',
+  '<div id="container"> <h1>hoge</h1> </div>',
+  '',
+  '', function(opts) {
 
 		this.on('mount', function () {})
 
 		riot_control.on('change_lang', function () { return self.update(); })
 });
     
+  if (false) {
+    module.hot.accept()
+    if (module.hot.data) {
+      riot.reload('main')
+    }
+  }
   
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
@@ -3074,10 +3165,14 @@ riot.tag2('header', '<div class="columns header-container"> <div id="main-logo" 
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_riot_route__ = __webpack_require__(13);
 
     var riot = __webpack_require__(0)
-    
+    //src: tag/menu-list.tag
 
 
-riot.tag2('menu-list', '<div id="nav-list" class=""> <div> <a href="{paths.index}"> <button class="{current-page:current_page == paths.index} btn">HOME</button> </a> </div> <div> <a href="{paths.about}"> <button class="{current-page:current_page == paths.index} btn">ABOUT</button> </a> </div> <div> <a href="{paths.skill}"> <button class="{current-page:current_page == paths.skill} btn">SKILL</button> </a> </div> <div> <a href="{paths.links}"> <button class="{current-page:current_page == paths.links} btn">LINKS</button> </a> </div> <div> <a href="{paths.development}"> <button class="{current-page:current_page == paths.development} btn">DEVELOPMENT</button> </a> </div> <lang-change></lang-change> </div>', 'menu-list #nav-list div,[data-is="menu-list"] #nav-list div{ text-align: center; } menu-list .btn,[data-is="menu-list"] .btn{ color: #FFF; font-weight: bold; }', '', function(opts) {
+
+riot.tag2('menu-list',
+  '<div id="nav-list" class=""> <div> <a href="{paths.index}"> <button class="{current-page:current_page == paths.index} btn">HOME</button> </a> </div> <div> <a href="{paths.about}"> <button class="{current-page:current_page == paths.index} btn">ABOUT</button> </a> </div> <div> <a href="{paths.skill}"> <button class="{current-page:current_page == paths.skill} btn">SKILL</button> </a> </div> <div> <a href="{paths.links}"> <button class="{current-page:current_page == paths.links} btn">LINKS</button> </a> </div> <div> <a href="{paths.development}"> <button class="{current-page:current_page == paths.development} btn">DEVELOPMENT</button> </a> </div> <lang-change></lang-change> </div>',
+  'menu-list #nav-list div,[data-is="menu-list"] #nav-list div{ text-align: center; } menu-list .btn,[data-is="menu-list"] .btn{ color: #FFF; font-weight: bold; }',
+  '', function(opts) {
 		var self = this
 
 		self.paths = __WEBPACK_IMPORTED_MODULE_1__util_mixin_js___default.a.paths
@@ -3094,6 +3189,12 @@ riot.tag2('menu-list', '<div id="nav-list" class=""> <div> <a href="{paths.index
 		})
 });
     
+  if (false) {
+    module.hot.accept()
+    if (module.hot.data) {
+      riot.reload('menu-list')
+    }
+  }
   
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 

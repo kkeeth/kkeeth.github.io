@@ -16,7 +16,13 @@ module.exports = [
                test: /\.tag$/,
                enforce: 'pre',
                exclude: /node_modules/,
-               use: ['riot-tag-loader']
+               use: {
+                  loader: 'riot-tag-loader',
+                  options: {
+                     hot: true,
+                     debug: true
+                  }
+               }
             },
             {
                test: /\.js|\.tag$/,
@@ -32,9 +38,7 @@ module.exports = [
       plugins: [
          new webpack.ProvidePlugin({
             riot: 'riot',
-            riot_control: 'riotcontrol',
-            $: 'jquery',
-            jQuery: 'jquery'
+            riot_control: 'riotcontrol'
          })
       ]
    },

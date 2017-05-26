@@ -15,39 +15,11 @@ a {
 /**
  * headerスタイル
  */
-header {
+header .side-nav {
   padding: 1.5rem;
   background-color: #2B3A42;
   color: #fff;
   font-weight: 700; }
-  @media (max-width: 780px) {
-    header #main-logo {
-      text-align: center; }
-      header #main-logo img {
-        width: 5rem;
-        border-radius: 2.5rem; }
-    header #menu-section {
-      text-align: left; } }
-  @media (min-width: 781px) {
-    header {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 9rem;
-      height: 100%; }
-      header #main-logo {
-        text-align: center; }
-        header #main-logo img {
-          width: 7rem;
-          border-radius: 3.5rem; }
-      header #menu-list {
-        display: inline; } }
-  header h1 {
-    text-align: center; }
-  header #menu-section a {
-    width: 100%; }
-    header #menu-section a:hover {
-      background-color: #008080; }
 
 /**
  * mainスタイル

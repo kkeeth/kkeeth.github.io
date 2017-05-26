@@ -16,56 +16,11 @@ a {
  * headerスタイル
  */
 header {
-	@media (max-width: 780px) {
-
-		#main-logo {
-			text-align: center;
-			img {
-				width: 5rem;
-				border-radius: 2.5rem;
-			}
-		}
-
-		#menu-section {
-			text-align: left;
-		}
-	}
-	@media (min-width: 781px) {
-		position: fixed;
-		left: 0;
-		top: 0;
-		width: 9rem;
-		height: 100%;
-
-		#main-logo {
-			text-align: center;
-			img {
-				width: 7rem;
-				border-radius: 3.5rem;
-			}
-		}
-
-		#menu-list {
-			display: inline;
-		}
-	}
-	padding: 1.5rem;
-	background-color: #2B3A42;
-	color: #fff	;
-	font-weight: 700;
-
-	h1 {
-		text-align: center;
-	}
-
-
-	#menu-section {
-		a {
-			width: 100%;
-			&:hover {
-				background-color: #008080;
-			}
-		}
+	.side-nav {
+		padding: 1.5rem;
+		background-color: #2B3A42;
+		color: #fff;
+		font-weight: 700;
 	}
 }
 
