@@ -22,7 +22,9 @@ header {
 		font-weight: 700;
 
 		li {
-
+			.circle {
+				margin-left: 2rem;
+			}
 			a {
 				&:hover {
 					background-color: #008080;

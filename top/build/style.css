@@ -19,6 +19,8 @@ header .side-nav {
   padding: 1.5rem;
   background-color: #2B3A42;
   font-weight: 700; }
+  header .side-nav li .circle {
+    margin-left: 2rem; }
   header .side-nav li a {
     color: #fff; }
     header .side-nav li a:hover {

@@ -3044,7 +3044,7 @@ riot.mount('*')
     var riot = __webpack_require__(0)
     //src: tag/footer.tag
 riot.tag2('footer',
-  '<div class="row"> <nav id="nav-footer"> <div class="nav-wrapper"> <div class="col s3"> <a href=""> <i class="material-icons">person</i> Profile </a> </div> <div class="col s3"> <a href="#skills"> <i class="material-icons">cloud</i> Skills </a> </div> <div class="col s3"> <a href="#blogs"> <i class="material-icons">create</i> Blogs </a> </div> <div class="col s3"> <a href="#links"> <i class="material-icons">link</i> Links </a> </div> </div> </nav> </div>',
+  '<div class="row"> <nav id="nav-footer"> <div class="nav-wrapper"> <div class="col s3 waves-effect waves-light"> <a href=""> <i class="material-icons">person</i> Profile </a> </div> <div class="col s3 waves-effect waves-light""> <a href="#skills"> <i class="material-icons">cloud</i> Skills </a> </div> <div class="col s3 waves-effect waves-light"> <a href="#blogs"> <i class="material-icons">create</i> Blogs </a> </div> <div class="col s3 waves-effect waves-light"> <a href="#links"> <i class="material-icons">link</i> Links </a> </div> </div> </nav> </div>',
   '',
   '', function(opts) {
 		riot_control.on('change_lang', function () { return self.update(); })
@@ -3639,7 +3639,7 @@ route.parser();
     var riot = __webpack_require__(0)
     //src: tag/side-menu.tag
 riot.tag2('side-menu',
-  '<ul class="side-nav fixed"> <li> <div class="userView"> <a href=""><img class="circle" src="top/img/logo.png"></a> <a href="https://github.com/k-kuwahara/"><span class="white-text name">k-kuwahara</span></a> <a href="mailto:zensin0082@gmail.com"><span class="white-text email">zensin@gmail.com</span></a> </div> </li> <li> <a href="#skills"> <i class="material-icons left">cloud</i>Skills </a> </li> <li> <a href="#blogs"> <i class="material-icons">thumb_up</i>Blogs </a> </li> <li> <a href="#links"> <i class="material-icons">link</i>Links </a> </li> </ul>',
+  '<ul class="side-nav fixed"> <li> <div class="userView"> <a href="" class="waves-effect waves-light"><img class="circle" src="top/img/logo.png"></a> <a href="https://github.com/k-kuwahara/" class="waves-effect waves-light"><span class="white-text name">k-kuwahara</span></a> <a href="mailto:zensin0082@gmail.com" class="waves-effect waves-light"><span class="white-text email">zensin@gmail.com</span></a> </div> </li> <li> <a href="#skills" class="waves-effect waves-light"> <i class="material-icons left">cloud</i>Skills </a> </li> <li> <a href="#blogs" class="waves-effect waves-light"> <i class="material-icons">thumb_up</i>Blogs </a> </li> <li> <a href="#links" class="waves-effect waves-light"> <i class="material-icons">link</i>Links </a> </li> </ul>',
   'side-menu #nav-list div,[data-is="side-menu"] #nav-list div{ text-align: center; } side-menu .btn,[data-is="side-menu"] .btn{ color: #FFF; font-weight: bold; }',
   '', function(opts) {
 		var self = this

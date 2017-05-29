@@ -3,23 +3,23 @@
 	<ul class="side-nav fixed">
 		<li>
 			<div class="userView">
-				<a href=""><img class="circle" src="top/img/logo.png"></a>
-				<a href="https://github.com/k-kuwahara/"><span class="white-text name">k-kuwahara</span></a>
-				<a href="mailto:zensin0082@gmail.com"><span class="white-text email">zensin@gmail.com</span></a>
+				<a href="" class="waves-effect waves-light"><img class="circle" src="top/img/logo.png"></a>
+				<a href="https://github.com/k-kuwahara/" class="waves-effect waves-light"><span class="white-text name">k-kuwahara</span></a>
+				<a href="mailto:zensin0082@gmail.com" class="waves-effect waves-light"><span class="white-text email">zensin@gmail.com</span></a>
 			</div>
 		</li>
 		<li>
-			<a href="#skills">
+			<a href="#skills" class="waves-effect waves-light">
 				<i class="material-icons left">cloud</i>Skills
 			</a>
 		</li>
 		<li>
-			<a href="#blogs">
+			<a href="#blogs" class="waves-effect waves-light">
 				<i class="material-icons">thumb_up</i>Blogs
 			</a>
 		</li>
 		<li>
-			<a href="#links">
+			<a href="#links" class="waves-effect waves-light">
 				<i class="material-icons">link</i>Links
 			</a>
 		</li>
