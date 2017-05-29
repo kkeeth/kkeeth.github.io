@@ -1,8 +1,6 @@
 <skills>
   <h2 class="header">Skills</h2>
 
-  <hr>
-
   <article>
     <h3 class="header">Program Languages</h3>
     <table class="bordered">

@@ -53,6 +53,13 @@ main {
 		border-radius: 0.2rem;
 		box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2);
 
+		h2 {
+			background-color: #008080;
+			color: #fff;
+			line-height: 10rem;
+			margin: 0;
+		}
+
 		@media (max-width: 780px) {
 			overflow-y: scroll;
 			height: 85vh;
@@ -61,7 +68,7 @@ main {
 		article {
 			padding: 1.5rem;
 
-			&:nth-child(2n) {
+			&:nth-child(2n-1) {
 				background-color: #f8e58c;
 			}
 			i {

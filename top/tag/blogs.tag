@@ -1,8 +1,6 @@
 <blogs>
   <h2 class="header">Blogs</h2>
 
-  <hr>
-
   <article>
     <table class="bordered">
       <thead>

@@ -1,8 +1,6 @@
 <links>
   <h2 class="header">Links</h2>
 
-  <hr>
-
   <article>
     <h3 class="header">Pages, Production</h3>
     <table class="bordered">
