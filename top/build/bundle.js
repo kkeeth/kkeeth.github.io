@@ -2933,7 +2933,7 @@ module.exports = new My_store()
 
 
 riot.tag2('app',
-  '<header></header> <main></main> <footer></footer>',
+  '<div class="row"> <div class="col m3 s12"> <header></header> </div> <div class="col m9 s12"> <main></main> </div> </div> <footer></footer>',
   '',
   '', function(opts) {
 
@@ -3044,7 +3044,7 @@ riot.mount('*')
     var riot = __webpack_require__(0)
     //src: tag/footer.tag
 riot.tag2('footer',
-  '',
+  '<div class="row"> <nav id="nav-footer"> <div class="nav-wrapper"> <div class="col s3"> <i class="material-icons">person</i> Profile </div> <div class="col s3"> <i class="material-icons">thumb_up</i> SNS </div> <div class="col s3"> <i class="material-icons">create</i> Blog +α </div> <div class="col s3"> <i class="material-icons">link</i> Links </div> </div> </nav> </div>',
   '',
   '', function(opts) {
 		riot_control.on('change_lang', function () { return self.update(); })
@@ -3070,7 +3070,7 @@ riot.tag2('footer',
     //src: tag/header.tag
 
 riot.tag2('header',
-  '<ul id="nav-mobile" class="side-nav fixed"> <li> <div class="userView"> <div class="background"> </div> <a href="/"><img class="circle" src="top/img/logo.png"></a> <a href="#!name"><span class="white-text name">k-kuwahara</span></a> <a href="#!email"><span class="white-text email">zensin@gmail.com</span></a> </div> </li> <li><i class="material-icons">cloud</i>First Link With Icon</li> <li>Second Link</li> <li><div class="divider"></div></li> <li>Subheader</li> <li>Third Link With Waves</li> </ul> <a href="#" data-activates="slide-out" ref="menu" onclick="{menu_toggle}"><i class="material-icons">menu</i></a> <div class="columns header-container"> <div id="main-logo" class=""> <a href="/"> </a> </div> <div id="menu-section"> </div> </div>',
+  '<ul id="nav-mobile" class="side-nav fixed"> <li> <div class="userView"> <a href="/"><img class="circle" src="top/img/logo.png"></a> <a href="#!name"><span class="white-text name">k-kuwahara</span></a> <a href="#!email"><span class="white-text email">zensin@gmail.com</span></a> </div> </li> <li><i class="material-icons left">cloud</i>SNS</li> <li>Blog +α</li> <li>Links</li> </ul> <div class="columns header-container"> <div id="main-logo" class=""> <a href="/"> </a> </div> <div id="menu-section"> </div> </div>',
   '',
   '', function(opts) {
 		var this$1 = this;
@@ -3079,7 +3079,7 @@ riot.tag2('header',
 		riot_control.on('change_lang', function () { return self.update(); })
 
 		this.menu_toggle = function () {
-			console.info(this$1.refs.menu)
+			console.info($(this$1.refs.menu))
 			$(this$1.refs.menu).sideNav()
 		}
 });

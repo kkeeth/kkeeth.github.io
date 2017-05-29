@@ -27,13 +27,27 @@ header .side-nav {
 main {
   text-align: center;
   color: #666;
-  margin-top: 2rem; }
-  @media (min-width: 781px) {
-    main {
-      margin-left: 12rem; } }
+  padding: 10px; }
   main #container {
     background-color: #fff;
     padding: 2rem;
     border: 1px solid #dedede;
     border-radius: 0.2rem;
     box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2); }
+
+/**
+ * footerスタイル
+ */
+footer #nav-footer {
+  background-color: #2B3A42;
+  height: 80px;
+  line-height: 55px; }
+  @media (min-width: 781px) {
+    footer #nav-footer {
+      display: none; } }
+  footer #nav-footer .col {
+    border: solid 1px #fff;
+    display: inline;
+    text-align: center; }
+    footer #nav-footer .col i {
+      height: 23px; }
