@@ -2922,8 +2922,8 @@ module.exports = new My_store()
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(riot_control) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__header_tag__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__header_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__header_tag__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__main_tag__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__main_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__main_tag__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__footer_tag__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__footer_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__footer_tag__);
 
@@ -3044,7 +3044,7 @@ riot.mount('*')
     var riot = __webpack_require__(0)
     //src: tag/footer.tag
 riot.tag2('footer',
-  '<div class="row"> <nav id="nav-footer"> <div class="nav-wrapper"> <div class="col s3"> <i class="material-icons">person</i> Profile </div> <div class="col s3"> <i class="material-icons">thumb_up</i> SNS </div> <div class="col s3"> <i class="material-icons">create</i> Blog +α </div> <div class="col s3"> <i class="material-icons">link</i> Links </div> </div> </nav> </div>',
+  '<div class="row"> <nav id="nav-footer"> <div class="nav-wrapper"> <div class="col s3"> <a href=""> <i class="material-icons">person</i> Profile </a> </div> <div class="col s3"> <a href="#skills"> <i class="material-icons">cloud</i> Skills </a> </div> <div class="col s3"> <a href="#blogs"> <i class="material-icons">create</i> Blogs </a> </div> <div class="col s3"> <a href="#links"> <i class="material-icons">link</i> Links </a> </div> </div> </nav> </div>',
   '',
   '', function(opts) {
 		riot_control.on('change_lang', function () { return self.update(); })
@@ -3064,24 +3064,13 @@ riot.tag2('footer',
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(riot_control) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__menu_list_tag__ = __webpack_require__(10);
 
     var riot = __webpack_require__(0)
     //src: tag/header.tag
-
 riot.tag2('header',
-  '<ul id="nav-mobile" class="side-nav fixed"> <li> <div class="userView"> <a href="/"><img class="circle" src="top/img/logo.png"></a> <a href="#!name"><span class="white-text name">k-kuwahara</span></a> <a href="#!email"><span class="white-text email">zensin@gmail.com</span></a> </div> </li> <li><i class="material-icons left">cloud</i>SNS</li> <li>Blog +α</li> <li>Links</li> </ul> <div class="columns header-container"> <div id="main-logo" class=""> <a href="/"> </a> </div> <div id="menu-section"> </div> </div>',
+  '<side-menu></side-menu>',
   '',
   '', function(opts) {
-		var this$1 = this;
-
-
-		riot_control.on('change_lang', function () { return self.update(); })
-
-		this.menu_toggle = function () {
-			console.info($(this$1.refs.menu))
-			$(this$1.refs.menu).sideNav()
-		}
 });
     
   if (false) {
@@ -3091,53 +3080,46 @@ riot.tag2('header',
     }
   }
   
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(riot_control) {
-    var riot = __webpack_require__(0)
-    //src: tag/lang-change.tag
-riot.tag2('lang-change',
-  '<div> <span onclick="{set_lang}" class="btn translation" data-val="ja">JP</span> <span class="translation">/</span> <span onclick="{set_lang}" class="btn translation" data-val="en">EN</span> </div>',
-  'lang-change div,[data-is="lang-change"] div{ margin-top: 10px; text-align: center; } lang-change span.btn,[data-is="lang-change"] span.btn{ padding: 0 10px; } lang-change span.btn:hover,[data-is="lang-change"] span.btn:hover{ background-color: #008080; cursor: pointer; }',
-  '', function(opts) {
-		var self = this
-		self.lang = ''
-
-		this.set_lang = function() {
-			console.info(this)
-			riot_control.trigger('set_lang', 'ja')
-		}.bind(this)
-
-		riot_control.on('init', function (obj) {
-			self.lang = obj.lang
-		})
-
-});
-    
-  if (false) {
-    module.hot.accept()
-    if (module.hot.data) {
-      riot.reload('lang-change')
-    }
-  }
-  
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
+/* 8 */,
 /* 9 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(riot_control) {
+"use strict";
+/* WEBPACK VAR INJECTION */(function(riot_control) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__side_menu_tag__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__side_menu_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__side_menu_tag__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_tag__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__home_tag__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__skills_tag__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__skills_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__skills_tag__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__blogs_tag__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__blogs_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__blogs_tag__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__links_tag__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__links_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__links_tag__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_riot_route__ = __webpack_require__(13);
+
     var riot = __webpack_require__(0)
     //src: tag/main.tag
+
+
+
+
+
+
 riot.tag2('main',
-  '<div id="container"> <h1>hoge</h1> </div>',
+  '<div id="container"> <route></route> </div>',
   '',
   '', function(opts) {
+
+
+		__WEBPACK_IMPORTED_MODULE_5_riot_route__["a" /* default */].start(true)
+		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_riot_route__["a" /* default */])(function (item) {
+			if (item === '')
+				{ riot.mount('route', 'home') }
+			else
+				{ riot.mount('route', item) }
+		})
 
 		this.on('mount', function () {})
 
@@ -3151,70 +3133,11 @@ riot.tag2('main',
     }
   }
   
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(riot_control) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lang_change_tag__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lang_change_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__lang_change_tag__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_mixin_js__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_mixin_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__util_mixin_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_riot_route__ = __webpack_require__(13);
-
-    var riot = __webpack_require__(0)
-    //src: tag/menu-list.tag
-
-
-
-riot.tag2('menu-list',
-  '<div id="nav-list" class=""> <div> <a href="{paths.index}"> <button class="{current-page:current_page == paths.index} btn">HOME</button> </a> </div> <div> <a href="{paths.about}"> <button class="{current-page:current_page == paths.index} btn">ABOUT</button> </a> </div> <div> <a href="{paths.skill}"> <button class="{current-page:current_page == paths.skill} btn">SKILL</button> </a> </div> <div> <a href="{paths.links}"> <button class="{current-page:current_page == paths.links} btn">LINKS</button> </a> </div> <div> <a href="{paths.development}"> <button class="{current-page:current_page == paths.development} btn">DEVELOPMENT</button> </a> </div> <lang-change></lang-change> </div>',
-  'menu-list #nav-list div,[data-is="menu-list"] #nav-list div{ text-align: center; } menu-list .btn,[data-is="menu-list"] .btn{ color: #FFF; font-weight: bold; }',
-  '', function(opts) {
-		var self = this
-
-		self.paths = __WEBPACK_IMPORTED_MODULE_1__util_mixin_js___default.a.paths
-		self.current_page = ''
-		self.mixin(__WEBPACK_IMPORTED_MODULE_1__util_mixin_js___default.a)
-		__WEBPACK_IMPORTED_MODULE_2_riot_route__["a" /* default */].start(true)
-
-		riot_control.on('init', function (obj) {
-			self.current_page = obj.page
-		})
-
-		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_riot_route__["a" /* default */])('/*', function (item) {
-			riot.mount('main')
-		})
-});
-    
-  if (false) {
-    module.hot.accept()
-    if (module.hot.data) {
-      riot.reload('menu-list')
-    }
-  }
-  
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-var util_mixin = {
-	paths: {
-		index : '/#',
-		about : '/#about',
-		detail: '/#detail',
-		skill : '/#skill',
-		links : '/#links',
-		development: '/#development'
-	}
-}
-module.exports = util_mixin
-
-/***/ }),
+/* 10 */,
+/* 11 */,
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3707,6 +3630,120 @@ route.parser();
 
 /* harmony default export */ __webpack_exports__["a"] = (route);
 
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(riot_control) {
+    var riot = __webpack_require__(0)
+    //src: tag/side-menu.tag
+riot.tag2('side-menu',
+  '<ul class="side-nav fixed"> <li> <div class="userView"> <a href=""><img class="circle" src="top/img/logo.png"></a> <a href="https://github.com/k-kuwahara/"><span class="white-text name">k-kuwahara</span></a> <a href="mailto:zensin0082@gmail.com"><span class="white-text email">zensin@gmail.com</span></a> </div> </li> <li> <a href="#skills"> <i class="material-icons left">cloud</i>Skills </a> </li> <li> <a href="#blogs"> <i class="material-icons">thumb_up</i>Blogs </a> </li> <li> <a href="#links"> <i class="material-icons">link</i>Links </a> </li> </ul>',
+  'side-menu #nav-list div,[data-is="side-menu"] #nav-list div{ text-align: center; } side-menu .btn,[data-is="side-menu"] .btn{ color: #FFF; font-weight: bold; }',
+  '', function(opts) {
+		var self = this
+
+		self.current_page = ''
+
+		riot_control.on('init', function (obj) {
+			self.current_page = obj.page
+		})
+});
+    
+  if (false) {
+    module.hot.accept()
+    if (module.hot.data) {
+      riot.reload('side-menu')
+    }
+  }
+  
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 15 */,
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+    var riot = __webpack_require__(0)
+    //src: tag/home.tag
+riot.tag2('home',
+  '<h2 class="header">My Information</h2>',
+  '',
+  '', function(opts) {
+});
+    
+  if (false) {
+    module.hot.accept()
+    if (module.hot.data) {
+      riot.reload('home')
+    }
+  }
+  
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+    var riot = __webpack_require__(0)
+    //src: tag/blogs.tag
+riot.tag2('blogs',
+  '<h2 class="header">Blogs</h2> <hr> <article> <table class="bordered"> <thead> <tr> <th>Site</th> <th>Account</th> </tr> </thead> <tbody> <tr> <td>はてなブログ - Webエンジニア奮闘記 -</td> <td> kito0039 <a href="http://kito0039.hatenablog.com/" target="_blank"> <i class="material-icons">open_in_new</i> </a> </td> </tr> <tr> <td>Qiita</td> <td> clown0082 <a href="http://qiita.com/clown0082" target="_blank"> <i class="material-icons">open_in_new</i> </a> </td> </tr> </tbody> </table> </article>',
+  '',
+  '', function(opts) {
+});
+    
+  if (false) {
+    module.hot.accept()
+    if (module.hot.data) {
+      riot.reload('blogs')
+    }
+  }
+  
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+    var riot = __webpack_require__(0)
+    //src: tag/skills.tag
+riot.tag2('skills',
+  '<h2 class="header">Skills</h2> <hr> <article> <h3 class="header">Program Languages</h3> <table class="bordered"> <thead> <tr> <th>Language</th> <th>Development Experience</th> </tr> </thead> <tbody> <tr> <td>PHP</td> <td>4 year 2 months</td> </tr> <tr> <td>JavaScript</td> <td>11 months</td> </tr> <tr> <td>C</td> <td>7 months</td> </tr> <tr> <td>Ruby</td> <td>4 weeks</td> </tr> </tbody> </table> </article> <article> <h3 class="header">Frameworks</h3> <p><i class="material-icons">info</i> Strictly it includes something that is not a framework.</p> <table class="bordered"> <thead> <tr> <th>Framework</th> <th>Development Experience</th> </tr> </thead> <tbody> <tr> <td> <a href="http://www.ec-cube.net/" target="_blank"> EC-CUBE(v2) </a> </td> <td>3 months</td> </tr> <tr> <td> <a href="https://www.codeigniter.com/" target="_blank"> CodeIgniter </a> </td> <td>3 months</td> </tr> <tr> <td> <a href="https://www.fuelphp.com/" target="_blank"> FuelPHP </a> </td> <td>3 months</td> </tr> <tr> <td> <a href="http://riotjs.com/" target="_blank"> Riot.js </a> </td> <td>7 months</td> </tr> <tr> <td> <a href="https://angular.io/" target="_blank"> Angular </a> </td> <td>4 weeks</td> </tr> </tbody> </table> </article>',
+  '',
+  '', function(opts) {
+});
+    
+  if (false) {
+    module.hot.accept()
+    if (module.hot.data) {
+      riot.reload('skills')
+    }
+  }
+  
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+    var riot = __webpack_require__(0)
+    //src: tag/links.tag
+riot.tag2('links',
+  '<h2 class="header">Links</h2> <hr> <article> <h3 class="header">Pages, Production</h3> <table class="bordered"> <thead> <tr> <th>Contents</th> <th>Account</th> </tr> </thead> <tbody> <tr> <td>Github</td> <td> k-kuwahara <a href="https://github.com/k-kuwahara" target="_blank"> <i class="material-icons">open_in_new</i> </a> </td> </tr> <tr> <td>ja-greetings</td> <td> npm <a href="https://www.npmjs.com/package/ja-greetings" target="_blank"> <i class="material-icons">open_in_new</i> </a> </td> </tr> </tbody> </table> </article> <article> <h3 class="header">Slides</h3> <table class="bordered"> <thead> <tr> <th>title</th> </tr> </thead> <tbody> <tr> <td> ＞ CodeIgniter4(develop)で開発してみた話 <a href="https://k-kuwahara.github.io/slides/2017/phptokyo/" target="_blank"> <i class="material-icons">open_in_new</i> </a> </td> </tr> <tr> <td> ＞ Riot.jsに向いている案件、向いていない案件 <a href="https://k-kuwahara.github.io/slides/2017/riotjs/" target="_blank"> <i class="material-icons">open_in_new</i> </a> </td> </tr> <tr> <td> ＞ JavaScript質問会（桑原を質問攻めする会） <a href="https://k-kuwahara.github.io/slides/2017/js_qa/" target="_blank"> <i class="material-icons">open_in_new</i> </a> </td> </tr> <tr> <td> ＞ NPMコマンドの使い方 <a href="https://k-kuwahara.github.io/slides/2017/workshop/npm/" target="_blank"> <i class="material-icons">open_in_new</i> </a> </td> </tr> <tr> <td> ＞ 自動ビルドしながらの開発 <a href="https://k-kuwahara.github.io/slides/2017/workshop/build_tool/" target="_blank"> <i class="material-icons">open_in_new</i> </a> </td> </tr> <tr> <td> ＞ ES6(2015) + α <a href="https://k-kuwahara.github.io/slides/2017/workshop/es6/" target="_blank"> <i class="material-icons">open_in_new</i> </a> </td> </tr> <tr> <td> ＞ フロントエンドのユニットテスト <a href="https://k-kuwahara.github.io/slides/2017/workshop/unit_test/" target="_blank"> <i class="material-icons">open_in_new</i> </a> </td> </tr> </tbody> </table> </article>',
+  '',
+  '', function(opts) {
+});
+    
+  if (false) {
+    module.hot.accept()
+    if (module.hot.data) {
+      riot.reload('links')
+    }
+  }
+  
 
 /***/ })
 /******/ ]);

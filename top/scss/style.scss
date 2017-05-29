@@ -19,8 +19,21 @@ header {
 	.side-nav {
 		padding: 1.5rem;
 		background-color: #2B3A42;
-		color: #fff;
 		font-weight: 700;
+
+		li {
+
+			a {
+				&:hover {
+					background-color: #008080;
+				}
+				color: #fff;
+				& > i.material-icons {
+					color: #fff;
+					margin-right: 10px;
+				}
+			}
+		}
 	}
 }
 
@@ -34,10 +47,40 @@ main {
 
 	#container {
 		background-color: #fff;
-		padding: 2rem;
 		border: 1px solid #dedede;
 		border-radius: 0.2rem;
 		box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2);
+
+		@media (max-width: 780px) {
+			overflow-y: scroll;
+			height: 85vh;
+		}
+
+		article {
+			padding: 1.5rem;
+
+			&:nth-child(2n) {
+				background-color: #f8e58c;
+			}
+			i {
+				position: relative;
+				top: 0.4rem;
+			}
+		}
+
+		table {
+			th {
+				color: #000;
+				font-weight: 900;
+				font-size: 20px;
+			}
+			td {
+				a {
+					height: 15px;
+					line-height: 15px;
+				}
+			}
+		}
 	}
 }
 
@@ -45,22 +88,31 @@ main {
  * footerスタイル
  */
 footer {
-	#nav-footer {
-		background-color: #2B3A42;
-		height: 80px;
-		line-height: 55px;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
 
-		// PCでは表示しない
-		@media (min-width: 781px) {
-			display: none;
-		}
-		.col {
-			border: solid 1px #fff;
-			display: inline;
-			text-align: center;
+	// PCでは表示しない
+	@media (min-width: 781px) {
+		display: none;
+	}
 
-			i {
-				height: 23px;
+	.row {
+		margin-bottom: 0;
+
+		#nav-footer {
+			background-color: #2B3A42;
+			height: 80px;
+			line-height: 55px;
+
+			.col {
+				border: solid 1px #fff;
+				display: inline;
+				text-align: center;
+
+				i {
+					height: 23px;
+				}
 			}
 		}
 	}

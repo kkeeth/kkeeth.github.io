@@ -18,8 +18,14 @@ a {
 header .side-nav {
   padding: 1.5rem;
   background-color: #2B3A42;
-  color: #fff;
   font-weight: 700; }
+  header .side-nav li a {
+    color: #fff; }
+    header .side-nav li a:hover {
+      background-color: #008080; }
+    header .side-nav li a > i.material-icons {
+      color: #fff;
+      margin-right: 10px; }
 
 /**
  * mainスタイル
@@ -30,24 +36,47 @@ main {
   padding: 10px; }
   main #container {
     background-color: #fff;
-    padding: 2rem;
     border: 1px solid #dedede;
     border-radius: 0.2rem;
     box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2); }
+    @media (max-width: 780px) {
+      main #container {
+        overflow-y: scroll;
+        height: 85vh; } }
+    main #container article {
+      padding: 1.5rem; }
+      main #container article:nth-child(2n) {
+        background-color: #f8e58c; }
+      main #container article i {
+        position: relative;
+        top: 0.4rem; }
+    main #container table th {
+      color: #000;
+      font-weight: 900;
+      font-size: 20px; }
+    main #container table td a {
+      height: 15px;
+      line-height: 15px; }
 
 /**
  * footerスタイル
  */
-footer #nav-footer {
-  background-color: #2B3A42;
-  height: 80px;
-  line-height: 55px; }
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%; }
   @media (min-width: 781px) {
-    footer #nav-footer {
+    footer {
       display: none; } }
-  footer #nav-footer .col {
-    border: solid 1px #fff;
-    display: inline;
-    text-align: center; }
-    footer #nav-footer .col i {
-      height: 23px; }
+  footer .row {
+    margin-bottom: 0; }
+    footer .row #nav-footer {
+      background-color: #2B3A42;
+      height: 80px;
+      line-height: 55px; }
+      footer .row #nav-footer .col {
+        border: solid 1px #fff;
+        display: inline;
+        text-align: center; }
+        footer .row #nav-footer .col i {
+          height: 23px; }

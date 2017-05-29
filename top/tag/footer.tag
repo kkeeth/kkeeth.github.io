@@ -3,20 +3,28 @@
 		<nav id="nav-footer">
 			<div class="nav-wrapper">
 				<div class="col s3">
-					<i class="material-icons">person</i>
-					Profile
+					<a href="">
+						<i class="material-icons">person</i>
+						Profile
+					</a>
 				</div>
 				<div class="col s3">
-					<i class="material-icons">thumb_up</i>
-					SNS
+					<a href="#skills">
+						<i class="material-icons">cloud</i>
+						Skills
+					</a>
 				</div>
 				<div class="col s3">
-					<i class="material-icons">create</i>
-					Blog +α
+					<a href="#blogs">
+						<i class="material-icons">create</i>
+						Blogs
+					</a>
 				</div>
 				<div class="col s3">
-					<i class="material-icons">link</i>
-					Links
+					<a href="#links">
+						<i class="material-icons">link</i>
+						Links
+					</a>
 				</div>
 			</div>
 		</nav>
