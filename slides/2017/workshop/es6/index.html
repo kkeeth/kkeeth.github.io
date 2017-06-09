@@ -341,7 +341,7 @@
     </section>
 
     <section class="slide center-text">
-      <h3 class="h-center">他の言語同様に、クラスの<span class="assert">継承</span>もできますので、やってみましょう♪</h3>
+      <h3 class="h-center">他の言語同様に、クラスの<span class="assert">継承</span>もできますので、後でやってみて下さい♪</h3>
     </section>
 
     <section class="slide center-text">
@@ -474,10 +474,11 @@
 
     <section class="slide center-text">
       <h3 class="">1. bubleでバベる</h3>
-      <p class="f30">先程試したクラス構文を適当なjsファイルを作成し、コピペして保存して下さい。完了したら、以下のコマンドを実行してみましょう！</p>
+      <p class="f30">適当なjsファイル作成し、先程試したクラス構文をコピペして保存して下さい。完了したら、以下のコマンドを実行してみましょう！</p>
       <pre class="">
         <code>  <comment>// トランスパイルの実行</comment></code>
         <code>  $ <key>buble</key> <value>hoge.js</value> -o fuga.js</code>
+        <code>  $ <key>buble</key> <value>hoge.js</value> > fuga.js　※うまくいかない人はこちら</code>
       </pre>
     </section>
 
@@ -518,7 +519,7 @@
       <p class="f30">最後に実行してみましょう！</p>
       <pre class="">
         <code>  <comment>// gulpの起動</comment></code>
-        <code>  $ <key>npm</key> run <value>gulp</value> watch (←これはなくても良い)</code>
+        <code>  $ <key>npm</key> run <value>gulp</value> buble</code>
         <code>  <comment>// [20:32:20] Starting 'watch'...</comment></code>
         <code>  <comment>// [20:32:20] Finished 'watch' after 26 ms</comment></code>
         <code>  <comment>// これ以降勝手にトランスパイルが走ります</comment></code>
@@ -537,7 +538,7 @@
         <code>  <comment>// package.jsonがない人</comment></code>
         <code>  $ <key>npm</key> <value>init</value></code>
         <code>  <comment>// 必要なモジュールのインストール</comment></code>
-        <code>  $ <key>npm</key> i <value>webpack buble-loader</value></code>
+        <code>  $ <key>npm</key> i -D <value>webpack buble-loader</value></code>
       </pre>
     </section>
 
