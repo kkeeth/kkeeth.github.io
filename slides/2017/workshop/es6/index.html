@@ -24,9 +24,8 @@
       <h2>
         ES6(ES2015) + α
       </h2>
-      <p>
-        2017/06/09　@レプラホーン本社<br>
-      </p>
+      <p>2017/06/09　@レプラホーン株式会社本社</p>
+      <p>k-kuwahara</p>
     </section>
 
     <section class="slide">
@@ -70,14 +69,14 @@
       <h2 class="">ESとは</h2>
       <p class="f30"><span class="assert">ES(ECMA Script)</span>は、JavaScript の標準であり、Ecma Internationalのもとで標準化手続きなどが行われている。 2015年6月に6th edition（いわゆるES6）がリリースされている。</p>
       <p class="mright">(<a href="https://www.google.co.jp/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ved=0ahUKEwjG8bXo9pvTAhVEfrwKHWZ6B0AQFggcMAE&url=https%3A%2F%2Fja.wikipedia.org%2Fwiki%2FECMAScript&usg=AFQjCNFyZ08rYRwI0T1ZRmmFcwGdN08iIQ&sig2=7BtbK17ZNN8EPmZ8XC7Lhg&bvm=bv.152180690,d.dGc">ECMAScript - ウィキペディア</a>より)</p>
-      <p class="next f30">ん？ES2015は？</p>
+      <p class="next f30"><span class="red">ん？ES2015は？</span></p>
     </section>
 
     <section class="slide center-text">
       <h2 class="">ES2015とは</h2>
       <p class="f30">
         <span class="assert">ES2015</span>はES6の正式名称。2015年度から仕様策定フローを整理し、今後はES2016, ES2017…と毎年策定される形となりました。
-        ただしES2015は年次アップデートではなく、メジャーバージョンアップの起点となるバージョンであり、またES5から飛躍的に仕様が増えたバージョンであるため、<b>ES2015がデファクトスタンダード（後述）</b>として使用されています。
+        ただしES2015は年次アップデートではなく、メジャーバージョンアップの起点となるバージョンであり、また<b>ES5から飛躍的に仕様が増えたバージョン</b>であるため、<b>ES2015がデファクトスタンダード（後述）</b>として使用されています。
       </p>
     </section>
 
@@ -96,7 +95,7 @@
           <ul>
             <li>Netscape社のブレンダン・アイク（Brendan Eich）によって開発された。</li>
             <li>当初は<span class="assert">LiveScript</span>と呼ばれていた。（初案はMocha）</li>
-            <li>当時<span class="red">Java</span>が流行っていたので、<span class="assert">JavaScript</span>とした。</li>
+            <li>当時<b>Java</b>が流行っていたので、<span class="assert">JavaScript</span>とした。</li>
             <li>同年日本では<a href="http://www.chronotrigger.jp/" target="_blank">名作:クロノ・トリガー</a>が発売</li>
           </ul>
       </ul>
@@ -122,7 +121,7 @@
         <li>JavaScriptで作成したスクリプトはIEでは動かない</li>
         <li>JScriptはNavigatorでは動かない。</li>
       </ul>
-      <p class="f30">　⇒　<span class="red">Webページ開発者が悲鳴を上げる。</span></p>
+      <p class="f30 next">　⇒　<span class="red">Webページ開発者が悲鳴を上げる。</span></p>
       <h3><span class="assert next">統一仕様を作る流れが起きる。</span></h3>
     </section>
 
@@ -251,6 +250,17 @@
     </section>
 
     <section class="slide center-text">
+      <h2 class="">forEach</h2>
+      <p class="f30">先程のコードは以下のようにも書けます。</p>
+      <pre>
+        <code>  <key>let</key> <value>arr</value> = [1, 2, 3, 4, 5]</code>
+        <code>  <value>arr</value>.forEach((<value>v</value>) => {</code>
+        <code>     console.info(v)</code>
+        <code>  })</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
       <h2 class="">従来の書き方2パターン</h2>
       <pre>
         <code>  <key>var</key> <value>arr</value> = [1, 2, 3, 4, 5]</code>
@@ -267,13 +277,27 @@
       <h2 class="">Set（コンストラクタ）</h2>
       <p class="f30 no-mb">この子もまずは以下のコードを実行してみてください♪</p>
       <pre>
+        <code>  <key>const</key> <value>obj</value> = new Set([1, 2, 3, 1, 2, 1, 4])</code>
+        <code>  <value>obj</value></code>
+        <code>  <value>obj</value>.size</code>
+        <code>  <value>obj</value>.add(5)</code>
+        <code>  <value>obj</value>.delete(3)</code>
+        <code>  <value>obj</value>.has(1)</code>
+        <code>  <value>obj</value></code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="">Arrayでは</h2>
+      <p class="f30 no-mb">従来のArrayコンストラクタではこうなります。</p>
+      <pre>
         <code>  <key>const</key> <value>arr</value> = [1, 2, 3, 1, 2, 1, 4]</code>
-        <code>  <key>const</key> <value>obj</value> = new Set(arr)</code>
-        <code>  obj</code>
-        <code>  obj.add(5)</code>
-        <code>  obj.delete(3)</code>
-        <code>  obj.has(1)</code>
-        <code>  obj</code>
+        <code>  (<key>const</key> <value>arr</value> = new Array(1, 2, 3, 1, 2, 1, 4)でも可)</code>
+        <code>  <value>arr</value>.length</code>
+        <code>  <value>arr</value>.push(5)</code>
+        <code>  <value>arr</value>.splice(2, 1)</code>
+        <code>  <value>arr</value></code>
+        <code>  <value>arr</value>.includes(3)</code>
       </pre>
     </section>
 
