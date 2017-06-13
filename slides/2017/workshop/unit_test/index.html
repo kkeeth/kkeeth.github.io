@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../../shower/themes/ribbon/styles/screen-16x10.css">
     <link rel="stylesheet" href="../../../assets/style.css">
     <link rel="shortcut icon" href="../../../assets/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body class="shower list">
     <header class="caption">
@@ -59,7 +60,7 @@
       <ul class="mt20">
         <li><a href="https://github.com/k-kuwahara/k-kuwahara.github.io/tree/master/slides/2017/workshop/unit_test/demo" target="_blank">ソース</a></li>
         <li><a href="https://github.com/k-kuwahara/k-kuwahara.github.io/raw/master/slides/2017/workshop/unit_test/demo.zip" target="_blank">ダウンロード</a></li>
-        <li><a href="https://k-kuwahara.github.io/slides/2017/workshop/unit_test/demo/" target="_blank">デモ</a></li>
+        <li><a href="https://k-kuwahara.github.io/slides/2017/workshop/unit_test/demo/" target="_blank">デモサイト</a></li>
       </ul>
     </section>
 
@@ -70,14 +71,15 @@
     <section class="slide center-text">
       <p class="f30"><span class="assert">index.html</span></p>
       <pre class="">
-        <code>    &lt;p&gt;</code>
-        <code>      ID: &lt;br&gt;&lt;input type="text" id="user"&gt;</code>
-        <code>    &lt;p&gt;</code>
-        <code>    &lt;/p&gt;</code>
-        <code>      Password: &lt;br&gt;&lt;input type="password" id="pass"&gt;</code>
-        <code>    &lt;/p&gt;</code>
-        <code>    &lt;button id="send" type="button"&gt;Send&lt;/button&gt;</code>
-        <code>  （続く）</code>
+        <code>    &lt;<key>p</key> class="<value>form</value>"&gt; ID:&lt;/<key>p</key>&gt;</code>
+        <code>    &lt;<key>input</key> type="<value>text</value>" id="<value>user</value>"&gt;</code>
+        <code>    </code>
+        <code>    &lt;<key>p</key> class="<value>form</value>"&gt; Password: &lt;/<key>p</key>&gt;</code>
+        <code>    &lt;<key>input</key> type="<value>password</value>" id="<value>pass</value>"&gt;</code>
+        <code>    </code>
+        <code>    &lt;<key>div</key> class="<value>btn-send</value>"&gt;</code>
+        <code>      &lt;<key>button</key> id="<value>send</value>" type="<value>button</value>"&gt;Send&lt;/<key>button</key>&gt;</code>
+        <code>    &lt;/<key>div</key>&gt;</code>
       </pre>
     </section>
 
@@ -237,6 +239,7 @@ OK    （以下略）</code>
       <p class="f30"><span class="assert-fwn">5. テストケース(test/util-spec.js)を書き直す</span></p>
       <p class="f30">デモアプリのutil-spec.js次のように変更しましょう。</p>
     </section>
+
     <section class="slide center-text">
       <pre>
         <code>  describe(<key>'valic_check関数のテスト'</key>, <value>function</value>() {</code>
@@ -263,8 +266,17 @@ OK    （以下略）</code>
     </section>
 
     <section class="slide center-text">
-      <p class="shout">※ この先<span class="red">Node.js, npm<br>コマンド</span>を使います</p>
-      <p class="f30 after">インストールしていない方は、<a href="https://nodejs.org/ja/" target="_blank">公式サイト</a>からインストールして下さい。npmコマンドがわからない方は<a href="https://k-kuwahara.github.io/slides/2017/workshop/npm/#">こちら</a>をご参照下さい。</p>
+      <h3 class="">※1 この先<span class="red">npmコマンド</span>を使います</h3>
+      <p class="f30">インストールしていない方は、<a href="https://nodejs.org/ja/" target="_blank">公式サイト<i class="fa fa-external-link" aria-hidden="true"></i></a>へ。<br>npmコマンドがわからない方は<a href="https://k-kuwahara.github.io/slides/2017/workshop/npm/#">こちら<i class="fa fa-external-link" aria-hidden="true"></i></a>をご参照ください。</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">※2 さらに<span class="red">yarnコマンド</span>を使います</h3>
+      <p class="f30">インストールしていない方は、以下のコマンドからインストールして下さい。</p>
+      <pre>
+        <code>  <comment>// yarnをグローバルインストール</comment> </code>
+        <code>  $ <key>npm</key> i -g <value>yarn</value> </code>
+      </pre>
     </section>
 
     <section class="slide center-text">
@@ -282,7 +294,7 @@ OK    （以下略）</code>
       <h3 class="">3. Node.jsで実行</h3>
       <p class="f30">導入手順は以下です。</p>
       <ol>
-        <li class="next">npm initでpackage.jsonを作成</li>
+        <li class="next">yarn initでpackage.jsonを作成</li>
         <li class="next">npmからmochaをインストール</li>
         <li class="next">テストケース、テスト対象コードの修正</li>
         <li class="next">package.jsonにtestコマンドを設定</li>
@@ -291,14 +303,13 @@ OK    （以下略）</code>
 
     <section class="slide center-text">
       <h3 class="">3. Node.jsで実行</h3>
-      <p class="f30"><span class="assert-fwn">1. npm initでpackage.jsonを作成</span></p>
+      <p class="f30"><span class="assert-fwn">1. yarn initでpackage.jsonを作成</span></p>
 
       <pre>
-        <code>$ <error>npm</error> init</code>
+        <code>$ <error>yarn</error> init -y</code>
       </pre>
 
       <p>
-        とりあえず、全てエンターで大丈夫です。<br>
         package.jsonが作られたら次にいきましょう。
       </p>
     </section>
@@ -308,7 +319,7 @@ OK    （以下略）</code>
       <p class="f30"><span class="assert-fwn">2. npmからmochaをインストール</span></p>
 
       <pre>
-        <code>$ <error>npm</error> i -D <value>mocha</value></code>
+        <code>$ <error>yarn</error> add -D <value>mocha</value></code>
       </pre>
 
       <p>mochaのインストールが完了したら次にいきましょう。</p>
@@ -319,11 +330,11 @@ OK    （以下略）</code>
       <h3 class="">3. Node.jsで実行</h3>
       <p class="f30"><span class="assert-fwn">3. テストケース、テスト対象コードの修正</span></p>
 
-      <p>テスト対象のsrc/util.jsを以下のように修正します。</p>
+      <p>テスト対象のsrc/util.jsを以下のように修正します。（ES2015！）</p>
       <pre>
         <code>  <error>module.exports</error> = {</code>
         <code>     <key>correct</key>: <value>'test1234'</value>,</code>
-        <code>     <key>auth_check</key>: <value>function</value>(user, pass) {</code>
+        <code>     <key>auth_check</key>: (user, pass) => {</code>
         <code>     （続く）</code>
       </pre>
     </section>
@@ -337,7 +348,7 @@ OK    （以下略）</code>
         <code>     <key>key</key> = <value>'unauthenticated'</value></code>
         <code>     ...</code>
         <code>  },</code>
-        <code>  <key>get_message</key>: <value>function</value>(key) {</code>
+        <code>  <key>get_message</key>: (key) => {</code>
         <code>  （以下略）</code>
       </pre>
     </section>
@@ -348,7 +359,7 @@ OK    （以下略）</code>
 
       <p>次にtest/util-spec.jsを以下のように修正します。</p>
       <pre>
-        <code>  <value>+   var util = require('../src/util')</value></code>
+        <code>  <value>+   const util = require('../src/util')</value></code>
         <code>     ...</code>
         <code>  <comment>-   if (auth_check() === 'required') {</comment></code>
         <code>  <value>+   if (util.auth_check() === 'required') {</value></code>
@@ -358,14 +369,26 @@ OK    （以下略）</code>
 
     <section class="slide center-text">
       <h3 class="">3. Node.jsで実行</h3>
+      <p class="f30"><span class="assert-fwn">3. テストケース、テスト対象コードの修正</span></p>
+      <pre>
+        <code>     （続き）</code>
+        <code>  <comment>-  } else {</code>
+        <code>  <comment>-     console.error('NG')</code>
+        <code>  <comment>-  }</code>
+      </pre>
+
+      <p><i class="fa fa-info-circle" aria-hidden="true"></i> function()をアロー関数に書き換えても良いと思います♪</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. Node.jsで実行</h3>
       <p class="f30"><span class="assert-fwn">4. package.jsonにtestコマンドを設定</span></p>
 
-      <p>package.jsonを以下のように修正します。</p>
+      <p>package.jsonを以下に以下を追記します。</p>
       <pre>
-        <code>  "scripts": {</code>
-        <code>  <comment>-   "test": "echo \"Error: no test specified\" && exit 1"</comment></code>
+        <code>  <value>"scripts": {</value></code>
         <code>  <value>+   "test": "mocha"</value></code>
-        <code>  }</code>
+        <code>  <value>}</value></code>
       </pre>
     </section>
 
@@ -373,7 +396,7 @@ OK    （以下略）</code>
       <h3 class="">3. Node.jsで実行</h3>
       <h3>それでは実行してみましょう！</h3>
       <pre>
-        <code>  $ <error>npm</error> <value>test</value></code>
+        <code>  $ <error>yarn</error> <value>test</value></code>
       </pre>
       <span class="f30">　　　結果はこんな感じ→</span>
       <p class="fright"><img src="img/result.png" alt="result.png" width="430"></p>
@@ -397,7 +420,7 @@ OK    （以下略）</code>
 
       <p>test/util-spec.jsを以下のように修正します。</p>
       <pre>
-        <code>  <value>+   var assert = require('assert')</value></code>
+        <code>  <value>+   const assert = require('assert')</value></code>
         <code>  <comment>-   if (util.auth_check('hoge') === 'required') {</comment></code>
         <code>  <comment>-      console.info('OK')</comment></code>
         <code>  <comment>-   } else {</comment></code>
@@ -411,7 +434,7 @@ OK    （以下略）</code>
       <h3 class="">4. assertの導入</h3>
       <h3>それでは実行してみましょう！</h3>
       <pre>
-        <code>  $ <error>npm</error> <value>test</value></code>
+        <code>  $ <error>yarn</error> <value>test</value></code>
       </pre>
       <span class="f30">　結果のエラーは<br>　こんな感じ→</span>
       <p class="fright"><img src="img/result2.png" alt="result2.png"></p>
@@ -436,70 +459,123 @@ OK    （以下略）</code>
       <p class="f30">この解決に良く使われるものとして、以下の3つがあります。</p>
       <ul>
         <li>webpack</li>
-        <li>rollup</li>
+        <li>rollup.js</li>
         <li>browserify</li>
       </ul>
-      <p class="f30">今回は<mark>webpack</mark>を使います！</p>
+      <p class="f30">今回は<mark>rollup.js</mark>を使います！</p>
     </section>
 
     <section class="slide center-text">
-      <h2 class="shout">5. webpackの導入</h2>
+      <h2 class="shout">5. rollup.jsの導入</h2>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">5. webpackの導入</h3>
-      <p class="f30"><a href="https://webpack.js.org/" target="_blank">webpack</a>を簡単にご紹介。</p>
+      <h3 class="">5. rollup.jsの導入</h3>
+      <p class="f30"><a href="https://rollupjs.org/" target="_blank">rollup.js</a>を簡単にご紹介。</p>
       <ul>
         <li>諸々のassetファイルをバンドルするツール</li>
         <li>スコープの問題をよしなに解決してくれる</li>
         <li>コンパイル、Linterのチェックもやってくれる</li>
       </ul>
       <p>
-        詳しくは<a href="https://webpack.js.org/" target="_blank">公式サイト</a>を御覧ください！<br>
-        簡単な使い方は<a href="https://k-kuwahara.github.io/slides/2017/workshop/build_tool/#73" target="_blank">こちら</a>を御覧ください♪
+        詳しくは<a href="https://rollupjs.org/" target="_blank">公式サイト<i class="fa fa-external-link" aria-hidden="true"></i></a> を御覧ください！<br>
       </p>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">5. webpackの導入</h3>
+      <h3 class="">5. rollup.jsの導入</h3>
       <p class="f30">導入手順は以下です。</p>
       <ol>
-        <li class="next">npmからwebpackをインストール</li>
-        <li class="next">webpack.config.jsを作成し設定</li>
+        <li class="next">npmからrollup.jsをインストール</li>
+        <li class="next">rollup.config.jsを作成し設定</li>
         <li class="next">package.jsonにコマンドを設定</li>
+        <li class="next">src/app.jsを修正</li>
         <li class="next">バンドルを実行</li>
       </ol>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">5. webpackの導入</h3>
-      <p class="f30"><span class="assert-fwn">1. npmからwebpackをインストール</span></p>
-
+      <h3 class="">5. rollup.jsの導入</h3>
+      <p class="f30"><span class="assert-fwn">1. npmからrollup.jsをインストール</span></p>
       <pre>
-        <code>$ <error>npm</error> i -D <value>webpack</value></code>
+        <code>$ <error>yarn</error> add -D <value>rollup</value></code>
       </pre>
 
-      <p>webpackのインストールが完了したら次にいきましょう。</p>
+      <p class="f30"><span class="assert-fwn">その他プラグインもインストール</span></p>
+      <pre>
+        <code>$ <error>yarn</error> add -D <value>rollup-plugin-buble</value></code>
+      </pre>
+      <pre>
+        <code>$ <error>yarn</error> add -D <value>rollup-plugin-commonjs</value></code>
+      </pre>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">5. webpackの導入</h3>
-      <p class="f30"><span class="assert-fwn">2. webpack.config.jsを作成し設定</span></p>
-      <p><a href="" target="_blank">設定例はこちら。</a></p>
+      <h3 class="">5. rollup.jsの導入</h3>
+      <p class="f30"><span class="assert-fwn">2. rollup.config.jsを作成し設定</span></p>
+      <p>
+        次は、rollup.config.jsファイルを作成し、バンドルの設定をしていきます。<br>
+        設定例は<a href="https://gist.github.com/k-kuwahara/a9e93d131a4a01325cd7b2c7be306a36#file-rollup-config-js" target="_blank">こちら。<i class="fa fa-external-link" aria-hidden="true"></i></a>
+      </p>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">5. webpackの導入</h3>
+      <h3 class="">5. rollup.jsの導入</h3>
       <p class="f30"><span class="assert-fwn">3. package.jsonにコマンドを設定</span></p>
+      <p>次はpackage.jsonのscriptsに実行用のコマンドを設定します。</p>
+      <pre>
+        <code>  "scripts" : {</code>
+        <code>  <value>+  "build": "rollup -c",</value></code>
+        <code>    "test": "mocha"</code>
+        <code>  }</code>
+      </pre>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">5. webpackの導入</h3>
-      <p class="f30"><span class="assert-fwn">4. バンドルを実行</span></p>
+      <h3 class="">5. rollup.jsの導入</h3>
+      <p class="f30"><span class="assert-fwn">4. src/app.jsの修正</span></p>
+      <p>src/app.jsを以下のように修正します。（修正箇所のみ記載）</p>
+      <pre>
+        <code>  <value>+  import util from './util'</value> // 1行目に追加</code>
+        <code>  <comment>-  key  = auth_check(user, pass)</comment></code>
+        <code>  <value>+  key  = util.auth_check(user, pass)</value></code>
+        <code>  <comment>-  $('#result').text(get_message(key))</comment></code>
+        <code>  <value>+  $('#result').text(util.get_message(key))</value></code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">5. rollup.jsの導入</h3>
+      <p class="f30"><span class="assert-fwn">5. バンドルを実行</span></p>
+      <p>では実行してみましょう！</p>
+      <pre>
+        <code>  $ <error>yarn</error> <value>build</value></code>
+      </pre>
+      <p>build/bundle.jsが出力されていれば成功です♪</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">5. rollup.jsの導入</h3>
+      <p class="f30">出力されたbundle.jsをindex.htmlに読み込ませてみましょう。</p>
+      <pre>
+        <code>  <comment>-  &lt;script src="src/app.js"&gt;&lt;/script&gt;</comment></code>
+        <code>  <comment>-  &lt;script src="src/util.js"&gt;&lt;/script&gt;</comment></code>
+        <code>  <comment>-  &lt;script src="test/util-spec.js"&gt;&lt;/script&gt;</comment></code>
+        <code>  <value>+  &lt;script src="build/bundle.js"&gt;&lt;/script&gt;</value></code>
+      </pre>
     </section>
 
     <section class="slide center-text">
       <h2 class="shout">6. karmaの導入</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <p class="f30">これまでNode.js上でテストしてきましたが、<mark>ブラウザによっては動かない</mark>可能性があります。</p>
+      <p class="f30">
+        ブラウザを起動してテストを実行してくれるのが、<a href="https://karma-runner.github.io/1.0/index.html" target="_blank">karma</a>です。
+        この子用のプラグインを使って、各ブラウザで動くのかテストしてみましょう！
+      </p>
     </section>
 
     <section class="slide center-text">

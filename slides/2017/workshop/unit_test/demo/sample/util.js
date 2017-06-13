@@ -1,6 +1,6 @@
 module.exports = {
 	correct: 'test1234',
-	auth_check: function(user, pass) {
+	auth_check: (user, pass) => {
 		var key = ''
 
 		if (user == void 0 || pass == void 0)
@@ -14,7 +14,7 @@ module.exports = {
 
 		return key
 	},
-	get_message: function(key) {
+	get_message: (key) => {
 		switch(key) {
 			case 'required':
 				return 'Please enter ID and Password !!'
