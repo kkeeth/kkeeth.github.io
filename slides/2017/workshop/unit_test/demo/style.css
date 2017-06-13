@@ -53,4 +53,13 @@ li {
 label {
   cursor: pointer;
 }
+p.form {
+  margin-bottom: 0px;
+}
+.btn-send {
+  margin: 20px auto;
+}
 
+#result {
+  color: red;
+}
