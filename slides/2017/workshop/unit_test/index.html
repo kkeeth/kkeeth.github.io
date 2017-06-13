@@ -294,10 +294,10 @@ OK    （以下略）</code>
       <h3 class="">3. Node.jsで実行</h3>
       <p class="f30">導入手順は以下です。</p>
       <ol>
-        <li class="next">yarn initでpackage.jsonを作成</li>
-        <li class="next">npmからmochaをインストール</li>
+        <li class="next">yarn initで<mark>package.json</mark>を作成</li>
+        <li class="next">npmから<mark>mocha</mark>をインストール</li>
         <li class="next">テストケース、テスト対象コードの修正</li>
-        <li class="next">package.jsonにtestコマンドを設定</li>
+        <li class="next">package.jsonに<mark>testコマンド</mark>を設定</li>
       </ol>
     </section>
 
@@ -486,10 +486,10 @@ OK    （以下略）</code>
       <h3 class="">5. rollup.jsの導入</h3>
       <p class="f30">導入手順は以下です。</p>
       <ol>
-        <li class="next">npmからrollup.jsをインストール</li>
-        <li class="next">rollup.config.jsを作成し設定</li>
-        <li class="next">package.jsonにコマンドを設定</li>
-        <li class="next">src/app.jsを修正</li>
+        <li class="next">npmから<mark>rollup.js</mark>をインストール</li>
+        <li class="next"><mark>rollup.config.js</mark>を作成し設定</li>
+        <li class="next"><mark>package.json</mark>にコマンドを設定</li>
+        <li class="next"><mark>src/app.js</mark>を修正</li>
         <li class="next">バンドルを実行</li>
       </ol>
     </section>
@@ -576,6 +576,18 @@ OK    （以下略）</code>
         ブラウザを起動してテストを実行してくれるのが、<a href="https://karma-runner.github.io/1.0/index.html" target="_blank">karma</a>です。
         この子用のプラグインを使って、各ブラウザで動くのかテストしてみましょう！
       </p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <p class="f30">導入手順は以下です。</p>
+      <ol>
+        <li class="next">npmから<mark>karma, karma-cli</mark>をインストール</li>
+        <li class="next">karmaを起動し<mark>karma.conf.js</mark>を作成</li>
+        <li class="next">package.jsonに<mark>karmaコマンド</mark>を設定</li>
+        <li class="next">package.jsonの<mark>testコマンド</mark>を変更</li>
+        <li class="next">テストを実行</li>
+      </ol>
     </section>
 
     <section class="slide center-text">
