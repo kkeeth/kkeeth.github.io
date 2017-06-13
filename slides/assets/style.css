@@ -32,6 +32,9 @@ span.assert-fwn {
 	text-align: center;
 	font-size: 65px;
 }
+#cover .mt90 {
+	margin-top: 90px;
+}
 #cover p {
 	text-align:center;
 	font-style:italic;
