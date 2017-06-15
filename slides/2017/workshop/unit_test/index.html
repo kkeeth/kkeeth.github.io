@@ -594,11 +594,167 @@ OK    （以下略）</code>
       <p class="f30">導入手順は以下です。</p>
       <ol>
         <li class="next">npmから<mark>karma, karma-cli</mark>をインストール</li>
-        <li class="next">karmaを起動し<mark>karma.conf.js</mark>を作成</li>
-        <li class="next">package.jsonに<mark>karmaコマンド</mark>を設定</li>
-        <li class="next">package.jsonの<mark>testコマンド</mark>を変更</li>
+        <li class="next">karma-cliを起動し<mark>karma.conf.js</mark>を作成</li>
+        <li class="next"><mark>karma.conf.js</mark>の設定を変更</li>
+        <li class="next"><mark>package.json</mark>の設定を変更</li>
         <li class="next">テストを実行</li>
       </ol>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <p class="f30"><span class="assert-fwn">1. npmから<mark>karma, karma-cli</mark>をインストール</span></p>
+      <pre>
+        <code>$ <error>yarn</error> add -D <value>kamra karma-cli</value></code>
+      </pre>
+
+      <p class="f30"><span class="assert-fwn">その他のモジュールをインストール</span></p>
+      <pre>
+        <code>$ <error>yarn</error> add -D <value>karma-chrome-launcher karma-safari-launcher</value></code>
+        <code>  <value>karma-firefox-launcher karma-mocha karma-webpack</value></code>
+        <code>  <value>karma-mocha-reporter karma-coverage</value>（←これらは好みで）</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <p class="f30"><span class="assert-fwn">2. karma-cliを起動し<mark>karma.conf.js</mark>を作成</span></p>
+      <p class="">の前に、package.jsonに<mark>karma</mark>コマンドを設定しましょう。</p>
+      <pre>
+        <code>  "scripts": {</code>
+        <code><value>+     "karma": "karma",</code>
+        <code>     "build": "webpack",</code>
+        <code>     "test": "mocha"</code>
+        <code>  }</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <p class="f30"><span class="assert-fwn">2. karma-cliを起動し<mark>karma.conf.js</mark>を作成</span></p>
+      <p class="">では<mark>karma-cli</mark>を起動しましょう。</p>
+      <pre>
+        <code>$ <error>yarn</error> <value>karma</value> init</code>
+      </pre>
+
+      <p class="">以下、対話的に設定内容を決めていくことになります。</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+<pre>
+<code>Which testing framework do you want to use ?
+<comment>Press tab to list possible options.<br> Enter to move to the next question.</comment>
+<value>> jasmine</value>
+</code>
+</pre>
+      <p class="f30">ここで利用するテストフレームワークを選択します。<br>今回は<mark>mocha</mark>を選んで下さい。</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+<pre>
+<code>Do you want to use Require.js ?
+<comment>Press tab to list possible options.<br> Enter to move to the next question.</comment>
+<value>> no</value>
+</code>
+</pre>
+      <p class="f30">今回はRequire.jsを利用しないので、<mark>no</mark>を選んで下さい。</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+<pre>
+<code>Do you want to capture any browsers automatically ?
+<comment>Press tab to list possible options.<br> Enter empty string to move to the next question.</comment>
+<value>> Chrome</value>
+<value>> Firefox</value>
+<value>> Safari</value>
+</code>
+</pre>
+      <p class="f30">テストしたいブラウザを選んで下さい。</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+<pre>
+<code>What is the location of your source and test files ?
+<comment>Press tab to list possible options.<br> Enter to move to the next question.</comment>
+<value>> test/*spec.js</value>
+</code>
+</pre>
+      <p class="f30">読み込むテストコードの<mark>パス</mark>を指定してください。<br>※ ワイルドカードも使えます。</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+<pre>
+<code>Should any of the files included by the previous patterns<br> be excluded ?
+<comment>You can use glob patterns, eg. "js/*.js" or <br> "test/**/*Spec.js". Enter to move to the next question.</comment>
+<value>> test/*spec.js</value>
+</code>
+</pre>
+      <p class="f30">先程指定したコードで除外したいものがありましたら、<mark>パス</mark>を指定してください。今回はなしです。</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+<pre>
+<code>Do you want Karma to watch all the files and run the tests<br> on change ?
+<comment>Press tab to list possible options.</comment>
+<value>> yes</value>
+</code>
+</pre>
+      <p class="f30">簡単に言うと、watchモードにするか、否かです。今回は<mark>yes</mark>を選択してください。</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <h4 class="shout"><span class="emphasis">karma.conf.jsの完成です！</span></h4>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <p class="f30"><span class="emphasis">3. <mark>karma.conf.js</mark>の設定を変更</span></p>
+      <p class="">
+        このままkarmaを起動すると<span class="red">Uncaught ReferenceError: require is not defined</span>と言われます。
+        これは、ブラウザでは<mark>require()</mark>が使えないからです。したがって、<b>「5. webpackを導入」</b>と同様に、ブラウザで動くように
+        webpackを通してやる必要があります。
+      </p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <p class="f30"><span class="emphasis">3. <mark>karma.conf.js</mark>の設定を変更</span></p>
+      <p class="">karma.conf.jsに以下のように追記します。</p>
+      <pre>
+        <code>  preprocessors: {</code>
+        <code><value>+     'test/*spec.js': ['webpack']</value></code>
+        <code>  },</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <p class="f30"><span class="emphasis">4. <mark>package.json</mark>の設定を変更</span></p>
+      <p class="">karmaを起動するために、package.jsonを以下のように修正します。</p>
+      <pre>
+        <code>  "scripts": {</code>
+        <code>     ...</code>
+        <code><comment>-     "test": "mocha"</comment></code>
+        <code><value>+     "test": "karma start"</value></code>
+        <code>  }</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <p class="f30"><span class="emphasis">5. テストを実行</p>
+      <p class="f30">では、実行してみましょう！</p>
+      <pre>
+        <code>$ <error>yarn</error> test</code>
+      </pre>
+      <p>それぞれのブラウザが勝手に起動してテスト結果がコマンドラインに表示されたかと思います♪</p>
     </section>
 
     <section class="slide center-text">
