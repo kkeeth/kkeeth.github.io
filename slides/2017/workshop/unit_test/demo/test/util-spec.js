@@ -17,14 +17,14 @@ if (auth_check('', '') === 'required') {
 }
 
 console.info('case3-1: 1つ目が空のケース')
-if (auth_check('hoge') === 'required') {
+if (auth_check('', 'hoge') === 'required') {
    console.count('OK')
 } else {
    console.error('NG')
 }
 
 console.info('case3-2: 2つ目が空のケース')
-if (auth_check('', 'test') === 'required') {
+if (auth_check('hoge') === 'required') {
    console.count('OK')
 } else {
    console.error('NG')
