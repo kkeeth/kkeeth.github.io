@@ -424,11 +424,11 @@ OK    （以下略）</code>
       <p>test/util-spec.jsを以下のように修正します。</p>
       <pre>
         <code>  <value>+   const assert = require('assert')</value></code>
-        <code>  <comment>-   if (util.auth_check('hoge') === 'required') {</comment></code>
-        <code>  <comment>-      console.info('OK')</comment></code>
+        <code>  <comment>-   if (util.auth_check() === 'required') {</comment></code>
         <code>  <comment>-   } else {</comment></code>
         <code>  <comment>-      throw new Error('NG')</comment></code>
-        <code>  <value>+   assert(util.auth_check('hoge') === 'required')</value></code>
+        <code>  <comment>-   }</comment></code>
+        <code>  <value>+   assert(util.auth_check() === 'required')</value></code>
         <code>  （以下同様）</code>
       </pre>
     </section>
