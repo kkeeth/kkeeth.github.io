@@ -35,7 +35,12 @@ button[disabled] {
   background-color: #ddd;
   color: #aaa;
 }
-
+input[type="text"],
+input[type="password"] {
+  padding: 5px;
+  width: 50%;
+  border-radius: 2px;
+}
 ul {
   padding: 0;
 }
