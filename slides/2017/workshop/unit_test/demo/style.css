@@ -63,3 +63,7 @@ p.form {
 #result {
   color: red;
 }
+
+#result.correct {
+  color: #008050;
+}
