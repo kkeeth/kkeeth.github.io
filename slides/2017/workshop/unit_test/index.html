@@ -360,8 +360,8 @@ OK    （以下略）</code>
       <p class="f30"><span class="assert-fwn">3. テストケース、テスト対象コードの修正</span></p>
 
       <pre>
-        <code>  <error>else if</error> (pass != <key>this.correct</key>)</code>
-        <code>     <key>key</key> = <value>'unauthenticated'</value></code>
+        <code>  <error>else if</error> (pass.length > 0 && pass === correct)</code>
+        <code>     <key>key</key> = <value>'login'</value></code>
         <code>     ...</code>
         <code>  },</code>
         <code>  <key>get_message</key>: (key) => {</code>
@@ -377,9 +377,9 @@ OK    （以下略）</code>
       <pre>
         <code>  <value>+   const util = require('../src/util')</value></code>
         <code>     ...</code>
-        <code>  <comment>-   if (auth_check() === 'required') {</comment></code>
-        <code>  <value>+   if (util.auth_check() === 'required') {</value></code>
-        <code>  <comment>-      console.info('OK')</comment></code>
+        <code>  <comment>-   if (auth_check() === 'required')</comment></code>
+        <code>  <value>+   if (util.auth_check() === 'required')</value></code>
+        <code>  <comment>-      console.count('OK')</comment></code>
       </pre>
     </section>
 
@@ -388,9 +388,9 @@ OK    （以下略）</code>
       <p class="f30"><span class="assert-fwn">3. テストケース、テスト対象コードの修正</span></p>
       <pre>
         <code>     （続き）</code>
-        <code>  <comment>-  } else {</code>
+        <code>  <comment>-  else</code>
         <code>  <comment>-     console.error('NG')</code>
-        <code>  <comment>-  }</code>
+        <code>  <comment>-  </code>
       </pre>
 
       <p><i class="fa fa-info-circle" aria-hidden="true"></i> function()をアロー関数に書き換えても良いと思います♪</p>
