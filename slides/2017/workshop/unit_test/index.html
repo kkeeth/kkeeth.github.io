@@ -558,10 +558,12 @@ OK    （以下略）</code>
 
     <section class="slide center-text">
       <h3 class="">5. webpackの導入</h3>
-      <p>ついでにmochaの結果画面表示の記述は削除しましょう。</p>
+      <p>ついでに<mark>mochaの結果画面表示</mark>の記述を削除しましょう。</p>
       <pre>
+        <code>  // index.html</code>
         <code>  <comment>-  &lt;div id="mocha">&lt;/div&gt;</comment></code>
         <code>  <comment>-  &lt;script&gt; mocha.setup('bdd') &lt;/script&gt;</comment></code>
+        <code>  // app.js</code>
         <code>  <comment>- 	// mochaの実行</comment></code>
         <code>  <comment>-  mocha.run()</comment></code>
       </pre>
