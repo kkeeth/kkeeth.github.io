@@ -258,7 +258,7 @@ OK    （以下略）</code>
         <code>  describe(<key>'auth_check関数のテスト'</key>, () => {</code>
         <code>     it('<key>case1: どちらも空のケース'</key>, () => {</code>
         <code>        <error>if</error> (auth_check() === <key>'required'</key>)</code>
-        <code>           <value>console</value>.log(<key>'OK'</key>)</code>
+        <code>           <value>console</value>.count(<key>'OK'</key>)</code>
         <code>        <error>else</error></code>
         <code>           <error>throw</error> new <value>Error</value>(<key>'NG'</key>)</code>
         <code>     })</code>
