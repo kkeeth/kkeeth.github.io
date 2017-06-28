@@ -113,7 +113,7 @@
       <p class="f30"><span class="assert">util.js</span></p>
       <pre class="">
         <code>  <comment>// 今回の説明のため正解を変数に保持</comment></code>
-        <code>  <error>var</error> correct = <key>'test1234'</key></code>
+        <code>  <error>const</error> correct = <key>'test1234'</key></code>
         <code>  </code>
         <code>  <key>function</key> <value>auth_check</value>(user, pass) {</code>
         <code>     <error>var</error> key = ''</code>
@@ -348,8 +348,8 @@ OK    （以下略）</code>
 
       <p>テスト対象のsrc/util.jsを以下のように修正します。（ES2015！）</p>
       <pre>
+        <code>  <error>const</error> correct = <key>'test1234'</key></code>
         <code>  <error>module.exports</error> = {</code>
-        <code>     <key>correct</key>: <value>'test1234'</value>,</code>
         <code>     <key>auth_check</key>: (user, pass) => {</code>
         <code>     （続く）</code>
       </pre>
