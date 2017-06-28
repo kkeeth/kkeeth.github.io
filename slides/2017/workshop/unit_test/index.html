@@ -560,11 +560,11 @@ OK    （以下略）</code>
       <h3 class="">5. webpackの導入</h3>
       <p>ついでに<mark>mochaの結果画面表示</mark>の記述を削除しましょう。</p>
       <pre>
-        <code>  // index.html</code>
+        <code>  index.htmlについて</code>
         <code>  <comment>-  &lt;div id="mocha">&lt;/div&gt;</comment></code>
         <code>  <comment>-  &lt;script&gt; mocha.setup('bdd') &lt;/script&gt;</comment></code>
-        <code>  // app.js</code>
-        <code>  <comment>- 	// mochaの実行</comment></code>
+        <code>  app.jsについて</code>
+        <code>  <comment>-  // mochaの実行</comment></code>
         <code>  <comment>-  mocha.run()</comment></code>
       </pre>
     </section>
@@ -620,7 +620,7 @@ OK    （以下略）</code>
       <h3 class="">6. karmaの導入</h3>
       <p class="f30"><span class="assert-fwn">1. npmから<mark>karma, karma-cli</mark>をインストール</span></p>
       <pre>
-        <code>$ <error>yarn</error> add -D <value>kamra karma-cli</value></code>
+        <code>$ <error>yarn</error> add -D <value>karma karma-cli</value></code>
       </pre>
 
       <p class="f30"><span class="assert-fwn">その他のモジュールをインストール</span></p>
@@ -706,7 +706,7 @@ OK    （以下略）</code>
 <pre>
 <code>Should any of the files included by the previous patterns<br> be excluded ?
 <comment>You can use glob patterns, eg. "js/*.js" or <br> "test/**/*Spec.js". Enter to move to the next question.</comment>
-<value>> test/*spec.js</value>
+<value>></value>
 </code>
 </pre>
       <p class="f30">先程指定したコードで除外したいものがありましたら、<mark>パス</mark>を指定してください。今回はなしです。</p>
