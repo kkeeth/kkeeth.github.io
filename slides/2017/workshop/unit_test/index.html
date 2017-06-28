@@ -458,8 +458,7 @@ OK    （以下略）</code>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">解決ツール例</h3>
-      <p class="f30">この解決に良く使われるものとして、以下の3つがあります。</p>
+      <p class="f30">この問題の解決に良く使われるものとして、以下の3つがあります。</p>
       <ul>
         <li>webpack</li>
         <li>rollup.js</li>
@@ -467,7 +466,7 @@ OK    （以下略）</code>
       </ul>
       <p class="">
         今回は<mark>webpack</mark>を使います！<br>
-        ※ rollup.jsでも良いですが、自分は死にました。。。
+        ※ rollup.jsも良いツールですが、自分は死にました。。。
       </p>
     </section>
 
@@ -477,7 +476,7 @@ OK    （以下略）</code>
 
     <section class="slide center-text">
       <h3 class="">5. webpackの導入</h3>
-      <p class="f30"><a href="http://webpack.org/" target="_blank">webpack</a>を簡単にご紹介。</p>
+      <p class="f30"><a href="http://webpack.js.org/" target="_blank">webpack</a>を簡単にご紹介。</p>
       <ul>
         <li>諸々のassetファイルをバンドルするツール</li>
         <li>スコープの問題をよしなに解決してくれる</li>
@@ -514,7 +513,7 @@ OK    （以下略）</code>
       <h3 class="">5. webpackの導入</h3>
       <p class="f30"><span class="assert-fwn">2. webpack.config.jsを作成し設定</span></p>
       <p>
-        次は、バンドルの設定をしていきます。設定例はこちら→
+        次に、バンドルの設定をしていきます。webpack.config.jsファイルを設定し、次を追記してください。→
       </p>
     </section>
 
@@ -525,7 +524,7 @@ OK    （以下略）</code>
         <code>  <error>module.exports</error> = {</code>
         <code>     <key>entry</key>: <value>'./src/app.js'</value>,</code>
         <code>     <key>output</key>: {</code>
-        <code>        <key>path</key>: path.join(__dirname, <value>'build'</value>)</code>
+        <code>        <key>path</key>: path.join(__dirname, <value>'build'</value>),</code>
         <code>        <key>filename</key>: <value>'bundle.js'</value></code>
         <code>     }</code>
         <code>  }</code>
@@ -554,6 +553,17 @@ OK    （以下略）</code>
         <code>  <value>+  key  = util.auth_check(user, pass)</value></code>
         <code>  <comment>-  $('#result').text(get_message(key))</comment></code>
         <code>  <value>+  $('#result').text(util.get_message(key))</value></code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">5. webpackの導入</h3>
+      <p>ついでにmochaの結果画面表示の記述は削除しましょう。</p>
+      <pre>
+        <code>  <comment>-  &lt;div id="mocha">&lt;/div&gt;</comment></code>
+        <code>  <comment>-  &lt;script&gt; mocha.setup('bdd') &lt;/script&gt;</comment></code>
+        <code>  <comment>- 	// mochaの実行</comment></code>
+        <code>  <comment>-  mocha.run()</comment></code>
       </pre>
     </section>
 
