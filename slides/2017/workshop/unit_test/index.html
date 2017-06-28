@@ -257,13 +257,13 @@ OK    （以下略）</code>
       <pre>
         <code>  describe(<key>'auth_check関数のテスト'</key>, () => {</code>
         <code>     it('<key>case1: どちらも空のケース'</key>, () => {</code>
-        <code>        <error>if</error> (auth_check() === <key>'required'</key>)</code>
+        <code>        <error>if</error> (auth_check() === <key>'required'</key>) {</code>
         <code>           <value>console</value>.count(<key>'OK'</key>)</code>
-        <code>        <error>else</error></code>
+        <code>        } <error>else</error> {</code>
         <code>           <error>throw</error> new <value>Error</value>(<key>'NG'</key>)</code>
+        <code>        }</code>
         <code>     })</code>
         <code>     （以下、同様）</code>
-        <code>  })</code>
       </pre>
     </section>
 
@@ -377,19 +377,9 @@ OK    （以下略）</code>
       <pre>
         <code>  <value>+   const util = require('../src/util')</value></code>
         <code>     ...</code>
-        <code>  <comment>-   if (auth_check() === 'required')</comment></code>
-        <code>  <value>+   if (util.auth_check() === 'required')</value></code>
+        <code>  <comment>-   if (auth_check() === 'required') {</comment></code>
+        <code>  <value>+   if (util.auth_check() === 'required') {</value></code>
         <code>  <comment>-      console.count('OK')</comment></code>
-      </pre>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">3. Node.jsで実行</h3>
-      <p class="f30"><span class="assert-fwn">3. テストケース、テスト対象コードの修正</span></p>
-      <pre>
-        <code>     （続き）</code>
-        <code>  <comment>-  else</code>
-        <code>  <comment>-     console.error('NG')</code>
       </pre>
     </section>
 
@@ -407,7 +397,7 @@ OK    （以下略）</code>
 
     <section class="slide center-text">
       <h3 class="">3. Node.jsで実行</h3>
-      <h3>それでは実行してみましょう！</h3>
+      <p class="f30">それでは実行してみましょう！</p>
       <pre>
         <code>  $ <error>yarn</error> <value>test</value></code>
       </pre>
