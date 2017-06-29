@@ -3,14 +3,18 @@ var correct = 'test1234'
 function auth_check(user, pass) {
 	var key = ''
 
-	if (user == void 0 || pass == void 0)
+	if (user == void 0 || pass == void 0) {
 		key = 'required'
-	else if (user.length == 0 || pass.length == 0)
+	}
+	else if (user.length == 0 || pass.length == 0) {
 		key = 'required'
-	else if (pass != correct)
+	}
+	else if (pass != correct) {
 		key = 'unauthenticated'
-	else if (pass.length > 0 && pass === correct)
+	}
+	else if (pass.length > 0 && pass === correct) {
 		key = 'login'
+	}
 
 	return key
 }

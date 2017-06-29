@@ -3,7 +3,7 @@ const util = require('../src/util.js')
 describe('valic_check関数のテスト', () => {
    it('case1: どちらも空のケース', () => {
       if (util.auth_check() === 'required') {
-         console.log('OK')
+         console.info('OK')
       } else {
          throw new Error('NG')
       }
