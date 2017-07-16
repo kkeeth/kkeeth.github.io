@@ -1,0 +1,49 @@
+.my-text {
+	font-weight: bold;
+	font-size: 1.5rem;
+	line-height: 130%;
+	font-family: josefin-sans;
+}
+.my-large-text {
+	font-weight: bold;
+	font-size: 2rem;
+	line-height: 100%;
+	font-family: josefin-sans;
+}
+.my-panel {
+	margin: 10px auto 0 auto;
+	border-width: 2px;
+}
+.my-small-panel {
+	width: 320px;
+}
+.my-panel-titlebar {
+	background: steelblue none;
+	color: white;
+}
+input {
+	text-align: right;
+	font-size: 1.5rem;
+	width: 80%;
+}
+.my-button {
+	font-size: 1.3rem;
+	height: 1.8rem;
+	font-weight: bold;
+}
+table {
+	width: 100%;
+}
+tr {
+	height: 2rem;
+}
+div tr:nth-child(odd) {
+	background-color: cornsilk;
+}
+
+td {
+	text-align: right;
+}
+tr td:nth-of-type(i) {
+	width: 30%;
+}
