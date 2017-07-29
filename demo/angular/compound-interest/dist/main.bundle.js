@@ -21,7 +21,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".my-text {\n\tfont-weight: bold;\n\tfont-size: 1.5rem;\n\tline-height: 130%;\n\tfont-family: Josefin\ Sans;\n}\n.my-large-text {\n\tfont-weight: bold;\n\tfont-size: 2rem;\n\tline-height: 100%;\n\tfont-family: josefin-sans;\n}\n.my-panel {\n\tmargin: 10px auto;\n\tborder-width: 2px;\n}\n.my-small-panel {\n\twidth: 320px;\n}\n.my-panel-titlebar {\n\tbackground: steelblue none;\n\tcolor: white;\n}\ninput {\n\ttext-align: right;\n\tfont-size: 1.5rem;\n\twidth: 80%;\n}\n.my-button {\n\tfont-size: 1.3rem;\n\theight: 1.8rem;\n\tfont-weight: bold;\n}\ntable {\n\twidth: 100%;\n}\ntr {\n\theight: 2rem;\n}\ndiv tr:nth-child(odd) {\n\tbackground-color: cornsilk;\n}\n\ntd {\n\ttext-align: right;\n}\ntr td:nth-of-type(i) {\n\twidth: 30%;\n}", ""]);
+exports.push([module.i, ".my-text {\n\tfont-weight: bold;\n\tfont-size: 1.8rem;\n\tline-height: 130%;\n\tfont-family: Josefin\ Sans;\n}\n.my-large-text {\n\tfont-weight: bold;\n\tfont-size: 2rem;\n\tline-height: 100%;\n\tfont-family: josefin-sans;\n}\n.my-panel {\n\tmargin: 10px auto;\n\tborder-width: 2px;\n}\n.my-small-panel {\n\twidth: 320px;\n}\n.my-panel-titlebar {\n\tbackground: steelblue none;\n\tcolor: white;\n}\ninput {\n\ttext-align: right;\n\tfont-size: 1.5rem;\n\twidth: 80%;\n}\n.my-button {\n\tfont-size: 1.3rem;\n\theight: 1.8rem;\n\tfont-weight: bold;\n}\ntable {\n\twidth: 100%;\n}\ntr {\n\theight: 2rem;\n}\ndiv tr:nth-child(odd) {\n\tbackground-color: cornsilk;\n}\n\ntd {\n\ttext-align: right;\n}\ntr td:nth-of-type(i) {\n\twidth: 30%;\n}", ""]);
 
 // exports
 
