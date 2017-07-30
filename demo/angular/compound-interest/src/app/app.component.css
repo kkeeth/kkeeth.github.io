@@ -1,8 +1,8 @@
 .my-text {
 	font-weight: bold;
-	font-size: 1.5rem;
+	font-size: 1.8rem;
 	line-height: 130%;
-	font-family: josefin-sans;
+	font-family: Josefin\ Sans;
 }
 .my-large-text {
 	font-weight: bold;
@@ -11,7 +11,7 @@
 	font-family: josefin-sans;
 }
 .my-panel {
-	margin: 10px auto 0 auto;
+	margin: 10px auto;
 	border-width: 2px;
 }
 .my-small-panel {
