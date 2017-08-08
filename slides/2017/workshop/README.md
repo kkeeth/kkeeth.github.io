@@ -11,4 +11,4 @@ JavaScript関連のワークショップの資料一覧です。
 
 - 第二部：リアルタイムwebアプリケーション
 	- [Node.jsの基本](https://k-kuwahara.github.io/slides/2017/workshop/nodejs/)
-	- Express, Socket.ioを用いてリアルタイムwebアプリケーション開発
+	- [Socket.ioを用いてリアルタイムwebアプリケーション開発](https://k-kuwahara.github.io/slides/2017/workshop/realtime_app/)
