@@ -1,0 +1,662 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Node.jsの基本</title>
+    <link rel="stylesheet" href="../../../talkiejs/talkie.min.css">
+    <link rel="stylesheet" href="../../../talkiejs/talkie-default.min.css">
+    <link rel="stylesheet" href="../../../talkiejs/style.css">
+    <link rel="shortcut icon" href="../../../assets/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/monokai.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+  </head>
+  <body>
+<template layout="cover" type="text/x-markdown">
+# Node.jsの基本
+### 2017/08/10　@レプラホーン株式会社
+</template>
+
+<template class="my-info" layout="cover" type="text/x-markdown">
+## 自己紹介
+
+```
+var my_info = {
+    name:  '桑原聖仁',
+    twitter: '@kuwahara_ngv4（たまに変わります）',
+    github: 'k-kuwahara',
+    qiita:    '@clown0082',
+    skill: 'PHP, CodeIgniter, JavaScript, Riot.js, Angular, Ionic',
+    workplace:  'Leprachaun Corp.'
+}
+```
+</template>
+
+<section layout="title-invert" type="text/x-markdown">
+## Node.jsをまだインストールしていない方はいらっしゃいますか？
+　
+※この先Node.jsをインストールしていないと先に進めないです…w
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## 　　まだ => [__install_nodejs()__](https://nodejs.org/ja/)
+## 入ってる => [__next_page()__](#5)
+
+※windowsの方は、<span class="assert">再起動</span>が必要です。
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+### Node.jsのバージョンが`0.x`、`v4`、`v5`の方はいますか？
+　
+## 最低でも`v6`以上にアップグレードしてください(ﾟ∀ﾟ)
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## これで準備完了です！
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- NPMについて
+- package.jsonを作成
+- 実際にパッケージ管理してみよう
+- もうnpmじゃない
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- __<span class="assert">NPMについて</span>__　<= まずはココ
+- package.jsonを作成
+- 実際にパッケージ管理してみよう
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+<svg viewBox="0 0 18 7" class="">
+  <path fill="#CB3837" d="M0,0v6h5v1h4v-1h9v-6"></path>
+  <path fill="#FFF" d="M1,1v4h2v-3h1v3h1v-4h1v5h2v-4h1v2h-1v1h2v-4h1v4h2v-3h1v3h1v-3h1v3h1v-4"></path>
+</svg>
+
+## NPM（Node Package Manager）
+
+『npm is the package manager for JavaScript and the world’s largest software registry. Discover packages of reusable code — and assemble them in powerful new ways.』
+（[npm公式より）](https://www.npmjs.com/)
+
+<style>
+  svg {
+    width: 200px;
+    position: absolute;
+    right: 10px;
+    top: 80px;
+  }
+</style>
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## npmはJavaScriptで開発する上で<br><span class="assert">必須</span>だと思います！
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## <span class="assert">npmも一つのコマンド</span>です。
+## 試しにnpmコマンドを実行してみましょう！
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## npm -v
+npmのバージョンが出力されたかと思います。<br>
+（ちなみに私は`4.5.0`でした）
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## では、本格的にnpmの使い方を見ていきましょう！
+</section>
+
+<section layout="code" type="text/x-markdown">
+## npmの基本コマンド
+
+```shell
+・ npm install
+・ npm list
+・ npm uninstall
+・ npm update
+・ npm search
+```
+
+日常で使うのはこの5つだと思います(ﾟ∀ﾟ)
+</section>
+
+<section layout="code" type="text/x-markdown">
+## First!!
+
+```shell
+npm install
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+npm install [-g|--save|--save-dev] module
+```
+
+### 意味：モジュールのインストール
+
+```shell
+（省略形： npm i）
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `[-g|--save|--save-dev]`の意味は？
+</section>
+
+<section layout="code" type="text/x-markdown">
+## こうです。
+
+```css
+ -g: グローバルでインストールするもの
+ --save: 実際のアプリ稼働時に利用するもの
+ --save-dev: 開発時に利用するもの
+```
+
+※ `--save-dev`は`-D`でも良いです。
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 実際に`ja-greetings`というモジュールを<br>インストールしてみましょう！
+
+（手前味噌ですみません…w）
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+$ npm install -g ja-greetings
+```
+又は
+
+```shell
+$ npm i -g ja-greetings
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `ja-greetings`を使ってみましょう。
+
+```shell
+$ ja-greetings new
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## ちなみに、installは以下のように<br>複数まとめて実行もできます。
+
+```shell
+$ npm i -D hoge fuga piyo
+```
+</section>
+
+
+<section layout="code" type="text/x-markdown">
+## Next!!
+
+```shell
+npm list
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+npm list [-g] [--depth=n] <module>
+```
+
+### 意味：インストールされたモジュールの一覧表示
+
+```shell
+（省略形： npm ls）
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+### `ja-greetings`がインストールされたか確認してみましょう！<br>以下のコマンドを実行して下さい♪
+
+```shell
+$ npm list -g --depth=0
+```
+
+又は
+
+```shell
+$ npm ls -g --depth=0
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Next!!
+
+```shell
+npm uninstall
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+npm uninstall [-g|--save|--save-dev] module
+```
+
+### 意味：モジュールの削除
+```shell
+（省略形: npm rm, npm un）
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 先程インストールした`ja-greetings`を削除してみましょう！<br>以下のコマンドを実行して下さい♪
+
+```shell
+$ npm uninstall -g ja-greetings
+```
+
+又は
+
+```shell
+$ npm rm -g ja-greetings
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### `ja-greetings`が削除されたか確認してみましょう！
+
+```shell
+$ npm ls -g --depth=0
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Next!!
+
+```shell
+npm update
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+npm update [-g|--save|--save-dev] (module)
+```
+
+### 意味：モジュールのアップデート<br>※moduleを指定しなければ全モジュールが対象
+```shell
+（省略形: npm up）
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## updateは後ほど実際に叩いてもらいますm(_ _)m
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Last!!
+
+```shell
+npm search
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+npm search module
+```
+
+### 意味：指定の文字列で部分一致するモジュールの一覧を表示
+```shell
+（省略形: npm s, npm find）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 実際に`greeting`で検索してみましょう！<br>以下のコマンドを実行して下さい♪
+
+```shell
+$ npm search greeting
+```
+
+又は
+
+```shell
+$ npm s greeting
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Others!!
+</section>
+
+<section layout="code" type="text/x-markdown">
+## npmのその他使いそうなコマンド
+
+```shell
+・ npm info moduxle
+　　→ モジュールのバージョン情報を表示
+・ npm init
+　　→ package.jsonの初期化（後述）
+```
+
+これらもたまに使うかと思います( ﾟ∀ﾟ)
+</section>
+
+<section layout="code" type="text/x-markdown">
+## npmの基本は以上です。
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- npmについて
+- __<span class="assert">package.jsonを作成</span>__  <= 次はココ
+- 実際にパッケージ管理してみよう
+- もうnpmじゃない
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## package.json
+
+node.jsのパッケージ（モジュール）を管理するための設定ファイルです。
+<span class="assert">Dockerで言うところのDockerfile</span>といったところでしょうか。
+<br>（ワタシDockerヨクワカリマセン←）
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## ではさっそくpackage.jsonを作って設定しましょう！
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 以下のコマンドを実行して下さい。<br>package.jsonが生成されます！
+
+```shell
+$ npm init
+```
+
+※とりあえずは全てEnterで問題ないです。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 中身を見てみましょう！
+
+```shell
+・ name: アプリケーションの名前
+・ version: アプリケーションのバージョン
+・ scripts: npm runで実行するためのコマンドリスト
+・ author: アプリケーションの開発者
+・ license: ライセンス（困ったらMITで良いかと）
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## その他の項目
+
+```shell
+・ homepage: ホームページのURL
+・ repository: リポジトリのURL（npmではない）
+・ bugs: 問題やバグ報告先（urlとemailを指定）
+・ contributor: author以外の開発者
+```
+
+詳しくは[日本語取扱説明書](http://liberty-technology.biz/PublicItems/npm/package.json.html)を御覧ください( ﾟ∀ﾟ)
+</section>
+
+<section layout="code" type="text/x-markdown">
+## では、このpackage.jsonを<br>更新していきましょう！
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- npmについて
+- package.jsonを作成
+- __<span class="assert">実際にパッケージ管理してみよう</span>__  <= お次はココ
+- もうnpmじゃない
+</section>
+
+<section layout="code" type="text/x-markdown">
+### まずは`gulp, webpack`という<br>2つのモジュールをインストールしてみましょう！
+
+```shell
+$ npm i --save-dev webpack@1.7.0
+$ npm i --save gulp
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+### ① `node_modules`ディレクトリが作成され、<br>　その中にモジュールがインストールされます。
+### ② package.jsonが更新されます。
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+```JSON
+// package.jsonの中身抜粋
+...
+  "dependencies": {
+    "gulp": "^3.9.1"
+  },
+  "devDependencies": {
+    "webpack": "^1.7.0"
+  }
+...
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `dependencies, devDependencies`という<br>2つの項目が追加されました。
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 今後モジュールをインストールすると、<br>package.jsonに`名前: バージョン`形式で<br>自動で追記されます。
+
+<br>
+
+※ `--save|--save-dev`がないと追記されませんので注意！
+</section>
+
+<section layout="code" type="text/x-markdown">
+### `webpack`のアップデートを行ってみましょう！<br>以下のコマンドを実行して下さい。
+
+```shell
+$ npm up webpack
+$ npm ls --depth=0
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 以下のように、webpackのバージョンが<br>更新されたと思います。
+
+```node
+├── gulp@3.9.1
+└── webpack@1.15.0
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+### しかし、package.jsonは更新されません。
+
+```JSON
+...
+  "devDependencies": {
+    // 1.7.0のまま!!
+    "webpack": "^1.7.0"
+  },
+...
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+### package.jsonも更新したい場合は、<br>インストールコマンドを実行して下さい。
+
+```shell
+$ npm i -D webpack
+```
+
+※ `-D`は`--save-dev`の省略形
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 今度はpackage.jsonが更新されたと思います♪
+
+```JSON
+...
+  "devDependencies": {
+    "webpack": "^1.15.0"
+  },
+...
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### ここで`node_modules`ディレクトリを削除し、<br>以下のコマンドを実行してみてください。
+
+```shell
+$ npm i
+$ npm ls --depth=0
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 以下のように、必要なモジュールが<br>全てインストールされたことが確認できます！
+
+```node
+├── gulp@3.9.1
+└── webpack@1.15.0
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## モジュールのバージョン<br>の指定について
+</section>
+
+<section layout="code" type="text/x-markdown">
+### `package.json`でモジュールのバージョンを<br>指定できますが、書き方は2通りあります。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```JSON
+"devDependencies": {
+   // 「^」で指定
+   "webpack": "^1.7.0"
+   // 「~」で指定
+   "webpack": "~1.7.0"
+}
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 実際にインストールした結果は以下になります。
+
+<span class="hljs-attribute">"webpack": "^1.7.0"</span><br>
+  → <span class="hljs-keyword f38">v1.15.0</span>がインストールされる<br>
+
+<span class="hljs-attribute">"webpack": "~1.7.0"</span><br>
+  → <span class="hljs-keyword f38">v1.7.3</span>がインストールされる
+</section>
+
+<section layout="code" type="text/x-markdown">
+## つまり…
+
+`^`で指定<br>
+　→ <b><span class="hljs-keyword f38">メジャーバージョンは固定</span></b>で、最新のものをインストール
+
+`~`で指定<br>
+　→ <b><span class="hljs-keyword f38">マイナーバージョンまで固定</span></b>で、最新のものをインストール
+</section>
+
+<section layout="code" type="text/x-markdown">
+### npmはinstallコマンドが実行されたとき、<br>自動でpackage.jsonを確認し、<br>（依存性も含めて）必要なモジュールを<br>一括でインストールしてくれます。
+</section>
+
+<section layout="code" type="text/x-markdown">
+### この`package.json`を共有すれば、他のメンバーも同じ開発環境を作ることができます♪（便利だなー）
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- NPMについて　
+- package.jsonを作成
+- 実際にパッケージ管理してみよう
+- __<span class="assert">もうnpmじゃない</span>__ <= 最後にココ
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## `npm`の紹介をしてきましたが…
+
+<br>
+
+## もう`npm`の時代ではありません！
+
+<span class="codicil">Ω ΩΩ< な、なんだってー!!</span>
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+# <span class="sans">にゃーん</span>
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## Yarn
+
+『FAST, RELIABLE, AND SECURE DEPENDENCY MANAGEMENT.』
+（[Yarn公式より](https://yarnpkg.com/lang/en/)）
+
+<img src="img/yarn.png" alt="yarn" class="logo">
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## Yarnの特徴
+- 高速インストール
+- `npm`互換
+- `lock`ファイルによるバージョン固定
+- セキュアな管理
+- にゃーん
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## 今回はYarnの使い方には触れませんが、便利ですので皆さんも是非使って見て下さい♪
+</section>
+
+<section layout="cover" type="text/x-markdown">
+# 以上で今回のワークショップは終了です！
+</section>
+
+<script layout="cover" type="text/x-markdown">
+# 次回は<span class="assert">自動ビルドしながらの開発</span>をやります♪
+</script>
+
+<script layout="cover" type="text/x-markdown">
+# 以上、お疲れ様でした！
+</script>
+
+
+  <script src="../../../talkiejs/talkie.min.js"></script>
+  <script>
+  var talkie = Talkie({wide: false});
+  document.addEventListener('DOMContentLoaded', function() {
+    var slides = Array.prototype.slice.call(document.querySelectorAll('[layout]'));
+    // talkie.changed.onValue(function(current) {
+    //   console.clear();
+    //   // print presenter notes
+    //   console.info(talkie.notes[current.getAttribute('page')]);
+    // });
+  });
+  </script>
+  </body>
+</html>
