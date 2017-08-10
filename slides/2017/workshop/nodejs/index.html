@@ -259,9 +259,9 @@ const http = require('http')
 
 <section layout="bullets" type="text/x-markdown">
 ## URLによって処理を変える
-　
-<br>
-　
+</section>
+
+<section layout="bullets" type="text/x-markdown">
 ### `server.js`ファイルを次のように修正し、再起動してください。
 </section>
 
@@ -276,6 +276,164 @@ const http = require('http')
 ### 終わった方は`http://localhost:1337/test.html`<br>にアクセスしてください。
 
 `Hello from/test.html`と表示されているかと思います。
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+### 次に、アクセスURL毎に処理を変えるため、<br> `server.js`ファイルを次のように修正し、再起動してください。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
++ switch(req.url) {
++     case '/about':
++        res.write('about page!!')
++        break
++     default:
++        res.write('wrong page!!')
++        break
++ }
+- res.write('Hello from'+ req.url)
+```
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+### 終わった方は
+
+- `http://localhost:1337/test.html`
+- `http://localhost:1337/about`
+
+### にアクセスしてください。
+
+それぞれ異なる文言が表示されているかと思います。
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## htmlファイルを読み込む
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+### まずは`hello.html`ファイルを作成し<br>`<h1>Hello!!</h1>`と追記してください。
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+### 次に `server.js`ファイルを次のように修正し<br>再起動してください。
+
+※分かりやすさのため、全てのアクセスで同じものを表示します。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
+- res.writeHead(200, {'Content-Type': 'text/plain'})
+- switch(req.url) {
+- ...
+- }
++ fs.readFile(`${__dirname}/hello.html`, 'utf-8',
++    (err, data) => {
+       （続く）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
++    if (err) {
++       res.writeHead(404,{'Content-Type': 'text/plain'})
++       res.write('Not Found!!')
++       return res.end()
++    }
++    res.writeHead(200, {'Content-Type': 'text/html'})
++    res.write(data)
++    res.end()
++ })
+- res.end()
+```
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+### 終わった方は
+
+- `http://localhost:1337/about`
+
+### にアクセスしてください。
+
+`Hello!!`と表示されているかと思います。
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## `ejs`を使って画面表示
+</section>
+
+<section layout="code" type="text/x-markdown">
+### まずは`ejs`をnpmからインストールするため<br>以下のコマンドを実行してください。
+
+```shell
+$ npm i ejs
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 続いて`hello.html`を以下のように修正してください。
+
+```diff
+- <h1>Hello!!</h1>
++ <h1><%= title %></h1>
++ <p><%= content %></p>
++ <p><%= n %> views</p>
+```
+
+### 更に、ファイルネームを`.ejs`に変更してください。
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 続いて`server.js`を以下のように修正してください。
+
+```diff
+- fs   = require('fs')
++ fs   = require('fs'),
++ ejs = require('ejs')
+
++ const template =
++    fs.readFileSync(`${__dirname}/hello.ejs`, 'utf-8')
++ let n = 0
+      （続く）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
+- fs.readFile(`${__dirname}/hello.html`, 'utf-8',
+-    (err, data) => {
+-    if (err) {
+-       res.writeHead(404,{'Content-Type': 'text/plain'})
+-       res.write('Not Found!!')
+-       return res.end()
+-    }
+- })
+      （続く）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
++   if (req.url === '/favicon.ico') {
++      return;
++   }
++   n++
++   let data = ejs.render(template, {
++      title: "Hello ",
++      content: "<strong>Node.js!!</strong>",
++      n: n
++   })
+```
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+### 修正が完了したら、再起動・画面にアクセスしてください。
+
+何度か画面リロードをすると、`views`の数字が増えると思います！
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 以上で「Node.jsのいろいろな機能」<br>は終了です。
 </section>
 
 <section layout="bullets" type="text/x-markdown">
@@ -308,6 +466,9 @@ const http = require('http')
     slides.forEach(function(item) {
        if (~item.innerText.indexOf('&gt;')) {
           item.innerHTML = item.innerHTML.replace(/&amp;gt;/gm, '>')
+       }
+       if (~item.innerText.indexOf('&lt;')) {
+          item.innerHTML = item.innerHTML.replace(/&amp;lt;/gm, '<')
        }
     })
     // talkie.changed.onValue(function(current) {
