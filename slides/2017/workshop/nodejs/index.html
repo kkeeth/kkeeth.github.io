@@ -444,6 +444,93 @@ $ npm i ejs
 - __<span class="assert">１行掲示板を作成</span>__ <= 最後にココ
 </section>
 
+<section layout="bullets" type="text/x-markdown">
+### まずは掲示板用のテンプレートファイルを生成します。
+
+<br>
+
+### `bbs.ejs`を生成し、[こちらのコード](https://gist.github.com/k-kuwahara/341ff8fd28ed8ecd99fb8ce69ba34be4)を追記してください。
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+### 次に、`server.js`を次のように修正し<br>再起動してください。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
+- ejs = require('ejs')
++ ejs = require('ejs'),
++ qs  = require('querystring')
+
+- const template =
+-     fs.readFileSync(`${__dirname}/hello.ejs`, 'utf-8')
++ const template =
++     fs.readFileSync(`${__dirname}/bbs.ejs`, 'utf-8')
+      （続く）
+```
+</section>
+<section layout="code" type="text/x-markdown">
+```diff
+- let n = 0
++ let posts = []
+
+server.on('request', (req, res) => {
++   if (req.method === 'POST') {
++      req.data = ''
++      req.on('readable', () => {
++         req.data += req.read()
++      })
+      （続く）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
++      req.on('end', () => {
++         let query = qs.parse(req.data)
++         posts.push(query.name)
++         renderForm(posts, res)
++      })
+      （続く）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
+-   n++
+-   let data = ejs.render(template, {
+-      title: "Hello ",
+-      content: "<strong>Node.js!!</strong>",
+-      n: n
+-   })
+-   res.writeHead(200, {'Content-Type': 'text/html'})
+-   res.write(data)
+-   res.end()
+      （続く）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
++ function renderForm(posts, res) {
++    let data = ejs.render(template, {
++       posts: posts
++    })
++    res.writeHead(200, {'Content-Type': 'text/html'})
++    res.write(data)
++    res.end()
++ }
+      （続く）
+```
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+### 修正が完了したら、再起動・画面にアクセスしてください。
+
+フォームから自由に入力し、ボタンを押下してください。<br>
+下に入力内容が列挙されると成功です！
+</section>
+
 <section layout="cover" type="text/x-markdown">
 # 以上で今回のワークショップは終了です！
 </section>
