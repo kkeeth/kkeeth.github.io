@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../../../talkiejs/style.css">
     <link rel="shortcut icon" href="../../../assets/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/monokai.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
   </head>
   <body>
 <template layout="cover" type="text/x-markdown">
@@ -69,6 +68,79 @@ var my_info = {
 - APIサーバーを作成
 </section>
 
+<section layout="bullets" type="text/x-markdown">
+## Node.js
+
+大量のリクエストを処理するための仕組みになります。
+Apacheなどはスレッドモデル、Node.jsはイベントループという処理形式を利用しています。
+（※シングルスレッド形式とも呼ばれる）
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## Node.jsで大事なことは<br><span class="assert">ノンブロッキング</span>な書き方です。
+
+※これは後ほど説明します。
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## では実際にNode.jsのコードを書いていきましょう！
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Node.jsの動かし方
+
+以下のコマンドを実行してください。
+
+```shell
+$ node
+＞ console.log('Hello Node.js!!')
+
+結果：Hello Node.js!!
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## これでもいいですが…
+
+```shell
+・ 見通しが悪い。
+・ アプリケーションとしては使えない。
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## ファイルに書き出して、それをNode.jsで実行していきます。
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 適当に`.js`ファイルを新規作成し、<br>先程のコードを追記してください。
+### 完了したら、以下のコマンドを実行してください。
+
+```shell
+$ node hoge
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上が簡単な`Node.js`の<br>動かし方になります。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 次に`ノンブロッキング`な書き方<br>を説明します。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## ノンブロッキングな書き方例
+
+```js
+setTimeout(() => {
+   console.log('Hello ')
+}, 1000)
+console.log('Node.js!!')
+```
+
+このコードも適当な.jsファイルに追記し、<br><strong>処理の結果を予想してから</strong>実行してください。
+</section>
 
 <section layout="bullets" type="text/x-markdown">
 ## 今回のアジェンダ
@@ -110,10 +182,16 @@ var my_info = {
 
 
   <script src="../../../talkiejs/talkie.min.js"></script>
+  <script src="../../../talkiejs/highlight.min.js"></script>
   <script>
   var talkie = Talkie({wide: false});
   document.addEventListener('DOMContentLoaded', function() {
     var slides = Array.prototype.slice.call(document.querySelectorAll('[layout]'));
+    slides.forEach(function(item) {
+       if (~item.innerText.indexOf('&gt;')) {
+          item.innerHTML = item.innerHTML.replace(/&amp;gt;/gm, '>')
+       }
+    })
     // talkie.changed.onValue(function(current) {
     //   console.clear();
     //   // print presenter notes
