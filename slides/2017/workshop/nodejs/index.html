@@ -481,7 +481,7 @@ server.on('request', (req, res) => {
 +   if (req.method === 'POST') {
 +      req.data = ''
 +      req.on('readable', () => {
-+         req.data += req.read()
++         req.data += req.read() || ''
 +      })
       （続く）
 ```
@@ -526,7 +526,7 @@ server.on('request', (req, res) => {
 +    res.write(data)
 +    res.end()
 + }
-      （続く）
+   ※server.onの外に書いてください。
 ```
 </section>
 
