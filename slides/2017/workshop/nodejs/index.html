@@ -71,8 +71,8 @@ var my_info = {
 <section layout="bullets" type="text/x-markdown">
 ## Node.js
 
-大量のリクエストを処理するための仕組みになります。
-Apacheなどはスレッドモデル、Node.jsはイベントループという処理形式を利用しています。
+大量のリクエストを処理するための仕組みになります。<br>
+Apacheなどはスレッドモデル、Node.jsはイベント<br>ループという処理形式を利用しています。<br>
 （※シングルスレッド形式とも呼ばれる）
 </section>
 
@@ -323,6 +323,9 @@ const http = require('http')
 
 <section layout="code" type="text/x-markdown">
 ```diff
+- const http = require('http')
++ const http = require('http'),
++         fs = require('fs')
 - res.writeHead(200, {'Content-Type': 'text/plain'})
 - switch(req.url) {
 - ...
@@ -402,12 +405,11 @@ $ npm i ejs
 ```diff
 - fs.readFile(`${__dirname}/hello.html`, 'utf-8',
 -    (err, data) => {
--    if (err) {
--       res.writeHead(404,{'Content-Type': 'text/plain'})
--       res.write('Not Found!!')
--       return res.end()
--    }
+-    ...
 - })
++ res.writeHead(200, {'Content-Type': 'text/html'})
++ res.write(data)
++ res.end()
       （続く）
 ```
 </section>
@@ -415,7 +417,7 @@ $ npm i ejs
 <section layout="code" type="text/x-markdown">
 ```diff
 +   if (req.url === '/favicon.ico') {
-+      return;
++      return
 +   }
 +   n++
 +   let data = ejs.render(template, {
@@ -423,6 +425,7 @@ $ npm i ejs
 +      content: "<strong>Node.js!!</strong>",
 +      n: n
 +   })
+※server.on() の中に書いてください。
 ```
 </section>
 
@@ -491,6 +494,9 @@ server.on('request', (req, res) => {
 +         posts.push(query.name)
 +         renderForm(posts, res)
 +      })
++    } else {
++       renderForm(posts, res)
++    }
       （続く）
 ```
 </section>
