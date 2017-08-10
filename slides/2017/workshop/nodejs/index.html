@@ -57,7 +57,7 @@ var my_info = {
 - Node.jsのキホンのキ
 - http serverを作って起動
 - Node.jsのいろいろな機能
-- APIサーバーを作成
+- １行掲示板を作成
 </section>
 
 <section layout="bullets" type="text/x-markdown">
@@ -65,7 +65,7 @@ var my_info = {
 - __<span class="assert">Node.jsのキホンのキ</span>__　<= まずはココ
 - http serverを作って起動
 - Node.jsのいろいろな機能
-- APIサーバーを作成
+- １行掲示板を作成
 </section>
 
 <section layout="bullets" type="text/x-markdown">
@@ -83,7 +83,7 @@ Apacheなどはスレッドモデル、Node.jsはイベントループという�
 </section>
 
 <section layout="bullets" type="text/x-markdown">
-## では実際にNode.jsのコードを書いていきましょう！
+## では実際にNode.jsの動かし方を<br>みていきましょう！
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -99,21 +99,26 @@ $ node
 ```
 </section>
 
-<section layout="code" type="text/x-markdown">
+<section layout="bullets" type="text/x-markdown">
 ## これでもいいですが…
 
-```shell
-・ 見通しが悪い。
-・ アプリケーションとしては使えない。
-```
+* 見通しが悪い
+* アプリケーションとしては使えない
+
+
 </section>
 
-<section layout="code" type="text/x-markdown">
+<section layout="bullets" type="text/x-markdown">
 ## ファイルに書き出して、それをNode.jsで実行していきます。
 </section>
 
 <section layout="code" type="text/x-markdown">
-### 適当に`.js`ファイルを新規作成し、<br>先程のコードを追記してください。
+### 適当に`.js`ファイルを新規作成し、<br>以下のコードを追記してください。
+
+```js
+console.log('Hello Node.js!!')
+```
+
 ### 完了したら、以下のコマンドを実行してください。
 
 ```shell
@@ -121,11 +126,11 @@ $ node hoge
 ```
 </section>
 
-<section layout="code" type="text/x-markdown">
+<section layout="bullets" type="text/x-markdown">
 ## 以上が簡単な`Node.js`の<br>動かし方になります。
 </section>
 
-<section layout="code" type="text/x-markdown">
+<section layout="bullets" type="text/x-markdown">
 ## 次に`ノンブロッキング`な書き方<br>を説明します。
 </section>
 
@@ -143,29 +148,142 @@ console.log('Node.js!!')
 </section>
 
 <section layout="bullets" type="text/x-markdown">
+### おそらく以下の用に出力されたかと思います。
+
+Node.js!!
+
+（1秒後）
+
+Hello
+
+このように、メインの処理をブロックしない（止めない）ことを<br>`ノンブロッキング`と言います。
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## いわゆる`非同期処理`ですね（^ω^）
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 以上で「Node.jsのキホンのキ」<br>は終了です。
+</section>
+
+<section layout="bullets" type="text/x-markdown">
 ## 今回のアジェンダ
 - Node.jsのキホンのキ
 - __<span class="assert">http serverを作って起動</span>__  <= 次はココ
 - Node.jsのいろいろな機能
-- APIサーバーを作成
+- １行掲示板を作成
 </section>
 
+<section layout="bullets" type="text/x-markdown">
+### 次に、簡単なhttp serverを作っていきます。
+
+<br>
+
+### `server.js`というファイルを作成し、<br>次のコードを追記してください。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```js
+const http = require('http')
+const server = http.createServer()
+server.on('request', (req, res) => {
+   res.writeHead(200, {'Content-Type': 'text/plain'})
+   res.write('Hello Node.js!!')
+   res.end()
+})
+server.listen(1337, 'localhost')
+console.log('server listening...')
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 追記できた人は実行してみましょう！
+
+```shell
+$ node server
+```
+
+### 実行した人はブラウザで`http://localhost:1337`<br>にアクセスしてください。
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+
+### 次に、設定情報を外部ファイルに外出します。
+
+<br>
+
+### `settings.js`というファイルを作成して、<br>次のコードを追記してください。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```js
+module.exports = {
+   port: 1337,
+   host: 'localhost'
+}
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 続いて、`server.js`ファイルを以下のように修正してください。
+
+```diff
+const http = require('http')
++ const settings = require('./settings')
+
+- server.listen(1337, 'localhost')
++ server.listen(settings.port, settings.host)
+```
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 以上で「http serverを作って起動」<br>は終了です。
+</section>
 
 <section layout="bullets" type="text/x-markdown">
 ## 今回のアジェンダ
 - Node.jsのキホンのキ
 - http serverを作って起動
 - __<span class="assert">Node.jsのいろいろな機能</span>__  <= お次はココ
-- APIサーバーを作成
+- １行掲示板を作成
 </section>
 
+<section layout="bullets" type="text/x-markdown">
+### 次に、以下の項目を実践してみましょう！
+
+- URLによって処理を変える
+- htmlファイルを読み込む
+- `ejs`を使って画面表示
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## URLによって処理を変える
+　
+<br>
+　
+### `server.js`ファイルを次のように修正し、再起動してください。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
+- res.write('Hello Node.js!!')
++ res.write('Hello from'+ req.url)
+```
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+### 終わった方は`http://localhost:1337/test.html`<br>にアクセスしてください。
+
+`Hello from/test.html`と表示されているかと思います。
+</section>
 
 <section layout="bullets" type="text/x-markdown">
 ## 今回のアジェンダ
 - Node.jsのキホンのキ
 - http serverを作って起動
 - Node.jsのいろいろな機能
-- __<span class="assert">APIサーバーを作成</span>__ <= 最後にココ
+- __<span class="assert">１行掲示板を作成</span>__ <= 最後にココ
 </section>
 
 <section layout="cover" type="text/x-markdown">
@@ -184,7 +302,7 @@ console.log('Node.js!!')
   <script src="../../../talkiejs/talkie.min.js"></script>
   <script src="../../../talkiejs/highlight.min.js"></script>
   <script>
-  var talkie = Talkie({wide: false});
+  var talkie = Talkie({wide: true});
   document.addEventListener('DOMContentLoaded', function() {
     var slides = Array.prototype.slice.call(document.querySelectorAll('[layout]'));
     slides.forEach(function(item) {
