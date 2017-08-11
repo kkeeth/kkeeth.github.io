@@ -1,0 +1,129 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Socket.ioを用いてリアルタイムwebアプリケーション開発</title>
+    <link rel="stylesheet" href="../../../talkiejs/talkie.min.css">
+    <link rel="stylesheet" href="../../../talkiejs/talkie-default.min.css">
+    <link rel="stylesheet" href="../../../talkiejs/style.css">
+    <link rel="shortcut icon" href="../../../assets/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/monokai.min.css">
+  </head>
+  <body>
+<template layout="cover" type="text/x-markdown">
+# Socket.ioを用いてリアルタイムwebアプリケーション開発
+### 2017/08/10　@レプラホーン株式会社
+</template>
+
+<template class="my-info" layout="cover" type="text/x-markdown">
+## 自己紹介
+
+```
+var my_info = {
+    name:  '桑原聖仁',
+    twitter: '@kuwahara_ngv4（たまに変わります）',
+    github: 'k-kuwahara',
+    qiita:    '@clown0082',
+    skill: 'PHP, CodeIgniter, JavaScript, Riot.js, Angular, Ionic',
+    workplace:  'Leprachaun Corp.'
+}
+```
+</template>
+
+<section layout="title-invert" type="text/x-markdown">
+## Node.jsをまだインストールしていない方はいらっしゃいますか？
+　
+※この先Node.jsをインストールしていないと先に進めないです…w
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## 　　まだ => [__install_nodejs()__](https://nodejs.org/ja/)
+## 入ってる => [__next_page()__](#5)
+
+※windowsの方は、<span class="assert">再起動</span>が必要です。
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+### Node.jsのバージョンが`0.x`、`v4`、`v5`の方はいますか？
+　
+## 最低でも`v6`以上にアップグレードしてください(ﾟ∀ﾟ)
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## これで準備完了です！
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- Socket.ioとは？
+- Socket.ioの導入
+- １行掲示板をリアルタイムなアプリに拡張
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- __<span class="assert">Socket.ioとは？</span>__　<= まずはココ
+- Socket.ioの導入
+- １行掲示板をリアルタイムなアプリに拡張
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## Node.js
+
+大量のリクエストを処理するための仕組みになります。<br>
+Apacheなどはスレッドモデル、Node.jsはイベント<br>ループという処理形式を利用しています。<br>
+（※シングルスレッド形式とも呼ばれる）
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- Socket.ioとは？
+- __<span class="assert">Socket.ioの導入</span>__　<= 次はココ
+- １行掲示板をリアルタイムなアプリに拡張
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- Socket.ioとは？
+- Socket.ioの導入
+- __<span class="assert">１行掲示板をリアルタイムなアプリに拡張</span>__　<= 最後にココ
+</section>
+
+<section layout="cover" type="text/x-markdown">
+# 「Workshop around JavaScript」<br>は終了となります！
+# 合計6回に渡りご参加いただき<br>ありがとうございました♪
+</section>
+
+<section layout="cover" type="text/x-markdown">
+# 少しでもJavaScriptの開発を<br>身近に感じて頂けたのであれば<br>講師冥利に尽きますw
+</section>
+
+<script layout="cover" type="text/x-markdown">
+# お疲れ様でした！そして、
+
+# ありがとうございました！
+</script>
+
+
+  <script src="../../../talkiejs/talkie.min.js"></script>
+  <script src="../../../talkiejs/highlight.min.js"></script>
+  <script>
+  var talkie = Talkie({wide: true});
+  document.addEventListener('DOMContentLoaded', function() {
+    var slides = Array.prototype.slice.call(document.querySelectorAll('[layout]'));
+    slides.forEach(function(item) {
+       if (~item.innerText.indexOf('&gt;')) {
+          item.innerHTML = item.innerHTML.replace(/&amp;gt;/gm, '>')
+       }
+       if (~item.innerText.indexOf('&lt;')) {
+          item.innerHTML = item.innerHTML.replace(/&amp;lt;/gm, '<')
+       }
+    })
+    // talkie.changed.onValue(function(current) {
+    //   console.clear();
+    //   // print presenter notes
+    //   console.info(talkie.notes[current.getAttribute('page')]);
+    // });
+  });
+  </script>
+  </body>
+</html>
