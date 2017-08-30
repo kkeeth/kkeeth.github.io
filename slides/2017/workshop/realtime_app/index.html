@@ -44,33 +44,49 @@
       <h2>今回のアジェンダ</h2>
       <ol>
         <li>Socket.ioの導入</li>
-        <li>チャットアプリをリアルタイムなアプリに拡張</li>
+        <li>リアルタイムに投稿を画面に反映</li>
+        <li>リアルタイムに誰かが入力中である事を表示</li>
       </ol>
       <p>※ 何かあれば随時聞いていただいて問題ありません。</p>
     </section>
 
     <section class="slide">
-      <h2>今回作るアプリのデモ</h2>
-      <p class="fright"><img src="img/demo.png"></p>
+      <h2>作るアプリについて</h2>
       <ul class="mt20">
         <li>
-          <a href="https://gist.github.com/k-kuwahara/341ff8fd28ed8ecd99fb8ce69ba34be4" target="_blank">前回作ったアプリのソース</a>
+          <a href="https://gist.github.com/k-kuwahara/341ff8fd28ed8ecd99fb8ce69ba34be4" target="_blank">前回作ったアプリ</a>
           <ul class="">
-            <li>コピペして<code>node server</code>を叩くと実行できます。</li>
-            <li>デザイン周りを調整しています。</li>
+            <li><mark>ejs</mark>を使いますのでインストールしてください。</li>
+            <li>コピペして<mark>node server</mark>を叩くと実行できます。</li>
+            <li>デザイン周りを微調整しました。</li>
           </ul>
         </li>
-        <li><a href="https://my-chat-app-22974.herokuapp.com/" target="_blank">デモサイト</a></li>
+        <li><a href="https://my-chat-app-22974.herokuapp.com/" target="_blank">今回作るアプリ</a></li>
       </ul>
       <p class="next"><span class="red">まずはデモサイトを触ってみてください♪</span></p>
     </section>
+
 
     <section class="slide center-text">
       <h2 class="shout">軽く変更点の解説</h2>
     </section>
 
+    <section class="slide">
+      <h2>ディレクトリ構成</h2>
+      <pre>
+        <code>├ node_modules/
+├ server.js
+├ settings.js
+└ <value>views/
+    └ bbs.ejs   ←これらを作成・編集
+└ css/
+    └ style.css
+        </code>
+      </pre>
+    </section>
+
     <section class="slide center-text">
-      <p class="f30"><span class="assert">bbs.ejs</span></p>
+      <p class="f30"><span class="assert">bbs.html</span></p>
       <pre class="">
         <code>  <comment>&lt;!-- レスポンシブ対応 --&gt;</comment></code>
         <code>  &lt;<key>meta</key> name="<value>viewport</value>" content="<value>...</value>"&gt;</code>
@@ -78,24 +94,39 @@
         <code>  &lt;<key>link</key> rel="<value>stylesheet</value>" media="<value>all</value>" href="<value>/css/style.css</value>"&gt;</code>
       </pre>
 
-      <p>
-        上記を追加しました。<br>
-        後は、<mark>ul</mark>タグの位置を<mark>form</mark>タグの上に変更しています。
-      </p>
+      <ul>
+        <li>上記を追加</li>
+        <li><mark>ul</mark>タグの位置を<mark>form</mark>タグの上に変更</li>
+      </ul>
     </section>
 
     <section class="slide center-text">
       <p class="f30"><span class="assert">server.js</span></p>
 
       <pre class="">
-        <code>  <error>if</error> (<key>req</key>.url === <value>"/style.css"</value>) {</code>
-        <code>     <key>fs</key>.readFile(<value>'./style.css'</value>, '<value>UTF-8</value>', (err, data) => {</code>
-        <code>        <key>res</key>.writeHead(<key>200</key>, {'<value>Content-Type</value>': '<value>text/css</value>'})</code>
-        <code>        <key>res</key>.write(data)</code>
-        <code>        <key>res</key>.end()</code>
-        <code>     })</code>
-        <code>     <key>return</key></code>
-        <code>  }</code>
+        <code><comment>-  req.on('readable', () => {</comment>  </code>
+        <code><comment>-     req.data += req.read() || ''</comment>  </code>
+        <code><value>+  req.on('data', () => {</value>  </code>
+        <code><value>+     req.data += req.read()</value></code>
+        <code>   })</code>
+        <code>   ...</code>
+        <code><comment>-  posts.push(query.name)</comment></code>
+        <code><value>+  posts.push(query.name || 'null')</value></code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <p class="f30"><span class="assert">server.js</span></p>
+
+      <pre class="">
+        <code><error>if</error> (<key>req</key>.url === <value>"/css/style.css"</value>) {</code>
+        <code>   <key>fs</key>.readFile(<value>'./css/style.css'</value>, '<value>UTF-8</value>', (err, data) => {</code>
+        <code>      <key>res</key>.writeHead(<key>200</key>, {'<value>Content-Type</value>': '<value>text/css</value>'})</code>
+        <code>      <key>res</key>.write(data)</code>
+        <code>      <key>res</key>.end()</code>
+        <code>   })</code>
+        <code>   <key>return</key></code>
+        <code>}</code>
       </pre>
     </section>
 
@@ -122,7 +153,7 @@
       <h3 class="">1. Socket.ioの導入</h3>
       <p class="f30">導入手順は以下です。</p>
       <ol>
-        <li class="next">npmから<mark>socket.io</mark>をインストール</li>
+        <li class="next">npm or yarnから<mark>socket.io</mark>をインストール</li>
         <li class="next">クライアント側でsocket.ioを読み込む</li>
         <li class="next">クライアント側でsocket.ioの処理を書く</li>
         <li class="next">サーバー側でsocket.ioの処理を書く</li>
@@ -130,52 +161,24 @@
     </section>
 
     <section class="slide center-text">
-      <h3 class="">5. webpackの導入</h3>
+      <h3 class="">1. Socket.ioの導入</h3>
+      <p class="f30"><span class="assert-fwn">1. npm or yarnからsocket.ioをインストール</span></p>
+      <p>まずは<mark>socket.io</mark>をインストールするため、以下のどちらかのコマンドを実行してください。</p>
       <pre>
-        <code>  const <key>path</key> = require(<value>'path'</value>)</code>
-        <code>  <error>module.exports</error> = {</code>
-        <code>     <key>entry</key>: <value>'./src/app.js'</value>,</code>
-        <code>     <key>output</key>: {</code>
-        <code>        <key>path</key>: path.join(__dirname, <value>'build'</value>),</code>
-        <code>        <key>filename</key>: <value>'bundle.js'</value></code>
-        <code>     }</code>
-        <code>  }</code>
+        <code>$ <error>yarn</error> add --save <value>socket.io</value>
+$ <error>npm</error> i --save <value>socket.io</value>
+        </code>
       </pre>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">5. webpackの導入</h3>
-      <p>ついでに<mark>mochaの結果画面表示</mark>の記述を削除しましょう。</p>
+      <h3 class="">1. Socket.ioの導入</h3>
+      <p class="f30"><span class="assert-fwn">2. クライアント側でsocket.ioを読み込む</span></p>
+      <p><mark>bbs.ejs</mark>に以下を追記してください。</p>
       <pre>
-        <code>  index.htmlについて</code>
-        <code>  <comment>-  &lt;div id="mocha">&lt;/div&gt;</comment></code>
-        <code>  <comment>-  &lt;script&gt; mocha.setup('bdd') &lt;/script&gt;</comment></code>
-        <code>  app.jsについて</code>
-        <code>  <comment>-  // mochaの実行</comment></code>
-        <code>  <comment>-  mocha.run()</comment></code>
+        <code>
+        </code>
       </pre>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">5. webpackの導入</h3>
-      <p class="f30"><span class="assert-fwn">5. バンドルを実行</span></p>
-      <p>では実行してみましょう！</p>
-      <pre>
-        <code>  $ <error>yarn</error> <value>build</value></code>
-      </pre>
-      <p class="f30">build/bundle.jsが出力されていれば成功です♪</p>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">5. webpackの導入</h3>
-      <p class="f30">出力されたbundle.jsをindex.htmlに読み込ませてみましょう。</p>
-      <pre>
-        <code>  <comment>-  &lt;script src="src/app.js"&gt;&lt;/script&gt;</comment></code>
-        <code>  <comment>-  &lt;script src="src/util.js"&gt;&lt;/script&gt;</comment></code>
-        <code>  <comment>-  &lt;script src="test/util-spec.js"&gt;&lt;/script&gt;</comment></code>
-        <code>  <value>+  &lt;script src="build/bundle.js"&gt;&lt;/script&gt;</value></code>
-      </pre>
-      <p class="f30">修正しましたら、ブラウザで確認してみましょう！</p>
     </section>
 
     <section class="slide center-text">
