@@ -1,129 +1,395 @@
-<html>
+<!DOCTYPE html>
+<html lang="ja">
   <head>
+    <title>Socket.ioでリアルタイムwebアプリケーション開発</title>
     <meta charset="utf-8">
-    <title>Socket.ioを用いてリアルタイムwebアプリケーション開発</title>
-    <link rel="stylesheet" href="../../../talkiejs/talkie.min.css">
-    <link rel="stylesheet" href="../../../talkiejs/talkie-default.min.css">
-    <link rel="stylesheet" href="../../../talkiejs/style.css">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../../shower/themes/ribbon/styles/screen-16x10.css">
+    <link rel="stylesheet" href="../../../assets/style.css">
     <link rel="shortcut icon" href="../../../assets/favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/monokai.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
-  <body>
-<template layout="cover" type="text/x-markdown">
-# Socket.ioを用いてリアルタイムwebアプリケーション開発
-### 2017/08/10　@レプラホーン株式会社
-</template>
+  <body class="shower list">
+    <header class="caption">
+      <h1>Socket.ioでリアルタイムwebアプリケーション開発</h1>
+      <p class="desc">
+        Click：　スライドスタート<br>
+        Enter：　次へ進む<br>
+        →, ↓：　次へ進む<br>
+        ←, ↑：　前へ戻る<br>
+        ESC：　一覧へ戻る
+      </p>
+    </header>
+    <section class="slide" id="cover">
+      <h2 class="mt90">Socket.ioでリアルタイム<br>webアプリケーション開発</h2>
+      <p>2017/08/31　@レプラホーン本社</p>
+    </section>
 
-<template class="my-info" layout="cover" type="text/x-markdown">
-## 自己紹介
+    <section class="slide">
+      <h2>自己紹介</h2>
+      <pre>
+<code>var my_info = {
+  <key>name</key>: <value>'Kiyohito Kuwahara'</value>,
+  <key>twitter</key>: <value>'@kuwahara_ngv4'（たまに変わります）</value>,
+  <key>github</key> : <value>'k-kuwahara'</value>,
+  <key>qiita</key>  : <value>'@clown0082'</value>,
+  <key>skill</key>  : <value>'PHP, CodeIgniter, JS, Riot, Angular'</value>,
+  <key>workplace</key>: <value>'Leprachaun Corp.'</value>
+}</code>
+      </pre>
+    </section>
 
-```
-var my_info = {
-    name:  '桑原聖仁',
-    twitter: '@kuwahara_ngv4（たまに変わります）',
-    github: 'k-kuwahara',
-    qiita:    '@clown0082',
-    skill: 'PHP, CodeIgniter, JavaScript, Riot.js, Angular, Ionic',
-    workplace:  'Leprachaun Corp.'
-}
-```
-</template>
+    <section class="slide">
+      <h2>今回のアジェンダ</h2>
+      <ol>
+        <li>Socket.ioの導入</li>
+        <li>チャットアプリをリアルタイムなアプリに拡張</li>
+      </ol>
+      <p>※ 何かあれば随時聞いていただいて問題ありません。</p>
+    </section>
 
-<section layout="title-invert" type="text/x-markdown">
-## Node.jsをまだインストールしていない方はいらっしゃいますか？
-　
-※この先Node.jsをインストールしていないと先に進めないです…w
-</section>
+    <section class="slide">
+      <h2>今回作るアプリのデモ</h2>
+      <p class="fright"><img src="img/demo.png"></p>
+      <ul class="mt20">
+        <li>
+          <a href="https://gist.github.com/k-kuwahara/341ff8fd28ed8ecd99fb8ce69ba34be4" target="_blank">前回作ったアプリのソース</a>
+          <ul class="">
+            <li>コピペして<code>node server</code>を叩くと実行できます。</li>
+            <li>デザイン周りを調整しています。</li>
+          </ul>
+        </li>
+        <li><a href="https://my-chat-app-22974.herokuapp.com/" target="_blank">デモサイト</a></li>
+      </ul>
+      <p class="next"><span class="red">まずはデモサイトを触ってみてください♪</span></p>
+    </section>
 
-<section layout="title-invert" type="text/x-markdown">
-## 　　まだ => [__install_nodejs()__](https://nodejs.org/ja/)
-## 入ってる => [__next_page()__](#5)
+    <section class="slide center-text">
+      <h2 class="shout">軽く変更点の解説</h2>
+    </section>
 
-※windowsの方は、<span class="assert">再起動</span>が必要です。
-</section>
+    <section class="slide center-text">
+      <p class="f30"><span class="assert">bbs.ejs</span></p>
+      <pre class="">
+        <code>  <comment>&lt;!-- レスポンシブ対応 --&gt;</comment></code>
+        <code>  &lt;<key>meta</key> name="<value>viewport</value>" content="<value>...</value>"&gt;</code>
+        <code>  <comment>&lt;!-- デザインの読み込み --&gt;</comment></code>
+        <code>  &lt;<key>link</key> rel="<value>stylesheet</value>" media="<value>all</value>" href="<value>/css/style.css</value>"&gt;</code>
+      </pre>
 
-<section layout="title-invert" type="text/x-markdown">
-### Node.jsのバージョンが`0.x`、`v4`、`v5`の方はいますか？
-　
-## 最低でも`v6`以上にアップグレードしてください(ﾟ∀ﾟ)
-</section>
+      <p>
+        上記を追加しました。<br>
+        後は、<mark>ul</mark>タグの位置を<mark>form</mark>タグの上に変更しています。
+      </p>
+    </section>
 
-<section layout="title-invert" type="text/x-markdown">
-## これで準備完了です！
-</section>
+    <section class="slide center-text">
+      <p class="f30"><span class="assert">server.js</span></p>
 
-<section layout="bullets" type="text/x-markdown">
-## 今回のアジェンダ
-- Socket.ioとは？
-- Socket.ioの導入
-- １行掲示板をリアルタイムなアプリに拡張
-</section>
+      <pre class="">
+        <code>  <error>if</error> (<key>req</key>.url === <value>"/style.css"</value>) {</code>
+        <code>     <key>fs</key>.readFile(<value>'./style.css'</value>, '<value>UTF-8</value>', (err, data) => {</code>
+        <code>        <key>res</key>.writeHead(<key>200</key>, {'<value>Content-Type</value>': '<value>text/css</value>'})</code>
+        <code>        <key>res</key>.write(data)</code>
+        <code>        <key>res</key>.end()</code>
+        <code>     })</code>
+        <code>     <key>return</key></code>
+        <code>  }</code>
+      </pre>
+    </section>
 
-<section layout="bullets" type="text/x-markdown">
-## 今回のアジェンダ
-- __<span class="assert">Socket.ioとは？</span>__　<= まずはココ
-- Socket.ioの導入
-- １行掲示板をリアルタイムなアプリに拡張
-</section>
+    <section class="slide center-text">
+      <h2 class="shout">本題</h2>
+    </section>
 
-<section layout="bullets" type="text/x-markdown">
-## Node.js
+    <section class="slide center-text">
+      <h2 class="shout">1. Socket.ioの導入</h2>
+    </section>
 
-大量のリクエストを処理するための仕組みになります。<br>
-Apacheなどはスレッドモデル、Node.jsはイベント<br>ループという処理形式を利用しています。<br>
-（※シングルスレッド形式とも呼ばれる）
-</section>
+    <section class="slide center-text">
+      <h3 class="">1. Socket.ioの導入</h3>
+      <p class="f30"><span class="assert-fwn">Socket.io</span></p>
+      <p class="">「FEATURING THE FASTEST AND MOST RELIABLE REAL-TIME ENGINE」</span></p><br>
+      <p>
+        リアルタイムWebアプリケーションを作る上で最も利用されているツールです！
+        クライアント・サーバ双方からデータを送受信することで実装でき、とても簡単に開発ができる優れもの！
+      </p>
+      <p class="codicil">（<a href="https://socket.io/" target="_blank">公式サイト</a>）</p>
+    </section>
 
-<section layout="bullets" type="text/x-markdown">
-## 今回のアジェンダ
-- Socket.ioとは？
-- __<span class="assert">Socket.ioの導入</span>__　<= 次はココ
-- １行掲示板をリアルタイムなアプリに拡張
-</section>
+    <section class="slide center-text">
+      <h3 class="">1. Socket.ioの導入</h3>
+      <p class="f30">導入手順は以下です。</p>
+      <ol>
+        <li class="next">npmから<mark>socket.io</mark>をインストール</li>
+        <li class="next">クライアント側でsocket.ioを読み込む</li>
+        <li class="next">クライアント側でsocket.ioの処理を書く</li>
+        <li class="next">サーバー側でsocket.ioの処理を書く</li>
+      </ol>
+    </section>
 
-<section layout="bullets" type="text/x-markdown">
-## 今回のアジェンダ
-- Socket.ioとは？
-- Socket.ioの導入
-- __<span class="assert">１行掲示板をリアルタイムなアプリに拡張</span>__　<= 最後にココ
-</section>
+    <section class="slide center-text">
+      <h3 class="">5. webpackの導入</h3>
+      <pre>
+        <code>  const <key>path</key> = require(<value>'path'</value>)</code>
+        <code>  <error>module.exports</error> = {</code>
+        <code>     <key>entry</key>: <value>'./src/app.js'</value>,</code>
+        <code>     <key>output</key>: {</code>
+        <code>        <key>path</key>: path.join(__dirname, <value>'build'</value>),</code>
+        <code>        <key>filename</key>: <value>'bundle.js'</value></code>
+        <code>     }</code>
+        <code>  }</code>
+      </pre>
+    </section>
 
-<section layout="cover" type="text/x-markdown">
-# 「Workshop around JavaScript」<br>は終了となります！
-# 合計6回に渡りご参加いただき<br>ありがとうございました♪
-</section>
+    <section class="slide center-text">
+      <h3 class="">5. webpackの導入</h3>
+      <p>ついでに<mark>mochaの結果画面表示</mark>の記述を削除しましょう。</p>
+      <pre>
+        <code>  index.htmlについて</code>
+        <code>  <comment>-  &lt;div id="mocha">&lt;/div&gt;</comment></code>
+        <code>  <comment>-  &lt;script&gt; mocha.setup('bdd') &lt;/script&gt;</comment></code>
+        <code>  app.jsについて</code>
+        <code>  <comment>-  // mochaの実行</comment></code>
+        <code>  <comment>-  mocha.run()</comment></code>
+      </pre>
+    </section>
 
-<section layout="cover" type="text/x-markdown">
-# 少しでもJavaScriptの開発を<br>身近に感じて頂けたのであれば<br>講師冥利に尽きますw
-</section>
+    <section class="slide center-text">
+      <h3 class="">5. webpackの導入</h3>
+      <p class="f30"><span class="assert-fwn">5. バンドルを実行</span></p>
+      <p>では実行してみましょう！</p>
+      <pre>
+        <code>  $ <error>yarn</error> <value>build</value></code>
+      </pre>
+      <p class="f30">build/bundle.jsが出力されていれば成功です♪</p>
+    </section>
 
-<script layout="cover" type="text/x-markdown">
-# お疲れ様でした！そして、
+    <section class="slide center-text">
+      <h3 class="">5. webpackの導入</h3>
+      <p class="f30">出力されたbundle.jsをindex.htmlに読み込ませてみましょう。</p>
+      <pre>
+        <code>  <comment>-  &lt;script src="src/app.js"&gt;&lt;/script&gt;</comment></code>
+        <code>  <comment>-  &lt;script src="src/util.js"&gt;&lt;/script&gt;</comment></code>
+        <code>  <comment>-  &lt;script src="test/util-spec.js"&gt;&lt;/script&gt;</comment></code>
+        <code>  <value>+  &lt;script src="build/bundle.js"&gt;&lt;/script&gt;</value></code>
+      </pre>
+      <p class="f30">修正しましたら、ブラウザで確認してみましょう！</p>
+    </section>
 
-# ありがとうございました！
-</script>
+    <section class="slide center-text">
+      <h2 class="shout">6. karmaの導入</h2>
+    </section>
 
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <p class="f30">これまでNode.js上でテストしてきましたが、<mark>ブラウザによっては動かない</mark>可能性があります。</p>
+      <p class="f30">
+        ブラウザを起動してテストを実行してくれるのが、<a href="https://karma-runner.github.io/1.0/index.html" target="_blank">karma</a>です。
+        この子用のプラグインを使って、各ブラウザで動くのかテストしてみましょう！
+      </p>
+    </section>
 
-  <script src="../../../talkiejs/talkie.min.js"></script>
-  <script src="../../../talkiejs/highlight.min.js"></script>
-  <script>
-  var talkie = Talkie({wide: true});
-  document.addEventListener('DOMContentLoaded', function() {
-    var slides = Array.prototype.slice.call(document.querySelectorAll('[layout]'));
-    slides.forEach(function(item) {
-       if (~item.innerText.indexOf('&gt;')) {
-          item.innerHTML = item.innerHTML.replace(/&amp;gt;/gm, '>')
-       }
-       if (~item.innerText.indexOf('&lt;')) {
-          item.innerHTML = item.innerHTML.replace(/&amp;lt;/gm, '<')
-       }
-    })
-    // talkie.changed.onValue(function(current) {
-    //   console.clear();
-    //   // print presenter notes
-    //   console.info(talkie.notes[current.getAttribute('page')]);
-    // });
-  });
-  </script>
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <p class="f30">導入手順は以下です。</p>
+      <ol>
+        <li class="next">npmから<mark>karma, karma-cli</mark>をインストール</li>
+        <li class="next">karma-cliを起動し<mark>karma.conf.js</mark>を作成</li>
+        <li class="next"><mark>karma.conf.js</mark>の設定を変更</li>
+        <li class="next"><mark>package.json</mark>の設定を変更</li>
+        <li class="next">テストを実行</li>
+      </ol>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <p class="f30"><span class="assert-fwn">1. npmから<mark>karma, karma-cli</mark>をインストール</span></p>
+      <pre>
+        <code>$ <error>yarn</error> add -D <value>karma karma-cli</value></code>
+      </pre>
+
+      <p class="f30"><span class="assert-fwn">その他のモジュールをインストール</span></p>
+      <pre>
+        <code>$ <error>yarn</error> add -D <value>karma-chrome-launcher karma-safari-launcher</value></code>
+        <code>  <value>karma-firefox-launcher karma-mocha karma-webpack</value></code>
+        <code>  <value>karma-mocha-reporter karma-coverage</value>（←これらは好みで）</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <p class="f30"><span class="assert-fwn">2. karma-cliを起動し<mark>karma.conf.js</mark>を作成</span></p>
+      <p class="">の前に、package.jsonに<mark>karma</mark>コマンドを設定しましょう。</p>
+      <pre>
+        <code>  "scripts": {</code>
+        <code><value>+     "karma": "karma",</code>
+        <code>     "build": "webpack",</code>
+        <code>     "test": "mocha"</code>
+        <code>  }</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <p class="f30"><span class="assert-fwn">2. karma-cliを起動し<mark>karma.conf.js</mark>を作成</span></p>
+      <p class="">では<mark>karma-cli</mark>を起動しましょう。</p>
+      <pre>
+        <code>$ <error>yarn</error> <value>karma</value> init</code>
+      </pre>
+
+      <p class="">以下、対話的に設定内容を決めていくことになります。</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+<pre>
+<code>Which testing framework do you want to use ?
+<comment>Press tab to list possible options.<br> Enter to move to the next question.</comment>
+<value>> jasmine</value>
+</code>
+</pre>
+      <p class="f30">ここで利用するテストフレームワークを選択します。<br>今回は<mark>mocha</mark>を選んで下さい。</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+<pre>
+<code>Do you want to use Require.js ?
+<comment>Press tab to list possible options.<br> Enter to move to the next question.</comment>
+<value>> no</value>
+</code>
+</pre>
+      <p class="f30">今回はRequire.jsを利用しないので、<mark>no</mark>を選んで下さい。</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+<pre>
+<code>Do you want to capture any browsers automatically ?
+<comment>Press tab to list possible options.<br> Enter empty string to move to the next question.</comment>
+<value>> Chrome</value>
+<value>> Firefox</value>
+<value>> Safari</value>
+</code>
+</pre>
+      <p class="f30">テストしたいブラウザを選んで下さい。</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+<pre>
+<code>What is the location of your source and test files ?
+<comment>Press tab to list possible options.<br> Enter to move to the next question.</comment>
+<value>> test/*spec.js</value>
+</code>
+</pre>
+      <p class="f30">読み込むテストコードの<mark>パス</mark>を指定してください。<br>※ ワイルドカードも使えます。</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+<pre>
+<code>Should any of the files included by the previous patterns<br> be excluded ?
+<comment>You can use glob patterns, eg. "js/*.js" or <br> "test/**/*Spec.js". Enter to move to the next question.</comment>
+<value>></value>
+</code>
+</pre>
+      <p class="f30">先程指定したコードで除外したいものがありましたら、<mark>パス</mark>を指定してください。今回はなしです。</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+<pre>
+<code>Do you want Karma to watch all the files and run the tests<br> on change ?
+<comment>Press tab to list possible options.</comment>
+<value>> yes</value>
+</code>
+</pre>
+      <p class="f30">簡単に言うと、watchモードにするか、否かです。今回は<mark>yes</mark>を選択してください。</p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <h4 class="shout"><span class="emphasis">karma.conf.jsの完成です！</span></h4>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <p class="f30"><span class="emphasis">3. <mark>karma.conf.js</mark>の設定を変更</span></p>
+      <p class="">
+        このままkarmaを起動すると<span class="red">Uncaught ReferenceError: require is not defined</span>と言われます。
+        これは、ブラウザでは<mark>require()</mark>が使えないからです。したがって、<b>「5. webpackを導入」</b>と同様に、ブラウザで動くように
+        webpackを通してやる必要があります。
+      </p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <p class="f30"><span class="emphasis">3. <mark>karma.conf.js</mark>の設定を変更</span></p>
+      <p class="">karma.conf.jsに以下のように追記します。</p>
+      <pre>
+        <code>  preprocessors: {</code>
+        <code><value>+     'test/*spec.js': ['webpack']</value></code>
+        <code>  },</code>
+        <code><comment>-  reporters: ['progress'],</comment></code>
+        <code><value>+  reporters: ['progress', 'mocha', 'coverage'],</value></code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <p class="f30"><span class="emphasis">4. <mark>package.json</mark>の設定を変更</span></p>
+      <p class="">karmaを起動するために、package.jsonを以下のように修正します。</p>
+      <pre>
+        <code>  "scripts": {</code>
+        <code>     ...</code>
+        <code><comment>-     "test": "mocha"</comment></code>
+        <code><value>+     "test": "karma start"</value></code>
+        <code>  }</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">6. karmaの導入</h3>
+      <p class="f30"><span class="emphasis">5. テストを実行</p>
+      <p class="f30">では、実行してみましょう！</p>
+      <pre>
+        <code>$ <error>yarn</error> test</code>
+      </pre>
+      <p>それぞれのブラウザが勝手に起動してテスト結果がコマンドラインに表示されたかと思います♪</p>
+    </section>
+
+    <section class="slide center-text">
+      ## 今回のアジェンダ
+      - Socket.ioとは？
+      - __<span class="assert">Socket.ioの導入</span>__　<= 次はココ
+      - １行掲示板をリアルタイムなアプリに拡張
+    </section>
+
+    <section class="slide center-text">
+      ## 今回のアジェンダ
+      - Socket.ioとは？
+      - Socket.ioの導入
+      - __<span class="assert">１行掲示板をリアルタイムなアプリに拡張</span>__　<= 最後にココ
+    </section>
+
+    <section class="slide center-text">
+      # 「Workshop around JavaScript」<br>は終了となります！
+      # 合計6回に渡りご参加いただき<br>ありがとうございました♪
+    </section>
+
+    <section class="slide center-text">
+      # 少しでもJavaScriptの開発を<br>身近に感じて頂けたのであれば<br>講師冥利に尽きますw
+    </section>
+
+    <section class="slide center-text">
+      # お疲れ様でした！そして、
+
+      # ありがとうございました！
+    </script>
+
+    <script src="../../../shower/shower.min.js"></script>
   </body>
 </html>
