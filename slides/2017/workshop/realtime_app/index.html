@@ -244,9 +244,9 @@ $ <error>npm</error> i --save <value>socket.io</value>
         <code>      $('<value>form</value>').submit((<key>e</key>) => {</code>
         <code>         <comment>// サーバー側にデータを送信</comment></code>
         <code>         <key>socket</key>.emit('<key>chat message</key>', e.target.txt.value)</code>
+        <code>         return <error>false</error></code>
         <code>       })</code>
-        <code>    })</code>
-        <code>&lt;/<key>script</key>&gt;</code>
+        <code>   （以下省略）</code>
       </pre>
     </section>
 
@@ -285,11 +285,10 @@ $ <error>npm</error> i --save <value>socket.io</value>
       <pre>
         <code>  <comment>// <mark>server.js</mark>  以下を追記</comment></code>
         <code>  <key>socket</key>.on('<key>chat message</key>', (<value>msg</value>) => {</code>
-        <code><value>+     posts.push(msg)</value></code>
         <code>      console.info(msg)</code>
+        <code><comment>      // クライアントにデータを送信</code>
+        <code><value>+     io.emit('add message', msg)</value></code>
         <code>   })</code>
-        <code>  <comment>// クライアントにデータを送信</code>
-        <code><value>+  socket.emit('add message', posts)</value></code>
       </pre>
       （続く）
     </section>
@@ -299,8 +298,8 @@ $ <error>npm</error> i --save <value>socket.io</value>
       <p>（続き）</p>
       <pre>
         <code>  <comment>// <mark>bbs.html</mark> のscript内に以下を追記</comment></code>
-        <code><value>+  socket.on('add message', posts) => {</value></code>
-        <code><value>+     alert(posts)</value></code>
+        <code><value>+  socket.on('add message', (msg) => {</value></code>
+        <code><value>+     alert(msg)</value></code>
         <code><value>+  })</value></code>
       </pre>
     </section>
@@ -309,6 +308,110 @@ $ <error>npm</error> i --save <value>socket.io</value>
       <h3 class="">1. Socket.ioの導入</h3>
       <br>
       <h2>では、サーバーを再起動しアプリを見てみましょう！</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="shout">2. リアルタイムに<br>投稿を画面に反映</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">2. リアルタイムに投稿を画面に反映</h3>
+      <p>
+        今のままだと書き込みが表示されないので表示しましょう。<br>
+        <mark>bbs.html</mark>を以下の用に修正してください。
+      </p>
+      <pre>
+        <code>  <comment>// <mark>bbs.html</mark> のscript内に以下を追記</comment></code>
+        <code>  socket.on('add message', (msg) => {</code>
+        <code><comment>-     alert(msg)</comment></code>
+        <code><value>+     $('#posts').append($("&lt;li&gt;").text(msg))</value></code>
+        <code>  })</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">2. リアルタイムに投稿を画面に反映</h3>
+      <br>
+      <h2>では、サーバーを再起動しアプリを見てみましょう！</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="shout">3. リアルタイムに誰かが<br> 入力中である事を表示</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. リアルタイムに誰かが入力中である事を表示</h3>
+      <p>
+        slackのように複数人でアクセスしている時、入力中である文言を表示させてみましょう！<br>
+        <mark>bbs.html</mark>を以下の用に修正してください。
+      </p>
+      <pre>
+        <code><value>+  &lt;p id="msg"&gt;Someone is typing...&lt;/p&gt;</value></code>
+        <code>   &lt;form method="post"&gt;</code>
+        <code>   （続く）</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. リアルタイムに誰かが入力中である事を表示</h3>
+      <pre>
+        <code>   var socket = io();</code>
+        <code><value>+  $('input[type="text"]').focus((e) => {</value></code>
+        <code><value>+     socket.emit('typing')</value></code>
+        <code><value>+  })</value></code>
+        <code><value>+  $('input[type="text"]').blur((e) => {</value></code>
+        <code><value>+     socket.emit('finish typing')</value></code>
+        <code><value>+  })</value>   <comment>// まだ続く</comment></code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. リアルタイムに誰かが入力中である事を表示</h3>
+      <pre>
+        <code><value>+  socket.on('typing', () => {</value></code>
+        <code><value>+     $('#msg').fadeIn("normal")</value></code>
+        <code><value>+  })</value></code>
+        <code><value>+  socket.on('finish typing', () => {</value></code>
+        <code><value>+     $('#msg').fadeOut("normal")</value></code>
+        <code><value>+  })</value></code>
+        <code>（修正はまだ続きます）</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. リアルタイムに誰かが入力中である事を表示</h3>
+      <p>
+        クライアント側が終わったので、次はサーバー側です。<br>
+        <mark>server.js</mark>を以下の用に修正してください。（長いので次のページへ）
+      </p>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. リアルタイムに誰かが入力中である事を表示</h3>
+      <pre>
+        <code><value>+  socket.on("typing", function () {</value></code>
+        <code><comment>     // 入力者には表示しなくてもいい</comment></code>
+        <code><value>+     socket.broadcast.emit("typing")</value></code>
+        <code><value>+  })</value></code>
+        <code><value>+  socket.on("finish typing", function () {</value></code>
+        <code><value>+     socket.broadcast.emit("finish typing")</value></code>
+        <code><value>+  })</value></code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">3. リアルタイムに誰かが入力中である事を表示</h3>
+      <br>
+      <h2>修正が完了しましたら、サーバーを再起動しアプリを見てみましょう！</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="shout">課題</h2>
+    </section>
+    <section class="slide center-text">
+      <h3 class="">課題</h3>
+      <br>
+      <h3 class=""><mark>Express</mark>というフレームワークを使ってアプリを作り直してみましょう！</h2>
     </section>
 
     <section class="slide center-text">
