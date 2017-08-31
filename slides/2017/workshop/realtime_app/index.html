@@ -51,7 +51,7 @@
     </section>
 
     <section class="slide">
-      <h2>作るアプリについて</h2>
+      <h2>前回作ったアプリについて</h2>
       <ul class="mt20">
         <li>
           <a href="https://gist.github.com/k-kuwahara/341ff8fd28ed8ecd99fb8ce69ba34be4" target="_blank">前回作ったアプリ</a>
@@ -61,9 +61,7 @@
             <li>デザイン周りを微調整しました。</li>
           </ul>
         </li>
-        <li><a href="https://my-chat-app-22974.herokuapp.com/" target="_blank">今回作るアプリ</a></li>
       </ul>
-      <p class="next"><span class="red">まずはデモサイトを触ってみてください♪</span></p>
     </section>
 
 
@@ -77,8 +75,9 @@
         <code>├ node_modules/
 ├ server.js
 ├ settings.js
-└ <value>views/
-    └ bbs.ejs   ←これらを作成・編集
+└ <value>views/</value>
+    ├ bbs.ejs
+    <value>└ bbs.html   ←これらを作成・編集
 └ css/
     └ style.css
         </code>
@@ -86,7 +85,7 @@
     </section>
 
     <section class="slide center-text">
-      <p class="f30"><span class="assert">bbs.html</span></p>
+      <p class="f30"><span class="assert">bbs.ejs</span></p>
       <pre class="">
         <code>  <comment>&lt;!-- レスポンシブ対応 --&gt;</comment></code>
         <code>  &lt;<key>meta</key> name="<value>viewport</value>" content="<value>...</value>"&gt;</code>
@@ -97,6 +96,7 @@
       <ul>
         <li>上記を追加</li>
         <li><mark>ul</mark>タグの位置を<mark>form</mark>タグの上に変更</li>
+        <li><mark>ul</mark>タグに<mark>id="posts"</mark>を追加</li>
       </ul>
     </section>
 
@@ -104,15 +104,16 @@
       <p class="f30"><span class="assert">server.js</span></p>
 
       <pre class="">
-        <code><comment>-  req.on('readable', () => {</comment>  </code>
-        <code><comment>-     req.data += req.read() || ''</comment>  </code>
-        <code><value>+  req.on('data', () => {</value>  </code>
-        <code><value>+     req.data += req.read()</value></code>
-        <code>   })</code>
-        <code>   ...</code>
-        <code><comment>-  posts.push(query.name)</comment></code>
-        <code><value>+  posts.push(query.name || 'null')</value></code>
+        <code>  req.on('end', () => {</code>
+        <code>     let query = qs.parse(req.data)</code>
+        <code><comment>-    posts.push(query.name)</comment></code>
+        <code><value>+    posts.push(query.txt || 'null')</value></code>
+        <code>     renderForm(posts, res)</code>
+        <code>  })</code>
       </pre>
+      <ul>
+        <li>明示的に空の場合は"null"という文字列を付与。</li>
+      </ul>
     </section>
 
     <section class="slide center-text">
@@ -134,6 +135,15 @@
       <h2 class="shout">本題</h2>
     </section>
 
+    <section class="slide">
+      <h2>今回作るアプリについて</h2>
+      <p class="">
+        まずはデモサイトを触ってみて、どんな感じになるか<br>
+        前回参加された方は違いを見てください♪
+      </p>
+      <p>↓↓↓</p>
+      <p class="f30"><a href="https://my-chat-app-22974.herokuapp.com/" target="_blank">デモサイト<i class="fa fa-external-link" aria-hidden="true"></i></a></a></p>
+    </section>
     <section class="slide center-text">
       <h2 class="shout">1. Socket.ioの導入</h2>
     </section>
@@ -146,7 +156,7 @@
         リアルタイムWebアプリケーションを作る上で最も利用されているツールです！
         クライアント・サーバ双方からデータを送受信することで実装でき、とても簡単に開発ができる優れもの！
       </p>
-      <p class="codicil">（<a href="https://socket.io/" target="_blank">公式サイト</a>）</p>
+      <p class="codicil">（<a href="https://socket.io/" target="_blank">公式サイト</a>を参照）</p>
     </section>
 
     <section class="slide center-text">
@@ -161,14 +171,38 @@
     </section>
 
     <section class="slide center-text">
+      <h2 class="shout">導入前作業</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">導入前作業</h3>
+      <ol>
+        <li>bbs.ejsのコピーして<mark>bbs.html</mark>を作成</li>
+        <li>作成したbbs.htmlの<mark>ulタグの中身</mark>を削除</li>
+        <li><mark>fs.readFileSync()</mark>のファイル名の指定をbbs.htmlに変更</li>
+        <li>server.jsの<mark>req.method === 'POST'</mark>の処理を丸っと削除</li>
+        <li>削除したところに<mark>renderForm(posts, res)</mark>の1行を追記</li>
+        <li>renderForm() 内の頭3行を削除</li>
+      </ol>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="shout">1. npm or yarnから<br>socket.ioをインストール</h2>
+    </section>
+
+    <section class="slide center-text">
       <h3 class="">1. Socket.ioの導入</h3>
       <p class="f30"><span class="assert-fwn">1. npm or yarnからsocket.ioをインストール</span></p>
       <p>まずは<mark>socket.io</mark>をインストールするため、以下のどちらかのコマンドを実行してください。</p>
       <pre>
-        <code>$ <error>yarn</error> add --save <value>socket.io</value>
+        <code>$ <error>yarn</error> add <value>socket.io</value>
 $ <error>npm</error> i --save <value>socket.io</value>
         </code>
       </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h2 class="shout">2. クライアント側で<br>socket.ioを読み込む</h2>
     </section>
 
     <section class="slide center-text">
@@ -176,221 +210,121 @@ $ <error>npm</error> i --save <value>socket.io</value>
       <p class="f30"><span class="assert-fwn">2. クライアント側でsocket.ioを読み込む</span></p>
       <p><mark>bbs.ejs</mark>に以下を追記してください。</p>
       <pre>
-        <code>
-        </code>
+        <code>  <comment>&lt;!-- socket.ioの読み込み --&gt;</comment></code>
+        <code>  &lt;<key>script</key> src="<value>/socket.io/socket.io.js</value>"&gt;&lt;/<key>script</key>&gt;</code>
+        <code>  <comment>&lt;!-- jqueryをCDNから取得 --&gt;</comment></code>
+        <code>  &lt;<key>script</key> src="<value>https://code.jquery.com/jquery-1.12.1.js</value>"&gt;</code>
+        <code>  &lt;/<key>script</key>&gt;</code>
       </pre>
     </section>
 
     <section class="slide center-text">
-      <h2 class="shout">6. karmaの導入</h2>
+      <h2 class="shout">3. クライアント側で<br>socket.ioの処理を書く</h2>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">6. karmaの導入</h3>
-      <p class="f30">これまでNode.js上でテストしてきましたが、<mark>ブラウザによっては動かない</mark>可能性があります。</p>
-      <p class="f30">
-        ブラウザを起動してテストを実行してくれるのが、<a href="https://karma-runner.github.io/1.0/index.html" target="_blank">karma</a>です。
-        この子用のプラグインを使って、各ブラウザで動くのかテストしてみましょう！
+      <h3 class="">1. Socket.ioの導入</h3>
+      <p class="f30"><span class="assert-fwn">3. クライアント側でsocket.ioの処理を書く</span></p>
+      <p>基本的にSocket.ioでは
+        <ul>
+          <li>socket<mark>.on</mark>('キー')：受信処理</li>
+          <li>socket<mark>.emit</mark>('キー')：送信処理</li>
+        </ul>
+        となっています。<br>
+        では、<mark>bbs.ejs</mark>に次の行を追記してください。（※長いので次のページへ）
       </p>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">6. karmaの導入</h3>
-      <p class="f30">導入手順は以下です。</p>
-      <ol>
-        <li class="next">npmから<mark>karma, karma-cli</mark>をインストール</li>
-        <li class="next">karma-cliを起動し<mark>karma.conf.js</mark>を作成</li>
-        <li class="next"><mark>karma.conf.js</mark>の設定を変更</li>
-        <li class="next"><mark>package.json</mark>の設定を変更</li>
-        <li class="next">テストを実行</li>
-      </ol>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">6. karmaの導入</h3>
-      <p class="f30"><span class="assert-fwn">1. npmから<mark>karma, karma-cli</mark>をインストール</span></p>
       <pre>
-        <code>$ <error>yarn</error> add -D <value>karma karma-cli</value></code>
-      </pre>
-
-      <p class="f30"><span class="assert-fwn">その他のモジュールをインストール</span></p>
-      <pre>
-        <code>$ <error>yarn</error> add -D <value>karma-chrome-launcher karma-safari-launcher</value></code>
-        <code>  <value>karma-firefox-launcher karma-mocha karma-webpack</value></code>
-        <code>  <value>karma-mocha-reporter karma-coverage</value>（←これらは好みで）</code>
+        <code>&lt;<key>script</key>&gt;</code>
+        <code>   $(<value>function</value> () { </code>
+        <code>      <comment>// socket.ioのインスタンス生成</comment></code>
+        <code>      <error>var</error> socket = <value>io</value>()</code>
+        <code>      $('<value>form</value>').submit((<key>e</key>) => {</code>
+        <code>         <comment>// サーバー側にデータを送信</comment></code>
+        <code>         <key>socket</key>.emit('<key>chat message</key>', e.target.txt.value)</code>
+        <code>       })</code>
+        <code>    })</code>
+        <code>&lt;/<key>script</key>&gt;</code>
       </pre>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">6. karmaの導入</h3>
-      <p class="f30"><span class="assert-fwn">2. karma-cliを起動し<mark>karma.conf.js</mark>を作成</span></p>
-      <p class="">の前に、package.jsonに<mark>karma</mark>コマンドを設定しましょう。</p>
+      <h2 class="shout">4. サーバー側で<br>socket.ioの処理を書く</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">1. Socket.ioの導入</h3>
+      <p class="f30"><span class="assert-fwn">4. サーバー側でsocket.ioの処理を書く</span></p>
       <pre>
-        <code>  "scripts": {</code>
-        <code><value>+     "karma": "karma",</code>
-        <code>     "build": "webpack",</code>
-        <code>     "test": "mocha"</code>
-        <code>  }</code>
+        <code>  <comment>// <mark>server.js</mark>の末尾に以下を追記</comment></code>
+        <code>  <error>let</error> io = <key>socket</key>.listen(<value>server</value>)</code>
+        <code>  <key>io</key>.on('<key>connection</key>', (<value>socket</value>) => {</code>
+        <code>     <key>socket</key>.on('<key>chat message</key>', (<value>msg</value>) => {</code>
+        <code>        console.info(msg)</code>
+        <code>     })</code>
+        <code>  })</code>
       </pre>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">6. karmaの導入</h3>
-      <p class="f30"><span class="assert-fwn">2. karma-cliを起動し<mark>karma.conf.js</mark>を作成</span></p>
-      <p class="">では<mark>karma-cli</mark>を起動しましょう。</p>
+      <h3 class="">1. Socket.ioの導入</h3>
+      <br>
+      <h2>では、この時点で一度サーバーを起動しアプリを見てみましょう。</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">1. Socket.ioの導入</h3>
+      <br>
+      <h2>次は、サーバーからクライアントに通知をしてみましょう！</h2>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">1. Socket.ioの導入</h3>
       <pre>
-        <code>$ <error>yarn</error> <value>karma</value> init</code>
+        <code>  <comment>// <mark>server.js</mark>  以下を追記</comment></code>
+        <code>  <key>socket</key>.on('<key>chat message</key>', (<value>msg</value>) => {</code>
+        <code><value>+     posts.push(msg)</value></code>
+        <code>      console.info(msg)</code>
+        <code>   })</code>
+        <code>  <comment>// クライアントにデータを送信</code>
+        <code><value>+  socket.emit('add message', posts)</value></code>
       </pre>
-
-      <p class="">以下、対話的に設定内容を決めていくことになります。</p>
+      （続く）
     </section>
 
     <section class="slide center-text">
-      <h3 class="">6. karmaの導入</h3>
-<pre>
-<code>Which testing framework do you want to use ?
-<comment>Press tab to list possible options.<br> Enter to move to the next question.</comment>
-<value>> jasmine</value>
-</code>
-</pre>
-      <p class="f30">ここで利用するテストフレームワークを選択します。<br>今回は<mark>mocha</mark>を選んで下さい。</p>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">6. karmaの導入</h3>
-<pre>
-<code>Do you want to use Require.js ?
-<comment>Press tab to list possible options.<br> Enter to move to the next question.</comment>
-<value>> no</value>
-</code>
-</pre>
-      <p class="f30">今回はRequire.jsを利用しないので、<mark>no</mark>を選んで下さい。</p>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">6. karmaの導入</h3>
-<pre>
-<code>Do you want to capture any browsers automatically ?
-<comment>Press tab to list possible options.<br> Enter empty string to move to the next question.</comment>
-<value>> Chrome</value>
-<value>> Firefox</value>
-<value>> Safari</value>
-</code>
-</pre>
-      <p class="f30">テストしたいブラウザを選んで下さい。</p>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">6. karmaの導入</h3>
-<pre>
-<code>What is the location of your source and test files ?
-<comment>Press tab to list possible options.<br> Enter to move to the next question.</comment>
-<value>> test/*spec.js</value>
-</code>
-</pre>
-      <p class="f30">読み込むテストコードの<mark>パス</mark>を指定してください。<br>※ ワイルドカードも使えます。</p>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">6. karmaの導入</h3>
-<pre>
-<code>Should any of the files included by the previous patterns<br> be excluded ?
-<comment>You can use glob patterns, eg. "js/*.js" or <br> "test/**/*Spec.js". Enter to move to the next question.</comment>
-<value>></value>
-</code>
-</pre>
-      <p class="f30">先程指定したコードで除外したいものがありましたら、<mark>パス</mark>を指定してください。今回はなしです。</p>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">6. karmaの導入</h3>
-<pre>
-<code>Do you want Karma to watch all the files and run the tests<br> on change ?
-<comment>Press tab to list possible options.</comment>
-<value>> yes</value>
-</code>
-</pre>
-      <p class="f30">簡単に言うと、watchモードにするか、否かです。今回は<mark>yes</mark>を選択してください。</p>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">6. karmaの導入</h3>
-      <h4 class="shout"><span class="emphasis">karma.conf.jsの完成です！</span></h4>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">6. karmaの導入</h3>
-      <p class="f30"><span class="emphasis">3. <mark>karma.conf.js</mark>の設定を変更</span></p>
-      <p class="">
-        このままkarmaを起動すると<span class="red">Uncaught ReferenceError: require is not defined</span>と言われます。
-        これは、ブラウザでは<mark>require()</mark>が使えないからです。したがって、<b>「5. webpackを導入」</b>と同様に、ブラウザで動くように
-        webpackを通してやる必要があります。
-      </p>
-    </section>
-
-    <section class="slide center-text">
-      <h3 class="">6. karmaの導入</h3>
-      <p class="f30"><span class="emphasis">3. <mark>karma.conf.js</mark>の設定を変更</span></p>
-      <p class="">karma.conf.jsに以下のように追記します。</p>
+      <h3 class="">1. Socket.ioの導入</h3>
+      <p>（続き）</p>
       <pre>
-        <code>  preprocessors: {</code>
-        <code><value>+     'test/*spec.js': ['webpack']</value></code>
-        <code>  },</code>
-        <code><comment>-  reporters: ['progress'],</comment></code>
-        <code><value>+  reporters: ['progress', 'mocha', 'coverage'],</value></code>
+        <code>  <comment>// <mark>bbs.html</mark> のscript内に以下を追記</comment></code>
+        <code><value>+  socket.on('add message', posts) => {</value></code>
+        <code><value>+     alert(posts)</value></code>
+        <code><value>+  })</value></code>
       </pre>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">6. karmaの導入</h3>
-      <p class="f30"><span class="emphasis">4. <mark>package.json</mark>の設定を変更</span></p>
-      <p class="">karmaを起動するために、package.jsonを以下のように修正します。</p>
-      <pre>
-        <code>  "scripts": {</code>
-        <code>     ...</code>
-        <code><comment>-     "test": "mocha"</comment></code>
-        <code><value>+     "test": "karma start"</value></code>
-        <code>  }</code>
-      </pre>
+      <h3 class="">1. Socket.ioの導入</h3>
+      <br>
+      <h2>では、サーバーを再起動しアプリを見てみましょう！</h2>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">6. karmaの導入</h3>
-      <p class="f30"><span class="emphasis">5. テストを実行</p>
-      <p class="f30">では、実行してみましょう！</p>
-      <pre>
-        <code>$ <error>yarn</error> test</code>
-      </pre>
-      <p>それぞれのブラウザが勝手に起動してテスト結果がコマンドラインに表示されたかと思います♪</p>
+      <h2 class="shout">「Workshop around JavaScript」<br>は終了となります！</h2>
     </section>
 
     <section class="slide center-text">
-      ## 今回のアジェンダ
-      - Socket.ioとは？
-      - __<span class="assert">Socket.ioの導入</span>__　<= 次はココ
-      - １行掲示板をリアルタイムなアプリに拡張
+      <h2 class="shout">合計6回に渡りご参加頂き<br>ありがとうございました♪</h2>
     </section>
 
     <section class="slide center-text">
-      ## 今回のアジェンダ
-      - Socket.ioとは？
-      - Socket.ioの導入
-      - __<span class="assert">１行掲示板をリアルタイムなアプリに拡張</span>__　<= 最後にココ
+      <h2 class="shout">少しでもJavaScriptの開発を<br>身近に感じて頂ければ<br>講師冥利に尽きますw</h2>
     </section>
 
     <section class="slide center-text">
-      # 「Workshop around JavaScript」<br>は終了となります！
-      # 合計6回に渡りご参加いただき<br>ありがとうございました♪
-    </section>
-
-    <section class="slide center-text">
-      # 少しでもJavaScriptの開発を<br>身近に感じて頂けたのであれば<br>講師冥利に尽きますw
-    </section>
-
-    <section class="slide center-text">
-      # お疲れ様でした！そして、
-
-      # ありがとうございました！
+      <h2 class="shout">お疲れ様でした！</h2>
     </script>
 
     <script src="../../../shower/shower.min.js"></script>
