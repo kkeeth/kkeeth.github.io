@@ -45,7 +45,7 @@
       <ol>
         <li>Socket.ioの導入</li>
         <li>リアルタイムに投稿を画面に反映</li>
-        <li>リアルタイムに誰かが入力中である事を表示</li>
+        <li>リアルタイムに入力中を表示</li>
       </ol>
       <p>※ 何かあれば随時聞いていただいて問題ありません。</p>
     </section>
@@ -340,7 +340,7 @@ $ <error>npm</error> i --save <value>socket.io</value>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">3. リアルタイムに誰かが入力中である事を表示</h3>
+      <h3 class="">3. リアルタイムに入力中を表示</h3>
       <p>
         slackのように複数人でアクセスしている時、入力中である文言を表示させてみましょう！<br>
         <mark>bbs.html</mark>を以下の用に修正してください。
@@ -353,7 +353,7 @@ $ <error>npm</error> i --save <value>socket.io</value>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">3. リアルタイムに誰かが入力中である事を表示</h3>
+      <h3 class="">3. リアルタイムに入力中を表示</h3>
       <pre>
         <code>   var socket = io();</code>
         <code><value>+  $('input[type="text"]').focus((e) => {</value></code>
@@ -361,12 +361,13 @@ $ <error>npm</error> i --save <value>socket.io</value>
         <code><value>+  })</value></code>
         <code><value>+  $('input[type="text"]').blur((e) => {</value></code>
         <code><value>+     socket.emit('finish typing')</value></code>
-        <code><value>+  })</value>   <comment>// まだ続く</comment></code>
+        <code><value>+  })</value></code>
+        <code>   （まだ続く）</code>
       </pre>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">3. リアルタイムに誰かが入力中である事を表示</h3>
+      <h3 class="">3. リアルタイムに入力中を表示</h3>
       <pre>
         <code><value>+  socket.on('typing', () => {</value></code>
         <code><value>+     $('#msg').fadeIn("normal")</value></code>
@@ -379,7 +380,7 @@ $ <error>npm</error> i --save <value>socket.io</value>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">3. リアルタイムに誰かが入力中である事を表示</h3>
+      <h3 class="">3. リアルタイムに入力中を表示</h3>
       <p>
         クライアント側が終わったので、次はサーバー側です。<br>
         <mark>server.js</mark>を以下の用に修正してください。（長いので次のページへ）
@@ -387,7 +388,7 @@ $ <error>npm</error> i --save <value>socket.io</value>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">3. リアルタイムに誰かが入力中である事を表示</h3>
+      <h3 class="">3. リアルタイムに入力中を表示</h3>
       <pre>
         <code><value>+  socket.on("typing", function () {</value></code>
         <code><comment>     // 入力者には表示しなくてもいい</comment></code>
@@ -400,7 +401,7 @@ $ <error>npm</error> i --save <value>socket.io</value>
     </section>
 
     <section class="slide center-text">
-      <h3 class="">3. リアルタイムに誰かが入力中である事を表示</h3>
+      <h3 class="">3. リアルタイムに入力中を表示</h3>
       <br>
       <h2>修正が完了しましたら、サーバーを再起動しアプリを見てみましょう！</h2>
     </section>
