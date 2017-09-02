@@ -176,14 +176,23 @@
 
     <section class="slide center-text">
       <h3 class="">導入前作業</h3>
-      <ol>
+      <ul>
         <li>bbs.ejsのコピーして<mark>bbs.html</mark>を作成</li>
         <li>作成したbbs.htmlの<mark>ulタグの中身</mark>を削除</li>
+        <li>bbs.htmlの頭の<mark>require('ejs')</mark>の1行を削除</li>
         <li><mark>fs.readFileSync()</mark>のファイル名の指定をbbs.htmlに変更</li>
         <li>server.jsの<mark>req.method === 'POST'</mark>の処理を丸っと削除</li>
-        <li>削除したところに<mark>renderForm(posts, res)</mark>の1行を追記</li>
-        <li>renderForm() 内の頭3行を削除</li>
-      </ol>
+        <li>renderForm()として切り出した処理を本体にマージ</li>
+      </ul>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">導入前作業</h3>
+      <p class="f30">それぞれのファイルの記述が、以下のリンク先のようになっていればOKです。</p>
+      <ul>
+        <li><a href="https://gist.github.com/k-kuwahara/341ff8fd28ed8ecd99fb8ce69ba34be4#file-corrected_server-js" target="_blank">server.js</a></li>
+        <li><a href="https://gist.github.com/k-kuwahara/341ff8fd28ed8ecd99fb8ce69ba34be4#file-bbs-html" target="_blank">bbs.html</a></li>
+      </ul>
     </section>
 
     <section class="slide center-text">
@@ -257,6 +266,17 @@ $ <error>npm</error> i --save <value>socket.io</value>
     <section class="slide center-text">
       <h3 class="">1. Socket.ioの導入</h3>
       <p class="f30"><span class="assert-fwn">4. サーバー側でsocket.ioの処理を書く</span></p>
+      <pre>
+        <code>   <comment>// <mark>server.js</mark>の頭に以下を追記</comment></code>
+        <code><comment>-  qs   = require('querystring')</comment></code>
+        <code><value>+  qs   = require('querystring'),</value></code>
+        <code><value>+  socket = require('socket.io')</value></code>
+        <code>  （続く）</code>
+      </pre>
+    </section>
+
+    <section class="slide center-text">
+      <h3 class="">1. Socket.ioの導入</h3>
       <pre>
         <code>  <comment>// <mark>server.js</mark>の末尾に以下を追記</comment></code>
         <code>  <error>let</error> io = <key>socket</key>.listen(<value>server</value>)</code>
@@ -412,7 +432,10 @@ $ <error>npm</error> i --save <value>socket.io</value>
     <section class="slide center-text">
       <h3 class="">課題</h3>
       <br>
-      <h3 class=""><mark>Express</mark>というフレームワークを使ってアプリを作り直してみましょう！</h2>
+      <ul>
+        <li><mark>Express</mark>というフレームワークを使ってアプリを作り直してみましょう！</li>
+        <li>データの永続化をしてみましょう！</li>
+      </ul>
     </section>
 
     <section class="slide center-text">
