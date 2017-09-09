@@ -1,0 +1,1031 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>自動ビルドしながらの開発</title>
+    <link rel="stylesheet" href="../../../talkiejs/talkie.min.css">
+    <link rel="stylesheet" href="../../../talkiejs/talkie-default.min.css">
+    <link rel="stylesheet" href="../../../talkiejs/style.css">
+    <link rel="shortcut icon" href="../../../assets/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/monokai.min.css">
+    <script src="../../../talkiejs/highlight.min.js"></script>
+  </head>
+  <body>
+<template layout="cover" type="text/x-markdown">
+# 自動ビルドしながらの開発
+### 2017/05/19　@レプラホーン株式会社
+</template>
+
+<template class="my-info" layout="cover" type="text/x-markdown">
+## 自己紹介
+
+```
+var my_info = {
+    name:   '桑原聖仁',
+    twitter: '@kuwahara_ngv4（たまに変更）',
+    github: 'k-kuwahara',
+    qiita:    '@clown0082',
+    skill: 'PHP, CodeIgniter, JavaScript, Riot.js, Angular',
+    workplace:  'Leprachaun Corp.'
+}
+```
+</template>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- ビルドツールの紹介
+- Gulpを使ってみよう
+- Webpackを使ってみよう
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- <span class="assert">ビルドツールの紹介</span>  <= まずはココ
+- Gulpを使ってみよう
+- Webpackを使ってみよう
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## 最近のJavaScript開発環境
+
+「モダン開発環境」という言葉をいたるところで耳にする昨今ですが、「つまりどんな環境なの？」と思いますよね。
+一言で言うと、<span class="assert">「面倒な作業は自動化して楽しよう」</span>という環境、と私は考えています。
+
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## 「面倒な作業」って？
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## こんなやつです。
+
+- ES6, TypeScriptのコンパイル
+- テンプレートエンジンを用いたファイルのコンパイル
+- PostCSS, LESS, Sassなどのプリプロセッサーのコンパイル
+- ESLint, JSLint, JSHintなどのリンターによるチェック
+- js, cssの圧縮（minify）、ファイルのリネーム
+- 画像ファイルの圧縮
+- バンドル
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## これらを自動でやってくれる<br>素晴らしいツールが<br>世の中にはあります( ﾟ∀ﾟ)
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## こやつらです。
+
+|__タスクランナー__|__評価__|__バンドラ__|__評価__|
+|:--:|:--:|:--:|:--:|
+|Grant|D|Webpack|A|
+|Gulp|B|Rollup|C|
+
+※評価は私の独断と偏見に基づきます（笑）
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回触れるのはこの子ら。
+
+|__タスクランナー__|__評価__|__バンドラ__|__評価__|
+|:--:|:--:|:--:|:--:|
+|Grant|D|<span class="assert f38">Webpack</span>|A|
+|<span class="assert f38">Gulp</span>|B|Rollup|C|
+
+※選択は私の独断と偏k…(ry
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- ビルドツールの紹介</span>
+- <span class="assert">Gulpを使ってみよう</span>  <= 次はココ
+- Webpackを使ってみよう
+</section>
+
+<section layout="cover" type="text/x-markdown">
+## Gulp
+### Automate and enhance your workflow
+
+<img class="logo" src="./img/gulp-logo.png" width="120">
+
+gulp is a toolkit for automating painful or time-consuming tasks in your development workflow, so you can stop messing around and build something.<br><span class="mright">（[公式サイト](http://gulpjs.com/)より）</span>
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回は以下のタスクを自動化
+
+1. ファイルの変更を検知する
+1. jsファイルをESLintにかける
+1. 問題なければ圧縮する
+1. 圧縮したものを.minという名前で出力する
+1. 上記実行中にエラーが起こってもgulpを止めない
+</section>
+
+<section layout="code" type="text/x-markdown">
+## その前に、Gulpの簡単な使い方
+</section>
+
+<section layout="code" type="text/x-markdown">
+## まずはGulpをインストール
+
+```shell
+$ npm i [--save-dev|-D] gulp
+```
+
+※ `--save-dev, -D`はオプションです。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Gulpを動かすためにタスクを設定
+
+### `gulpfile.js`というファイルを作成し、<br>次のコードを追記して下さい。
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+```JavaScript
+var gulp = require('gulp')
+
+// 'test'という名前のタスクを設定
+gulp.task('test', function() {
+   console.log('gulp run !!\n')
+})
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Gulpのタスクを起動させるために<br>コマンドを設定
+
+### `package.json`を開き、次のコードを追記して下さい。
+
+※`package.json`がない方は`npm init`を先に実行して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```JSON
+// package.jsonの中身抜粋
+...
+  "scripts": {
+    "gulp": "gulp"
+  },
+...
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 準備完了です。以下の<br>コマンドを実行して下さい。
+
+```shell
+$ npm run gulp test
+```
+
+※ `test`は必須です！（ここでどのタスクを実行するか指定）
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+// 実行結果例
+[15:09:08] Starting 'test'...
+gulp run !!
+
+[15:09:08] Finished 'test' after 251 μs
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 動きましたが、`test`と、いちいちタスク名を入力するのは煩わしいですね。省略しましょう。
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `gulpfile.js`に以下を追記して下さい。
+<br>
+
+```JavaScript
+// 末尾に追記
+gulp.task('default', ['test'])
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 再度実行してみましょう。
+
+```shell
+$ npm run gulp
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上が、最小限のGulpの<br>動かし方です。
+
+## それでは、今回のタスクに<br>入っていきます。
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 【再掲】今回のタスク
+
+1. ファイルの変更を検知する
+1. jsファイルをESLintにかける
+1. 問題なければ圧縮する
+1. 圧縮したものを.minという名前で出力する
+1. 上記実行中にエラーが起こってもgulpを止めない
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 1. ファイルの変更を検知する
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `js`というディレクトリ内の<br>`.js`ファイルに変更がある度に<br>`test`タスクが実行されるように<br>設定してみましょう。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## ディレクトリの構成
+
+```JavaScript
+├ node_modules/
+├ package.json
+├ gulpfile.js
+└ js/
+  └ *.js   ← 検知対象ファイル
+```
+
+※`js`ディレクトリに`(適当な名前).js`<br>ファイルを作成して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 次に、ファイルに変更があることを検知する設定をします。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `gulpfile.js`に以下を追記して下さい。
+<br>
+
+```diff
+// watchタスクの設定
++ gulp.task('watch', function() {
++    gulp.watch('./js/*.js', ['test'])
++ })
+
+- gulp.task('default', ['test'])
++ gulp.task('default', ['watch'])
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `watch`タスクを実行しましょう。
+
+```shell
+$ npm run gulp
+```
+
+※`default`タスクに設定しているため`watch`は不要。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## これで準備完了です。<br>先程作成した`.js`ファイルを変更、<br>保存して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```shell
+[17:12:19] Starting 'watch'...
+[17:12:19] Finished 'watch' after 17 ms
+[17:12:22] Starting 'test'...
+gulp run !!
+
+[17:12:22] Finished 'test' after 875 μs
+[17:18:29] Starting 'test'...
+gulp run !!
+
+[17:18:29] Finished 'test' after 113 μs
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上でタスク1は終了です。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 2. jsファイルを`ESLint`にかける
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Q: `ESLint`って？
+## A: JavaScriptで最も使われている静的検証ツールです。
+
+※主に文法のチェックに使われます。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 必要なモジュールをインストール
+
+```shell
+$ npm i [--save-dev|-D] gulp-eslint
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `eslint`タスクを設定します。<br>`gulpfile.js`に次を追記して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
++ var eslint = require('gulp-eslint')
++ gulp.task('eslint', function() {
++   gulp.src('./js/*.js')
++        .pipe(eslint({ useEslintrc: false }))
++        .pipe(eslint.format())
++ })
+gulp.task('watch', function() {
+-    gulp.watch('./js/*.js', ['test'])
++    gulp.watch('./js/*.js', ['eslint'])
+})
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `watch`タスクを実行しましょう。
+
+```shell
+$ npm run gulp
+```
+
+※`default`タスクに設定しているたm (ry
+</section>
+
+<section layout="code" type="text/x-markdown">
+## これで準備完了です。<br>先程作成した`.js`ファイルにて、<br>文法を間違えてみましょう。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## （文法間違いの例）
+
+```JavaScript
+# 例1 変数への代入に「=」がたりない
+var hoge 123
+
+# 例2 文字列連結を「.」にした
+var hoge = 'hoge' . 123
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## コンソールには次のように<br>表示されたかと思います。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```shell
+[17:39:10] Starting 'eslint'...
+[17:39:10] Finished 'eslint' after 2.73 ms
+[17:39:10]
+/path/to/src_dir/js/hoge.js
+  4:6  error  Parsing error:
+  Unexpected token 'string' #本来は改行しません
+
+✖ 1 problem (1 error, 0 warnings)
+[17:39:14] Starting 'eslint'...
+[17:39:15] Finished 'eslint' after 15 ms
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 後は`.eslintrc`ファイルを作成し<br>細かなルールを設定して下さい。
+
+※ `gulpfile.js`の以下の行を変更する必要があります。
+
+```diff
+- .pipe(eslint({ useEslintrc: false }))
++ .pipe(eslint({ useEslintrc: true }))
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `.eslintrc`の設定例を次に示します。
+
+### ※詳細は[こちら](http://eslint.org/docs/rules/)をご参照下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```JavaScript
+{
+  "env": {
+    "es6": true
+  },
+  "rules": {
+    "no-var": 1,
+    "indent": [2, 2]
+  }
+}
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上でタスク2は終了です。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 3. 問題なければ圧縮する
+## 4. 圧縮したものを`.min`という<br>ファイル名で出力する
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 圧縮と言っても`zip`ではなく、<br>いわゆる`難読化`のことですw
+</section>
+
+<section layout="code" type="text/x-markdown">
+## まずはモジュールをインストール
+
+```shell
+$ npm i -D gulp-uglify gulp-rename
+```
+
+※今回は`gulp-uglify`にしましたが、他にも色々あります。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 圧縮用のタスクを設定します。<br>`gulpfile.js`に次を追記して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
++ var uglify = require('gulp-uglify')
++ var rename = require('gulp-rename')
+
+...
+     .pipe(eslint.format())
++    .pipe(uglify())
++    .pipe(rename({suffix: '.min'}))
++    .pipe(gulp.dest('build'))
+})
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `watch`タスクを実行し、<br>`.js`ファイルのエラーを修正、<br>保存して下さい。
+
+```shell
+$ npm run gulp
+```
+
+※ 自動的に`build`ディレクトリが生成されます。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `build`ディレクトリ内の<br>`.js`ファイルを開いてみましょう。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## （実行結果例）
+```JavaScript
+var hoge=123;hoge="string";var hello=f
+unction(o){console.log(o)};hello(hoge);
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上でタスク3, 4は終了です。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 5. タスク実行中にエラーが起こってもgulpを止めない
+</section>
+
+<section layout="code" type="text/x-markdown">
+### エラーが原因でタスクが強制停止することを防止します。
+
+### 今回は`watch`中にエラーが発生すると`watch`自体が<br>停止してしまうため、これを防止します。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## まず先程の文法エラーを再現
+
+※`watch`タスクを実行していない場合は<br>実行してから再現して下さい。
+```shell
+$ npm run gulp
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+```shell
+events.js:163
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: EACCES:
+ permission denied, open
+ '/path/to/build/hoge.js' #本来は改行しません
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## なんか大量の`npm ERR!`が出て、<br>`watch`タスクが停止しましたよね？
+<br>
+
+## では、防止しましょう！
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 必要なモジュールをインストール
+
+```shell
+$ npm i [--save-dev|-D] gulp-plumber
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## エラー処理を設定します。<br>`gulpfile.js`に次を追記して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
++ var plumber = require('gulp-plumber')
+
+gulp.task('eslint', function() {
+   gulp.src('./js/*.js')
++      .pipe(plumber())
+       .pipe(eslint({ useEslintrc: false }))
+       // 以下略
+})
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 再度`watch`タスクを実行し、<br>`.js`ファイルを更新して下さい。
+
+※ ここで文法エラーを修正しないで下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```shell
+[16:43:34] Starting 'eslint'...
+[16:43:34] Finished 'eslint' after 62 ms
+[16:43:34] Plumber found unhandled error:
+ Error: EACCES:
+ permission denied, # 本来は改行しません
+ open '/path/to/build/hoge.js'
+
+[17:13:42] Starting 'eslint'...
+[17:13:42] Finished 'eslint' after 98 ms
+ ```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 今度は`watch`タスクが停止せず<br>待機状態を維持したと思います。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上でタスク5および、<br>`Gulp`の実践は終了です。
+</section>
+
+<section layout="cover-invert" type="text/x-markdown">
+## 余談
+</section>
+
+<section layout="cover-invert" type="text/x-markdown">
+## Gulpにはたくさんのモジュールが作られており、例えば`gulp-notify`を使うとデスクトップ通知ができるなど、より自分にあった環境が作れます。
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回のアジェンダ
+- ビルドツールの紹介</span>
+- Gulpを使ってみよう
+- <span class="assert">Webpackを使ってみよう</span>  <= 最後にココ
+</section>
+
+<section layout="cover" type="text/x-markdown">
+## Webpack
+### bundle your assets, scripts, images, styles
+
+<img class="logo" src="./img/webpack-logo.png" width="120">
+
+webpack is a module bundler. Its main purpose is to bundle JavaScript files for usage in a browser, yet it is also capable of transforming, bundling, or packaging just about any resource or asset.<br><span class="mright">（[公式リポジトリ](https://github.com/webpack/webpack)より）</span>
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 今回は以下のタスクを自動化
+
+1. 複数のファイルを圧縮してバンドルする
+1. 出力ファイル名を変更する
+1. `jQuery`もバンドルする
+1. jsファイルを`ESLint`にかける
+</section>
+
+<section layout="code" type="text/x-markdown">
+## まずはWebpackの簡単な使い方
+
+### 「特定の.jsファイルを`build`ディレクトリに出力」します
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Webpackをインストール
+
+```shell
+$ npm i [--save-dev|-D] webpack
+```
+
+※ `--save-dev, -D`はオプションです。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```JavaScript
+var path = require('path')
+
+module.exports = {
+  entry : './js/hoge.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(`${__dirname}/build/`)
+  }
+}
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Webpackを起動させるために<br>コマンドを設定
+
+### `package.json`を開き、次のコードを追記して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
+// package.jsonの一部抜粋
+...
+
+  "scripts": {
+    // 「-w」はwatchモードのオプション
+    // これで変更を検知し自動でバンドル
++   "build": "webpack -w"
+  },
+
+...
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 準備完了です。以下の<br>コマンドを実行して下さい。
+
+```shell
+$ npm run build
+```
+
+※ここで自動的に`build`ディレクトリが生成されます。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## （実行結果例）
+```shell
+Hash: b78690c05f52f020db88
+Version: webpack 2.4.1
+Time: 101ms
+    Asset     Size  Chunks  Chunk Names
+bundle.js  2.73 kB       0  [emitted]  main
+   [0] ./js/hoge.js 95 bytes {0} [built]
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `build/bundle.js`を開いてみて下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上が、最小限のWebpackの<br>動かし方です。それでは<br>今回のタスクに入っていきます。
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 【再掲】今回のタスク
+
+1. 複数のファイルを圧縮してバンドルする
+1. 出力ファイル名を変更する
+1. `jQuery`もバンドルする
+1. jsファイルを`ESLint`にかける
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 1. 複数のファイルを<br>圧縮してバンドルする
+</section>
+
+<section layout="code" type="text/x-markdown">
+## ディレクトリの構成
+
+```JavaScript
+├ node_modules/
+├ package.json
+├ webpack.config.js
+└ js/
+  └ *.js   ← 検知対象ファイル
+```
+
+※`js`ディレクトリに`(適当な名前).js`<br>ファイルを作成して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `webpack.config.js`を開き、<br>次のコードを追記して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
+  var path = require('path')
++ var webpack = require('webpack')
+
+  module.exports = {
+-   entry : './js/hoge.js',
++   entry : ['./js/hoge.js', './js/fuga.js'],
+
+    //（続く）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
+    // "output"の終わりから
+-   }
++   },
++   plugins: [
++     new webpack.optimize.UglifyJsPlugin({
++       output: { comments: false }
++     })
++   ]      //（以下略）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## jsディレクトリに`fuga.js`を作成し、<br>再度バンドルしましょう。
+
+```shell
+$ npm run build
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## バンドルが完了したら<br>`build/bundle.js`を開いてみて下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上でタスク1は終了です。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 2. 出力ファイル名を変更する
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 今回は以下のように、
+
+```JavaScript
+hoge.js: hoge.bundle.js
+fuga.js: fuga.bundle.js
+```
+
+## それぞれで出力します。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `webpack.config.js`を開き、<br>次のコードを追記して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
+  module.exports = {
+-   entry : ['./js/hoge.js', './js/fuga.js'],
++   entry : {
++      hoge: './js/hoge.js',
++      fuga: './js/fuga.js'
++   },
+    output: {
+-      filename: 'bundle.js',
++      filename: '[name].bundle.js',
+      //（以下略）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## ではバンドルしましょう。
+
+```shell
+$ npm run build
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `build`ディレクトリを開くと、
+
+```JavaScript
+build/
+  └ bundle.js
+  └ hoge.bundle.js ← new
+  └ fuga.bundle.js ← new
+
+```
+
+## となっていればOKです。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上でタスク2は終了です。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 3. `jQuery`もバンドルする
+</section>
+
+<section layout="code" type="text/x-markdown">
+## webpackではライブラリも一緒に<br>バンドルすることができます。
+
+今回は`jQuery`をバンドルしてみましょう。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## まずは`jQuery`をインストール
+
+```shell
+$ npm i --save jquery
+```
+
+※バージョンを指定したい方は適宜指定して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 次に`hoge.js`を開き、<br>以下のコードを追記して下さい。
+
+<br>
+
+```JavaScript
+var jquery = require('jquery')
+
+// ES2015の書き方
+import jquery from 'jquery'
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## さらに`webpack.config.js`を開き、<br>次のコードを追記して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
+  // 一部抜粋
+  plugins: [
+    // 名前を予約
++   new webpack.ProvidePlugin({
++      jquery: 'jquery',
++      jQuery: 'jquery',
++      $     : 'jquery'
++   }),
+    // （以下略）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## ではバンドルしましょう。
+
+```shell
+$ npm run build
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## バンドルが完了したら<br>`build/hoge.bundle.js`を開いて下さい。
+
+<br>
+
+## `jQuery`のソースがバンドルされているかと思います。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上でタスク3は終了です。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 4. jsファイルを`ESLint`にかける
+</section>
+
+<section layout="code" type="text/x-markdown">
+## まずはモジュールをインストール
+
+```shell
+# 長いため改行
+$ npm i [--save-dev|-D] eslint
+        eslint-loader webpack-notifier
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 次に`webpack.config.js`を開き、<br>次のコードを追記して下さい。
+
+※ あくまで設定の一例になります。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
++ var WebpackNotifierPlugin
++ = require('webpack-notifier')
+
+  // ...
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(`${__dirname}/build/`)
+- }
++ },
+  （続く）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
+  （続き）
++   module: {
++     rules: [
++       {
++         test: /\.js$/,
++         exclude: '/node_modules/',
++         loader: 'eslint-loader',
+  （まだ続く）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+```JavaScript
+  （続き）
++         options: {
++           fix: true,
++           failOnError: true
++         }
++       }
++     ]
++   },
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## さらにESLintのconfigを設定するため`.eslintrc`ファイルを作成し、次のコードを追記します。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```JSON
+// あくまで設定の一例
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  （続く）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+```JSON
+  "rules": {
+    "eqeqeq": 1,
+    "prefer-const": 0,
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  }
+}
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## ではバンドルしましょう。
+
+```shell
+$ npm run build
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上でタスク4および、<br>`Webpack`の実践は終了です。
+</section>
+
+<section layout="cover" type="text/x-markdown">
+# これにて今回のワークショップは終了です！<br>楽しんで頂けましたか？
+</section>
+
+<script layout="cover" type="text/x-markdown">
+# 次回は<span class="assert">ES6(ES2015)</span>について触れます♪
+</script>
+
+<script layout="cover" type="text/x-markdown">
+# お疲れ様でした！
+</script>
+
+
+  <script src="../../../talkiejs/talkie.min.js"></script>
+  <script>
+  var talkie = Talkie({wide: false});
+  document.addEventListener('DOMContentLoaded', function() {
+    var slides = Array.prototype.slice.call(document.querySelectorAll('[layout]'));
+    // talkie.changed.onValue(function(current) {
+    //   console.clear();
+    //   // print presenter notes
+    //   console.info(talkie.notes[current.getAttribute('page')]);
+    // });
+  });
+  </script>
+  </body>
+</html>
