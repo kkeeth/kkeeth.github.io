@@ -2,46 +2,61 @@
   <head>
     <meta charset="utf-8">
     <title>JavaScriptの開発環境構築ハンズオン</title>
-    <link rel="stylesheet" href="../../../talkiejs/talkie.min.css">
-    <link rel="stylesheet" href="../../../talkiejs/talkie-default.min.css">
-    <link rel="stylesheet" href="../../../talkiejs/style.css">
-    <link rel="shortcut icon" href="../../../assets/favicon.ico">
+    <link rel="stylesheet" href="../../talkiejs/talkie.min.css">
+    <link rel="stylesheet" href="../../talkiejs/talkie-default.min.css">
+    <link rel="stylesheet" href="../../talkiejs/style.css">
+    <link rel="shortcut icon" href="../../assets/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/monokai.min.css">
-    <script src="../../../talkiejs/highlight.min.js"></script>
+    <script src="../../talkiejs/highlight.min.js"></script>
   </head>
   <body>
 <template layout="cover" type="text/x-markdown">
-# JavaScriptの開発環境構築ハンズオン
+# JavaScriptの<br>開発環境構築ハンズオン
 ### 2017/09/14　@【サポーターズCoLab勉強会】
 </template>
 
 <template class="my-info" layout="cover" type="text/x-markdown">
-## 自己紹介
+# Self-introduction
 
 ```
-var my_info = {
+const my_info = {
     name:   '桑原聖仁',
     twitter: '@kuwahara_ngv4（たまに変更）',
     github: 'k-kuwahara',
     qiita:    '@clown0082',
-    skill: 'PHP, CodeIgniter, JavaScript, Riot.js, Angular',
     workplace:  'Yumemi, Inc.'
 }
 ```
 </template>
 
+<template class="my-info" layout="cover" type="text/x-markdown">
+# Skill Sets
+
+```
+const sub_info = {
+    PHP: 'EC-CUBE(v2), CodeIgniter, FuelPHP',
+    JavaScript: 'Riot.js, Angular, Ionic, Vue.js',
+    Ruby:   'Ruby on Rails'
+}
+```
+</template>
+
 <section layout="bullets" type="text/x-markdown">
-## 今回のアジェンダ
+# Agenda
+- JavaScriptを取り巻くツールについて
 - ビルドツールの紹介
 - npmの使い方
 - Webpackを使ってみよう
+- 今後の環境構築の方針
 </section>
 
 <section layout="bullets" type="text/x-markdown">
-## 今回のアジェンダ
-- <span class="assert">ビルドツールの紹介</span>  <= まずはココ
-- Gulpを使ってみよう
+# Agenda
+- <span class="assert">JavaScriptを取り巻くツールについて</span>  <= まずはココ
+- ビルドツールの紹介
+- npmの使い方
 - Webpackを使ってみよう
+- 今後の環境構築の方針
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
@@ -1015,7 +1030,7 @@ $ npm run build
 </script>
 
 
-  <script src="../../../talkiejs/talkie.min.js"></script>
+  <script src="../../talkiejs/talkie.min.js"></script>
   <script>
   var talkie = Talkie({wide: false});
   document.addEventListener('DOMContentLoaded', function() {
