@@ -8,6 +8,10 @@
 [layout] h2 {
 	margin: 0 100px;
 }
+section.white h1,
+section.white h2 {
+	color: #fff;
+}
 code {
 	font-size: 40px;
 }
