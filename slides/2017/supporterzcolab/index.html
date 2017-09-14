@@ -559,7 +559,7 @@ webpack is a module bundler. Its main purpose is to bundle JavaScript files for 
 <section layout="code" type="text/x-markdown">
 ## <strong>今回のゴール（構築する環境）</strong>
 
-・ `複数のjsファイルが更新されたタイミングで、`ES5`へのコンパイルが走る<br>
+・ 複数のjsファイルが更新されたタイミングで、`ES5`へのコンパイルが走る<br>
 ・ コンパイル後のファイルをバンドルしてminify（難読化）<br>
 ・ その結果を一つのファイルに出力
 </section>
@@ -684,8 +684,8 @@ bundle.js  2.73 kB       0  [emitted]  main
 <section layout="code" type="text/x-markdown">
 ## `webpack.config.js`を開き、<br>次のコードを追記して下さい。
 ```diff
-  var path = require('path')
-+ var webpack = require('webpack')
+  const path = require('path')
++ const webpack = require('webpack')
 
   module.exports = {
 -   entry : './js/hoge.js',
