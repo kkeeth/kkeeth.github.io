@@ -52,11 +52,11 @@ const sub_info = {
 <section layout="bullets" type="text/x-markdown">
 ## Agenda
 - JavaScriptを取り巻くツールについて
-- 各ツールの導入の仕方
-- npmの使い方
+- npmを使ってツールの導入
 - Webpackを使ってみよう
   - bundle、難読化（min化）
-  - ES2015（ES6）, Buble
+  - 複数に出力
+  - jqueryもバンドル
 - 今後の環境構築の方針
 </section>
 
@@ -221,17 +221,268 @@ const sub_info = {
 </section>
 
 <section class="white" layout="title" backface="./img/btn-download.png" backface-filter="blur(3px) brightness(.3)" type="text/x-markdown">
-### <strong>各ツールの導入の仕方</strong>
+### <strong>npmを使って各ツールの導入</strong>
 </section>
 
 <section layout="bullets" type="text/x-markdown">
 ## <strong>導入の手順</strong>
 
-1. npmから欲しいツール（モジュール）を探す
-1. 自分の開発環境にインストール
+1. `npm`から欲しいツール（モジュール）を探す
+1. `npm`コマンドで自分の開発環境にインストール
 1. 各ツールの仕様通りに動かす
 
-言ってしまえばこれだけです。
+言ってしまえばこれだけです。npmを使いこなせれば勝ちです。
+</section>
+
+<section layout="cover" type="text/x-markdown">
+# npmの使い方を見ていきましょう
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+<svg viewBox="0 0 18 7" class="">
+    <path fill="#CB3837" d="M0,0v6h5v1h4v-1h9v-6"></path>
+    <path fill="#FFF" d="M1,1v4h2v-3h1v3h1v-4h1v5h2v-4h1v2h-1v1h2v-4h1v4h2v-3h1v3h1v-3h1v3h1v-4"></path>
+</svg>
+
+## npm（Node Package Manager）
+
+『npm is the package manager for JavaScript and the world’s largest software registry. Discover packages of reusable code — and assemble them in powerful new ways.』
+（[npm公式より）](https://www.npmjs.com/)
+
+<style>
+    svg {
+        width: 200px;
+        position: absolute;
+        right: 10px;
+        top: 80px;
+    }
+</style>
+</section>
+
+<section layout="cover" type="text/x-markdown">
+# npmはJavaScriptで開発する上で<span class="assert">必須</span>と言えます！
+</section>
+
+<section layout="code" type="text/x-markdown">
+## npmの基本コマンド
+
+```shell
+・ npm install
+・ npm list
+・ npm uninstall
+・ npm update
+・ npm search
+```
+
+日常で使うのはこの5つだと思います(ﾟ∀ﾟ)
+</section>
+
+<section layout="code" type="text/x-markdown">
+## First!!
+
+```shell
+npm install
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+npm install [-g|--save|--save-dev] module
+```
+
+### 意味：モジュールのインストール
+
+```shell
+（省略形： npm i）
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `[-g|--save|--save-dev]`の意味は？
+</section>
+
+<section layout="code" type="text/x-markdown">
+## こうです。
+
+```css
+ -g: グローバルでインストールするもの
+ --save: 実際のアプリ稼働時に利用するもの
+ --save-dev: 開発時に利用するもの
+```
+
+※ `--save-dev`は`-D`でも良いです。
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 実際に`ja-greetings`というモジュールを<br>インストールしてみましょう！
+
+（手前味噌ですみません…w）
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+$ npm install -g ja-greetings
+```
+又は
+
+```shell
+$ npm i -g ja-greetings
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `ja-greetings`を使ってみましょう。
+
+```shell
+$ ja-greetings new
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## ちなみに、installは以下のように<br>複数まとめて実行もできます。
+
+```shell
+$ npm i -D hoge fuga piyo
+```
+</section>
+
+
+<section layout="code" type="text/x-markdown">
+## Next!!
+
+```shell
+npm list
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+npm list [-g] [--depth=n] <module>
+```
+
+### 意味：インストールされたモジュールの一覧表示
+
+```shell
+（省略形： npm ls）
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+### `ja-greetings`がインストールされたか確認してみましょう！<br>以下のコマンドを実行して下さい♪
+
+```shell
+$ npm list -g --depth=0
+```
+
+又は
+
+```shell
+$ npm ls -g --depth=0
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Next!!
+
+```shell
+npm uninstall
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+npm uninstall [-g|--save|--save-dev] module
+```
+
+### 意味：モジュールの削除
+```shell
+（省略形: npm rm, npm un）
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 先程インストールした`ja-greetings`を削除してみましょう！<br>以下のコマンドを実行して下さい♪
+
+```shell
+$ npm uninstall -g ja-greetings
+```
+
+又は
+
+```shell
+$ npm rm -g ja-greetings
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### `ja-greetings`が削除されたか確認してみましょう！
+
+```shell
+$ npm ls -g --depth=0
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Next!!
+
+```shell
+npm update
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+npm update [-g|--save|--save-dev] (module)
+```
+
+### 意味：モジュールのアップデート<br>※moduleを指定しなければ全モジュールが対象
+```shell
+（省略形: npm up）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Last!!
+
+```shell
+npm search
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+npm search module
+```
+
+### 意味：指定の文字列で部分一致するモジュールの一覧を表示
+```shell
+（省略形: npm s, npm find）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 実際に`greeting`で検索してみましょう！<br>以下のコマンドを実行して下さい♪
+
+```shell
+$ npm search greeting
+```
+
+又は
+
+```shell
+$ npm s greeting
+```
 </section>
 
 <section layout="cover" type="text/x-markdown">
@@ -261,7 +512,7 @@ const sub_info = {
 |__Grant__|D|<span class="assert f38">Webpack</span>|A|
 |__Gulp__|B|__Rollup__|C|
 
-※選択は私の独断と偏k…(ry
+この4つの中ではおそらく最も利用されているもの。
 </section>
 
 <section class="white" layout="title" backface="./img/webpack.png" backface-filter="blur(1.5px) brightness(.5)" type="text/x-markdown">
@@ -277,6 +528,24 @@ const sub_info = {
 webpack is a module bundler. Its main purpose is to bundle JavaScript files for usage in a browser, yet it is also capable of transforming, bundling, or packaging just about any resource or asset.<br><span class="mright">（[公式リポジトリ](https://github.com/webpack/webpack)より）</span>
 </section>
 
+<section layout="cover" type="text/x-markdown">
+## <strong>useage image</strong>
+
+<img src="./img/webpack-image.png">
+
+</section>
+
+<section layout="cover" type="text/x-markdown">
+## 色んなファイル（※）を食わすと、よしなにバンドルして出力してくれるツールです。
+
+※ 画像、`.ts`ファイル、`.scss`ファイル、フォント…など<br>
+※ ただし、webpack単体ではバンドルしかできない
+</section>
+
+<section class="white" layout="title" backface="./img/cannot_understand.jpg" backface-filter="blur(1px) brightness(.7)" type="text/x-markdown">
+### <strong>実際使われてるの？</strong>
+</section>
+
 <section layout="bullets" type="text/x-markdown">
 ## <strong>Frameworks introducing Webpack</strong>
 
@@ -287,27 +556,47 @@ webpack is a module bundler. Its main purpose is to bundle JavaScript files for 
 - ...etc
 </section>
 
-<section class="white" layout="title" backface="./img/cannot_understand.jpg" backface-filter="blur(1px) brightness(.7)" type="text/x-markdown">
-### <strong>bundleって必要？</strong>
+<section layout="code" type="text/x-markdown">
+## <strong>今回のゴール（構築する環境）</strong>
+
+・ `複数のjsファイルが更新されたタイミングで、`ES5`へのコンパイルが走る<br>
+・ コンパイル後のファイルをバンドルしてminify（難読化）<br>
+・ その結果を一つのファイルに出力
 </section>
 
 <section layout="bullets" type="text/x-markdown">
-## 今回は以下のタスクを自動化
+## 以下のタスクを自動化
 
 1.  bundle、難読化（min化）
 1. ES2015（ES6）, Buble
 </section>
 
 <section layout="code" type="text/x-markdown">
+## ディレクトリの構成
+
+```JavaScript
+├ node_modules/
+├ package.json
+├ webpack.config.js
+└ js/
+  └ *.js   ← 検知対象ファイル
+```
+
+※`js`ディレクトリに`(適当な名前).js`<br>ファイルを作成して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
 ## まずはWebpackの簡単な使い方
 
-### 「特定の.jsファイルを`build`ディレクトリに出力」します
+### 「`js/hoge.js`ファイルを`build`ディレクトリに出力」します
 </section>
 
 <section layout="code" type="text/x-markdown">
 ## Webpackをインストール
 
 ```shell
+# package.jsonの生成
+$ npm init -y
 $ npm i [--save-dev|-D] webpack
 ```
 
@@ -315,8 +604,10 @@ $ npm i [--save-dev|-D] webpack
 </section>
 
 <section layout="code" type="text/x-markdown">
+## 次に`webpack.config.js`を生成し、以下を記述してください
+
 ```JavaScript
-var path = require('path')
+const path = require('path')
 
 module.exports = {
   entry : './js/hoge.js',
@@ -387,28 +678,11 @@ bundle.js  2.73 kB       0  [emitted]  main
 </section>
 
 <section layout="code" type="text/x-markdown">
-## ディレクトリの構成
-
-```JavaScript
-├ node_modules/
-├ package.json
-├ webpack.config.js
-└ js/
-  └ *.js   ← 検知対象ファイル
-```
-
-※`js`ディレクトリに`(適当な名前).js`<br>ファイルを作成して下さい。
-</section>
-
-<section layout="code" type="text/x-markdown">
 ## 1. bundle、難読化（min化）
 </section>
 
 <section layout="code" type="text/x-markdown">
 ## `webpack.config.js`を開き、<br>次のコードを追記して下さい。
-</section>
-
-<section layout="code" type="text/x-markdown">
 ```diff
   var path = require('path')
 + var webpack = require('webpack')
@@ -416,14 +690,6 @@ bundle.js  2.73 kB       0  [emitted]  main
   module.exports = {
 -   entry : './js/hoge.js',
 +   entry : ['./js/hoge.js', './js/fuga.js'],
-    // "output"の終わりから
-    -   }
-    +   },
-    +   plugins: [
-    +     new webpack.optimize.UglifyJsPlugin({
-    +       output: { comments: false }
-    +     })
-    +   ]      //（以下略）
 ```
 </section>
 
@@ -453,11 +719,7 @@ $ npm run build
 </section>
 
 <section layout="code" type="text/x-markdown">
-## 以上でタスク1は終了です。
-</section>
-
-<section layout="code" type="text/x-markdown">
-## 2. 出力ファイル名を変更する
+## 2. ファイルを複数に出力する
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -513,10 +775,6 @@ build/
 </section>
 
 <section layout="code" type="text/x-markdown">
-## 以上でタスク2は終了です。
-</section>
-
-<section layout="code" type="text/x-markdown">
 ## 3. `jQuery`もバンドルする
 </section>
 
@@ -542,10 +800,7 @@ $ npm i --save jquery
 <br>
 
 ```JavaScript
-var jquery = require('jquery')
-
-// ES2015の書き方
-import jquery from 'jquery'
+const jquery = require('jquery')
 ```
 </section>
 
@@ -583,16 +838,22 @@ $ npm run build
 ## `jQuery`のソースがバンドルされているかと思います。
 </section>
 
-<section layout="code" type="text/x-markdown">
-## 以上でタスク2および、<br>`Webpack`の実践は終了です。
-</section>
 
 <section class="white" layout="title" backface="./img/btn-download.png" backface-filter="blur(3px) brightness(.3)" type="text/x-markdown">
 ### <strong>今後の開発環境<br>構築の方針</strong>
 </section>
 
+<section layout="bullets" type="text/x-markdown">
+## 以下の項目をnpmからツールを探して構築してみてください
+
+- ES2015（ES6）のコンパイル
+- `dev server`を使ってブラウザで確認
+- テストコード
+- `Sass, Less`のコンパイル、バンドル
+</section>
+
 <section layout="cover" type="text/x-markdown">
-# JavaScriptに関するツールは、栄枯盛衰が激しい。
+# JavaScriptに関するツールは、栄枯盛衰が激しい。<br>でもめげずについていきましょう！
 </section>
 
 <script layout="cover" type="text/x-markdown">
