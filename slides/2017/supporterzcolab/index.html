@@ -566,17 +566,9 @@ webpack is a module bundler. Its main purpose is to bundle JavaScript files for 
 <section layout="code" type="text/x-markdown">
 ## <strong>今回のゴール（構築する環境）</strong>
 
-・ 複数のjsファイルの変更を検知<br>
-・更新されたタイミングでファイルをminifyしてバンドル<br>
-・バンドルするときに`jQuery`（外部ライブラリ）もバンドル<br>
-・ その結果を一つのファイルに出力
-</section>
-
-<section layout="bullets" type="text/x-markdown">
-## 以下のタスクを自動化
-
-1.  bundle、minify（難読化）
-1. ES2015（ES6）, Buble
+1 複数のjsファイルの変更を検知<br>
+2 更新されたタイミングでファイルをminifyしてバンドル<br>
+3 バンドルするときに`jQuery`（外部ライブラリ）もバンドル<br>
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -678,15 +670,17 @@ bundle.js  2.73 kB       0  [emitted]  main
 ## 以上が、最小限のWebpackの<br>動かし方です。それでは<br>今回のタスクに入っていきます。
 </section>
 
-<section layout="bullets" type="text/x-markdown">
-## 【再掲】今回のタスク
+<section layout="code" type="text/x-markdown">
+## <strong>【再掲】今回のゴール<br>（構築する環境）</strong>
 
-1.  bundle、minify（難読化）
-1. ES2015（ES6）, Buble
+1 複数のjsファイルの変更を検知<br>
+2 更新されたタイミングでファイルをminifyしてバンドル<br>
+3 バンドルするときに`jQuery`（外部ライブラリ）もバンドル<br>
 </section>
 
 <section layout="code" type="text/x-markdown">
-## 1. bundle、minify（難読化）
+## 1. ファイルの変更を検知
+## 2. バンドル、minify（難読化）
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -727,7 +721,7 @@ $ npm run build
 </section>
 
 <section layout="code" type="text/x-markdown">
-## ファイルを複数に出力する
+## 余談：ファイルを複数に出力する
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -735,7 +729,7 @@ $ npm run build
 
 ```JavaScript
 hoge.js: hoge.bundle.js
-fuga.js: fuga.bundle.js
+fuga.js、piyo.js: fuga.bundle.js
 ```
 
 ## それぞれで出力します。
@@ -852,16 +846,22 @@ $ npm run build
 </section>
 
 <section layout="bullets" type="text/x-markdown">
-## 以下の項目をnpmからツールを探して構築してみてください
-
 - ES2015（ES6）のコンパイル
+  - `babel` + `babel-loader`、`buble` + `buble-loader`
 - `dev server`を使ってブラウザで確認
-- テストコード
-- `Sass, Less`のコンパイル、バンドル
+  - `webpack-deb-server`
+- 自動ユニットテスト
+  - `karma` + `mocha` or `Jasmine` or `Ava`など
+- `Sass`のコンパイル、バンドル
+  - `sass-loader` + `css-loader` + `style-loader`
 </section>
 
 <section layout="cover" type="text/x-markdown">
-# JavaScriptに関するツールは、栄枯盛衰が激しい。<br>でもめげずについていきましょう！
+# JavaScriptに関するツールは、栄枯盛衰が激しい。
+</section>
+
+<section layout="cover" type="text/x-markdown">
+# しかし、常に最新が正といいう訳でもないので<br>吟味して使いましょう！
 </section>
 
 <script layout="cover" type="text/x-markdown">
