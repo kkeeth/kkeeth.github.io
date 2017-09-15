@@ -19,7 +19,7 @@
 ## 自己紹介
 
 ```
-var my_info = {
+const my_info = {
     name:   '桑原聖仁',
     twitter: '@kuwahara_ngv4（たまに変更）',
     github: 'k-kuwahara',
@@ -77,7 +77,7 @@ var my_info = {
 
 |__タスクランナー__|__評価__|__バンドラ__|__評価__|
 |:--:|:--:|:--:|:--:|
-|Grant|D|Webpack|A|
+|Grunt|D|Webpack|A|
 |Gulp|B|Rollup|C|
 
 ※評価は私の独断と偏見に基づきます（笑）
@@ -88,7 +88,7 @@ var my_info = {
 
 |__タスクランナー__|__評価__|__バンドラ__|__評価__|
 |:--:|:--:|:--:|:--:|
-|Grant|D|<span class="assert f38">Webpack</span>|A|
+|Grunt|D|<span class="assert f38">Webpack</span>|A|
 |<span class="assert f38">Gulp</span>|B|Rollup|C|
 
 ※選択は私の独断と偏k…(ry
@@ -143,7 +143,7 @@ $ npm i [--save-dev|-D] gulp
 
 <section layout="code" type="text/x-markdown">
 ```JavaScript
-var gulp = require('gulp')
+const gulp = require('gulp')
 
 // 'test'という名前のタスクを設定
 gulp.task('test', function() {
@@ -332,7 +332,7 @@ $ npm i [--save-dev|-D] gulp-eslint
 
 <section layout="code" type="text/x-markdown">
 ```diff
-+ var eslint = require('gulp-eslint')
++ const eslint = require('gulp-eslint')
 + gulp.task('eslint', function() {
 +   gulp.src('./js/*.js')
 +        .pipe(eslint({ useEslintrc: false }))
@@ -364,10 +364,10 @@ $ npm run gulp
 
 ```JavaScript
 # 例1 変数への代入に「=」がたりない
-var hoge 123
+const hoge 123
 
 # 例2 文字列連結を「.」にした
-var hoge = 'hoge' . 123
+const hoge = 'hoge' . 123
 ```
 </section>
 
@@ -451,8 +451,8 @@ $ npm i -D gulp-uglify gulp-rename
 
 <section layout="code" type="text/x-markdown">
 ```diff
-+ var uglify = require('gulp-uglify')
-+ var rename = require('gulp-rename')
++ const uglify = require('gulp-uglify')
++ const rename = require('gulp-rename')
 
 ...
      .pipe(eslint.format())
@@ -543,7 +543,7 @@ $ npm i [--save-dev|-D] gulp-plumber
 
 <section layout="code" type="text/x-markdown">
 ```diff
-+ var plumber = require('gulp-plumber')
++ const plumber = require('gulp-plumber')
 
 gulp.task('eslint', function() {
    gulp.src('./js/*.js')
@@ -733,8 +733,8 @@ bundle.js  2.73 kB       0  [emitted]  main
 
 <section layout="code" type="text/x-markdown">
 ```diff
-  var path = require('path')
-+ var webpack = require('webpack')
+  const path = require('path')
++ const webpack = require('webpack')
 
   module.exports = {
 -   entry : './js/hoge.js',
@@ -859,7 +859,7 @@ $ npm i --save jquery
 <br>
 
 ```JavaScript
-var jquery = require('jquery')
+const jquery = require('jquery')
 
 // ES2015の書き方
 import jquery from 'jquery'
@@ -926,7 +926,7 @@ $ npm i [--save-dev|-D] eslint
 
 <section layout="code" type="text/x-markdown">
 ```diff
-+ var WebpackNotifierPlugin
++ const WebpackNotifierPlugin
 + = require('webpack-notifier')
 
   // ...

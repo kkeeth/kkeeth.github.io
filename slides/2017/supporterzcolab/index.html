@@ -9,9 +9,6 @@
     <link rel="shortcut icon" href="../../assets/favicon.ico">
     <script src="../../talkiejs/highlight.min.js"></script>
     <style>
-      [data-body-bg='bullets'] {
-        background: #fff;
-      }
       code {
         font-size: 32px;
       }
@@ -81,7 +78,7 @@ const sub_info = {
 <section layout="bullets" type="text/x-markdown">
 - Windowsの人 => [__公式サイト__](https://nodejs.org/ja/)
 - Macの人 => `nodebrew`
-- Linixの人 => `nvm`
+- Linuxの人 => `nvm`
 
 ※Windowsの人は、<span class="assert">再起動</span>が必要です。
 </section>
@@ -149,7 +146,7 @@ const sub_info = {
 
 - <a href="http://coffeescript.org/" target="_blank">CoffeeScript</a>
 - <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>
-- <a href="https://flow.org/en/" target="_blank">Flow</a>（この子もここじゃないかも）
+- <a href="https://flow.org/en/" target="_blank">Flow</a>（この子はここじゃないかも）
 - <a href="http://kangax.github.io/compat-table/es6/" target="_blank">ES2015（ES6）</a>
 
 ※ 厳密には`ES2015`はAltJSではありません。
@@ -180,7 +177,7 @@ const sub_info = {
 - <a href="https://github.com/avajs/ava" target="_blank">Ava</a>
 - <a href="http://chaijs.com/" target="_blank">Chai</a>
 - <a href="https://facebook.github.io/jest/" target="_blank">Jest</a>
-- （<a href="https://karma-runner.github.io/1.0/index.html" target="_blank">Karma</a>: This is a Test runner）
+- （<a href="https://karma-runner.github.io/1.0/index.html" target="_blank">Karma</a>: テストランナー）
 </section>
 
 <section layout="cover" type="text/x-markdown">
@@ -191,15 +188,15 @@ const sub_info = {
 ## <strong>多すぎる...</strong>
 </section>
 
-<section layout="cover" type="text/x-markdown">
+<section layout="title-invert" type="text/x-markdown">
 ## Q. 色々あるのはわかったが<br>こんなに必要なの？
 </section>
 
-<section layout="cover" type="text/x-markdown">
+<section layout="title-invert" type="text/x-markdown">
 ## A. なくてもいいが<br>「面倒な作業」が楽になる。
 </section>
 
-<section layout="cover" type="text/x-markdown">
+<section layout="title-invert" type="text/x-markdown">
 ## Q. 「面倒な作業」って？
 </section>
 
@@ -217,11 +214,11 @@ const sub_info = {
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
-## これらを「自動」でやってくれる<br>素晴らしいツール達が<br>世の中にはあります( ﾟ∀ﾟ)
+## これらに対応してくれる<br>素晴らしいツール達が<br>世の中にはあります( ﾟ∀ﾟ)
 </section>
 
 <section class="white" layout="title" backface="./img/btn-download.png" backface-filter="blur(3px) brightness(.3)" type="text/x-markdown">
-### <strong>npmを使って各ツールの導入</strong>
+### <strong>npmを使って<br>各ツールの導入</strong>
 </section>
 
 <section layout="bullets" type="text/x-markdown">
@@ -232,10 +229,6 @@ const sub_info = {
 1. 各ツールの仕様通りに動かす
 
 言ってしまえばこれだけです。npmを使いこなせれば勝ちです。
-</section>
-
-<section layout="cover" type="text/x-markdown">
-# npmの使い方を見ていきましょう
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
@@ -261,6 +254,10 @@ const sub_info = {
 
 <section layout="cover" type="text/x-markdown">
 # npmはJavaScriptで開発する上で<span class="assert">必須</span>と言えます！
+</section>
+
+<section layout="cover" type="text/x-markdown">
+# npmの使い方を<br>見ていきましょう
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -485,34 +482,44 @@ $ npm s greeting
 ```
 </section>
 
-<section layout="cover" type="text/x-markdown">
+<section layout="title-invert" type="text/x-markdown">
 ## Q. 導入できたとして、<br>毎回人が手動でやるの？
 </section>
 
-<section layout="cover" type="text/x-markdown">
+<section layout="title-invert" type="text/x-markdown">
 ## A. もちろん自動化します。<br>そのためのツールが...
 </section>
 
-<section layout="cover" type="text/x-markdown">
+<section layout="title-invert" type="text/x-markdown">
 ## こやつらです。
 
 |Task Runner|評価|Bundler|評価|
 |:--:|:--:|:--:|:--:|
-|__Grant__|D|__Webpack__|A|
+|__Grunt__|D|__Webpack__|A|
 |__Gulp__|B|__Rollup__|C|
 
 ※評価は私の独断と偏見に基づきます（笑）
 </section>
 
-<section layout="cover" type="text/x-markdown">
+<section layout="title-invert" type="text/x-markdown">
 ## 今回触れるのはこの子。
 
 |Task Runner|評価|Bundler|評価|
 |:--:|:--:|:--:|:--:|
-|__Grant__|D|<span class="assert f38">Webpack</span>|A|
+|__Grunt__|D|<span class="assert f38">Webpack</span>|A|
 |__Gulp__|B|__Rollup__|C|
 
 この4つの中ではおそらく最も利用されているもの。
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## ちなみに比較はこちら→
+</section>
+
+<section layout="cover" type="text/x-markdown">
+
+<img src="./img/trends.png">
+
 </section>
 
 <section class="white" layout="title" backface="./img/webpack.png" backface-filter="blur(1.5px) brightness(.5)" type="text/x-markdown">
@@ -536,7 +543,7 @@ webpack is a module bundler. Its main purpose is to bundle JavaScript files for 
 </section>
 
 <section layout="cover" type="text/x-markdown">
-## 色んなファイル（※）を食わすと、よしなにバンドルして出力してくれるツールです。
+## 色んなファイル(※)を食わすと、よしなにバンドルして出力してくれるツールです。
 
 ※ 画像、`.ts`ファイル、`.scss`ファイル、フォント…など<br>
 ※ ただし、webpack単体ではバンドルしかできない
@@ -559,15 +566,16 @@ webpack is a module bundler. Its main purpose is to bundle JavaScript files for 
 <section layout="code" type="text/x-markdown">
 ## <strong>今回のゴール（構築する環境）</strong>
 
-・ 複数のjsファイルが更新されたタイミングで、`ES5`へのコンパイルが走る<br>
-・ コンパイル後のファイルをバンドルしてminify（難読化）<br>
+・ 複数のjsファイルの変更を検知<br>
+・更新されたタイミングでファイルをminifyしてバンドル<br>
+・バンドルするときに`jQuery`（外部ライブラリ）もバンドル<br>
 ・ その結果を一つのファイルに出力
 </section>
 
 <section layout="bullets" type="text/x-markdown">
 ## 以下のタスクを自動化
 
-1.  bundle、難読化（min化）
+1.  bundle、minify（難読化）
 1. ES2015（ES6）, Buble
 </section>
 
@@ -673,12 +681,12 @@ bundle.js  2.73 kB       0  [emitted]  main
 <section layout="bullets" type="text/x-markdown">
 ## 【再掲】今回のタスク
 
-1.  bundle、難読化（min化）
+1.  bundle、minify（難読化）
 1. ES2015（ES6）, Buble
 </section>
 
 <section layout="code" type="text/x-markdown">
-## 1. bundle、難読化（min化）
+## 1. bundle、minify（難読化）
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -719,7 +727,7 @@ $ npm run build
 </section>
 
 <section layout="code" type="text/x-markdown">
-## 2. ファイルを複数に出力する
+## ファイルを複数に出力する
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -743,7 +751,7 @@ fuga.js: fuga.bundle.js
 -   entry : ['./js/hoge.js', './js/fuga.js'],
 +   entry : {
 +      hoge: './js/hoge.js',
-+      fuga: './js/fuga.js'
++      fuga: ['./js/fuga.js', './js/piyo.js']
 +   },
     output: {
 -      filename: 'bundle.js',
