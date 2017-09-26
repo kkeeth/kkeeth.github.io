@@ -1,5 +1,6 @@
 <app>
-  <h3>{ opts.title }</h3>
+  <h2>{ opts.title }</h2>
+  <h3>version: { riot.version }</h3>
   <div id="container">
     <div id="select" class="box">
       <p>select loop times</p>
