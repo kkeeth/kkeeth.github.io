@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>最低のLTの仕方</title>
+    <link rel="stylesheet" href="../../talkiejs/talkie.min.css">
+    <link rel="stylesheet" href="../../talkiejs/talkie-default.min.css">
+    <link rel="stylesheet" href="../../talkiejs/style.css">
+    <link rel="stylesheet" href="../../talkiejs/monokai_sublime.min.css">
+    <link rel="shortcut icon" href="../../assets/favicon.ico">
+    <script src="../../talkiejs/highlight.min.js"></script>
+    <style>
+      code {
+        font-size: 32px;
+      }
+    </style>
+  </head>
+  <body>
+<template layout="cover" type="text/x-markdown">
+# 最低のLTのやり方
+### 2017/xx/xx　@jokeだらけのLT大会
+</template>
+
+<template class="my-info" layout="title-invert" type="text/x-markdown">
+# 自己紹介
+
+```
+name:   'ほげほげ',
+twitter: '〇〇〇〇'
+github: '××××',
+qiita:    '△△△△',
+workplace:  '□□□□'
+
+```
+
+<span>※このページはなくても良い。</span>
+</template>
+
+<section layout="title-invert" type="text/x-markdown">
+## （口頭で自己紹介 4分50秒）
+</section>
+
+<template class="my-info" layout="title-invert" type="text/x-markdown">
+# すいませんでした！！
+</template>
+
+<template layout="cover" type="text/x-markdown">
+# <strong>ご静聴ありがとう<br>ございました！</strong>
+</template>
+
+  <script src="../../talkiejs/talkie.min.js"></script>
+  <script>
+  var talkie = Talkie({wide: false});
+  document.addEventListener('DOMContentLoaded', function() {
+    var slides = Array.prototype.slice.call(document.querySelectorAll('[layout]'));
+    // talkie.changed.onValue(function(current) {
+    //   console.clear();
+    //   // print presenter notes
+    //   console.info(talkie.notes[current.getAttribute('page')]);
+    // });
+  });
+  </script>
+  </body>
+</html>
