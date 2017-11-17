@@ -5,7 +5,7 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Star</th>
+        <th>Stars</th>
         <th>Forks</th>
       </tr>
     </thead>
