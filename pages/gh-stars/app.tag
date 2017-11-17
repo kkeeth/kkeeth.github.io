@@ -1,7 +1,7 @@
 <app>
-  <h2>{ opts.title }</h2>
+  <h3>{ opts.title }</h3>
 
-  <table border="1">
+  <table class="bordered highlight">
     <thead>
       <tr>
         <th>Name</th>

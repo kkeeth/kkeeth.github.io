@@ -15,22 +15,6 @@ app h2 {
     text-align: center;
 }
 
-div.code {
-  padding: 5px;
-  margin-bottom: 10px;
-}
-
-textarea {
-  width: 100%;
-}
-
-input[type='text'] {
-  padding: 5px;
-  font-size: 16px;
-}
-
-button {
-  padding: 7px;
-  font-size: 16px;
-  border-radius: 5px;
+app table thead {
+    background-color: #eee;
 }
