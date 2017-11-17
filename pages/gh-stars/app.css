@@ -1,0 +1,32 @@
+body {
+	font-family: 'myriad pro', Josefin sans;
+	font-size: 20px;
+	border: 0;
+	background-color: #fafafa;
+}
+
+app {
+	display: block;
+	max-width: 70%;
+	margin: 5% auto;
+}
+
+div.code {
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+textarea {
+  width: 100%;
+}
+
+input[type='text'] {
+  padding: 5px;
+  font-size: 16px;
+}
+
+button {
+  padding: 7px;
+  font-size: 16px;
+  border-radius: 5px;
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Github stars of JavaScript FW or Libraries</title>
+    <link rel="stylesheet" href="app.css">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/riot/3.7.4/riot+compiler.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <!-- component -->
+    <app></app>
+
+    <!-- import tag files -->
+    <script src="app.tag" type="riot/tag"></script>
+
+    <!-- mount tags -->
+    <script>
+      riot.mount('app', { title: 'Github stars of JavaScript Frameworks or libraries !!'} );
+    </script>
+  </body>
+</html>
