@@ -11,6 +11,10 @@ app {
 	margin: 5% auto;
 }
 
+app h2 {
+    text-align: center;
+}
+
 div.code {
   padding: 5px;
   margin-bottom: 10px;

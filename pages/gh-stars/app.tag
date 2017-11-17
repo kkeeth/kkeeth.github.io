@@ -6,45 +6,37 @@
       <tr>
         <th>Name</th>
         <th>Star</th>
-        <th>URL</th>
+        <th>Forks</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Angular</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>React.js</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>Riot.js</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>Vue.js</td>
-        <td></td>
-        <td></td>
+      <tr each={ repo_list }>
+        <td><a href="https://github.com/{ url }" target="_blank">{ name }</a></td>
+        <td>{ stargazers_count }</td>
+        <td>{ forks_count }</td>
       </tr>
     </tbody>
   </table>
 
   <script>
     const self = this
+    self.repo_list = []
 
-    self.on('mount', () => {
-      $.ajax({
-        url: 'https://github.com/facebook/react',
-        type: 'GET',
-        timeout: 30000
-      })
-        .done((data) => {
-          console.info(data)
-        })
+    self.on ('before-mount', () => {
+       opts.repos.forEach((repo) => {
+          $.ajax({
+             url: `https://api.github.com/repos/${repo.url}`,
+             type: 'GET',
+             async: false
+          }).done((data) => {
+             self.repo_list.push({
+                name: repo.key,
+                url: repo.url,
+                stargazers_count: data.stargazers_count,
+                forks_count: data.forks_count
+             })
+          })
+       })
     })
   </script>
 </app>

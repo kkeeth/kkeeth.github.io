@@ -22,7 +22,17 @@
 
     <!-- mount tags -->
     <script>
-      riot.mount('app', { title: 'Github stars of JavaScript Frameworks or libraries !!'} );
+      const repos = [
+        { key: 'Angular', url: 'angular/angular' },
+        { key: 'AngularJS', url: 'angular/angular.js' },
+        { key: 'React', url: 'facebook/react' },
+        { key: 'Riot', url: 'riot/riot' },
+        { key: 'Vue.js', url: 'vuejs/vue' }
+      ]
+      riot.mount('app', {
+        title: 'Github stars of JavaScript Frameworks or libraries !!',
+        repos: repos
+      })
     </script>
   </body>
 </html>

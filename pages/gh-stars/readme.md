@@ -1,1 +1,1 @@
-click link　→　[demo page](https://k-kuwahara.github.io/demo/riot/tips/data-binding/index.html)
+click link　→　[open page](https://k-kuwahara.github.io/pages/gh-stars/)
