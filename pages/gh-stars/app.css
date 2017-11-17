@@ -7,7 +7,7 @@ body {
 
 app {
 	display: block;
-	max-width: 68%;
+	max-width: 86%;
 	margin: 5% auto;
 }
 
@@ -18,7 +18,7 @@ app h3 {
 
 @media screen and (min-width: 768px) {
 	app h3 {
-		max-width: 85%;
+		max-width: 68%;
 		text-align: center;
 		margin: 20px auto;
 	}
