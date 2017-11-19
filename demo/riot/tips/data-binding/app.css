@@ -11,6 +11,15 @@ app {
 	margin: 5% auto;
 }
 
+div.code {
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+textarea {
+  width: 100%;
+}
+
 input[type='text'] {
   padding: 5px;
   font-size: 16px;

@@ -1,0 +1,35 @@
+body {
+	font-family: Josefin sans;
+	font-size: 20px;
+	border: 0;
+	background-color: #fafafa;
+}
+
+app {
+	display: block;
+	max-width: 86%;
+	margin: 5% auto;
+}
+
+app h3 {
+	text-align: center;
+	margin: 40px auto;
+}
+
+@media screen and (min-width: 768px) {
+	app h3 {
+		max-width: 68%;
+		text-align: center;
+		margin: 20px auto;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	app h3 {
+		max-width: 100%;
+	}
+}
+
+app table thead {
+    background-color: #eee;
+}
