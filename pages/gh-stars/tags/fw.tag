@@ -1,6 +1,5 @@
-<app>
-  <h3>{ opts.title }</h3>
-
+<fw>
+  <div class="text-right">update date: { date }</div>
   <table class="bordered highlight">
     <thead>
       <tr>
@@ -39,4 +38,4 @@
        })
     })
   </script>
-</app>
+</fw>
