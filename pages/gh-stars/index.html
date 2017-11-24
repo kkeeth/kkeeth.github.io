@@ -21,22 +21,12 @@
 
     <!-- import tag files -->
     <script src="app.tag.html" type="riot/tag"></script>
+    <script src="tags/fw.tag.html" type="riot/tag"></script>
 
     <!-- mount tags -->
     <script>
-      const repos = [
-        { key: 'Angular', url: 'angular/angular' },
-        { key: 'AngularJS', url: 'angular/angular.js' },
-        { key: 'Ionic', url: 'ionic-team/ionic' },
-        { key: 'React', url: 'facebook/react' },
-        { key: 'Riot', url: 'riot/riot' },
-        { key: 'Vue.js', url: 'vuejs/vue' },
-        { key: 'Aurelia', url: 'aurelia/framework'},
-        { key: 'Mithril', url: 'MithrilJS/mithril.js'}
-      ]
-      riot.mount('app', {
-        title: 'Github stars and forks of JavaScript Frameworks or Libraries !!',
-        repos: repos
+      riot.mount('*', {
+        title: 'Github stars and forks of JavaScript Frameworks or Libraries !!'
       })
     </script>
   </body>

@@ -1,51 +1,106 @@
 <app>
-  <h3>{ opts.title }</h3>
+  <header class="header">
+    <h3>{ opts.title }</h3>
+    <nav class="teal lighten-1">
+      <div class="nav-wrapper">
+        <ul class="center teal lighten-1">
+          <li each={ pages }>
+            <a href="#{ url }">
+              { name }
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 
-  <div class="text-right">update date: { date }</div>
-  <table class="bordered highlight">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Stars</th>
-        <th>Forks</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr each={ repo_list }>
-        <td><a href="https://github.com/{ url }" target="_blank">{ name }</a></td>
-        <td>{ stargazers_count }</td>
-        <td>{ forks_count }</td>
-      </tr>
-    </tbody>
-  </table>
+  <main>
+    <div class="text-right">update date: { date }</div>
+    <table class="bordered highlight">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Stars</th>
+          <th>Forks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr each={ repo_list }>
+          <td><a href="https://github.com/{ url }" target="_blank">{ name }</a></td>
+          <td>{ stargazers_count }</td>
+          <td>{ forks_count }</td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
 
   <script>
     const self = this
     const ls = localStorage
-    self.repo_list = JSON.parse(ls.getItem('gh-stars')) || []
+    const fw_repos = [
+      { key: 'Angular', url: 'angular/angular' },
+      { key: 'AngularJS', url: 'angular/angular.js' },
+      { key: 'Ionic', url: 'ionic-team/ionic' },
+      { key: 'React', url: 'facebook/react' },
+      { key: 'Riot', url: 'riot/riot' },
+      { key: 'Vue.js', url: 'vuejs/vue' },
+      { key: 'Aurelia', url: 'aurelia/framework'},
+      { key: 'Mithril', url: 'MithrilJS/mithril.js'}
+    ]
+    const gr_repos = [
+      { key: 'Chart.js', url: 'chartjs/Chart.js' },
+      { key: 'C3.js', url: 'c3js/c3'},
+      { key: 'D3.js', url: 'd3/d3'},
+      { key: 'react-chartjs', url: 'reactjs/react-chartjs' }
+    ]
+
+    self.repo_list = JSON.parse(ls.getItem('fw-stars')) || []
     self.date = (new Date).toISOString().substr(0, 10)
+    self.pages = [
+      {name: 'Frameworks', url: 'fw'},
+      {name: 'Graphs', url: 'gr'}
+    ]
 
     self.on('before-mount', () => {
-       if (self.repo_list.length === 0) {
-          opts.repos.forEach((repo) => {
-             $.ajax({
-                url: `https://api.github.com/repos/${repo.url}`,
-                type: 'GET',
-                async: false
-             }).done((data) => {
-                self.repo_list.push({
-                   name: repo.key,
-                   url: repo.url,
-                   stargazers_count: data.stargazers_count,
-                   forks_count: data.forks_count
-                })
-             })
-          })
-       }
+      if (self.repo_list.length === 0) {
+        self.repo_list = get_stars(fw_repos)
+        ls.setItem('fw-stars', JSON.stringify(self.repo_list))
+      }
     })
 
     self.on('mount', () => {
-       ls.setItem('gh-stars', JSON.stringify(self.repo_list))
+       route.start()
+
+       // get graph datasets
+       ls.setItem('gr-stars', JSON.stringify(get_stars(gr_repos)))
     })
+
+    route((id) => {
+      self.repo_list = JSON.parse(ls.getItem(`${id}-stars`)) || []
+      if (self.repo_list.length === 0) {
+        self.repo_list = get_stars(`${id}_repos`)
+        ls.setItem(`${id}-stars`, JSON.stringify(self.repo_list))
+      }
+      self.update()
+    })
+
+    function get_stars(repos) {
+      const ret = []
+      repos.forEach((repo) => {
+        $.ajax({
+          url: `https://api.github.com/repos/${repo.url}`,
+          type: 'GET',
+          async: false
+        }).done((data) => {
+          ret.push({
+             name: repo.key,
+             url: repo.url,
+             stargazers_count: data.stargazers_count,
+             forks_count: data.forks_count
+          })
+        })
+      })
+      return ret
+    }
   </script>
 </app>
