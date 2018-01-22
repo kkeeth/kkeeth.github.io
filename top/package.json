@@ -24,13 +24,13 @@
     "node-sass": "^4.5.0",
     "postcss-loader": "^1.3.3",
     "riot-hot-reload": "0.0.2",
-    "riot-tag-loader": "^1.0.0",
+    "riot-tag-loader": "^1.1.3",
     "sass-loader": "^6.0.2",
     "style-loader": "^0.13.2",
     "webpack": "^2.2.1"
   },
   "dependencies": {
-    "riot": "^3.3.1",
+    "riot": "^3.8.1",
     "riot-route": "^3.1.0",
     "riotcontrol": "0.0.3"
   },
