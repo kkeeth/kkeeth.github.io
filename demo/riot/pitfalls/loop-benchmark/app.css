@@ -27,8 +27,7 @@ div#select {
 div#select .selects {
 	padding: 20px;
 }
-div#select .contents a {
-	text-decoration: none;
+div#select .contents label {
 	font-family: Josefin\ Sans;
 	color: #0e0e0e;
 }
