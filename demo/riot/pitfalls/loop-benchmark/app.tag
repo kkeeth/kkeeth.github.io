@@ -3,23 +3,27 @@
   <h3>version: { riot.version }</h3>
   <div id="container">
     <div id="select" class="box">
-      <p>select loop times</p>
-      <form onchange="{ view }">
-        <select name="times">
-          <option value="">please select</option>
-          <option value="10">10</option>
-          <option value="100">100</option>
-          <option value="1000">1000</option>
-          <option value="10000">10000</option>
-        </select>
-      </form>
-      <ul if="{ items.length > 0 }">
-        <label each="{ val, i in items }" onclick="{ toggle_bgcolor }">
-          <li class="bg-off">
-            <input type="checkbox" name="hoge[]"/>hoge{ i+1 }
-          </li>
-        </label>
-      </ul>
+      <div class="selects">
+        <p>select loop times</p>
+        <form onchange="{ view }">
+          <select name="times">
+            <option value="">please select</option>
+            <option value="10">10</option>
+            <option value="100">100</option>
+            <option value="1000">1000</option>
+            <option value="10000">10000</option>
+          </select>
+        </form>
+      </div>
+      <div class="contents" if="{ items.length > 0 }">
+        <div each="{ val, i in items }" >
+          <label onclick="{ toggle_bgcolor }" for="target{i}">
+            <div class="list-contents">
+              <input id="target{i}" type="checkbox" name="hoge[]" />hoge{ i+1 }
+            </div>
+          </label>
+        </div>
+      </div>
     </div>
     <div id="result" if="{ items.length > 0 }" class="box">
       <p>
@@ -59,15 +63,12 @@
 
     // if checked, change background-color
     toggle_bgcolor(e) {
-      if ($(e.target).find('input').prop('checked')) {
-        $(e.target).addClass('bg-off')
+      const target$ = $(e.target).find('input')
+      if (target$.prop('checked')) {
         $(e.target).removeClass('bg-on')
-        $(e.target).find('input').prop('checked', false)
       }
       else {
         $(e.target).addClass('bg-on')
-        $(e.target).removeClass('bg-off')
-        $(e.target).find('input').prop('checked', true)
       }
     }
   </script>
