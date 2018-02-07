@@ -17,8 +17,8 @@
       </div>
       <div class="contents" if="{ items.length > 0 }">
         <div each="{ val, i in items }" >
-          <label>
-            <div class="list-contents" onclick="{ toggle_bgcolor }">
+          <label onclick="{ toggle_bgcolor }">
+            <div class="list-contents">
               <input type="checkbox" name="hoge[]" />hoge{ i+1 }
             </div>
           </label>
@@ -44,7 +44,7 @@
     var updated_flg = true
 
     //  after updated
-    this.on('updated', function() {
+    this.on('updated', () => {
       if (!updated_flg) {
         var end = (new Date()).getTime()
         this.view_time = (end - this.start) / 1000
@@ -63,14 +63,17 @@
 
     // if checked, change background-color
     toggle_bgcolor(e) {
-      const target$ = $(e.target).find('input')
+      e.preventUpdate = true
+      const target$   = $(e.target).find('input')
+      const is_v2     = riot.version.match(/v2.*/)
+
       if (target$.prop('checked')) {
         $(e.target).removeClass('bg-on')
-        target$.prop('checked', false)
+        is_v2 ? target$.prop('checked', false) : ''
       }
       else {
         $(e.target).addClass('bg-on')
-        target$.prop('checked', true)
+        is_v2 ?  target$.prop('checked', true) : ''
       }
       return
     }
