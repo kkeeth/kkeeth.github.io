@@ -17,9 +17,9 @@
       </div>
       <div class="contents" if="{ items.length > 0 }">
         <div each="{ val, i in items }" >
-          <label onclick="{ toggle_bgcolor }" for="target{i}">
-            <div class="list-contents">
-              <input id="target{i}" type="checkbox" name="hoge[]" />hoge{ i+1 }
+          <label>
+            <div class="list-contents" onclick="{ toggle_bgcolor }">
+              <input type="checkbox" name="hoge[]" />hoge{ i+1 }
             </div>
           </label>
         </div>
@@ -66,10 +66,13 @@
       const target$ = $(e.target).find('input')
       if (target$.prop('checked')) {
         $(e.target).removeClass('bg-on')
+        target$.prop('checked', false)
       }
       else {
         $(e.target).addClass('bg-on')
+        target$.prop('checked', true)
       }
+      return
     }
   </script>
 </app>
