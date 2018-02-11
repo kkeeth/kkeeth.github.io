@@ -22,7 +22,7 @@
         <td>
           <a href="https://speakerdeck.com/clown0082/recommend-ionic" target="_blank">
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-              ＞ Recommend Ionic
+              ＞ Recommending Ionic Framework (LT)
             </button>
           </a>
         </td>
