@@ -58,7 +58,11 @@
         margin-right: 200px;
         margin-bottom: 20px;
       }
-    }
+      h1 {
+        margin: 15px 50px;
+        text-align: left;
+      }
+   }
   </style>
 
 </app-main>
