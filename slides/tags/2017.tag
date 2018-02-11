@@ -121,6 +121,16 @@
         </td>
       </tr>
       <tr>
+        <td>Sep 14, 2017</td>
+        <td>
+          <a href="https://k-kuwahara.github.io/slides/2017/supporterzcolab/" target="_blank">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+              ＞ JavaScriptの開発環境構築ハンズオン
+            </button>
+          </a>
+        </td>
+      </tr>
+      <tr>
         <td>Nov 2, 2017</td>
         <td>
           <a href="https://speakerdeck.com/clown0082/enziniagakiyarianituitekao-erutokiyi-shi-surukoto" target="_blank">
