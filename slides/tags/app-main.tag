@@ -1,26 +1,25 @@
 <app-main>
-
   <article>
     <h1>{ title }</h1>
     <div data-is="{ data }"></div>
   </article>
 
   <script>
-    var self = this
+    const self = this
     self.title = opts.title || 'Now loading...'
-    self.data = 'list-2017'
+    self.data = 'list-2018'
 
     var r = route.create()
     r('',     home      )
-    r('2018', list_2018 )
+    r('2017', list_2017 )
     r(        home      )
 
     function home() {
-      self.data = "list-2017"
+      self.data = "list-2018"
       self.update()
     }
-    function list_2018() {
-      self.data = "list-2018"
+    function list_2017() {
+      self.data = "list-2017"
       self.update()
     }
   </script>

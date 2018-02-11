@@ -5,14 +5,15 @@
   </a>
 
   <script>
-    var self = this
+    const self = this
+    self.selectedId = ''
 
     this.links = [
-      { name: "2017", url: "" },
-      { name: "2018", url: "2018" },
+      { name: "2018", url: "" },
+      { name: "2017", url: "2017" }
     ]
 
-    var r = route.create()
+    const r = route.create()
     r(highlightCurrent)
 
     function highlightCurrent(id) {
