@@ -23,7 +23,7 @@
     "c3": "^0.4.11",
     "css-loader": "^0.28.9",
     "extract-text-webpack-plugin": "^3.0.2",
-    "jquery": "~>3.0.0",
+    "jquery": "^3.0.0",
     "material-design-lite": "^1.2.1",
     "node-sass": "^4.7.2",
     "riot": "^3.8.1",
