@@ -1,5 +1,7 @@
 <app-navi>
-
+  <div class="logo">
+    <i class="material-icons">storage</i>
+  </div>
   <a each={ links } href="#{ url }" class={ selected: parent.selectedId === url }>
     { name }
   </a>
@@ -29,7 +31,7 @@
       left: 0;
       height: 100%;
       box-sizing: border-box;
-      font-family: sans-serif;
+      font-family: Josefin\ Sans;
       text-align: center;
       color: #666;
       background: #333;
@@ -42,10 +44,9 @@
     a {
       display: block;
       box-sizing: border-box;
+      font-size: 16px;
       width: 100%;
-      height: 50px;
-      line-height: 50px;
-      padding: 0 .8em;
+      padding: 1.2em 0;
       color: white;
       text-decoration: none;
       background: #444;
@@ -56,7 +57,13 @@
     a.selected {
       background: teal;
     }
+    .logo {
+      color: #eee;
+      padding: 1.2em 0;
+    }
+    .logo .material-icons {
+      font-size: 42px;
+    }
   </style>
-
 </app-navi>
 
