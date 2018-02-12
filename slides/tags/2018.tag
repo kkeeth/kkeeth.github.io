@@ -37,6 +37,16 @@
           </a>
         </td>
       </tr>
+      <tr>
+        <td>Feb 15, 2018</td>
+        <td>
+          <a href="https://k-kuwahara.github.io/slides/2018/supporterzcolab/" target="_blank">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+              ＞ JavaScript開発環境ハンズオン
+            </button>
+          </a>
+        </td>
+      </tr>
     </tbody>
   </table>
 </list-2018>
