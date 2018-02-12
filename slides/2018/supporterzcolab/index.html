@@ -1,0 +1,885 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JavaScriptの開発環境構築ハンズオン</title>
+    <link rel="stylesheet" href="../../talkiejs/talkie.min.css">
+    <link rel="stylesheet" href="../../talkiejs/talkie-default.min.css">
+    <link rel="stylesheet" href="../../talkiejs/style.css">
+    <link rel="stylesheet" href="../../talkiejs/monokai_sublime.min.css">
+    <link rel="shortcut icon" href="../../assets/favicon.ico">
+    <script src="../../talkiejs/highlight.min.js"></script>
+    <style>
+      code {
+        font-size: 32px;
+      }
+    </style>
+  </head>
+  <body>
+<template layout="cover" type="text/x-markdown">
+# JavaScriptの<br>開発環境構築ハンズオン
+### 2018/02/15　@サポーターズCoLab勉強会
+</template>
+
+<template class="my-info" layout="cover" type="text/x-markdown">
+# Self-introduction
+
+```
+const my_info = {
+    name:   '桑原聖仁',
+    twitter: '@kuwahara_ngv4（たまに変更）',
+    github: 'k-kuwahara',
+    qiita:    '@clown0082',
+    workplace:  'Yumemi, Inc.'
+}
+```
+</template>
+
+<template class="my-info" layout="cover" type="text/x-markdown">
+# Skill Sets
+
+```
+const sub_info = {
+    PHP:   'EC-CUBE(v2), CodeIgniter, FuelPHP',
+    JavaScript:   'Riot.js, Angular, Ionic, Vue.js',
+    Ruby:     'Ruby on Rails'
+}
+```
+</template>
+
+<section layout="bullets" type="text/x-markdown">
+## Agenda
+- JavaScriptを取り巻くツールについて
+- npmを使ってツールの導入
+- Webpackを使ってみよう
+  - bundle、難読化（min化）
+  - 複数に出力
+  - jqueryもバンドル
+- 今後の環境構築の方針
+</section>
+
+<section layout="code" type="text/x-markdown">
+# 本日話さないこと
+
+```md
+・ 最新のツール
+・ CSS周りの開発環境構築
+・ 各ライブラリの詳細
+```
+### 時間の都合上最小限の環境のみになりますm(_ _)m
+
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## <strong>本題に入る前に、Node.jsを<br>インストールしましょう</strong>
+    　
+※この先Node.jsをインストールしていないと先に進めないですw
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+- Windowsの人 => [__公式サイト__](https://nodejs.org/ja/)
+- Macの人 => `nodebrew`
+- Linuxの人 => `nvm`
+
+※Windowsの人は、<span class="assert">再起動</span>が必要です。
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+### Node.jsのバージョンが`v0.x`、`v4`、`v5`の方はいますか？
+## 最低でも`v6`以上にアップグレードしてください(ﾟ∀ﾟ)
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## これで準備完了です！
+</section>
+
+<section class="white" layout="title" backface="./img/bg1.gif" backface-filter="blur(2px) brightness(.4)" type="text/x-markdown">
+### <strong>JavaScriptを取り巻く<br>ツールについて</strong>
+</section>
+
+<section layout="cover" type="text/x-markdown">
+# まずはどんなものが<br>あるのか軽くご紹介
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## <strong>Text Editor, IDE</strong>
+
+- Editor
+  - <a href="https://www.sublimetext.com/" target="_blank">Sublime Text</a>
+  - <a href="https://atom.io/" target="_blank">Atom</a>
+  - <a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a>
+- IDE
+  - <a href="https://www.jetbrains.com/phpstorm/" target="_blank">PhpStorm</a>
+  - <a href="https://www.jetbrains.com/webstorm/" target="_blank">WebStorm</a>
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+# <strong>Package Manager</strong>
+
+- <a href="https://www.npmjs.com/" target="_blank">npm</a><span class="next">　←今回はこちらを利用</span>
+- <a href="https://bower.io/" target="_blank">bower</a>
+- <a href="https://yarnpkg.com/" target="_blank">yarn</a>
+
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+# <strong>Linter（syntax check tool）</strong>
+
+- <a href="https://eslint.org/" target="_blank">ESLint</a>
+- <a href="http://jshint.com/" target="_blank">JSHint</a>
+- <a href="http://www.jslint.com/" target="_blank">JSLint</a>
+- <a href="https://standardjs.com/" target="_blank">Standard</a>
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+# <strong>Automation Tool</strong>
+
+- Task Runner
+  - <a href="https://gruntjs.com/" target="_blank">Grunt</a>
+  - <a href="https://gulpjs.com/" target="_blank">Gulp</a>
+- Bundler
+  - <a href="https://webpack.js.org" target="_blank">Webpack</a> ←今回はこちらを利用
+  - <a href="https://rollupjs.org/" target="_blank">Rollup</a>
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+# <strong>AltJS</strong>
+
+- <a href="http://coffeescript.org/" target="_blank">CoffeeScript</a>
+- <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>
+- <a href="https://flow.org/en/" target="_blank">Flow</a>（この子はここじゃないかも）
+- <a href="http://kangax.github.io/compat-table/es6/" target="_blank">ES2015（ES6）</a>
+
+※ 厳密には`ES2015`はAltJSではありません。
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+# <strong>Template Engine</strong>
+
+- <a href="https://pugjs.org/api/getting-started.html" target="_blank">Pug（旧: Jade）</a>
+- <a href="http://ejs.co/" target="_blank">EJS</a>
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+# <strong>Framework, Library</strong>
+- <a href="https://angularjs.org/" target="_blank">AngularJS</a>
+- <a href="https://facebook.github.io/react/" target="_blank">React.js</a>
+- <a href="http://riotjs.com/" target="_blank">Riot.js</a>
+- <a href="https://angular.io/" target="_blank">Angular</a>
+- <a href="https://vuejs.org/" target="_blank">Vue.js</a>
+- ...etc
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+# <strong>Testing Framework</strong>
+
+- <a href="https://mochajs.org/" target="_blank">Mocha</a>
+- <a href="https://jasmine.github.io/" target="_blank">Jasmine</a>
+- <a href="https://github.com/avajs/ava" target="_blank">Ava</a>
+- <a href="http://chaijs.com/" target="_blank">Chai</a>
+- <a href="https://facebook.github.io/jest/" target="_blank">Jest</a>
+- （<a href="https://karma-runner.github.io/1.0/index.html" target="_blank">Karma</a>: テストランナー）
+</section>
+
+<section layout="cover" type="text/x-markdown">
+# 最初にこれらを見た私は<br>こうなりました。
+</section>
+
+<section class="white" layout="title" backface="./img/mmm.gif" backface-filter="blur(0px) brightness(.8)" type="text/x-markdown">
+## <strong>多すぎる...</strong>
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## Q. 色々あるのはわかったが<br>こんなに必要なの？
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## A. なくてもいいが<br>「面倒な作業」が楽になる。
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## Q. 「面倒な作業」って？
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## <strong>面倒な作業例</strong>
+
+- AltJSで書かれたファイルのコンパイル
+- テンプレートエンジンを用いたファイルのコンパイル
+- PostCSS, LESS, Sassなどのプリプロセッサのコンパイル
+- ESLint, JSLint, JSHintなどのリンターによるチェック
+- js, cssの圧縮 or minify、ファイルのリネーム
+- 画像ファイルの圧縮
+- バンドル
+　...などなど
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## これらに対応してくれる<br>素晴らしいツール達が<br>世の中にはあります( ﾟ∀ﾟ)
+</section>
+
+<section class="white" layout="title" backface="./img/btn-download.png" backface-filter="blur(3px) brightness(.3)" type="text/x-markdown">
+### <strong>npmを使って<br>各ツールの導入</strong>
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## <strong>導入の手順</strong>
+
+1. `npm`から欲しいツール（モジュール）を探す
+1. `npm`コマンドで自分の開発環境にインストール
+1. 各ツールの仕様通りに動かす
+
+言ってしまえばこれだけです。npmを使いこなせれば勝ちです。
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+<svg viewBox="0 0 18 7" class="">
+    <path fill="#CB3837" d="M0,0v6h5v1h4v-1h9v-6"></path>
+    <path fill="#FFF" d="M1,1v4h2v-3h1v3h1v-4h1v5h2v-4h1v2h-1v1h2v-4h1v4h2v-3h1v3h1v-3h1v3h1v-4"></path>
+</svg>
+
+## npm（Node Package Manager）
+
+『npm is the package manager for JavaScript and the world’s largest software registry. Discover packages of reusable code — and assemble them in powerful new ways.』
+（[npm公式より）](https://www.npmjs.com/)
+
+<style>
+    svg {
+        width: 200px;
+        position: absolute;
+        right: 10px;
+        top: 80px;
+    }
+</style>
+</section>
+
+<section layout="cover" type="text/x-markdown">
+# npmはJavaScriptで開発する上で<span class="assert">必須</span>と言えます！
+</section>
+
+<section layout="cover" type="text/x-markdown">
+# npmの使い方を<br>見ていきましょう
+</section>
+
+<section layout="code" type="text/x-markdown">
+## npmの基本コマンド
+
+```shell
+・ npm install
+・ npm list
+・ npm uninstall
+・ npm update
+・ npm search
+```
+
+日常で使うのはこの5つだと思います(ﾟ∀ﾟ)
+</section>
+
+<section layout="code" type="text/x-markdown">
+## First!!
+
+```shell
+npm install
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+npm install [-g|--save|--save-dev] module
+```
+
+### 意味：モジュールのインストール
+
+```shell
+（省略形： npm i）
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `[-g|--save|--save-dev]`の意味は？
+</section>
+
+<section layout="code" type="text/x-markdown">
+## こうです。
+
+```css
+ -g: グローバルでインストールするもの
+ --save: 実際のアプリ稼働時に利用するもの
+ --save-dev: 開発時に利用するもの
+```
+
+※ `--save-dev`は`-D`でも良いです。
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 実際に`ja-greetings`というモジュールを<br>インストールしてみましょう！
+
+（手前味噌ですみません…w）
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+$ npm install -g ja-greetings
+```
+又は
+
+```shell
+$ npm i -g ja-greetings
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `ja-greetings`を使ってみましょう。
+
+```shell
+$ ja-greetings new
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## ちなみに、installは以下のように<br>複数まとめて実行もできます。
+
+```shell
+$ npm i -D hoge fuga piyo
+```
+</section>
+
+
+<section layout="code" type="text/x-markdown">
+## Next!!
+
+```shell
+npm list
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+npm list [-g] [--depth=n] <module>
+```
+
+### 意味：インストールされたモジュールの一覧表示
+
+```shell
+（省略形： npm ls）
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+### `ja-greetings`がインストールされたか確認してみましょう！<br>以下のコマンドを実行して下さい♪
+
+```shell
+$ npm list -g --depth=0
+```
+
+又は
+
+```shell
+$ npm ls -g --depth=0
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Next!!
+
+```shell
+npm uninstall
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+npm uninstall [-g|--save|--save-dev] module
+```
+
+### 意味：モジュールの削除
+```shell
+（省略形: npm rm, npm un）
+```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 先程インストールした`ja-greetings`を削除してみましょう！<br>以下のコマンドを実行して下さい♪
+
+```shell
+$ npm uninstall -g ja-greetings
+```
+
+又は
+
+```shell
+$ npm rm -g ja-greetings
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### `ja-greetings`が削除されたか確認してみましょう！
+
+```shell
+$ npm ls -g --depth=0
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Next!!
+
+```shell
+npm update
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+npm update [-g|--save|--save-dev] (module)
+```
+
+### 意味：モジュールのアップデート<br>※moduleを指定しなければ全モジュールが対象
+```shell
+（省略形: npm up）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Last!!
+
+```shell
+npm search
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+
+```shell
+npm search module
+```
+
+### 意味：指定の文字列で部分一致するモジュールの一覧を表示
+```shell
+（省略形: npm s, npm find）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+### 実際に`greeting`で検索してみましょう！<br>以下のコマンドを実行して下さい♪
+
+```shell
+$ npm search greeting
+```
+
+又は
+
+```shell
+$ npm s greeting
+```
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## Q. 導入できたとして、<br>毎回人が手動でやるの？
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## A. もちろん自動化します。<br>そのためのツールが...
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## こやつらです。
+
+|Task Runner|評価|Bundler|評価|
+|:--:|:--:|:--:|:--:|
+|__Grunt__|D|__Webpack__|A|
+|__Gulp__|B|__Rollup__|C|
+
+※評価は私の独断と偏見に基づきます（笑）
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## 今回触れるのはこの子。
+
+|Task Runner|評価|Bundler|評価|
+|:--:|:--:|:--:|:--:|
+|__Grunt__|D|<span class="assert f38">Webpack</span>|A|
+|__Gulp__|B|__Rollup__|C|
+
+この4つの中ではおそらく最も利用されているもの。
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+## ちなみに比較はこちら→
+</section>
+
+<section layout="cover" type="text/x-markdown">
+
+<img src="./img/trends.png">
+
+</section>
+
+<section class="white" layout="title" backface="./img/webpack.png" backface-filter="blur(1.5px) brightness(.5)" type="text/x-markdown">
+### <strong>Webpackを使ってみよう</strong>
+</section>
+
+<section layout="cover" type="text/x-markdown">
+## Webpack
+### bundle your assets, scripts, images, styles
+
+<img class="logo" src="./img/webpack-logo.png" width="120">
+
+webpack is a module bundler. Its main purpose is to bundle JavaScript files for usage in a browser, yet it is also capable of transforming, bundling, or packaging just about any resource or asset.<br><span class="mright">（[公式リポジトリ](https://github.com/webpack/webpack)より）</span>
+</section>
+
+<section layout="cover" type="text/x-markdown">
+## <strong>useage image</strong>
+
+<img src="./img/webpack-image.png">
+
+</section>
+
+<section layout="cover" type="text/x-markdown">
+## 色んなファイル(※)を食わすと、よしなにバンドルして出力してくれるツールです。
+
+※ 画像、`.ts`ファイル、`.scss`ファイル、フォント…など<br>
+※ ただし、webpack単体ではバンドルしかできない
+</section>
+
+<section class="white" layout="title" backface="./img/cannot_understand.jpg" backface-filter="blur(1px) brightness(.7)" type="text/x-markdown">
+### <strong>実際使われてるの？</strong>
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## <strong>Frameworks introducing Webpack</strong>
+
+- Angular
+- Ionic
+- Vue.js
+- Ruby on Rails (v5.1 or later)
+- ...etc
+</section>
+
+<section layout="code" type="text/x-markdown">
+## <strong>今回のゴール（構築する環境）</strong>
+
+1 複数のjsファイルの変更を検知<br>
+2 更新されたタイミングでファイルをminifyしてバンドル<br>
+3 バンドルするときに`jQuery`（外部ライブラリ）もバンドル<br>
+</section>
+
+<section layout="code" type="text/x-markdown">
+## ディレクトリの構成
+
+```JavaScript
+├ node_modules/
+├ package.json
+├ webpack.config.js
+└ js/
+  └ *.js   ← 検知対象ファイル
+```
+
+※`js`ディレクトリに`(適当な名前).js`<br>ファイルを作成して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## まずはWebpackの簡単な使い方
+
+### 「`js/hoge.js`ファイルを`build`ディレクトリに出力」します
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Webpackをインストール
+
+```shell
+# package.jsonの生成
+$ npm init -y
+$ npm i [--save-dev|-D] webpack
+```
+
+※ `--save-dev, -D`はオプションです。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 次に`webpack.config.js`を生成し、以下を記述してください
+
+```JavaScript
+const path = require('path')
+
+module.exports = {
+  entry : './js/hoge.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(`${__dirname}/build/`)
+  }
+}
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## Webpackを起動させるために<br>コマンドを設定
+
+### `package.json`を開き、次のコードを追記して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
+// package.jsonの一部抜粋
+...
+
+  "scripts": {
+    // 「-w」はwatchモードのオプション
+    // これで変更を検知し自動でバンドル
++   "build": "webpack -w"
+  },
+
+...
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 準備完了です。以下の<br>コマンドを実行して下さい。
+
+```shell
+$ npm run build
+```
+
+※ここで自動的に`build`ディレクトリが生成されます。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## （実行結果例）
+```shell
+Hash: b78690c05f52f020db88
+Version: webpack 2.4.1
+Time: 101ms
+    Asset     Size  Chunks  Chunk Names
+bundle.js  2.73 kB       0  [emitted]  main
+   [0] ./js/hoge.js 95 bytes {0} [built]
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `build/bundle.js`を開いてみて下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 以上が、最小限のWebpackの<br>動かし方です。それでは<br>今回のタスクに入っていきます。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## <strong>【再掲】今回のゴール<br>（構築する環境）</strong>
+
+1 複数のjsファイルの変更を検知<br>
+2 更新されたタイミングでファイルをminifyしてバンドル<br>
+3 バンドルするときに`jQuery`（外部ライブラリ）もバンドル<br>
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 1. ファイルの変更を検知
+## 2. バンドル、minify（難読化）
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `webpack.config.js`を開き、<br>次のコードを追記して下さい。
+```diff
+  const path = require('path')
++ const webpack = require('webpack')
+
+  module.exports = {
+-   entry : './js/hoge.js',
++   entry : ['./js/hoge.js', './js/fuga.js'],
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
+    // "output"の終わりから
+-   }
++   },
++   plugins: [
++     new webpack.optimize.UglifyJsPlugin({
++       output: { comments: false }
++     })
++   ]      //（以下略）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## jsディレクトリに`fuga.js`を作成し、<br>再度バンドルしましょう。
+
+```shell
+$ npm run build
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## バンドルが完了したら<br>`build/bundle.js`を開いてみて下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 余談：ファイルを複数に出力する
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 今回は以下のように、
+
+```JavaScript
+hoge.js: hoge.bundle.js
+fuga.js、piyo.js: fuga.bundle.js
+```
+
+## それぞれで出力します。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `webpack.config.js`を開き、<br>次のコードを追記して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
+  module.exports = {
+-   entry : ['./js/hoge.js', './js/fuga.js'],
++   entry : {
++      hoge: './js/hoge.js',
++      fuga: ['./js/fuga.js', './js/piyo.js']
++   },
+    output: {
+-      filename: 'bundle.js',
++      filename: '[name].bundle.js',
+      //（以下略）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## ではバンドルしましょう。
+
+```shell
+$ npm run build
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## `build`ディレクトリを開くと、
+
+```JavaScript
+build/
+  └ bundle.js
+  └ hoge.bundle.js ← new
+  └ fuga.bundle.js ← new
+
+```
+
+## となっていればOKです。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 3. `jQuery`もバンドルする
+</section>
+
+<section layout="code" type="text/x-markdown">
+## webpackではライブラリも一緒に<br>バンドルすることができます。
+
+今回は`jQuery`をバンドルしてみましょう。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## まずは`jQuery`をインストール
+
+```shell
+$ npm i --save jquery
+```
+
+※バージョンを指定したい方は適宜指定して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+## 次に`hoge.js`を開き、<br>以下のコードを追記して下さい。
+
+<br>
+
+```JavaScript
+const jquery = require('jquery')
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## さらに`webpack.config.js`を開き、<br>次のコードを追記して下さい。
+</section>
+
+<section layout="code" type="text/x-markdown">
+```diff
+  // 一部抜粋
+  plugins: [
+    // 名前を予約
++   new webpack.ProvidePlugin({
++      jquery: 'jquery',
++      jQuery: 'jquery',
++      $     : 'jquery'
++   }),
+    // （以下略）
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## ではバンドルしましょう。
+
+```shell
+$ npm run build
+```
+</section>
+
+<section layout="code" type="text/x-markdown">
+## バンドルが完了したら<br>`build/hoge.bundle.js`を開いて下さい。
+
+<br>
+
+## `jQuery`のソースがバンドルされているかと思います。
+</section>
+
+
+<section class="white" layout="title" backface="./img/btn-download.png" backface-filter="blur(3px) brightness(.3)" type="text/x-markdown">
+### <strong>今後の開発環境<br>構築の方針</strong>
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+- ES2015（ES6）のコンパイル
+  - `babel` + `babel-loader`、`buble` + `buble-loader`
+- `dev server`を使ってブラウザで確認
+  - `webpack-deb-server`
+- 自動ユニットテスト
+  - `karma` + `mocha` or `Jasmine` or `Ava`など
+- `Sass`のコンパイル、バンドル
+  - `sass-loader` + `css-loader` + `style-loader`
+</section>
+
+<section layout="cover" type="text/x-markdown">
+# JavaScriptに関するツールは、栄枯盛衰が激しい。
+</section>
+
+<section layout="cover" type="text/x-markdown">
+# しかし、常に最新が正といいう訳でもないので<br>吟味して使いましょう！
+</section>
+
+<script layout="cover" type="text/x-markdown">
+# <strong>ありがとうございました！</strong>
+</script>
+
+
+  <script src="../../talkiejs/talkie.min.js"></script>
+  <script>
+  var talkie = Talkie({wide: false});
+  document.addEventListener('DOMContentLoaded', function() {
+    var slides = Array.prototype.slice.call(document.querySelectorAll('[layout]'));
+    // talkie.changed.onValue(function(current) {
+    //   console.clear();
+    //   // print presenter notes
+    //   console.info(talkie.notes[current.getAttribute('page')]);
+    // });
+  });
+  </script>
+  </body>
+</html>
