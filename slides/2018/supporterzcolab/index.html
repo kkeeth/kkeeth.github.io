@@ -39,10 +39,10 @@ const my_info = {
 
 ```
 const sub_info = {
-   'Riot.js': 'Collaborator',
-   'Ionic Japan User Group': 'Staff',
-   'DIST': 'Staff',
-   'MDN web docs': 'translator'
+   riot: 'Collaborator',
+   IJUG: 'Staff',
+   DIST: 'Staff',
+   MDN web docs: 'translator'
 }
 ```
 </template>
@@ -91,95 +91,6 @@ const sub_info = {
 
 <section layout="title-invert" type="text/x-markdown">
 ## これで準備完了です！
-</section>
-
-<section class="white" layout="title" backface="./img/bg1.gif" backface-filter="blur(2px) brightness(.4)" type="text/x-markdown">
-### <strong>JavaScriptを取り巻く<br>ツールについて</strong>
-</section>
-
-<section layout="cover" type="text/x-markdown">
-# まずはどんなものが<br>あるのか軽くご紹介
-</section>
-
-<section layout="bullets" type="text/x-markdown">
-## <strong>Text Editor, IDE</strong>
-
-- Editor
-  - <a href="https://www.sublimetext.com/" target="_blank">Sublime Text</a>
-  - <a href="https://atom.io/" target="_blank">Atom</a>
-  - <a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a>
-- IDE
-  - <a href="https://www.jetbrains.com/phpstorm/" target="_blank">PhpStorm</a>
-  - <a href="https://www.jetbrains.com/webstorm/" target="_blank">WebStorm</a>
-</section>
-
-<section layout="bullets" type="text/x-markdown">
-# <strong>Package Manager</strong>
-
-- <a href="https://www.npmjs.com/" target="_blank">npm</a><span class="next">　←今回はこちらを利用</span>
-- <a href="https://bower.io/" target="_blank">bower</a>
-- <a href="https://yarnpkg.com/" target="_blank">yarn</a>
-
-</section>
-
-<section layout="bullets" type="text/x-markdown">
-# <strong>Linter（syntax check tool）</strong>
-
-- <a href="https://eslint.org/" target="_blank">ESLint</a>
-- <a href="http://jshint.com/" target="_blank">JSHint</a>
-- <a href="http://www.jslint.com/" target="_blank">JSLint</a>
-- <a href="https://standardjs.com/" target="_blank">Standard</a>
-</section>
-
-<section layout="bullets" type="text/x-markdown">
-# <strong>Automation Tool</strong>
-
-- Task Runner
-  - <a href="https://gruntjs.com/" target="_blank">Grunt</a>
-  - <a href="https://gulpjs.com/" target="_blank">Gulp</a>
-- Bundler
-  - <a href="https://webpack.js.org" target="_blank">Webpack</a> ←今回はこちらを利用
-  - <a href="https://rollupjs.org/" target="_blank">Rollup</a>
-  - <a href="https://parceljs.org/" target="_blank">Parcel</a>
-</section>
-
-<section layout="bullets" type="text/x-markdown">
-# <strong>AltJS</strong>
-
-- <a href="http://coffeescript.org/" target="_blank">CoffeeScript</a>
-- <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>
-- <a href="https://flow.org/en/" target="_blank">Flow</a>（この子はここじゃないかも）
-- <a href="http://kangax.github.io/compat-table/es6/" target="_blank">ES2015（ES6）</a>
-
-※ 厳密には`ES2015`はAltJSではありません。
-</section>
-
-<section layout="bullets" type="text/x-markdown">
-# <strong>Template Engine</strong>
-
-- <a href="https://pugjs.org/api/getting-started.html" target="_blank">Pug（旧: Jade）</a>
-- <a href="http://ejs.co/" target="_blank">EJS</a>
-</section>
-
-<section layout="bullets" type="text/x-markdown">
-# <strong>Framework, Library</strong>
-- <a href="https://angularjs.org/" target="_blank">AngularJS</a>
-- <a href="https://facebook.github.io/react/" target="_blank">React.js</a>
-- <a href="http://riotjs.com/" target="_blank">Riot.js</a>
-- <a href="https://angular.io/" target="_blank">Angular</a>
-- <a href="https://vuejs.org/" target="_blank">Vue.js</a>
-- ...etc
-</section>
-
-<section layout="bullets" type="text/x-markdown">
-# <strong>Testing Framework</strong>
-
-- <a href="https://mochajs.org/" target="_blank">Mocha</a>
-- <a href="https://jasmine.github.io/" target="_blank">Jasmine</a>
-- <a href="https://github.com/avajs/ava" target="_blank">Ava</a>
-- <a href="http://chaijs.com/" target="_blank">Chai</a>
-- <a href="https://facebook.github.io/jest/" target="_blank">Jest</a>
-- （<a href="https://karma-runner.github.io/1.0/index.html" target="_blank">Karma</a>: テストランナー）
 </section>
 
 <section layout="cover" type="text/x-markdown">
@@ -870,6 +781,90 @@ $ npm run build
 # <strong>ありがとうございました！</strong>
 </script>
 
+<section class="white" layout="title" backface="img/bg1.gif" backface-filter="blur(2px) brightness(.4)" type="text/x-markdown">
+### <strong>付録：JavaScriptを取り巻くツール</strong>
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## <strong>Text Editor, IDE</strong>
+
+- Editor
+  - <a href="https://www.sublimetext.com/" target="_blank">Sublime Text</a>
+  - <a href="https://atom.io/" target="_blank">Atom</a>
+  - <a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a>
+- IDE
+  - <a href="https://www.jetbrains.com/phpstorm/" target="_blank">PhpStorm</a>
+  - <a href="https://www.jetbrains.com/webstorm/" target="_blank">WebStorm</a>
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+# <strong>Package Manager</strong>
+
+- <a href="https://www.npmjs.com/" target="_blank">npm</a><span class="next">　←今回はこちらを利用</span>
+- <a href="https://bower.io/" target="_blank">bower</a>
+- <a href="https://yarnpkg.com/" target="_blank">yarn</a>
+
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+# <strong>Linter（syntax check tool）</strong>
+
+- <a href="https://eslint.org/" target="_blank">ESLint</a>
+- <a href="http://jshint.com/" target="_blank">JSHint</a>
+- <a href="http://www.jslint.com/" target="_blank">JSLint</a>
+- <a href="https://standardjs.com/" target="_blank">Standard</a>
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+# <strong>Automation Tool</strong>
+
+- Task Runner
+  - <a href="https://gruntjs.com/" target="_blank">Grunt</a>
+  - <a href="https://gulpjs.com/" target="_blank">Gulp</a>
+- Bundler
+  - <a href="https://webpack.js.org" target="_blank">Webpack</a> ←今回はこちらを利用
+  - <a href="https://rollupjs.org/" target="_blank">Rollup</a>
+  - <a href="https://parceljs.org/" target="_blank">Parcel</a>
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+# <strong>AltJS</strong>
+
+- <a href="http://coffeescript.org/" target="_blank">CoffeeScript</a>
+- <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>
+- <a href="https://flow.org/en/" target="_blank">Flow</a>（この子はここじゃないかも）
+- <a href="http://kangax.github.io/compat-table/es6/" target="_blank">ES2015（ES6）</a>
+
+※ 厳密には`ES2015`はAltJSではありません。
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+# <strong>Template Engine</strong>
+
+- <a href="https://pugjs.org/api/getting-started.html" target="_blank">Pug（旧: Jade）</a>
+- <a href="http://ejs.co/" target="_blank">EJS</a>
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+# <strong>Framework, Library</strong>
+- <a href="https://angularjs.org/" target="_blank">AngularJS</a>
+- <a href="https://facebook.github.io/react/" target="_blank">React.js</a>
+- <a href="http://riotjs.com/" target="_blank">Riot.js</a>
+- <a href="https://angular.io/" target="_blank">Angular</a>
+- <a href="https://vuejs.org/" target="_blank">Vue.js</a>
+- ...etc
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+# <strong>Testing Framework</strong>
+
+- <a href="https://mochajs.org/" target="_blank">Mocha</a>
+- <a href="https://jasmine.github.io/" target="_blank">Jasmine</a>
+- <a href="https://github.com/avajs/ava" target="_blank">Ava</a>
+- <a href="http://chaijs.com/" target="_blank">Chai</a>
+- <a href="https://facebook.github.io/jest/" target="_blank">Jest</a>
+- （<a href="https://karma-runner.github.io/1.0/index.html" target="_blank">Karma</a>: テストランナー）
+</section>
 
   <script src="../../talkiejs/talkie.min.js"></script>
   <script>
