@@ -40,22 +40,23 @@ const my_info = {
 ```
 const sub_info = {
    riot: 'Collaborator',
-   Ionic Japan User Group: 'Staff',
+   Ionic_Japan_User_Group: 'Staff',
    DIST: 'Staff',
-   MDN web docs: 'translator'
+   MDN_web_docs: 'translator'
 }
 ```
 </template>
 
 <section layout="bullets" type="text/x-markdown">
 ## Agenda
-1. Node.js (NPM)
+1. Node.js (NPM)について
 2. npmを使ってツールの導入
-- Webpackを使ってみよう
-  - bundle、難読化（min化）
-  - 複数に出力
-  - jqueryもバンドル
-- 今後の環境構築の方針
+3. package.jsonでモジュール管理
+4. Webpackを使ってみよう
+    - bundle、難読化（min化）
+    - 複数に出力
+    - jqueryもバンドル
+5. 今後の環境構築の方針
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -71,7 +72,7 @@ const sub_info = {
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
-## <strong>本題に入る前に、Node.jsを<br>インストールしましょう</strong>
+## <strong>まずNode.jsを<br>インストールしましょう</strong>
     　
 ※この先Node.jsをインストールしていないと先に進めないですw
 </section>
@@ -90,15 +91,15 @@ const sub_info = {
 </section>
 
 <section layout="cover" type="text/x-markdown">
-  # いざJavaScriptの世界に足を踏み入れようとすると…
+  # いざJavaScriptの世界に<br>足を踏み入れようとすると…
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
 ES6(ES2015)、Babel、Gulp、Webpack、Parcel<br />
 Nodebrew、NVM、Node.js、NPM、Bower、Yarn<br />
-Flux、Redux、SSR、各種フレームワーク、CLI<br />
+AltJS、Flux、Redux、SSR、各種フレームワーク、CLI<br />
 圧縮、minify、キャッシュ化、CDN、自動テスト<br />
-Async/Await、AMP、PWA、Service Worker…etc
+SPA、Async/Await、AMP、PWA…etc
 </section>
 
 <section layout="cover" type="text/x-markdown">
