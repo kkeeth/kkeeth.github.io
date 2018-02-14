@@ -35,22 +35,21 @@ const my_info = {
 </template>
 
 <template class="my-info" layout="cover" type="text/x-markdown">
-# Communities
+<h1 class="communities">Communities</h1>
 
-```
-const sub_info = {
-   riot: 'Collaborator',
-   IJUG: 'Staff',
-   DIST: 'Staff',
-   MDN web docs: 'translator'
+<img src="./img/communities.png" alt="communities" width="780">
+
+<style>
+h1.communities {
+  margin: 20px 64px 20px;
 }
-```
+</style>
 </template>
 
 <section layout="bullets" type="text/x-markdown">
 ## Agenda
-- JavaScriptを取り巻くツールについて
-- npmを使ってツールの導入
+- Node.js、npmのインストール
+- package.jsonでモジュール管理
 - Webpackを使ってみよう
   - bundle、難読化（min化）
   - 複数に出力
@@ -85,8 +84,8 @@ const sub_info = {
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
-### Node.jsのバージョンが`v0.x`、`v4`、`v5`の方はいますか？
-## 最低でも`v6`以上にアップグレードしてください(ﾟ∀ﾟ)
+### Node.jsのバージョンが`v0.x`、`v4`、`v5`、`v6`の方はいますか？
+## 最低でも`v8.9`(LTS)以上にアップグレードしてください(ﾟ∀ﾟ)
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
@@ -256,7 +255,7 @@ $ ja-greetings new
 ## ちなみに、installは以下のように<br>複数まとめて実行もできます。
 
 ```shell
-$ npm i -D hoge fuga piyo
+npm i -D hoge fuga piyo
 ```
 </section>
 
@@ -309,7 +308,7 @@ npm uninstall
 <section layout="code" type="text/x-markdown">
 
 ```shell
-npm uninstall [-g|--save|--save-dev] module
+npm uninstall [-g|--no-save] module
 ```
 
 ### 意味：モジュールの削除
@@ -354,11 +353,11 @@ npm update
 ```shell
 npm update [-g|--save|--save-dev] (module)
 ```
-
-### 意味：モジュールのアップデート<br>※moduleを指定しなければ全モジュールが対象
 ```shell
 （省略形: npm up）
 ```
+
+### 意味：モジュールのアップデート<br>※moduleを指定しなければ全モジュールが対象
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -374,11 +373,11 @@ npm search
 ```shell
 npm search module
 ```
+```shell
+(省略形: npm s, npm find)
+```
 
 ### 意味：指定の文字列で部分一致するモジュールの一覧を表示
-```shell
-（省略形: npm s, npm find）
-```
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -410,6 +409,7 @@ $ npm s greeting
 |:--:|:--:|:--:|:--:|
 |__Grunt__|D|__Webpack__|A|
 |__Gulp__|B|__Rollup__|C|
+|||__Parcel__|?|
 
 ※評価は私の独断と偏見に基づきます（笑）
 </section>
@@ -421,6 +421,7 @@ $ npm s greeting
 |:--:|:--:|:--:|:--:|
 |__Grunt__|D|<span class="assert f38">Webpack</span>|A|
 |__Gulp__|B|__Rollup__|C|
+|||__Parcel__|?|
 
 この4つの中ではおそらく最も利用されているもの。
 </section>
@@ -464,16 +465,6 @@ webpack is a module bundler. Its main purpose is to bundle JavaScript files for 
 
 <section class="white" layout="title" backface="./img/cannot_understand.jpg" backface-filter="blur(1px) brightness(.7)" type="text/x-markdown">
 ### <strong>実際使われてるの？</strong>
-</section>
-
-<section layout="bullets" type="text/x-markdown">
-## <strong>Frameworks introducing Webpack</strong>
-
-- Angular
-- Ionic
-- Vue.js
-- Ruby on Rails (v5.1 or later)
-- ...etc
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -755,7 +746,7 @@ $ npm run build
 
 
 <section class="white" layout="title" backface="./img/btn-download.png" backface-filter="blur(3px) brightness(.3)" type="text/x-markdown">
-### <strong>今後の開発環境<br>構築の方針</strong>
+### <strong>今後の開発環境構築<br>の方針</strong>
 </section>
 
 <section layout="bullets" type="text/x-markdown">
@@ -770,7 +761,22 @@ $ npm run build
 </section>
 
 <section layout="cover" type="text/x-markdown">
-# JavaScriptに関するツールは、栄枯盛衰が激しい。
+# フレームワークを使う場合
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+## 各フレームワークの「CLI」<br>を使いましょう。
+<br>
+
+- Angular => `@angular/cli`
+- Ionic => `ionic-cli`
+- React => `create-react-app`
+- Vue => `vue-cli`
+
+</section>
+
+<section layout="cover" type="text/x-markdown">
+# JavaScript関連のツールは、栄枯盛衰が激しい。
 </section>
 
 <section layout="cover" type="text/x-markdown">
@@ -778,7 +784,7 @@ $ npm run build
 </section>
 
 <script layout="cover" type="text/x-markdown">
-# <strong>ありがとうございました！</strong>
+# <strong>以上、ご清聴<br>ありがとうございました！</strong>
 </script>
 
 <section class="white" layout="title" backface="img/bg1.gif" backface-filter="blur(2px) brightness(.4)" type="text/x-markdown">
@@ -800,7 +806,7 @@ $ npm run build
 <section layout="bullets" type="text/x-markdown">
 # <strong>Package Manager</strong>
 
-- <a href="https://www.npmjs.com/" target="_blank">npm</a><span class="next">　←今回はこちらを利用</span>
+- <a href="https://www.npmjs.com/" target="_blank">npm</a><span class="next">
 - <a href="https://bower.io/" target="_blank">bower</a>
 - <a href="https://yarnpkg.com/" target="_blank">yarn</a>
 
@@ -822,7 +828,7 @@ $ npm run build
   - <a href="https://gruntjs.com/" target="_blank">Grunt</a>
   - <a href="https://gulpjs.com/" target="_blank">Gulp</a>
 - Bundler
-  - <a href="https://webpack.js.org" target="_blank">Webpack</a> ←今回はこちらを利用
+  - <a href="https://webpack.js.org" target="_blank">Webpack</a>
   - <a href="https://rollupjs.org/" target="_blank">Rollup</a>
   - <a href="https://parceljs.org/" target="_blank">Parcel</a>
 </section>
@@ -848,7 +854,7 @@ $ npm run build
 <section layout="bullets" type="text/x-markdown">
 # <strong>Framework, Library</strong>
 - <a href="https://angularjs.org/" target="_blank">AngularJS</a>
-- <a href="https://facebook.github.io/react/" target="_blank">React.js</a>
+- <a href="https://facebook.github.io/react/" target="_blank">React</a>
 - <a href="http://riotjs.com/" target="_blank">Riot.js</a>
 - <a href="https://angular.io/" target="_blank">Angular</a>
 - <a href="https://vuejs.org/" target="_blank">Vue.js</a>
