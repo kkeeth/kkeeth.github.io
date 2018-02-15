@@ -48,13 +48,14 @@ h1.communities {
 
 <section layout="bullets" type="text/x-markdown">
 ## Agenda
-1. Node.js (NPM)について
-2. package.jsonでモジュール管理
-3. Webpackを使ってみよう
+1. Node.jsのインストール
+2. npmの使い方
+3. package.jsonでモジュール管理
+4. Webpackを使ってみよう
     - bundle、難読化（min化）
     - 複数に出力
     - jqueryもバンドル
-4. 今後の環境構築の方針
+5. 今後の環境構築の方針
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -76,11 +77,13 @@ h1.communities {
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
-Nodebrew、NVM、Node.js、NPM、Bower、Yarn<br />
-ES2015(ES6)、Babel、Gulp、Webpack、ESLint、Prettier<br />
-AltJS、Flux、Redux、SSR、各種フレームワーク、CLI<br />
-圧縮、minify、キャッシュ化、CDN、自動テスト<br />
-SPA、Async/Await、AMP、PWA…etc
+* Node.js、Nodebrew、NVM、NPM、Bower、Yarn
+* Pug(Jade)、ES2015(ES6)、Babel、Gulp、Webpack
+* AltJS、Flux、Redux、SSR、Frameworks、CLI
+* minify、Caching、CDN、Unit Test、ESLint、Prettier
+* SPA、Async/Await、AMP、PWA
+
+…などなど
 </section>
 
 <section layout="cover" type="text/x-markdown">
@@ -88,18 +91,18 @@ SPA、Async/Await、AMP、PWA…etc
 </section>
 
 <section class="white" layout="title" backface="./img/mmm.gif" backface-filter="blur(0px) brightness(.8)" type="text/x-markdown">
-## <strong>多すぎる...</strong>
+## <strong>わけわからん...</strong>
 </section>
 
-<section layout="title-invert" type="text/x-markdown">
+<section layout="cover" type="text/x-markdown">
 ## Q. 色々あるのはわかったが<br>こんなに必要なの？
 </section>
 
-<section layout="title-invert" type="text/x-markdown">
+<section layout="cover" type="text/x-markdown">
 ## A. なくてもいいが<br>「面倒な作業」が楽になる。
 </section>
 
-<section layout="title-invert" type="text/x-markdown">
+<section layout="cover" type="text/x-markdown">
 ## Q. 「面倒な作業」って？
 </section>
 
@@ -108,53 +111,57 @@ SPA、Async/Await、AMP、PWA…etc
 
 - AltJSで書かれたファイルのコンパイル
 - テンプレートエンジンを用いたファイルのコンパイル
-- PostCSS, LESS, Sassなどのプリプロセッサのコンパイル
-- ESLint, JSLint, JSHintなどのリンターによるチェック
-- js, cssの圧縮 or minify、ファイルのリネーム
+- `PostCSS, LESS, Sass`などのプリプロセッサのコンパイル
+- `ESLint, JSLint, JSHint`などのリンターによるチェック
+- js, cssのminify、ファイルのリネーム
 - 画像ファイルの圧縮
 - バンドル
 　...などなど
 </section>
 
-<section layout="title-invert" type="text/x-markdown">
-## これらに対応してくれる<br>素晴らしいツール達が<br>世の中にはあります( ﾟ∀ﾟ)
+<section layout="cover" type="text/x-markdown">
+# それでは<br>やっていきましょう。
 </section>
 
 <section class="white" layout="title" backface="./img/btn-download.png" backface-filter="blur(3px) brightness(.3)" type="text/x-markdown">
-  ### <strong>1. Node.js (NPM)について</strong>
+### <strong>1. Node.js, NPM</strong>
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
-  ## <strong>まずNode.jsを<br>インストールしましょう</strong>
+  ## <strong>兎にも角にも、まずNode.jsを<br>インストールしましょう！</strong>
   　
   ※この先Node.jsをインストールしていないと先に進めないですw
 </section>
 
+<section layout="cover" type="text/x-markdown">
+  ## ほとんどのモジュールが<br>Node.jsで動いているから。
+</section>
+
 <section layout="bullets" type="text/x-markdown">
   - Windowsの人 => [__公式サイト__](https://nodejs.org/ja/)
-  - Macの人 => `nodebrew`
+  - Macの人 => `nodebrew` or `nodenv`
   - Linuxの人 => `nvm`
 
   ※Windowsの人は、<span class="assert">再起動</span>が必要です。
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
-  ### Node.jsのバージョンが`v0.x`、`v4`、`v5`、`v6`の方はいますか？
-  ## 最低でも`v8.9(LTS)`以上にアップグレードしてください(ﾟ∀ﾟ)
+  ### Node.jsのバージョンが<br>`v0.x`、`v4`、`v5`、`v6`の方はいますか？
+  ## 最低でも`v8.9(LTS)`以上に<br>アップグレードしてください(ﾟ∀ﾟ)
 </section>
 
 <section class="white" layout="title" backface="./img/btn-download.png" backface-filter="blur(3px) brightness(.3)" type="text/x-markdown">
-### <strong>2. package.jsonでモジュール管理</strong>
+### <strong>2. npmの使い方</strong>
 </section>
 
 <section layout="bullets" type="text/x-markdown">
-## <strong>導入の手順</strong>
+  ## <strong>モジュール導入の手順</strong>
 
-1. `npm`から欲しいツール（モジュール）を探す
-1. `npm`コマンドで自分の開発環境にインストール
-1. 各ツールの仕様通りに動かす
+  1. `npm`から欲しいツール（モジュール）を探す
+  1. `npm`コマンドで自分の開発環境にインストール
+  1. 各ツールの仕様通りに動かす
 
-言ってしまえばこれだけです。npmを使いこなせれば勝ちです。
+  言ってしまえばこれだけです。npmを使いこなせれば勝ちです。
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
@@ -183,7 +190,7 @@ SPA、Async/Await、AMP、PWA…etc
 </section>
 
 <section layout="cover" type="text/x-markdown">
-# npmの使い方を<br>見ていきましょう
+# npmの使い方を<br>見ていきましょう。
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -194,10 +201,24 @@ SPA、Async/Await、AMP、PWA…etc
 ・ npm list
 ・ npm uninstall
 ・ npm update
-・ npm search
+・ npm outdated
 ```
 
 日常で使うのはこの5つだと思います(ﾟ∀ﾟ)
+</section>
+
+<section layout="code" type="text/x-markdown">
+  ## 今回は以下の3つを確認します。
+
+  ```shell
+  ・ npm install ※
+  ・ npm list　※
+  ・ npm uninstall
+  ・ npm update
+  ・ npm outdated　※
+  ```
+
+  日常で使うのはこの5つだと思います(ﾟ∀ﾟ)
 </section>
 
 <section layout="code" type="text/x-markdown">
@@ -288,11 +309,12 @@ npm list
 npm list [-g] [--depth=n] <module>
 ```
 
-### 意味：インストールされたモジュールの一覧表示
+  ```shell
+  （省略形： npm ls）
+  ```
 
-```shell
-（省略形： npm ls）
-```
+
+### 意味：インストールされたモジュールの一覧表示
 
 </section>
 
@@ -312,110 +334,223 @@ $ npm ls -g --depth=0
 </section>
 
 <section layout="code" type="text/x-markdown">
-## Next!!
-
-```shell
-npm uninstall
-```
-</section>
-
-<section layout="code" type="text/x-markdown">
-
-```shell
-npm uninstall [-g|--no-save] module
-```
-
-### 意味：モジュールの削除
-```shell
-（省略形: npm rm, npm un）
-```
-
-</section>
-
-<section layout="code" type="text/x-markdown">
-### 先程インストールした`ja-greetings`を削除してみましょう！<br>以下のコマンドを実行して下さい♪
-
-```shell
-$ npm uninstall -g ja-greetings
-```
-
-又は
-
-```shell
-$ npm rm -g ja-greetings
-```
-</section>
-
-<section layout="code" type="text/x-markdown">
-### `ja-greetings`が削除されたか確認してみましょう！
-
-```shell
-$ npm ls -g --depth=0
-```
-</section>
-
-<section layout="code" type="text/x-markdown">
-## Next!!
-
-```shell
-npm update
-```
-</section>
-
-<section layout="code" type="text/x-markdown">
 ## Last!!
 
 ```shell
-npm search
+npm outdated
 ```
 </section>
 
 <section layout="code" type="text/x-markdown">
+  ### まずは、先ほどの`ja-greetimgs`の<br>古いバージョンをインストールしましょう。
 
 ```shell
-npm search module
+$ npm i ja-greetings@1.4.0
 ```
-```shell
-(省略形: npm s, npm find)
-```
-
-### 意味：指定の文字列で部分一致するモジュールの一覧を表示
 </section>
 
 <section layout="code" type="text/x-markdown">
-### 実際に`greeting`で検索してみましょう！<br>以下のコマンドを実行して下さい♪
+  ### 完了しましたら、以下を実行してください！
 
-```shell
-$ npm search greeting
-```
+  ```shell
+  $ npm outdated
+  ```
+</section>
 
-又は
+<section layout="bullets" type="text/x-markdown">
+  ### 他にも、以下のようなコマンドがあるので<br>色々調べてみてください。
 
-```shell
-$ npm s greeting
-```
+  - uninstall (省略形：rm)
+  - search (省略形：s, find)
+  - doctor
+  - stars
+</section>
+
+<section class="white" layout="title" backface="./img/btn-download.png" backface-filter="blur(3px) brightness(.3)" type="text/x-markdown">
+  ### <strong>3. package.jsonで<br>モジュール管理</strong>
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+  ## package.json
+
+  ode.jsのパッケージ（モジュール）を管理するための設定ファイルです。PHPの
+  <span class="assert">Composer</span>で言うところの<span class="assert">Composer.json</span>ですね。
+</section>
+
+<section layout="code" type="text/x-markdown">
+  ### 以下のコマンドを実行して下さい。<br>package.jsonが生成されます！
+
+  ```shell
+  $ npm init -y
+  ```
+</section>
+
+<section layout="code" type="text/x-markdown">
+  ## 中身を見てみましょう！
+
+  ```shell
+  ・ name: アプリケーションの名前
+  ・ version: アプリケーションのバージョン
+  ・ scripts: npm runで実行するためのコマンドリスト
+  ・ author: アプリケーションの開発者
+  ・ license: ライセンス（困ったらMITで良いかと）
+  ```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+  ## その他の項目
+
+  ```shell
+  ・ homepage: ホームページのURL
+  ・ repository: リポジトリのURL（npmではない）
+  ・ bugs: 問題やバグ報告先（urlとemailを指定）
+  ・ contributor: author以外の開発者
+  ```
+
+  詳しくは[日本語取扱説明書](http://liberty-technology.biz/PublicItems/npm/package.json.html)を御覧ください( ﾟ∀ﾟ)
+</section>
+
+<section layout="code" type="text/x-markdown">
+  ## では、このpackage.jsonを<br>更新していきましょう！
+</section>
+
+<section layout="code" type="text/x-markdown">
+  ### まずは`webpack, ja-greetings`という<br>2つのモジュールをインストールしてみましょう！
+
+  ```shell
+  $ npm i --save-dev webpack
+  $ npm i --save ja-greetings@1.4.0
+  ```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+  ### ① `node_modules`ディレクトリが作成され、<br>　その中にモジュールがインストールされます。
+  ### ② package.jsonが更新されます。
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+  ```JSON
+  // package.jsonの中身抜粋
+  ...
+  "dependencies": {
+    "ja-greetings": "^1.4.0"
+  },
+  "devDependencies": {
+    "webpack": "^3.11.0"
+  }
+  ...
+  ```
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+  ## `dependencies, devDependencies`という<br>2つの項目に追加されました。
+
+</section>
+
+<section layout="code" type="text/x-markdown">
+  ### 今後モジュールをインストールすると、<br>package.jsonに`名前: バージョン`形式で<br>自動で追記されます。
+
+  <br>
+
+  ※ `--save|--save-dev`がないと追記されませんので注意！
+</section>
+
+<section layout="code" type="text/x-markdown">
+  ### `ja-greetings`のアップデートを行ってみましょう！<br>以下のコマンドを実行して下さい。
+
+  ```shell
+  $ npm outdated
+  $ npm up ja-greetings
+  $ npm ls --depth=0
+  ```
+</section>
+
+<section layout="code" type="text/x-markdown">
+  ### 以下のように、webpackのバージョンが<br>更新されたと思います。
+
+  ```node
+  ├── ja-greetings@1.4.1
+  └── webpack@3.11.0
+  ```
+</section>
+
+<section layout="code" type="text/x-markdown">
+  ### ここで`node_modules`ディレクトリを削除し、<br>以下のコマンドを実行してみてください。
+
+  ```shell
+  $ rm -rf node_modules (Mac, Linuxの人)
+  $ rd /s node_modules (Windowsの人)
+  $ npm i
+  $ npm ls --depth=0
+  ```
+</section>
+
+<section layout="code" type="text/x-markdown">
+  ### 以下のように、必要なモジュールが<br>全てインストールされたと思います！
+
+  ```node
+  ├── ja-greetings@1.4.1
+  └── webpack@3.11.0
+  ```
+</section>
+
+<section layout="code" type="text/x-markdown">
+  ## モジュールのバージョン<br>の指定について
+</section>
+
+<section layout="code" type="text/x-markdown">
+  ### `package.json`でモジュールのバージョンを<br>指定できますが、書き方は3通りあります。
+</section>
+
+<section layout="code" type="text/x-markdown">
+  ```JSON
+  "devDependencies": {
+    // 「^」で指定
+    "webpack": "^3.11.0"
+    // 「~」で指定
+    "webpack": "~3.11.0"
+    // 指定なし
+    "webpack": "3.11.0"
+  }
+  ```
+</section>
+
+<section layout="code" type="text/x-markdown">
+  ## 意味はこうです。
+
+  `^`で指定<br>
+  　→ <b><span class="hljs-keyword f38">メジャーバージョンは固定</span></b>で、最新のものをインストール
+
+  `~`で指定<br>
+  　→ <b><span class="hljs-keyword f38">マイナーバージョンまで固定</span></b>で、最新のものをインストール
+
+  指定なし<br>
+  　→ <b><span class="hljs-keyword f38">バージョンを完全に固定</span></b>して、インストール
+</section>
+
+<section layout="code" type="text/x-markdown">
+  ### この`package.json`を共有すれば、他のメンバーも同じ開発環境を作ることができます♪（便利だなー）
 </section>
 
 <section class="white" layout="title" backface="./img/webpack.png" backface-filter="blur(1.5px) brightness(.5)" type="text/x-markdown">
-  ### <strong>Webpackを使ってみよう</strong>
+  ### <strong>4. Webpackを使ってみよう</strong>
+</section>
+
+<section layout="cover" type="text/x-markdown">
+# 導入したモジュールは自動で動いて欲しいですよね。
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
-## Q. 導入できたとして、<br>毎回人が手動でやるの？
-</section>
-
-<section layout="title-invert" type="text/x-markdown">
-## A. もちろん自動化します。<br>そのためのツールが...
-</section>
-
-<section layout="title-invert" type="text/x-markdown">
-## こやつらです。
+## そのためのツールが、こやつらです。
 
 |Task Runner|評価|Bundler|評価|
 |:--:|:--:|:--:|:--:|
 |__Grunt__|D|__Webpack__|A|
 |__Gulp__|B|__Rollup__|C|
-|||__Parcel__|?|
 
 ※評価は私の独断と偏見に基づきます（笑）
 </section>
@@ -427,9 +562,8 @@ $ npm s greeting
 |:--:|:--:|:--:|:--:|
 |__Grunt__|D|<span class="assert f38">Webpack</span>|A|
 |__Gulp__|B|__Rollup__|C|
-|||__Parcel__|?|
 
-この5つの中では最も利用されているもの。
+この4つの中では最も利用されているもの。
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
@@ -465,10 +599,6 @@ webpack is a module bundler. Its main purpose is to bundle JavaScript files for 
 ※ ただし、webpack単体ではバンドルしかできない
 </section>
 
-<section class="white" layout="title" backface="./img/cannot_understand.jpg" backface-filter="blur(1px) brightness(.7)" type="text/x-markdown">
-### <strong>実際使われてるの？</strong>
-</section>
-
 <section layout="code" type="text/x-markdown">
 ## <strong>今回のゴール（構築する環境）</strong>
 
@@ -498,7 +628,7 @@ webpack is a module bundler. Its main purpose is to bundle JavaScript files for 
 </section>
 
 <section layout="code" type="text/x-markdown">
-## Webpackをインストール
+## Webpackをインストール<br>（必要な人のみ）
 
 ```shell
 # package.jsonの生成
@@ -524,6 +654,10 @@ module.exports = {
 }
 ```
 </section>
+
+<section layout="code" type="text/x-markdown">
+  ## 次に`js`ディレクトリ下に`hoge.js`ファイルを生成し、適当にコードを追記してください。
+</section>;
 
 <section layout="code" type="text/x-markdown">
 ## Webpackを起動させるために<br>コマンドを設定
@@ -708,7 +842,7 @@ $ npm i --save jquery
 <br>
 
 ```JavaScript
-const jquery = require('jquery')
+console.info(jquery)
 ```
 </section>
 
@@ -748,7 +882,7 @@ $ npm run build
 
 
 <section class="white" layout="title" backface="./img/btn-download.png" backface-filter="blur(3px) brightness(.3)" type="text/x-markdown">
-### <strong>今後の開発環境構築<br>の方針</strong>
+### <strong>5. 今後の開発環境構築<br>の方針</strong>
 </section>
 
 <section layout="bullets" type="text/x-markdown">
