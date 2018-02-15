@@ -69,32 +69,15 @@ h1.communities {
 
 </section>
 
-<section layout="title-invert" type="text/x-markdown">
-## <strong>まずNode.jsを<br>インストールしましょう</strong>
-    　
-※この先Node.jsをインストールしていないと先に進めないですw
-</section>
 
-<section layout="bullets" type="text/x-markdown">
-- Windowsの人 => [__公式サイト__](https://nodejs.org/ja/)
-- Macの人 => `nodebrew`
-- Linuxの人 => `nvm`
-
-※Windowsの人は、<span class="assert">再起動</span>が必要です。
-</section>
-
-<section layout="title-invert" type="text/x-markdown">
-### Node.jsのバージョンが`v0.x`、`v4`、`v5`、`v6`の方はいますか？
-## 最低でも`v8.9(LTS)`以上にアップグレードしてください(ﾟ∀ﾟ)
-</section>
 
 <section layout="cover" type="text/x-markdown">
-  # いざJavaScriptの世界に<br>足を踏み入れようとすると…
+  # いざJavaScriptの世界に<br>足を踏み入れると…
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
-ES6(ES2015)、Babel、Gulp、Webpack、Parcel<br />
 Nodebrew、NVM、Node.js、NPM、Bower、Yarn<br />
+ES2015(ES6)、Babel、Gulp、Webpack、ESLint、Prettier<br />
 AltJS、Flux、Redux、SSR、各種フレームワーク、CLI<br />
 圧縮、minify、キャッシュ化、CDN、自動テスト<br />
 SPA、Async/Await、AMP、PWA…etc
@@ -138,7 +121,30 @@ SPA、Async/Await、AMP、PWA…etc
 </section>
 
 <section class="white" layout="title" backface="./img/btn-download.png" backface-filter="blur(3px) brightness(.3)" type="text/x-markdown">
-### <strong>npmを使って<br>各ツールの導入</strong>
+  ### <strong>1. Node.js (NPM)について</strong>
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+  ## <strong>まずNode.jsを<br>インストールしましょう</strong>
+  　
+  ※この先Node.jsをインストールしていないと先に進めないですw
+</section>
+
+<section layout="bullets" type="text/x-markdown">
+  - Windowsの人 => [__公式サイト__](https://nodejs.org/ja/)
+  - Macの人 => `nodebrew`
+  - Linuxの人 => `nvm`
+
+  ※Windowsの人は、<span class="assert">再起動</span>が必要です。
+</section>
+
+<section layout="title-invert" type="text/x-markdown">
+  ### Node.jsのバージョンが`v0.x`、`v4`、`v5`、`v6`の方はいますか？
+  ## 最低でも`v8.9(LTS)`以上にアップグレードしてください(ﾟ∀ﾟ)
+</section>
+
+<section class="white" layout="title" backface="./img/btn-download.png" backface-filter="blur(3px) brightness(.3)" type="text/x-markdown">
+### <strong>2. package.jsonでモジュール管理</strong>
 </section>
 
 <section layout="bullets" type="text/x-markdown">
@@ -357,18 +363,6 @@ npm update
 </section>
 
 <section layout="code" type="text/x-markdown">
-
-```shell
-npm update [-g|--save|--save-dev] (module)
-```
-```shell
-（省略形: npm up）
-```
-
-### 意味：モジュールのアップデート<br>※moduleを指定しなければ全モジュールが対象
-</section>
-
-<section layout="code" type="text/x-markdown">
 ## Last!!
 
 ```shell
@@ -402,6 +396,10 @@ $ npm s greeting
 ```
 </section>
 
+<section class="white" layout="title" backface="./img/webpack.png" backface-filter="blur(1.5px) brightness(.5)" type="text/x-markdown">
+  ### <strong>Webpackを使ってみよう</strong>
+</section>
+
 <section layout="title-invert" type="text/x-markdown">
 ## Q. 導入できたとして、<br>毎回人が手動でやるの？
 </section>
@@ -431,7 +429,7 @@ $ npm s greeting
 |__Gulp__|B|__Rollup__|C|
 |||__Parcel__|?|
 
-この4つの中ではおそらく最も利用されているもの。
+この5つの中では最も利用されているもの。
 </section>
 
 <section layout="title-invert" type="text/x-markdown">
@@ -442,10 +440,6 @@ $ npm s greeting
 
 <img src="./img/trends.png">
 
-</section>
-
-<section class="white" layout="title" backface="./img/webpack.png" backface-filter="blur(1.5px) brightness(.5)" type="text/x-markdown">
-### <strong>Webpackを使ってみよう</strong>
 </section>
 
 <section layout="cover" type="text/x-markdown">
