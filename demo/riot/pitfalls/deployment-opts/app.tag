@@ -3,7 +3,7 @@
 
   <ul>
     <li each={ opts.items }>
-      <p>name: { opts.name }</p>
+      <p>name: { opts.name || '("name" value from opts is displayed here)' }</p>
       <p>id: { id }</p>
       <p>val: { val }</p>
     </li>
