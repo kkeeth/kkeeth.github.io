@@ -1,20 +1,20 @@
 body {
-	font-family: 'myriad pro', sans-serif;
-	font-size: 20px;
-	border: 0;
-	background-color: #fafafa;
+	 font-family: 'myriad pro', sans-serif;
+	 font-size: 20px;
+	 border: 0;
+	 background-color: #fafafa;
 }
 
 app {
-	display: block;
-	max-width: 70%;
-	margin: 5% auto;
+    display: block;
+    max-width: 60%;
+    margin: 5% auto;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
 }
 
-li {
-	list-style: none;
-}
-li:hover {
-	background-color: #e9dfe5;
-	cursor: pointer;
+app:hover {
+    box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08);
 }
