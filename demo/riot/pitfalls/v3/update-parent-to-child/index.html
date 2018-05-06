@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>"Updated app to child" demo</title>
+    <link rel="stylesheet" href="app.css">
+    <script src="https://rawgit.com/riot/riot/master/riot%2Bcompiler.js"></script>
+  </head>
+
+  <body>
+    <!-- 親タグ -->
+    <app></app>
+
+    <!-- タグファイルのimport -->
+    <script src="app.tag" type="riot/tag"></script>
+
+    <!-- 親タグのマウント -->
+    <script>
+      riot.mount('app', {
+        title: '"Updated app to child" demo',
+        name: 'Bob!'
+      });
+    </script>
+  </body>
+</html>
