@@ -1,7 +1,7 @@
 <app>
 
   <!-- layout -->
-  <h3>{ opts.title }</h3>
+  <h1>{ opts.title }</h1>
 
   <!-- 子タグ -->
   <foo></foo>
