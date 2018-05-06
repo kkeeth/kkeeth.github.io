@@ -25,4 +25,10 @@
 
 <child>
   <button onclick={ opts.onToggle }>toggle</button>
+
+  <script>
+    this.on('update', () => {
+       console.log('upadted in child tag.')
+    })
+  </script>
 </child>
