@@ -1,5 +1,11 @@
 <list-2018>
-  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp"
+          update={{
+            duration: 500,
+            translateX: [100, 0],
+            easing: 'linear'
+          }}
+  >
     <thead>
       <tr>
         <th>Date</th>
@@ -49,4 +55,13 @@
       </tr>
     </tbody>
   </table>
+
+  <script>
+    this.on('mount', () => {
+      console.info('mounted!!')
+    })
+    this.on('updated', () => {
+      console.info('updated!!')
+    })
+  </script>
 </list-2018>

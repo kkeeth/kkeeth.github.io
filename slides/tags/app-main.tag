@@ -22,6 +22,10 @@
       self.data = "list-2017"
       self.update()
     }
+    this.on('mount', () => {
+      console.info('route mount!!')
+    })
+
   </script>
 
   <style>
