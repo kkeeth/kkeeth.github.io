@@ -9,7 +9,13 @@
     <tbody>
       <tr>
         <td>Jan 31, 2017</td>
-        <td>
+        <td
+          mount={{
+            duration: 500,
+            translateX: [100, 0],
+            offset: parent.isMounted ? 0 : i * 100
+          }}
+        >
           <a href="./2017/phptokyo/" target="_blank">
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
               ＞ CodeIgniter4(develop)で開発してみた話
