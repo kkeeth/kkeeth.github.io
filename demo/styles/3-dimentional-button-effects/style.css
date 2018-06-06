@@ -1,19 +1,20 @@
 .button-link--contents {
-  padding: 20px 0;
-  max-width: 200px;
-  text-align: center;
-  border: 1px solid #008080;
-  border-radius: 4px;
-  margin-right: 10px;
-  -webkit-box-shadow: 7px 7px 0 0 #008080;
-  box-shadow: 7px 7px 0 0 #008080;
-  -webkit-transition: all .3s;
-  transition: all .3s;
+    padding: 20px 0;
+    max-width: 200px;
+    text-align: center;
+    border: 1px solid #008080;
+    border-radius: 4px;
+    margin-right: 10px;
+    -webkit-box-shadow: 7px 7px 0 0 #008080;
+    box-shadow: 7px 7px 0 0 #008080;
+    -webkit-transition: all .3s;
+    transition: all .3s;
 }
 .button-link--contents:hover {
-  -webkit-transform: translate(4px, 4px);
-  transform: translate(4px, 4px);
-  -webkit-box-shadow: 3px 3px 0 0 #008080;
-  box-shadow: 3px 3px 0 0 #008080;
+    cursor: pointer;
+    -webkit-transform: translate(4px, 4px);
+    transform: translate(4px, 4px);
+    -webkit-box-shadow: 3px 3px 0 0 #008080;
+    box-shadow: 3px 3px 0 0 #008080;
 }
  
