@@ -27,7 +27,7 @@
       </thead>
       <tbody>
         <tr each={ repo_list }>
-          <td><a href="https://github.com/{ url }" target="_blank">{ name }</a></td>
+          <td><a href="https://github.com/{ url }" target="_blank" rel="noopener">{ name }</a></td>
           <td>{ stargazers_count }</td>
           <td>{ forks_count }</td>
           <td>{ issues_count }</td>
@@ -39,7 +39,7 @@
   <script>
     const self = this
     const ls = localStorage
-    const fw_repos = [
+    const fw = [
       { key: 'Angular', url: 'angular/angular' },
       { key: 'AngularJS', url: 'angular/angular.js' },
       { key: 'Ionic', url: 'ionic-team/ionic' },
@@ -49,7 +49,7 @@
       { key: 'Aurelia', url: 'aurelia/framework'},
       { key: 'Mithril', url: 'MithrilJS/mithril.js'}
     ]
-    const gr_repos = [
+    const gr = [
       { key: 'Chart.js', url: 'chartjs/Chart.js' },
       { key: 'C3.js', url: 'c3js/c3'},
       { key: 'D3.js', url: 'd3/d3'},
@@ -67,28 +67,27 @@
 
     self.on('mount', () => {
       if (self.repo_list.length === 0) {
-        self.repo_list = get_stars(fw_repos)
+        self.repo_list = get_stars(self.fw)
         ls.setItem('fw-stars', JSON.stringify(self.repo_list))
-      }
-      else {
         // get graph datasets
-        ls.setItem('gr-stars', JSON.stringify(get_stars(gr_repos)))
+        ls.setItem('gr-stars', JSON.stringify(get_stars(gr)))
       }
       self.update()
     })
 
-    route((id) => {
-      self.repo_list = JSON.parse(ls.getItem(`${id}-stars`)) || []
+    route((cat) => {
+      self.repo_list = JSON.parse(ls.getItem(`${cat}-stars`)) || []
       if (self.repo_list.length === 0) {
-        self.repo_list = get_stars(`${id}_repos`)
-        ls.setItem(`${id}-stars`, JSON.stringify(self.repo_list))
+        self.repo_list = get_stars(cat)
+        ls.setItem(`${cat}-stars`, JSON.stringify(self.repo_list))
       }
       self.update()
     })
 
-    function get_stars(repos) {
+    function get_stars(cat) {
       const ret = []
-      repos.forEach((repo) => {
+      repo_list = cat === 'fw' ? fw : gr
+      repo_list.forEach((repo) => {
         $.ajax({
           url: `https://api.github.com/repos/${repo.url}`,
           type: 'GET',
