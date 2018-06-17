@@ -1,5 +1,5 @@
 <app>
-  <h3>{ opts.title }</h3>
+  <h3 class="title">{ opts.title }</h3>
 
   <p>This text is not updated<br>↓↓↓</p>
   <p show={ show_flg } class="text">hogehoge</p>

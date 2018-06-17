@@ -1,6 +1,7 @@
 <app>
-  <h3>{ opts.title }</h3>
+  <h3 class="title">{ opts.title }</h3>
 
+  <p>This wording is actually changed, but this demo will not change it.<br>↓↓↓</p>
   Hi <other-content text="{ name }" />
 
   <script>
