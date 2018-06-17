@@ -63,18 +63,18 @@
       {name: 'Graphs', url: 'gr'}
     ]
 
-    self.on('before-mount', () => {
+    self.on('before-mount', () => route.start())
+
+    self.on('mount', () => {
       if (self.repo_list.length === 0) {
         self.repo_list = get_stars(fw_repos)
         ls.setItem('fw-stars', JSON.stringify(self.repo_list))
       }
-    })
-
-    self.on('mount', () => {
-       route.start()
-
-       // get graph datasets
-       ls.setItem('gr-stars', JSON.stringify(get_stars(gr_repos)))
+      else {
+        // get graph datasets
+        ls.setItem('gr-stars', JSON.stringify(get_stars(gr_repos)))
+      }
+      self.update()
     })
 
     route((id) => {
