@@ -18,14 +18,14 @@
   "homepage": "https://github.com/k-kuwahara/k-kuwahara.github.io#readme",
   "devDependencies": {
     "autoprefixer": "^7.2.6",
-    "buble-loader": "^0.4.1",
-    "css-loader": "^0.28.11",
+    "buble-loader": "^0.5.1",
+    "css-loader": "^1.0.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "node-sass": "^4.9.3",
     "riot-hot-reload": "1.0.0",
     "riot-tag-loader": "^2.1.0",
     "sass-loader": "^6.0.7",
-    "style-loader": "^0.19.1",
+    "style-loader": "^0.23.0",
     "webpack": "^4.19.1"
   },
   "dependencies": {
