@@ -21,9 +21,9 @@
     "babel-loader": "^7.1.5",
     "babel-preset-es2015-riot": "^1.1.0",
     "c3": "^0.4.23",
-    "css-loader": "^0.28.9",
+    "css-loader": "^3.2.0",
     "extract-text-webpack-plugin": "^3.0.2",
-    "jquery": "^3.0.0",
+    "jquery": "^3.4.1",
     "material-design-lite": "^1.2.1",
     "node-sass": "^4.9.3",
     "riot": "^3.12.0",
@@ -32,7 +32,7 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1",
     "tag-loader": "^0.3.0",
-    "webpack": "^1.15.0"
+    "webpack": "^4.40.2"
   },
   "bugs": {
     "url": "https://github.com/k-kuwahara/k-kuwahara.github.io/issues"
