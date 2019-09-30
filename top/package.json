@@ -24,7 +24,8 @@
     "prettier": "^1.18.2"
   },
   "dependencies": {
-    "riot": "^4.5.0",
+    "riot": "^4.6.2",
+    "riot-hot-reload": "^1.0.0",
     "riot-route": "^3.1.4"
   },
   "browserslist": [
@@ -34,7 +35,7 @@
     "not op_mini all"
   ],
   "scripts": {
-    "dev": "parcel public/index.html --open",
-    "build": "parcel build public/index.html"
+    "dev": "parcel index.html --open",
+    "build": "parcel build index.html"
   }
 }
