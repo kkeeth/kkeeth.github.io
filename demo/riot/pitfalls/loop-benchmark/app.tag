@@ -65,15 +65,12 @@
     toggle_bgcolor(e) {
       e.preventUpdate = true
       const target$   = $(e.target).find('input')
-      const is_v2     = riot.version.match(/v2.*/)
 
       if (target$.prop('checked')) {
         $(e.target).removeClass('bg-on')
-        is_v2 ? target$.prop('checked', false) : ''
       }
       else {
         $(e.target).addClass('bg-on')
-        is_v2 ?  target$.prop('checked', true) : ''
       }
       return
     }
