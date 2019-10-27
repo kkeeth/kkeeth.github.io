@@ -1,59 +1,59 @@
 body {
-	font-family: 'myriad pro', sans-serif;
-	font-size: 20px;
-	border: 0;
-	background-color: #fafafa;
+    font-family: 'myriad pro', sans-serif;
+    font-size: 20px;
+    border: 0;
+    background-color: #fafafa;
 }
 
 app {
-	display: block;
-	max-width: 80%;
-	margin: 5% auto;
+    display: block;
+    max-width: 80%;
+    margin: 5% auto;
 }
 div#container {
-	width: 100%;
+    width: 100%;
 }
 div#container .box {
-	transition: box-shadow .28s cubic-bezier(.4, 0, .2,1);
-	box-shadow: 0 1px 4px 0 rgba(10, 16, 20, .37);
-	float: left;
+    transition: box-shadow .28s cubic-bezier(.4, 0, .2,1);
+    box-shadow: 0 1px 4px 0 rgba(10, 16, 20, .37);
+    float: left;
 }
 div#select {
-	width: 40%;
-	height: 450px;
-	margin: 20px;
-	overflow-y: scroll;
+    width: 40%;
+    height: 450px;
+    margin: 20px;
+    overflow-y: scroll;
 }
 div#select .selects {
-	padding: 20px;
+    padding: 20px;
 }
 div#select .contents label {
-	font-family: Josefin\ Sans;
-	color: #0e0e0e;
+    font-family: Josefin\ Sans;
+    color: #0e0e0e;
 }
 div#select .contents .list-contents {
-	padding: 15px 20px;
-	border: 1px solid transparent;
-	margin: 0;
-	position: relative;
-	line-height: 24px;
-	transition: all .3s;
+    padding: 15px 20px;
+    border: 1px solid transparent;
+    margin: 0;
+    position: relative;
+    line-height: 24px;
+    transition: all .3s;
 }
 div#select .contents .list-contents:hover {
-	text-decoration: none;
-	border-color: #008080;
-	border-radius: 4px;
-	box-shadow: 0 8px 8px rgba(1,67,163,.24);
-	-webkit-transform: translateY(-2px);
-	transform: translateY(-2px);
-	cursor: pointer;
+    text-decoration: none;
+    border-color: #008080;
+    border-radius: 4px;
+    box-shadow: 0 8px 8px rgba(1,67,163,.24);
+    -webkit-transform: translateY(-2px);
+    transform: translateY(-2px);
+    cursor: pointer;
 }
 div#select .contents .list-contents.bg-on {
-	background-color: #ededed;
+    background-color: #ededed;
 }
 div#result {
-	width: 40%;
-	margin: 20px;
-	padding: 20px;
-	background-color: #fefefe;
+    width: 40%;
+    margin: 20px;
+    padding: 20px;
+    background-color: #fefefe;
 }

@@ -18,9 +18,13 @@
 
     <!-- mount -->
     <script>
-      riot.compile()
+      riot
+        .compile()
         .then(() => {
-          riot.mount('app', { title: 'Loop Benchmark Demo with riot-dom-bindings'})
+          riot.mount('app', {
+            title: 'Loop Benchmark Demo',
+            version: riot.version
+          })
         })
         .catch(e => {
           console.error(e)

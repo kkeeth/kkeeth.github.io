@@ -1,11 +1,11 @@
 <app>
   <h2>{ props.title }</h2>
-  <h3>version: { riot.version }</h3>
+  <h3>version: { props.version }</h3>
   <div id="container">
     <div id="select" class="box">
       <div class="selects">
         <p>select loop times</p>
-        <form onchange="{ view }">
+        <form onchange={ view }>
           <select name="times">
             <option value="">please select</option>
             <option value="10">10</option>
@@ -15,20 +15,20 @@
           </select>
         </form>
       </div>
-      <div class="contents" if="{ state.items.length > 0 }">
-        <div each="{ val, i in state.items }" >
-          <label onclick="{ toggle_bgcolor }">
+      <div class="contents" if={ state.items.length > 0 }>
+        <div each={ (val, i) in state.items }>
+          <label onclick={ toggle_bgcolor }>
             <div class="list-contents">
-              <input type="checkbox" name="hoge[]" />hoge{ i+1 }
+              <input type="checkbox" name="hoge[]" onchange={ toggle_bgcolor } />hoge{ i+1 }
             </div>
           </label>
         </div>
       </div>
     </div>
-    <div id="result" if="{ state.items.length > 0 }" class="box">
+    <div id="result" if={ state.items.length > 0 } class="box">
       <p>
         <b>It took to mount time</b><br/>
-        { view_time }(s)
+        { state.view_time }(s)
       </p>
     </div>
   </div>
@@ -36,22 +36,19 @@
   <script>
     // updated flg
     let updated_flg = true
-    console.log("hoge")
 
     export default {
-      state = {
+      state: {
         view_time: 0,  // for benchmark
         items: [],  // default items
         start: 0  // init start time
       },
       onUpdated(props, state) {
-        console.log(this.state)
-        console.log(state)
         if (!updated_flg) {
           let end = (new Date()).getTime()
-          this.state.view_time = (end - this.state.start) / 1000
+          state.view_time = (end - state.start) / 1000
           updated_flg = true
-          // updated value to DOM
+          // FIXME
           this.update()
         }
       },
@@ -60,6 +57,7 @@
         this.state.items = Array(parseInt(e.target.value))
         this.state.start = (new Date()).getTime()
         updated_flg = false
+        this.update()
       },
       // if checked, change background-color
       toggle_bgcolor(e) {
