@@ -14,7 +14,6 @@ const GridBlock = CompLibrary.GridBlock
 
 const Help = (props) => {
   const {config: siteConfig, language = ''} = props
-  console.log(siteConfig)
   const {baseUrl, docsUrl} = siteConfig
   const docsPart = `${docsUrl ? `${docsUrl}/` : ''}`
   const langPart = `${language ? `${language}/` : ''}`
