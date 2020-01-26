@@ -1,0 +1,12 @@
+{
+  "hosting": {
+    "public": "build",
+    "cleanUrls": true,
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  },
+  "emulators": {}
+}
