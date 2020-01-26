@@ -42,8 +42,8 @@ const siteConfig = {
   users,
 
   /* path to images for header/footer */
-  headerIcon: 'img/favicon.ico',
-  footerIcon: 'img/favicon.ico',
+  headerIcon: 'img/favicon.png',
+  footerIcon: 'img/favicon.png',
   favicon: 'img/favicon.ico',
 
   /* Colors for website */
@@ -53,19 +53,18 @@ const siteConfig = {
   },
 
   /* Custom fonts for website */
-  /*
+  // /*
   fonts: {
     myFont: [
       "Josefin Sans",
-      "Times New Roman",
-      "Serif"
+      "Helvetica",
+      "Futura"
     ],
-    myOtherFont: [
-      "-apple-system",
-      "system-ui"
-    ]
+    // myOtherFont: [
+    //   "-apple-system",
+    //   "system-ui"
+    // ]
   },
-  */
 
   // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
   copyright: `Copyright © ${new Date().getFullYear()} kkeeth`,

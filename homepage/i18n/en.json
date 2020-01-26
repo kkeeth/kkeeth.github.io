@@ -3,7 +3,7 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "A website for testing",
+    "tagline": "A website for my details",
     "docs": {
       "doc1": {
         "title": "Latin-ish",
@@ -23,8 +23,9 @@
       }
     },
     "links": {
-      "Docs": "Docs",
-      "API": "API",
+      "Details": "Details",
+      "Links": "Links",
+      "Skills": "Skills",
       "Help": "Help",
       "Blog": "Blog"
     },
